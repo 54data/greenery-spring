@@ -14,11 +14,9 @@
 
 <body>
 	<script src="${pageContext.request.contextPath}/resources/js/basket.js"></script>
-	<!-- 스크립트 파일 경로 -->
 	<div id="header">
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+		<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	</div>
-	<!-- 공통 헤더(상단바) 삽입 -->
 
 	<h1>장바구니</h1>
 
@@ -73,8 +71,9 @@
 			</div>
 		</div>
 	</div>
-	<div id="footer"></div>
-	<!-- 공통 footer 삽입 -->
+	<div id="footer">
+		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+	</div>
 </body>
 
 </html>
