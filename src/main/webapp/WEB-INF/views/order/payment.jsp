@@ -15,9 +15,8 @@
 <body>
 	<script src="${pageContext.request.contextPath}/resources/js/payment.js"></script>
 	<div id="header">
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+		<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	</div>
-	<!-- 공통 헤더(상단바) 삽입 -->
 
 	<h1>결제하기</h1>
 	<div class="basket" id="basket">
@@ -101,14 +100,9 @@
 		</div>
 	</div>
 
-
-
-	<div id="footer"></div>
-	<!-- 푸터를 삽입할 위치 -->
-
-	<!--  <script src="script.js"></script> JavaScript 파일 링크 -->
-
-
+	<div id="footer">
+		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+	</div>
 </body>
 
 </html>
