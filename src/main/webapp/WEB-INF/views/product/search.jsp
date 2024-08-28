@@ -15,9 +15,8 @@
 
 <body>
 	<div id="header">
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+		<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	</div>
-	<!-- 공통 헤더(상단바) 삽입 -->
 
 	<div class="search-result-text">
 		'<span class="search-term"></span>' 에 대한 검색 결과입니다.
@@ -37,24 +36,15 @@
 			</select>
 		</div>
 	</div>
-	<!-- 상품 정렬 -->
-	<!-- <div class="toolbar-sort">
-        <select class="toolbar-sort-select">
-            <option value="default">신상품순</option>
-            <option value="price-asc">낮은 가격순</option>
-            <option value="price-desc">높은 가격순</option>
-        </select>
-    </div> -->
 
 	<div class="main-products">
 		<div class="product-container"></div>
 		<button class="scroll-btn-up" onclick="scrollToTop()"></button>
 	</div>
 
-
-
-	<div id="footer"></div>
-	<!-- 공통 footer 삽입 -->
+	<div id="footer">
+		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+	</div>
 	<script src="${pageContext.request.contextPath}/resources/js/search.js"></script>
 </body>
 
