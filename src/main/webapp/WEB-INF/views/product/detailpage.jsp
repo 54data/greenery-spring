@@ -13,9 +13,8 @@
 
 <body>
 	<div id="header">
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+		<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	</div>
-	<!-- 공통 헤더(상단바) 삽입 -->
 
 	<div class="container">
 		<div class="left">
@@ -118,16 +117,14 @@
 		<!-- AJAX로 불러온 상세 페이지 or 리뷰 표시 -->
 	</div>
 
-
-
-
 	<!-- 업버튼 -->
 	<div class="main-products">
 		<button class="scroll-btn-up" onclick="scrollToTop()"></button>
 	</div>
 
-	<div id="footer"></div>
-	<!-- 푸터를 삽입할 위치 -->
+	<div id="footer">
+		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+	</div>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="detailpage.js"></script>
