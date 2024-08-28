@@ -87,7 +87,8 @@
 
 	<!-- 푸터를 삽입할 위치 -->
 	<div id="footer">
-	<%@ include file="/WEB-INF/views/common/footer.jsp" %></div>
+		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+	</div>
 </body>
 
 </html>

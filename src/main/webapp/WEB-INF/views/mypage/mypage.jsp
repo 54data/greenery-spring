@@ -15,7 +15,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/mypage.js"></script>
 	<!-- 헤더를 삽입할 위치 -->
 	<div id="header">
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+		<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	</div>
 	<div class="mypage">
 		<div class="mypage-sidebar">
@@ -28,7 +28,9 @@
 		</div>
 	</div>
 	<!-- 푸터를 삽입할 위치 -->
-	<div id="footer"></div>
+	<div id="footer">
+		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+	</div>
 </body>
 
 </html>
