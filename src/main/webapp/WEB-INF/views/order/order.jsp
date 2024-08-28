@@ -14,10 +14,9 @@
 
 <body>
 	<div id="header">
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+		<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	</div>
-	<!-- 공통 헤더(상단바) 삽입 -->
-
+	
 	<div class="container">
 		<div class="order">
 			<img src="${pageContext.request.contextPath}/resources/image/checkout-icon.png" alt="order"
@@ -32,16 +31,9 @@
 		</div>
 	</div>
 
-	<div id="footer"></div>
-	<!-- 푸터를 삽입할 위치 -->
-
-	<script>
-    document.addEventListener('DOMContentLoaded', () => {
-      $("#header").load("../header/header.html");
-      $("#footer").load("../footer/footer.html");
-    });
-  </script>
-
+	<div id="footer">
+		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+	</div>
 </body>
 
 </html>
