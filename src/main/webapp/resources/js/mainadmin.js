@@ -36,7 +36,7 @@ toggleElement2.addEventListener('click', function () {
 // });
 
 function loadContent(targetDir, targetId) {
-	var target = targetId + '.html';
+	var target = targetId + '.jsp';
 	$.ajax({
 		url: '../' + targetDir + '/' + target,    // 각 탭에 맞는 html 파일 경로
 		method: 'GET',

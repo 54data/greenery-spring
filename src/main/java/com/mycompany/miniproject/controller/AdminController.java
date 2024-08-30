@@ -9,33 +9,33 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/admin")
 @Slf4j
 public class AdminController {
-	@RequestMapping("/mainAdmin")
+	@RequestMapping("/mainadmin")
 	public String mainAdmin() {
 		log.info("실행");
-		return "admin/mainAdmin";
+		return "admin/mainadmin";
 	}
 	
-	@RequestMapping("/noticeAdd")
+	@RequestMapping("/noticeadd")
 	public String noticeAdd() {
 		log.info("실행");
-		return "admin/noticeAdd";
+		return "admin/noticeadd";
 	}
 	
-	@RequestMapping("/noticeSelect")
+	@RequestMapping("/noticeselect")
 	public String noticeSelect() {
 		log.info("실행");
-		return "admin/noticeSelect";
+		return "admin/noticeselect";
 	}
 	
-	@RequestMapping("/productAdd")
+	@RequestMapping("/productadd")
 	public String productAdd() {
 		log.info("실행");
-		return "admin/productAdd";
+		return "admin/productadd";
 	}
 	
-	@RequestMapping("/productSelect")
+	@RequestMapping("/productselect")
 	public String productSelect() {
 		log.info("실행");
-		return "admin/productSelect";
+		return "admin/productselect";
 	}
 }

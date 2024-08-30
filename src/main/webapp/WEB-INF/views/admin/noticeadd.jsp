@@ -18,7 +18,7 @@
 <body>
 
 	<div>
-		<form class="container-form">
+		<form class="container-form" method="post" action="noticeWrite">
 			<div class="top-text-margin">
 				공지사항 > <span class="text-success"><b>공지사항 등록</b></span>
 			</div>
@@ -30,7 +30,7 @@
 			</h5>
 
 			<div class="form-group">
-				<label>제목</label> <input type="text"
+				<label>제목</label> <input id="noticeTitle" type="text"
 					placeholder="그리너리 서버 점검 안내(8/21)" maxlength="250">
 				<div id="charCount">0 / 250</div>
 			</div>
@@ -38,7 +38,7 @@
 				<label>내용</label>
 			</div>
 			<div class="container-textarea">
-				<textarea class="textarea" rows="5" placeholder="공지사항에 대한 내용을 입력하세요"></textarea>
+				<textarea id="noticeContent" class="textarea" rows="5" placeholder="공지사항에 대한 내용을 입력하세요"></textarea>
 			</div>
 
 			<div class="btn-register-div">
