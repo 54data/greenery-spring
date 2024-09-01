@@ -62,4 +62,9 @@ body {
     font-size: 32px;
     font-weight: 500;
     color: #0f5a20;
+    
+}
+
+.section1 a {
+	text-decoration: none !important;
 }

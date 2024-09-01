@@ -35,10 +35,9 @@ toggleElement2.addEventListener('click', function () {
 // 	});
 // });
 
-function loadContent(targetDir, targetId) {
-	var target = targetId + '.jsp';
+function loadContent(targetId) {
 	$.ajax({
-		url: '../' + targetDir + '/' + target,    // 각 탭에 맞는 html 파일 경로
+		url: targetId,    // 각 탭에 맞는 html 파일 경로
 		method: 'GET',
 		success: function (data) {
 			$('.section4').html(data);
@@ -50,25 +49,26 @@ function loadContent(targetDir, targetId) {
 	});
 }
 
+
 $('#productadd').on('click', function () {
-	loadContent('productadd', $(this).data('id'));
+	loadContent($(this).data('id'));
 });
 
 $('#productselect').on('click', function () {
-	loadContent('productselect', $(this).data('id'));
+	loadContent($(this).data('id'));
 });
 
 $('#noticeadd').on('click', function () {
-	loadContent('noticeadd', $(this).data('id'));
+	loadContent($(this).data('id'));
 });
 
 $('#noticeselect').on('click', function () {
-	loadContent('noticeselect', $(this).data('id'));
+	loadContent($(this).data('id'));
 });
 
 // 페이지 로드되면 기본적으로 detail탭이 열리게 
-$('#productadd').first().trigger('click');
+$('#productselect').first().trigger('click');
 
-$(document).on('click', '.header-logo', function () {
-	window.location.href = '../../main/main.html';
-});
+/*$(document).on('click', '.header-logo', function () {
+	window.location.href = '../';
+});*/
