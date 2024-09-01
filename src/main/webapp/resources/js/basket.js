@@ -1,8 +1,5 @@
 // 헤더, 푸터 파일 로드
 $(document).ready(function () {
-    $("#header").load("../header/header.html");
-    $("#footer").load("../footer/footer.html");
-
     $.getJSON("../../content/products.json", function (data) {
         dataToHtml(data.products);
     }).fail(function () {
@@ -16,7 +13,6 @@ function scrollToTop() {
         behavior: "smooth",
     });
 }
-
 
 // 데이터 
 $.ajax({
@@ -65,6 +61,7 @@ $.ajax({
         console.error('Error fetching product data:', err);
     }
 });
+
 $(document).ready(function () {
     $('#order-button').on('click', function () {
         window.location.href = '../payment/payment.html';
@@ -88,6 +85,7 @@ $(document).ready(function () {
         updateTotalPrice($(this));
     });
 });
+
 // 결제정보 가격 업데이트
 function calculatePrice() {
     let totalOrderPrice = 0;    // 총 주문 금액
