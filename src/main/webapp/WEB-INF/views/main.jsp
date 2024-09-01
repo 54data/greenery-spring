@@ -4,16 +4,15 @@
 <html>
 
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
-<title>메인페이지</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
+	<title>메인페이지</title>
 </head>
 
 <body>
-	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<div class="modal-container">
 		<div class="coupon-modal">
 			<img src="${pageContext.request.contextPath}/resources/image/modal.png" class="modal-image" />
@@ -81,7 +80,29 @@
 		</div>
 	</div>
 	<div class="main-products">
-		<div class="product-container"></div>
+		<div class="product-container">
+			<div class="product-item">
+                <div class="product-image-container">
+                    <img src="${pageContext.request.contextPath}/resources/image/productImages/1.png" alt="수분 크림" class="product-image">
+                    <div class="product-icons">
+                        <span class="icon like-icon">
+                            <img src="${pageContext.request.contextPath}/resources/image/heart.png" alt="찜하기 아이콘">
+                        </span>
+                        <span class="icon cart-icon">
+                            <img src="${pageContext.request.contextPath}/resources/image/cart_icon2.png" alt="장바구니 아이콘">
+                        </span>
+                        <span class="icon buy-icon">
+                            <img src="${pageContext.request.contextPath}/resources/image/dollar.png" alt="구매하기 아이콘" class="payment-img">
+                        </span>
+                    </div>
+                </div>
+                <div class="product-details">
+                    <p class="product-name">수분 크림</p>
+                    <p class="product-description">피부에 깊은 보습을 제공합니다.</p>
+                    <p class="product-price"><span class="price-amount">25,000</span>원</p>
+                </div>
+            </div>
+		</div>
 		<button class="scroll-btn-up" onclick="scrollToTop()"></button>
 	</div>
 
@@ -89,6 +110,8 @@
 	<div id="footer">
 		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	</div>
+	
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 </body>
 
 </html>
