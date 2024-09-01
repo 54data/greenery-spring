@@ -1,7 +1,7 @@
 let slideIndex = 1;     // 슬라이드 인덱스
 let products = [];
 
-// ---------------------슬라이드 관련 함수 ----------------
+// ---------------- 슬라이드 관련 함수 ----------------
 function autoSlides() {     // 슬라이드 자동으로 넘김
     showSlides(slideIndex);
 
@@ -42,6 +42,7 @@ function clickCategoryBtn(target) {
     );
     target.addClass("active-category"); // 현재 클릭한 버튼 액티브 추가(활성화)
 }
+
 // 스크롤 올리기
 function scrollToTop() {
     window.scrollTo({
@@ -49,6 +50,7 @@ function scrollToTop() {
         behavior: "smooth",
     });
 }
+
 // -------------------팝업- 오늘 하루 보지 않기-------------------
 // 로컬 스토리지에 현재 시간 + 1일을 ms 단위로 저장
 function setTime(name, exp) {
@@ -78,85 +80,84 @@ function showAlertCoupon() {
 }
 
 // 상품 데이터 가져오기
-function dataToHtml(products) {
-    if (Array.isArray(products)) {
-        products.forEach(product => {
-            const productHtml = `
-            <div class="product-item">
-                <div class="product-image-container">
-                    <img src="${product.imageUrls[0]}" alt="${product.productName
-                }" class="product-image">
-                    <div class="product-icons">
-                        <span class="icon like-icon">
-                            <img src="../../res/images/heart.png" alt="찜하기 아이콘">
-                        </span>
-                        <span class="icon cart-icon">
-                            <img src="../../res/images/cart_icon2.png" alt="장바구니 아이콘">
-                        </span>
-                        <span class="icon buy-icon">
-                            <img src="../../res/images/dollar.png" alt="구매하기 아이콘" class="payment-img">
-                        </span>
-                    </div>
-                </div>
-                <div class="product-details">
-                    <p class="product-name">${product.productName}</p>
-                    <p class="product-description">${product.mainDescription
-                }</p>
-                    <p class="product-price"><span class="price-amount">${product.price.toLocaleString()}</span>원</p>
-                </div>
-            </div>`;
+//function dataToHtml(products) {
+//    if (Array.isArray(products)) {
+//        products.forEach(product => {
+//            const productHtml = `
+//            <div class="product-item">
+//                <div class="product-image-container">
+//                    <img src="${product.imageUrls[0]}" alt="${product.productName
+//                }" class="product-image">
+//                    <div class="product-icons">
+//                        <span class="icon like-icon">
+//                            <img src="../../res/images/heart.png" alt="찜하기 아이콘">
+//                        </span>
+//                        <span class="icon cart-icon">
+//                            <img src="../../res/images/cart_icon2.png" alt="장바구니 아이콘">
+//                        </span>
+//                        <span class="icon buy-icon">
+//                            <img src="../../res/images/dollar.png" alt="구매하기 아이콘" class="payment-img">
+//                        </span>
+//                    </div>
+//                </div>
+//                <div class="product-details">
+//                    <p class="product-name">${product.productName}</p>
+//                    <p class="product-description">${product.mainDescription
+//                }</p>
+//                    <p class="product-price"><span class="price-amount">${product.price.toLocaleString()}</span>원</p>
+//                </div>
+//            </div>`;
+//
+//            // 생성한 HTML을 product-container에 추가
+//            $(".product-container").append(productHtml);
+//        });
+//    }
+//}
 
-            // 생성한 HTML을 product-container에 추가
-            $(".product-container").append(productHtml);
-        });
-    }
-}
 // 정렬(신상품, 가격 오름차순, 가격 내림차순)
-function sortProducts(products, sortOption) {
-    switch (sortOption) {
-        case "price-asc":
-            return products.slice().sort((a, b) => a.price - b.price);
-        case "price-desc":
-            return products.slice().sort((a, b) => b.price - a.price);
-        default:
-            return products;
-    }
-}
+//function sortProducts(products, sortOption) {
+//    switch (sortOption) {
+//        case "price-asc":
+//            return products.slice().sort((a, b) => a.price - b.price);
+//        case "price-desc":
+//            return products.slice().sort((a, b) => b.price - a.price);
+//        default:
+//            return products;
+//    }
+//}
+//
+//function filteredProducts(category) {
+//    const sortOption = $(".toolbar-sort-select").val();
+//    let categoryProducts = products;
+//
+//    if (category) {
+//        categoryProducts = products.filter(
+//            product => product.category === category
+//        );
+//    }
+//
+//    $(".product-container").empty();
+//    dataToHtml(sortProducts(categoryProducts, sortOption));
+//}
 
-function filteredProducts(category) {
-    const sortOption = $(".toolbar-sort-select").val();
-    let categoryProducts = products;
-
-    if (category) {
-        categoryProducts = products.filter(
-            product => product.category === category
-        );
-    }
-
-    $(".product-container").empty();
-    dataToHtml(sortProducts(categoryProducts, sortOption));
-}
-
-function getData() {
-    $.ajax({
-        url: "../../content/products.json",
-        method: "GET",
-        dataType: "json",
-        success: function (data) {
-            products = data.products;
-            filteredProducts();     // 데이터 불러올 때 성공하면 filteredProducts() 호출
-        },
-        error: function (err) {
-            console.error("Error fetching product data:", err);
-        },
-    });
-}
+//function getData() {
+//    $.ajax({
+//        url: "../../content/products.json",
+//        method: "GET",
+//        dataType: "json",
+//        success: function (data) {
+//            products = data.products;
+//            filteredProducts();     // 데이터 불러올 때 성공하면 filteredProducts() 호출
+//        },
+//        error: function (err) {
+//            console.error("Error fetching product data:", err);
+//        },
+//    });
+//}
 
 $(document).ready(function () {
-    $("#header").load("../header/header.html");
-    $("#footer").load("../footer/footer.html");
     autoSlides();
-    getData(); // 초기 데이터 로드 (전체)
+//    getData(); // 초기 데이터 로드 (전체)
     scrollToTop();
     isOverExp("TodayCloseTime");
     $(".close").click(() => {
@@ -189,7 +190,6 @@ $(document).ready(function () {
         }
     });
 });
-
 
 $(document).on('click', '.product-image', function () {
     window.location.href = '../detail/detailpage.html';
