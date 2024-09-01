@@ -109,6 +109,7 @@ header {
     margin: 0 auto;
     border-bottom: 1px solid #eeeeee;
     box-sizing: border-box;
+    color: black;
 }
 
 .header-category-btn {
