@@ -35,7 +35,10 @@
 		</div>
 		<div class="ol-1">1</div>
 		<div class="ol-1">24,000원</div>
-		<div class="ol-1 order-status">결제완료</div>
+		<div class="ol-1 order-status">
+			결제완료
+			<%@ include file="/WEB-INF/views/mypage/reviews.jsp" %>
+		</div>
 	</div>
 	<div class="order-item-col">
 		<div class="ol-1">2024-07-20</div>
@@ -50,6 +53,9 @@
 		</div>
 		<div class="ol-1">1</div>
 		<div class="ol-1">30,000원</div>
-		<div class="ol-1 order-status">결제완료</div>
+		<div class="ol-1 order-status">
+			결제완료
+			<%@ include file="/WEB-INF/views/mypage/reviews.jsp" %>
+		</div>
 	</div>
 </div>
