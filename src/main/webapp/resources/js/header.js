@@ -37,11 +37,6 @@ function toSearchPage() {
     redirectToPage("query", searchQuery);
 }
 
-/*function toCategoryPage() {
-    const category = $(".category-span").data("category");
-    redirectToPage("category", category);
-}*/
-
 $(document).ready(() => {
     searchTypeText();
     $(".header-search-icon").on("click", toSearchPage);
@@ -53,8 +48,4 @@ $(document).ready(() => {
     $(".category-span").on("click", function () {
         redirectToPage("category", $(this).data("category"));
     });
-});
-
-$(document).on("click", ".notice", function () {
-    window.location.href = "../notices/notices.html";
 });

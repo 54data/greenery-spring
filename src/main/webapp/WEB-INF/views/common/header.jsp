@@ -9,7 +9,7 @@
 
 <header>
 	<div class="header-logo">
-		<a href="${pageContext.request.contextPath}"> <!--  <span class="logo">greenery</span> -->
+		<a href="${pageContext.request.contextPath}">
 			<img
 			src="${pageContext.request.contextPath}/resources/image/logo4.png"
 			class="logo">
@@ -80,7 +80,9 @@
 			</span></li>
 		</ul>
 	</div>
-	<div class="notice"><a href=${pageContext.request.contextPath}/notice/notices>공지사항</a></div>
+	<div class="notice">
+		<a href="${pageContext.request.contextPath}/notice/notices">공지사항</a>
+	</div>
 </div>
 <!-- 검색창 -->
 <div class="header-search">
