@@ -1,1 +1,7 @@
+# 빌드 결과물 폴더
 /target/
+
+# 설정 파일
+/.classpath
+/.project
+/.springBeans
