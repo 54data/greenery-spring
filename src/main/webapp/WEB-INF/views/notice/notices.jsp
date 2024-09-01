@@ -1,19 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>공지사항 페이지</title>
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/notices.css">
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>공지사항 페이지</title>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/notices.css">
+	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
 </head>
 
 <body>
-	<script src="${pageContext.request.contextPath}/resources/js/notices.js"></script>
 	<div id="header">
 		<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	</div>
@@ -29,22 +28,23 @@
 			<div class="content-title">
 				<div class="num">번호</div>
 				<div class="main-title">제목</div>
-				<!-- <p class="neyoung">내용</p> -->
 				<div class="date">작성일</div>
 			</div>
 			<div class="divider"></div>
 		</div>
 		<div class="contents">
 			<div class="content">
-				<!-- <img class="green"> -->
-				<!-- <img class="red" src="../../res/images/red-icon.png"> -->
 				<div class="noticeId"></div>
 				<div class="title"></div>
-
-				<!-- <p class="content"></p> -->
 				<div class="registrationDate"></div>
+				<!-- json으로 불러오던 데이터를 임시로 코드 추가 -->
+				<div class="notices-item">
+					<div class="noticeId">1</div>
+					<div class="title">신제품 출시 안내</div>
+					<div class="registrationDate">2024.05.01</div>
+				</div>
+				<div class="divider"></div>
 			</div>
-			<div class="divider"></div>
 		</div>
 
 		<div class="pageNum">
@@ -58,7 +58,8 @@
 	<div id="footer">
 		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	</div>
-
+	
+	<script src="${pageContext.request.contextPath}/resources/js/notices.js"></script>
 </body>
 
 </html>
