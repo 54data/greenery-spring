@@ -190,11 +190,3 @@ $(document).ready(function () {
         }
     });
 });
-
-$(document).on('click', '.product-image', function () {
-    window.location.href = '../detail/detailpage.html';
-});
-
-$(document).on('click', '.buy-icon', function () {
-    window.location.href = '../payment/payment.html';
-});
