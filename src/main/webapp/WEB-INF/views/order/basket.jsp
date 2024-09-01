@@ -4,12 +4,12 @@
 <html>
 
 <head>
-<meta charset="UTF-8">
-<title>장바구니</title>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/basket.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
+	<meta charset="UTF-8">
+	<title>장바구니</title>
+	
+	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/basket.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
 </head>
 
 <body>

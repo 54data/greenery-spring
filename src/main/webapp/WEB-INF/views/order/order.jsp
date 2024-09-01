@@ -4,12 +4,11 @@
 <html lang="ko">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<title>주문완료 페이지</title>
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/order.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
+	<title>주문완료 페이지</title>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/order.css">
 </head>
 
 <body>

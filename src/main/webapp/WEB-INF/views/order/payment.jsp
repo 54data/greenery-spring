@@ -4,16 +4,15 @@
 <html lang="ko">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>결제 페이지</title>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/payment.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>결제 페이지</title>
+	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/payment.css">
 </head>
 
 <body>
-	<script src="${pageContext.request.contextPath}/resources/js/payment.js"></script>
 	<div id="header">
 		<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	</div>
@@ -38,8 +37,6 @@
 			<div id="productList"></div>
 			<!-- 동적으로 상품을 추가할 위치 -->
 			<button class="scroll-btn-up" onclick="scrollToTop()"></button>
-
-
 
 			<div class="coupon-info">
 				<!--  쿠폰 할인 정보 -->
@@ -103,6 +100,8 @@
 	<div id="footer">
 		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	</div>
+	
+	<script src="${pageContext.request.contextPath}/resources/js/payment.js"></script>
 </body>
 
 </html>
