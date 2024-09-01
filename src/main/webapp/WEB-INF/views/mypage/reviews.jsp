@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reviews.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css">    
-<script src="${pageContext.request.contextPath}/resources/js/reviews.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reviews.css">
 <script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/reviews.js"></script>
 
 <button type="button" class="review-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
     리뷰 작성
