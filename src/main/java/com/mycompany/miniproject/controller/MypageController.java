@@ -17,8 +17,8 @@ public class MypageController {
 		return "mypage/editMyInfo";
 	}
 	
-	@RequestMapping("/likeProducts")
-	public String likeProducts() {
+	@RequestMapping("/likedProducts")
+	public String likedProducts() {
 		log.info("실행");
 		return "mypage/likedProducts";
 	}
