@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <div class="mypage-myinfo-title">개인정보 수정</div>
 <div class="myinfo-list">
 	<div class="myinfo-id">
