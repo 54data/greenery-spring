@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>마이페이지</title>
 	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage.css">
 </head>
 
