@@ -16,9 +16,7 @@ header {
 
 .logo {
 	width: 75%;
-    /* font-size: 32px;
-    font-weight: 500;
-    color: #0f5a20; */
+    vertical-align: baseline;
 }
 
 .header-search {
