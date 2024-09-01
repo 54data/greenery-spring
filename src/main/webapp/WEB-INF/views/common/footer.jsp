@@ -17,16 +17,16 @@
 		</div>
 		<div class="footer-nav-right">
 			<span class="footer-nav-link"><a
-				href="https://github.com/KOSA-greenery/greenery">GitHub</a></span> <span
+				href="https://github.com/54data/miniproject">GitHub</a></span> <span
 				class="footer-nav-link"><a
-				href="https://github.com/KOSA-greenery/greenery">Blog</a></span>
+				href="https://github.com/54data/miniproject">Blog</a></span>
 		</div>
 	</div>
 	<div class="footer-logo">
 		<span class="logo">greenery</span>
 	</div>
 	<section class="footer-info">
-		<p class="footer-info-text">greenery - 김해원, 나길주, 서지혜, 이민성</p>
+		<p class="footer-info-text">greenery</p>
 		<p class="footer-info-text">본 웹사이트는 실제가 아닌 학습용 프로젝트 일환으로 제작된
 			웹사이트이며 등록된 제품은 본 웹사이트에서 판매되는 제품이 아닙니다.</p>
 		<br>
