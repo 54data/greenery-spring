@@ -19,15 +19,15 @@
 	    <div class="product-image-container">
         	<img src="${pageContext.request.contextPath}/resources/image/productImages/1.png" alt="수분 크림" class="product-image" >
 	        <div class="product-icons">
-	            <span class="icon like-icon">
+	            <button class="icon like-icon">
 	                <img src="${pageContext.request.contextPath}/resources/image/heart.png" alt="찜하기 아이콘">
-	            </span>
-	            <span class="icon cart-icon">
+	            </button>
+	            <button class="icon cart-icon" onclick="location.href='${pageContext.request.contextPath}/order/basket'">
 	                <img src="${pageContext.request.contextPath}/resources/image/cart_icon2.png" alt="장바구니 아이콘">
-	            </span>
-	            <span class="icon buy-icon">
+	            </button>
+	            <button class="icon buy-icon" onclick="location.href='${pageContext.request.contextPath}/order/payment'">
 	                <img src="${pageContext.request.contextPath}/resources/image/dollar.png" alt="구매하기 아이콘" class="payment-img">
-	            </span>
+	            </button>
 	        </div>
 	    </div>
         <div class="product-details">
