@@ -9,6 +9,7 @@
 <title>화장품 상세페이지</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/detailpage.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reviews-select.css">
+<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
 </head>
 
 <body>
@@ -126,8 +127,7 @@
 		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	</div>
 
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script src="detailpage.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/detailpage.js"></script>
 </body>
 
 </html>

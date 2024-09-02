@@ -1,4 +1,4 @@
-// 헤더, 푸터 파일 로드
+/*// 헤더, 푸터 파일 로드
 $(document).ready(function () {
     $("#header").load("../header/header.html");
     $("#footer").load("../footer/footer.html");
@@ -9,7 +9,7 @@ $(document).ready(function () {
         console.error("JSON 파일을 불러오는 데 실패함");
     });
 });
-
+*/
 // 찜 추가
 const wishlistButton = document.querySelector('.wishlist-button');
 
@@ -83,11 +83,11 @@ function showSlides(n) {
 // ---------------------탭 - 상세정보,  리뷰 --------------------
 $(document).ready(function () {
     $('.tab-button').on('click', function () {
-        var target = $(this).data('target') + '.html';
+        var target = $(this).data('target') + '.jsp';
 
         //ajax 요청
         $.ajax({
-            url: 'detail-tab/' + target,    // 각 탭에 맞는 html 파일 경로
+            url: target,    // 각 탭에 맞는 html 파일 경로
             method: 'GET',
             success: function (data) {
                 $('#tab-content').html(data);
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // 리뷰 json데이터 
 function loadReviews() {
     $.ajax({
-        url: '../../content/reviews.json',
+        url: 'resources/content/reviews.json',
         method: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -150,9 +150,9 @@ function loadReviews() {
                     const totalStars = 5;   // 총 별의 개수(5점 만점 기준) -> 별점 3개라고 치면 나머지는 안채워진 별로 2개 채움
                     for (let j = 0; j < totalStars; j++) {
                         if (j < i.rating) {
-                            starHTML += `<img src="../../res/images/fill-star.png" alt="별" class="star">`;
+                            starHTML += `<img src="./resources/image/fill-star.png" alt="별" class="star">`;
                         } else {
-                            starHTML += `<img src="../../res/images/empty-star.png" alt="빈 별" class="star">`;
+                            starHTML += `<img src="/resources/image/empty-star.png" alt="빈 별" class="star">`;
                         }
                     }
                     const reviewHTML = `
@@ -276,7 +276,7 @@ function checkout() {
     /* document.getElementById('add-to-cart').addEventListener('click', function() {
         window.location.href = '../payment/payment.html'; */
     sessionStorage.setItem('checkout', JSON.stringify(checkout));
-    window.location.href = '../payment/payment.html'; // 결제 페이지로 이동 
+    window.location.href = 'resources/order/payment.jsp'; // 결제 페이지로 이동 
 }
 
 
@@ -289,7 +289,7 @@ function cart() {
     }
 
     sessionStorage.setItem('add-to-cart', JSON.stringify(cart));
-    window.location.href = '../basket/basket.html'; // 장바구니 페이지로 이동 
+    window.location.href = 'order/basket.jsp'; // 장바구니 페이지로 이동 
 }
 
 function scrollToTop() {
