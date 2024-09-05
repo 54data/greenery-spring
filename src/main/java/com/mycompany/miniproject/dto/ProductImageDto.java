@@ -8,6 +8,6 @@ public class ProductImageDto {
 	private int productId;
 	private String productImgName;
 	private String productImgType;
-	private String productImg;
+	private byte[] productImg;
 	private String productImgUsage;
 }
