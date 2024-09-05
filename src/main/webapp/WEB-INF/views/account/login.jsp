@@ -48,28 +48,7 @@
 		</div>
 	</div>
 
-
-
 	<script src="${pageContext.request.contextPath}/resources/js/login.js">
-	</script>
-	
-	<script>
-		function requestAjax(){
-			var id = $("#inputId").val();
-			var pw = $("#inputPassword1").val();
-			
-			const params = {id, pw};
-			console.log(params);
-			
-			$.ajax({
-				url: "requestAjax",
-				type: "post",
-				data: params,
-				success: function(data){
-					console.log(data);
-				}
-			})
-		}
 	</script>
 </body>
 

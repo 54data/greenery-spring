@@ -60,35 +60,6 @@
 	</form>
 
 	<script src="${pageContext.request.contextPath}/resources/js/signup.js"></script>
-	
-	<script>
-		function requestAjaxSignUp(){
-
-			var id = $("#inputId").val();
-			var pw = $("#inputPassword1").val();
-			var pw_confirm = $("#inputPassword2").val();
-			var name = $("#inputName").val();
-			var phoneNum = $("#inputPhone").val();
-			var email = $("#inputEmailAddress").val();
-			var emailDomain = $("#inputEmail").val();
-			var zipcode = $("#zipcode").val();
-			var load_address = $("#load_address").val();
-			var detail_address = $("#detail_address").val();
-			
-			const params = {id, pw, pw_confirm, name, phoneNum, email, emailDomain, zipcode, load_address, detail_address};
-			console.log(params);
-			
-			$.ajax({
-				url: "requestAjaxSignUp",
-				type: "post",
-				data: params,
-				success: function(data){
-					console.log(data);
-				}
-			}) 
-			
-		}
-	</script>
 </body>
 
 </html>
