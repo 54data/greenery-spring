@@ -3,7 +3,7 @@ package com.mycompany.miniproject.dto;
 import lombok.Data;
 
 @Data
-public class Product_imageDto {
+public class ProductImageDto {
 	private int productImgId;
 	private int productId;
 	private String productImgName;
