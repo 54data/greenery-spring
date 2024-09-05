@@ -14,4 +14,5 @@ public class ProductDto {
 	private String productDetailSummary;
 	private Date productRegDate;
 	private String category;
+	private String test;
 }
