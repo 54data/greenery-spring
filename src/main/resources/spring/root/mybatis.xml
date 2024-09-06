@@ -13,6 +13,6 @@
 	</bean>
 	
 	<mybatis-spring:scan 
-		base-package="now2.greenery.dao"
+		base-package="com.mycompnay.miniproject.dao"
 		annotation="org.apache.ibatis.annotations.Mapper"/> 
 </beans>
