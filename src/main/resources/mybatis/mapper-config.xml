@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
+	<typeAliases>
+		<typeAlias type="com.mycompany.miniproject.dto.CartDto" alias="Cart"/>
+		<typeAlias type="com.mycompany.miniproject.dto.OrderDto" alias="Order"/>
+		<typeAlias type="com.mycompany.miniproject.dto.ReviewDto" alias="Review"/>
+		<typeAlias type="com.mycompany.miniproject.dto.NoticeDto" alias="Notice"/>
+		<typeAlias type="com.mycompany.miniproject.dto.ProductDto" alias="Product"/>
+		<typeAlias type="com.mycompany.miniproject.dto.UserDto" alias="User"/>
+		<typeAlias type="com.mycompany.miniproject.dto.OrderDetailDto" alias="OrderDetail"/>
+		<typeAlias type="com.mycompany.miniproject.dto.ProductImageDto" alias="ProductImage"/>
+		<typeAlias type="com.mycompany.miniproject.dto.WishlistDto" alias="Wishlist"/>
+	</typeAliases>
 </configuration>
