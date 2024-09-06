@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- MyBatis 설정 파일 위치 설정 -->
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+			<property name="configLocation" value="classpath:mybatis/mapper-config.xml"/> <!-- mapper-config 파일의 위치 -->
+			<property name="mapperLocations" value="classpath:mybatis/mapper/*.xml"/> <!-- mapper 파일들 위치 -->
+	</bean>
+	
+	<mybatis-spring:scan 
+		base-package="now2.greenery.dao"
+		annotation="org.apache.ibatis.annotations.Mapper"/> 
+</beans>
