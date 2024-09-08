@@ -14,6 +14,6 @@
 	</bean>
 	
 	<mybatis-spring:scan 
-		base-package="com.mycompnay.miniproject.dao"
+		base-package="com.mycompany.miniproject.dao"
 		annotation="org.apache.ibatis.annotations.Mapper"/> 
 </beans>
