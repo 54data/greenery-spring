@@ -86,7 +86,7 @@
 			<c:forEach items="${productList}" var="product">
 				<div class="product-item">
 	                <div class="product-image-container">
-	                    <img src="${pageContext.request.contextPath}/resources/image/productImages/1.png" alt="수분 크림" class="product-image">
+	                    <img src="loadMainImg?productId=${product.productId}" class="product-image">
 	                    <div class="product-icons">
 				            <button class="icon like-icon">
 				                <img src="${pageContext.request.contextPath}/resources/image/heart.png" alt="찜하기 아이콘">
