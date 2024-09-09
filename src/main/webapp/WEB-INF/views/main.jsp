@@ -11,6 +11,9 @@
 	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
+	<link href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>
+
 	<title>메인페이지</title>
 </head>
 
@@ -58,19 +61,15 @@
 	<div class="toolbar">
 		<!-- 카테고리 -->
 		<nav class="toolbar-category">
-			<button class="toolbar-category-btn active-category">전체</button>
-			<button class="toolbar-category-btn" data-category="Skincare">
-				스킨케어</button>
-			<button class="toolbar-category-btn" data-category="Makeup">
-				메이크업</button>
-			<button class="toolbar-category-btn" data-category="BodyCare">
-				바디케어</button>
-			<button class="toolbar-category-btn" data-category="HairCare">
-				헤어케어</button>
-			<button class="toolbar-category-btn" data-category="BeautyTools">
-				미용소품</button>
-			<button class="toolbar-category-btn" data-category="MensCare">
-				맨즈케어</button>
+		<form >
+		</form>
+			<a class="toolbar-category-btn active-category" href="${pageContext.request.contextPath}">전체</a>
+			<a class="toolbar-category-btn" href="${pageContext.request.contextPath}?category=스킨케어">스킨케어</a>
+			<a class="toolbar-category-btn" href="${pageContext.request.contextPath}?category=메이크업">메이크업</a>
+			<a class="toolbar-category-btn" href="${pageContext.request.contextPath}?category=바디케어">바디케어</a>
+			<a class="toolbar-category-btn" href="${pageContext.request.contextPath}?category=헤어케어">헤어케어</a>
+			<a class="toolbar-category-btn" href="${pageContext.request.contextPath}?category=미용소품">미용소품</a>
+			<a class="toolbar-category-btn" href="${pageContext.request.contextPath}?category=맨즈케어">맨즈케어</a>
 		</nav>
 		<!-- 상품 정렬 -->
 		<div class="toolbar-sort">
@@ -106,8 +105,21 @@
 	                </div>
 	            </div>
 			</c:forEach>
-		
 		</div>
+		<c:if test="${category == null}">
+			<div id="pager">
+				<c:forEach begin="${pager.startPageNo}" end="${pager.endPageNo}"
+					step="1" var="i">
+					<c:if test="${pager.pageNo == i}">
+						<a href="?pageNo=${i}" class="btn btn-outline-dark">${i}</a>
+					</c:if>
+					<c:if test="${pager.pageNo != i}">
+						<a href="?pageNo=${i}" class="btn btn-light">${i}</a>
+					</c:if>
+				</c:forEach>
+			</div>
+		</c:if>
+
 		<button class="scroll-btn-up" onclick="scrollToTop()"></button>
 	</div>
 

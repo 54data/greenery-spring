@@ -4,13 +4,16 @@ import java.io.OutputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mycompany.miniproject.dto.PagerDto;
 import com.mycompany.miniproject.dto.ProductDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
 import com.mycompany.miniproject.service.ProductService;
@@ -24,8 +27,21 @@ public class MainController {
 	ProductService productService;
 	
 	@RequestMapping("")
-	public String main(Model model) {
-		List<ProductDto> productList = productService.getProducts();
+	public String main(Model model,
+				@RequestParam(defaultValue="1")int pageNo,
+				HttpSession session, String category) {
+		
+		int totalRows = productService.getTotalRows();
+		PagerDto pager = new PagerDto(15, 5, totalRows, pageNo);
+		session.setAttribute("pager", pager);
+		
+		List<ProductDto> productList;
+				if(category == null) {
+					productList = productService.getProducts(pager);
+				}else {
+					productList = productService.getProductByCategory(category);
+					model.addAttribute("category", category);
+				};
 		model.addAttribute("productList", productList);
 		log.info("실행");
 		
