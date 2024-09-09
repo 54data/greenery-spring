@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	
 <!DOCTYPE html>
 <html lang="ko">
@@ -8,22 +9,22 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>공지사항 페이지</title>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/notices.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css">    
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>	
 	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/notices.css">
 </head>
 
 <body>
 	<div id="header">
 		<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	</div>
-
 	<div class="notice-container">
 		<div class="notice-inner">
 			<p class="notice-title">공지사항</p>
-			<p class="notice-num">총 4건</p>
+			<p class="notice-num">총 ${noticeSize}건</p>
 		</div>
 		<div class="divider"></div>
-
 		<div class="contents">
 			<div class="content-title">
 				<div class="num">번호</div>
@@ -32,33 +33,32 @@
 			</div>
 			<div class="divider"></div>
 		</div>
-		<div class="contents">
-			<div class="content">
-				<div class="noticeId"></div>
-				<div class="title"></div>
-				<div class="registrationDate"></div>
-				<!-- json으로 불러오던 데이터를 임시로 코드 추가 -->
-				<div class="notices-item">
-					<div class="noticeId">1</div>
-					<div class="title">신제품 출시 안내</div>
-					<div class="registrationDate">2024.05.01</div>
+		<c:forEach items="${noticeList}" var="notice">
+			<div class="contents">
+				<div class="content">
+					<div class="notices-item">
+						<div class="noticeId">${notice.noticeId - 1999}</div>
+						<div class="title">${notice.noticeTitle}</div>
+						<div class="registrationDate"><fmt:formatDate value="${notice.noticeRegDate}" pattern="yyyy-MM-dd"/></div>
+					</div>
+					<div class="divider"></div>
 				</div>
-				<div class="divider"></div>
 			</div>
-		</div>
-
+		</c:forEach>
 		<div class="pageNum">
-			1
-			<div class="divider"
-				style="width: 20px; border: 1.5px solid #069369; margin-top: 7px;"></div>
+			<c:forEach begin="${pager.startPageNo}" end="${pager.endPageNo}" step="1" var="i">
+            	<c:if test="${pager.pageNo == i}">
+                  <a href="notices?pageNo=${i}" class="btn btn-outline-dark">${i}</a>
+               </c:if>
+               <c:if test="${pager.pageNo != i}">
+                  <a href="notices?pageNo=${i}" class="btn btn-light">${i}</a>
+               </c:if>
+			</c:forEach>
 		</div>
-
 	</div>
-	
 	<div id="footer">
 		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	</div>
-	
 	<script src="${pageContext.request.contextPath}/resources/js/notices.js"></script>
 </body>
 
