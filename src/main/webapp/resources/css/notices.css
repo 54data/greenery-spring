@@ -115,10 +115,10 @@ body {
 }
 
 .pageNum {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	fon-size: 16px;
-	margin: 70px auto;
 	cursor: pointer;
+	margin: 70px auto;
+}
+
+.pageNum > a {
+	font-size: 16px;
 }
