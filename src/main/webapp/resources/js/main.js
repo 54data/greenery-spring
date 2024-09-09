@@ -184,9 +184,9 @@ $(document).ready(function () {
         $(this).toggleClass("active");
         let heartIcon = $(this).find("img");
         if ($(this).hasClass("active")) {
-            heartIcon.attr("src", "../../res/images/fill_heart.png");
+            heartIcon.attr("src", "resources/image/fill_heart.png");
         } else {
-            heartIcon.attr("src", "../../res/images/heart.png")
+            heartIcon.attr("src", "resources/image/heart.png")
         }
     });
 });
