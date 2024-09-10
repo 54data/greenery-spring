@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.mycompany.miniproject.dto.PagerDto;
 import com.mycompany.miniproject.dto.ProductDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
+import com.mycompany.miniproject.dto.SearchDto;
 import com.mycompany.miniproject.service.ProductService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +40,9 @@ public class MainController {
 				if(category == null) {
 					productList = productService.getProducts(pager);
 				}else {
-					productList = productService.getProductByCategory(category);
+					SearchDto searchDto = new SearchDto();
+					searchDto.setCategory(category);
+					productList = productService.getSearchProduct(searchDto);
 					model.addAttribute("category", category);
 				};
 		model.addAttribute("productList", productList);

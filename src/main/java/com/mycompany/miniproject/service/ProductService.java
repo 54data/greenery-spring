@@ -10,6 +10,7 @@ import com.mycompany.miniproject.dao.ProductImageDao;
 import com.mycompany.miniproject.dto.PagerDto;
 import com.mycompany.miniproject.dto.ProductDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
+import com.mycompany.miniproject.dto.SearchDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,8 +28,8 @@ public class ProductService {
 		return products;
 	}
 	
-	public List<ProductDto> getProductByCategory(String category){
-		List<ProductDto> products = productDao.getCategoryProduct(category);
+	public List<ProductDto> getSearchProduct(SearchDto searchDto){
+		List<ProductDto> products = productDao.getSearchProduct(searchDto);
 		return products;
 	}
 

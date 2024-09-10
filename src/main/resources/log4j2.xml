@@ -12,5 +12,10 @@
     <Logger name ="com.mycompany.miniproject" level="info" additivity="false">
       <AppenderRef ref="Console"/>
     </Logger>
+    
+    <Logger name ="jdbc.sqltiming" level="info" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
+    
   </Loggers>
 </Configuration>
