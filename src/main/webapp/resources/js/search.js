@@ -1,4 +1,4 @@
-// 헤더, 푸터 파일 로드
+/*// 헤더, 푸터 파일 로드
 $(document).ready(function () {
     $("#header").load("../header/header.html");
     $("#footer").load("../footer/footer.html");
@@ -10,7 +10,7 @@ $(document).ready(function () {
     });
 
     handleQueryParams();
-});
+});*/
 
 function scrollToTop() {
     window.scrollTo({
@@ -19,7 +19,7 @@ function scrollToTop() {
     });
 }
 
-function dataToHtml(products) {
+/*function dataToHtml(products) {
     if (Array.isArray(products)) {
         products.forEach(product => {
             const productHtml = `
@@ -53,14 +53,14 @@ function dataToHtml(products) {
             $(".product-container").append(productHtml);
         });
     }
-}
+}*/
 
-function handleQueryParams() {
+/*function handleQueryParams() {
     const params = new URLSearchParams(window.location.search);
     const query = params.get("query");
     const category = params.get("category");
 
-    if (query) {
+    if (query.length >= 1) {
         $(".search-term").html(query);
     }
 
@@ -68,4 +68,4 @@ function handleQueryParams() {
         $(".search-result-text").css("display", "none");
         $("#header").after(`<div class="category-result">${category}</div>`);
     }
-}
+}*/
