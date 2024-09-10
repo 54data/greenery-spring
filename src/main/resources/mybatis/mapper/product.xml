@@ -31,4 +31,10 @@
 		where category=#{category}
 	</select>
 	
+	
+	<select id = "getProductDetailInfo" parameterType="int" resultType="Product">
+		select * 
+		from product
+		where product_Id = #{productId}
+	</select>
 </mapper>

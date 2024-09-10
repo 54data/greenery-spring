@@ -13,5 +13,6 @@ public interface ProductDao {
 	public List<ProductDto> getProductAll(PagerDto pager);
 	public List<ProductDto> getCategoryProduct(String category);
 	public int countRows();
+	public ProductDto getProductDetailInfo(int productId);
 
 }

@@ -189,9 +189,9 @@ $(document).ready(function () {
             heartIcon.attr("src", "resources/image/heart.png")
         }
     });
-    $(document).on('click', '.product-image', function () {
-        window.location.href = 'product/detailpage';
-    });
+//    $(document).on('click', '.product-image', function () {
+//        window.location.href = 'product/detailpage';
+//    });
 
     $(document).on('click', '.buy-icon', function () {
         window.location.href = 'order/payment';
