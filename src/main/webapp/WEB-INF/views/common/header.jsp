@@ -48,36 +48,45 @@
 	</div>
 	<div class="header-category-wrap">
 		<ul class="category-wrap">
-			<li><span class="category-span" data-category="스킨케어">
-					스킨케어 <img
-					src="${pageContext.request.contextPath}/resources/image/category_right_arrow.png"
+			<li>
+				<a class="category-span" href="${pageContext.request.contextPath}/product/search?category=스킨케어">
+					스킨케어 <img src="${pageContext.request.contextPath}/resources/image/category_right_arrow.png"
 					width="5" height="10" />
-			</span></li>
-			<li><span class="category-span" data-category="메이크업">
-					메이크업 <img
-					src="${pageContext.request.contextPath}/resources/image/category_right_arrow.png"
+				</a>
+			</li>
+			<li>
+				<a class="category-span" href="${pageContext.request.contextPath}/product/search?category=메이크업">
+					메이크업 <img src="${pageContext.request.contextPath}/resources/image/category_right_arrow.png"
 					width="5" height="10" />
-			</span></li>
-			<li><span class="category-span" data-category="바디케어">
-					바디케어 <img
-					src="${pageContext.request.contextPath}/resources/image/category_right_arrow.png"
+				</a>
+			</li>
+			<li>
+				<a class="category-span" href="${pageContext.request.contextPath}/product/search?category=바디케어">
+					바디케어 <img src="${pageContext.request.contextPath}/resources/image/category_right_arrow.png"
 					width="5" height="10" />
-			</span></li>
-			<li><span class="category-span" data-category="헤어케어">
+				</a>
+			</li>
+			<li>
+				<a class="category-span" href="${pageContext.request.contextPath}/product/search?category=헤어케어">
 					헤어케어 <img
 					src="${pageContext.request.contextPath}/resources/image/category_right_arrow.png"
 					width="5" height="10" />
-			</span></li>
-			<li><span class="category-span" data-category="미용소품">
+				</a>
+			</li>
+			<li>
+				<a class="category-span" href="${pageContext.request.contextPath}/product/search?category=미용소품">
 					미용소품 <img
 					src="${pageContext.request.contextPath}/resources/image/category_right_arrow.png"
 					width="5" height="10" />
-			</span></li>
-			<li><span class="category-span" data-category="맨즈케어">
+				</a>
+			</li>
+			<li>
+				<a class="category-span" href="${pageContext.request.contextPath}/product/search?category=맨즈케어">
 					맨즈케어 <img
 					src="${pageContext.request.contextPath}/resources/image/category_right_arrow.png"
 					width="5" height="10" />
-			</span></li>
+				</a>
+			</li>
 		</ul>
 	</div>
 	<div class="notice">
@@ -85,7 +94,7 @@
 	</div>
 </div>
 <!-- 검색창 -->
-<div class="header-search">
-	<input type="text" class="header-search-input" />
+<form class="header-search" method="get" action="${pageContext.request.contextPath}/product/search">
+	<input type="text" name="search" class="header-search-input" />
 	<button class="header-search-icon"></button>
-</div>
+</form>

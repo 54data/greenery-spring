@@ -24,11 +24,27 @@
 		from product
 	</select>
 	
-	<select id="getCategoryProduct" parameterType="String" resultType="Product">
+	<select id="getSearchProduct" parameterType="SearchDto" resultType="Product">
 		select
-			product_id, product_name, product_price, product_summary, category
+			product_id, product_name, product_price, product_summary, category, product_reg_date
 		from product
-		where category=#{category}
+		<if test="searchContent == null">
+			where category=#{category}
+		</if>
+		<if test="searchContent != null">
+			where product_name like '%'|| #{searchContent}|| '%'
+		</if>
+		<choose>
+			<when test="sort=='regDateDesc'">
+				order by product_reg_date desc
+			</when>
+			<when test="sort=='priceAsc'">
+				order by product_price asc
+			</when>
+			<when test="sort=='priceDesc'">
+				order by product_price desc
+			</when>
+		</choose>
 	</select>
 	
 </mapper>
