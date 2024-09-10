@@ -16,6 +16,7 @@
 		<typeAlias type="com.mycompany.miniproject.dto.OrderDetailDto" alias="OrderDetail"/>
 		<typeAlias type="com.mycompany.miniproject.dto.ProductImageDto" alias="ProductImage"/>
 		<typeAlias type="com.mycompany.miniproject.dto.WishlistDto" alias="Wishlist"/>
+		<typeAlias type="com.mycompany.miniproject.dto.SearchDto" alias="SearchDto"/>
 		
 		<typeAlias type="com.mycompany.miniproject.dto.PagerDto" alias="Pager"/>
 	</typeAliases>
