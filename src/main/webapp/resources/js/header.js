@@ -23,7 +23,7 @@ function searchTypeText() {
     }
 }
 
-function redirectToPage(paramName, paramValue) {
+/*function redirectToPage(paramName, paramValue) {
     if (paramValue) {
         // 검색 페이지 이동시 검색어를 파라미터로 전달
         window.location.href = `../search/search.html?${paramName}=${encodeURIComponent(
@@ -48,4 +48,4 @@ $(document).ready(() => {
     $(".category-span").on("click", function () {
         redirectToPage("category", $(this).data("category"));
     });
-});
+});*/
