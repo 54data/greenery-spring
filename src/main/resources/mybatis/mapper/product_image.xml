@@ -19,6 +19,6 @@
 		from product
 		join product_image
 		using(product_id)
-		where product_id = #{productId}	
+		where product_id = #{productId}
 	</select>
 </mapper>

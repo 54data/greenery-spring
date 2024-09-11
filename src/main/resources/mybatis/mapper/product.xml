@@ -49,7 +49,7 @@
 	
 	
 	<select id = "getProductDetailInfo" parameterType="int" resultType="Product">
-		select * 
+		select PRODUCT_ID,  PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_SUMMARY, PRODUCT_DETAIL_SUMMARY, CATEGORY 
 		from product
 		where product_Id = #{productId}
 	</select>
