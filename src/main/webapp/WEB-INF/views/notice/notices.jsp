@@ -13,7 +13,6 @@
 	<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>	
 	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/notices.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
 </head>
 
 <body>
