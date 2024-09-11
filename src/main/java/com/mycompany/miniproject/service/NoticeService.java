@@ -28,4 +28,8 @@ public class NoticeService {
 		NoticeDto notice = noticeDao.getNoticeById(noticeId);
 		return notice;
 	}
+
+	public void addHitcount(int noticeId) {
+		noticeDao.updateHitcountById(noticeId);
+	}
 }

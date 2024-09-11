@@ -13,7 +13,6 @@
 	<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>	
 	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/notices.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
 </head>
 
 <body>
@@ -38,7 +37,7 @@
 			<div class="notice-contents">
 				<div class="notice-contents-list">
 					<div class="notice-id">${notice.noticeId - 1999}</div>
-					<div class="notice-title"><a href="noticeContent?noticeId=${notice.noticeId}">${notice.noticeTitle}</a></div>
+					<div class="notice-title"><a href="noticeContentAddHitcount?noticeId=${notice.noticeId}">${notice.noticeTitle}</a></div>
 					<div class="notice-date"><fmt:formatDate value="${notice.noticeRegDate}" pattern="yyyy-MM-dd"/></div>
 				</div>
 				<div class="divider"></div>

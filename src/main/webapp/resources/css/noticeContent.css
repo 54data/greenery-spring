@@ -11,11 +11,7 @@
 	margin: 100px 0 20px 0;
 }
 
-.notice-content {
-	width: 100%;
-}
-
-.notice-title {
+.notice-inner-text {
 	font-size: 38px;
 	font-weight: 800;
 	margin-bottom: 1px;
@@ -23,52 +19,46 @@
 
 .divider {
 	width: 100%;
-	border: 2px solid #191919;
+	border-top: 3px solid #191919;
 }
 
-.notices-divider {
-	border: 0.2px solid rgba(0, 0, 0, 0.1); 
+.notice-content {
 	width: 100%;
-	margin-top: 25px;
 }
 
-.notices-title {
-	display: flex;
-	align-items: center;
-	margin-top: 20px;
-	margin-bottom: 12px;
+.notice-title {
+	margin: 25px 0 12px 0;
 	font-weight: 600;
-	font-size: 18px;
-}
-
-.notices-item {
-	display: flex;
-	align-items: center;
-	margin: 30px auto;
-	font-size: 18px
-}
-
-.notices-item .content {
-	margin: 0 auto;
-	margin-top: 40px;
-	margin-bottom: 80px;
-	text-align: center;
-	line-height: 300%;
-	color: #a9a9a9;	
-}
-
-.title {
 	font-size: 20px;
 }
 
-.date {
+.notice-info {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	text-align: center;
+}
+
+.notice-date-text {
 	font-size: 14px;
 	font-weight: 600;
 	margin-right: 10px;
 	margin-bottom: 2px;
 }
 
-.count {
+.notice-content-divider {
+	border-left: 1.7px solid #a9a9a9;
+	height: 13px;
+	width: 0;
+}
+
+.notice-date {
+	font-size: 14px;
+	margin-left: 10px;
+	color: #a9a9a9;	
+}
+
+.notice-hitcount-text {
 	font-size: 14px;
 	font-weight: 600;
 	margin-right: 10px;
@@ -76,32 +66,39 @@
 	margin-bottom: 2px;
 }
 
-.registrationDate {
+.notice-hitcount {
 	font-size: 14px;
-	display: flex;
 	margin-left: 10px;
 	color: #a9a9a9;	
 }
 
-.count-num {
-	font-size: 14px;
-	display: flex;
-	margin-left: 10px;
-	color: #a9a9a9;	
+.notice-divider {
+	border: 0.2px solid rgba(0, 0, 0, 0.1); 
+	width: 100%;
+	margin-top: 25px;
 }
 
-.notices-date {
-	display: flex;
-	align-items: center;
-}
-
-.pageCount {
+.notice-item {
 	display: flex;
 	align-items: center;
+	margin: 30px auto;
 }
 
-.notices-content-divider {
-	border-left: 1.7px solid #a9a9a9;
-	height: 13px;
-	width: 0;
+.notice-item .content {
+	margin: 40px auto;
+	text-align: center;
+	line-height: 300%;
+	color: #676767;	
+}
+
+.notice-list-btn {
+	width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #191919;
+    color: white;
+    border: none;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 80px;
 }

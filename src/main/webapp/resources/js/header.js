@@ -49,3 +49,7 @@ $(document).ready(() => {
         redirectToPage("category", $(this).data("category"));
     });
 });*/
+
+$(document).ready(() => {
+	searchTypeText();
+});
