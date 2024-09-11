@@ -23,4 +23,9 @@ public class NoticeService {
 		int totalRows = noticeDao.countRows();
 		return totalRows;
 	}
+
+	public NoticeDto getNoticeContent(int noticeId) {
+		NoticeDto notice = noticeDao.getNoticeById(noticeId);
+		return notice;
+	}
 }

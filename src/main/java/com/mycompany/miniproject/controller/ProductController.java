@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mycompany.miniproject.dto.ProductDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
+import com.mycompany.miniproject.dto.SearchDto;
 import com.mycompany.miniproject.service.ProductService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -56,9 +57,16 @@ public class ProductController {
 	    return "product/detailpage"; 
 	}
 	
-	@RequestMapping("/search")
-	public String search() {
+	@GetMapping("/search")
+	public String search(String category, String search, String sort, Model model) {
 		log.info("실행");
+		SearchDto searchDto = new SearchDto();
+		searchDto.setCategory(category);
+		searchDto.setSearchContent(search);
+		searchDto.setSort(sort);
+		List<ProductDto> productList = productService.getSearchProduct(searchDto);
+		model.addAttribute("searchDto", searchDto);
+		model.addAttribute("productList", productList);
 		return "product/search";
 	}
 	
