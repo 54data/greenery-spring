@@ -25,8 +25,9 @@ public class NoticeController {
 	private NoticeService noticeService;
 	
 	@GetMapping("/noticeContent")
-	public String noticeContent() {
-		log.info("실행");
+	public String noticeContent(int noticeId, Model model) {
+		NoticeDto notice = noticeService.getNoticeContent(noticeId);
+		model.addAttribute("notice", notice);
 		return "notice/noticeContent";
 	}
 	
