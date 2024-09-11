@@ -74,4 +74,24 @@
 		from product
 		where product_Id = #{productId}
 	</select>
+	
+	<select id="getRecProduct" resultType="Product">
+	<![CDATA[
+		select product_id, product_name, product_price, product_summary
+		from(
+			select rownum, product_id, product_name, product_price, product_summary
+			from product
+			order by product_stock desc)
+		where rownum<=5 ]]>
+	</select>
+
+	<select id="getNewProduct" resultType="Product">
+	<![CDATA[
+		select product_id, product_name, product_price, product_summary
+		from(
+			select rownum, product_id, product_name, product_price, product_summary
+			from product
+			order by product_reg_date desc)
+		where rownum<=5 ]]>
+	</select>
 </mapper>

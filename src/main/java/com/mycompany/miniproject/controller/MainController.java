@@ -28,9 +28,12 @@ public class MainController {
 	private ProductService productService;
 	
 	@RequestMapping("")
-	public String main() {
-
+	public String main(Model model) {
+		List<ProductDto> recProducts = productService.getRecList();
+		List<ProductDto> newProducts = productService.getNewList();
 		log.info("실행");
+		model.addAttribute("recProducts", recProducts);
+		model.addAttribute("newProducts", newProducts);
 		
 		return "main";
 	}

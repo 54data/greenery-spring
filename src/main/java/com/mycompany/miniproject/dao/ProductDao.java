@@ -16,5 +16,7 @@ public interface ProductDao {
 	public int countRows();
 	public int countSearchedProduct(SearchDto searchDto);
 	public ProductDto getProductDetailInfo(int productId);
+	public List<ProductDto> getRecProduct();
+	public List<ProductDto> getNewProduct();
 
 }

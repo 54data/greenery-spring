@@ -58,6 +58,16 @@ public class ProductService {
 		return productImages;
 	}
 
+	public List<ProductDto> getRecList() {
+		List<ProductDto> recList = productDao.getRecProduct();
+		return recList;
+	}
+
+	public List<ProductDto> getNewList() {
+		List<ProductDto> newList = productDao.getNewProduct();
+		return newList;
+	}
+
 
 
 }
