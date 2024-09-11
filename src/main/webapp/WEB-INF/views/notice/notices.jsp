@@ -13,6 +13,7 @@
 	<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>	
 	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/notices.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
 </head>
 
 <body>
@@ -21,28 +22,26 @@
 	</div>
 	<div class="notice-container">
 		<div class="notice-inner">
-			<p class="notice-title">공지사항</p>
+			<p class="notice-inner-title">공지사항</p>
 			<p class="notice-num">총 ${noticeSize}건</p>
 		</div>
 		<div class="divider"></div>
-		<div class="contents">
-			<div class="content-title">
-				<div class="num">번호</div>
-				<div class="main-title">제목</div>
-				<div class="date">작성일</div>
+		<div class="notice-contents">
+			<div class="notice-contents-title">
+				<div class="notice-id">번호</div>
+				<div class="notice-title">제목</div>
+				<div class="notice-date">작성일</div>
 			</div>
 			<div class="divider"></div>
 		</div>
 		<c:forEach items="${noticeList}" var="notice">
-			<div class="contents">
-				<div class="content">
-					<div class="notices-item">
-						<div class="noticeId">${notice.noticeId - 1999}</div>
-						<div class="title">${notice.noticeTitle}</div>
-						<div class="registrationDate"><fmt:formatDate value="${notice.noticeRegDate}" pattern="yyyy-MM-dd"/></div>
-					</div>
-					<div class="divider"></div>
+			<div class="notice-contents">
+				<div class="notice-contents-list">
+					<div class="notice-id">${notice.noticeId - 1999}</div>
+					<div class="notice-title"><a href="noticeContent?noticeId=${notice.noticeId}">${notice.noticeTitle}</a></div>
+					<div class="notice-date"><fmt:formatDate value="${notice.noticeRegDate}" pattern="yyyy-MM-dd"/></div>
 				</div>
+				<div class="divider"></div>
 			</div>
 		</c:forEach>
 		<div class="pageNum">
