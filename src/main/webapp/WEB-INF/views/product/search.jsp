@@ -9,9 +9,11 @@
 <meta charset="UTF-8">
 <title>검색 페이지</title>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/search.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/search.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
+	<link href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>
 
 </head>
 
@@ -31,13 +33,14 @@
 
 	<div class="result-info">
 		<div class="product-count">
-			<span id="product-count-text">제품</span> <span id="product-count">${searchedRows}</span>개
+			<span id="product-count-text">제품</span> <span id="product-count">${searchedRows} ${pager.totalRows}</span>개
 		</div>
 
 		<!-- 상품 정렬 -->
 		<form class="toolbar-sort" method="get" 
 			<c:if test="${searchDto == null}">action="${pageContext.request.contextPath}/product/searchProductAll"</c:if>
 			<c:if test="${searchDto != null}">action="${pageContext.request.contextPath}/product/search"</c:if>>
+			
 			<c:if test="${searchDto.category != null}">
 				<input type="hidden" name="category" value="${searchDto.category}" />
 			</c:if>
@@ -48,9 +51,9 @@
 			
 			<select class="toolbar-sort-select" name="sort" onchange="this.form.submit()">				
 				<option>정렬방법</option>
-				<option value="regDateDesc" <c:if test="${searchDto.sort == 'regDateDesc'}">selected</c:if>>신상품순</option>
-				<option value="priceAsc" <c:if test="${searchDto.sort == 'priceAsc'}">selected</c:if>>낮은 가격순</option>
-				<option value="priceDesc" <c:if test="${searchDto.sort == 'priceDesc'}">selected</c:if>>높은 가격순</option>
+				<option value="regDateDesc" <c:if test="${searchDto.sort||pager.sort == 'regDateDesc'}">selected</c:if>>신상품순</option>
+				<option value="priceAsc" <c:if test="${searchDto.sort||pager.sort  == 'priceAsc'}">selected</c:if>>낮은 가격순</option>
+				<option value="priceDesc" <c:if test="${searchDto.sort||pager.sort  == 'priceDesc'}">selected</c:if>>높은 가격순</option>
 			</select>
 		</form>
 	</div>
@@ -89,10 +92,10 @@
 			<c:forEach begin="${pager.startPageNo}" end="${pager.endPageNo}"
 				step="1" var="i">
 				<c:if test="${pager.pageNo == i}">
-					<a href="?pageNo=${i}" class="btn btn-outline-dark">${i}</a>
+					<a href="?pageNo=${i}&sort=${pager.sort}" class="btn btn-outline-dark">${i}</a>
 				</c:if>
 				<c:if test="${pager.pageNo != i}">
-					<a href="?pageNo=${i}" class="btn btn-light">${i}</a>
+					<a href="?pageNo=${i}&sort=${pager.sort}" class="btn btn-light">${i}</a>
 				</c:if>
 			</c:forEach>
 		</div>
