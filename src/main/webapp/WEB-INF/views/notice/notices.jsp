@@ -37,7 +37,7 @@
 			<div class="notice-contents">
 				<div class="notice-contents-list">
 					<div class="notice-id">${notice.noticeId - 1999}</div>
-					<div class="notice-title"><a href="noticeContent?noticeId=${notice.noticeId}">${notice.noticeTitle}</a></div>
+					<div class="notice-title"><a href="noticeContentAddHitcount?noticeId=${notice.noticeId}">${notice.noticeTitle}</a></div>
 					<div class="notice-date"><fmt:formatDate value="${notice.noticeRegDate}" pattern="yyyy-MM-dd"/></div>
 				</div>
 				<div class="divider"></div>
