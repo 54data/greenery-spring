@@ -33,7 +33,10 @@
 
 	<div class="result-info">
 		<div class="product-count">
-			<span id="product-count-text">제품</span> <span id="product-count">${searchedRows} ${pager.totalRows}</span>개
+			<span id="product-count-text">제품</span> <span id="product-count">
+				<c:if test="${searchDto == null}">${pager.totalRows}</c:if>
+				<c:if test="${searchDto != null}">${searchedRows}</c:if>
+			</span>개
 		</div>
 
 		<!-- 상품 정렬 -->
