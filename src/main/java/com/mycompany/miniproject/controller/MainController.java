@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MainController {
 	@Autowired
-	ProductService productService;
+	private ProductService productService;
 	
 	@RequestMapping("")
 	public String main(Model model,
@@ -67,4 +67,5 @@ public class MainController {
 		out.flush();
 		out.close();
 	}
+
 }

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -22,37 +25,47 @@
 
 			<!-- 이미지 사이드 쇼 -->
 			<div class="slideshow-container">
-
+				<c:forEach var="imageUrl" items="${imageUrls}">
+			        <div class="mySlides fade">
+			            <img src="${imageUrl}">
+			        </div>
+			    </c:forEach>
+			    
 				<!-- Full-width images with number and caption text -->
-				<div class="mySlides fade">
+<%--			<div class="mySlides fade">
 					<img
-						src="https://i.pinimg.com/564x/db/a1/f2/dba1f28adc32bc960e89ee4dd4ffa027.jpg"
+						src="loadMainImg?productId=${product.productId}"
 						alt="Slide 1">
 				</div>
 
 				<div class="mySlides fade">
 					<img
-						src="https://i.pinimg.com/564x/d9/d3/82/d9d3829fc798b6107ca26649c3000b13.jpg"
+						src="loadMainImg?productId=${product.productId}"
 						alt="Slide 2">
 				</div>
 
 				<div class="mySlides fade">
 					<img
-						src="https://i.pinimg.com/564x/17/71/74/177174a71afb907c30f5af5563b7375d.jpg"
+						src="loadMainImg?productId=${product.productId}"
 						alt="Slide 3">
 				</div>
-			</div>
+				
+ --%>
+
+			</div> 
+			
+
 		</div>
 
 		<div class="right">
 			<div class="title-container">
 				<p class="brand-name">브랜드 이름</p>
-				<p class="product-title">히알루론산 앰플 50ml</p>
+				<p class="product-title">${product.productName}</p>
 			</div>
 			<div class="description-container">
 				<div class="divider"></div>
-				<p class="description">우수한 수분력, 다양한 피부 타입에 적합함, 쾌적한 향기가 피부를
-					수분감있고 부드럽게 가꾸어 줍니다. 친환경 비건제품으로 예민한 피부에 적합한 제품입니다.</p>
+				<p class="description">${product.productSummary}</p><br>
+				<p class="description">${product.productDetailSummary}</p>
 				<div class="divider"></div>
 			</div>
 			<div class="product-info">
@@ -61,7 +74,7 @@
 					<span class="quantity-number" id="quantity">1</span>
 					<button onclick="increase(this)">+</button>
 				</div>
-				<span class="product-price" data-price="40000">40,000원</span>
+				<span class="product-price" data-price="40000">${product.productPrice}</span>
 			</div>
 			<div class="buttons">
 				<button onclick="saveToLocalStorage(); cart();" class="add-to-cart">장바구니</button>
@@ -83,21 +96,26 @@
 		</a>
 
 		<div class="currentSlide-container">
-			<span class="dot" onclick="currentSlide(1)"> <img
-				src="https://i.pinimg.com/564x/db/a1/f2/dba1f28adc32bc960e89ee4dd4ffa027.jpg"
+<%-- 		<span class="dot" onclick="currentSlide(1)"> <img
+				src="loadMainImg?productId=${product.productId}"
 				alt="currentSlide(1)" style="width: 25%">
 			</span> <span class="dot" onclick="currentSlide(2)"> <img
-				src="https://i.pinimg.com/564x/d9/d3/82/d9d3829fc798b6107ca26649c3000b13.jpg"
+				src="loadMainImg?productId=${product.productId}"
 				alt="currentSlide(2)" style="width: 25%">
 			</span> <span class="dot" onclick="currentSlide(3)"> <img
-				src="https://i.pinimg.com/564x/17/71/74/177174a71afb907c30f5af5563b7375d.jpg"
+				src="loadMainImg?productId=${product.productId}"
 				alt="currentSlide(3)" style="width: 25%">
-			</span>
-		</div>
-
+			</span> --%>
+			
+			<c:forEach var="imageUrl" items="${imageUrls}" varStatus="status">
+		        <span class="dot" onclick="currentSlide(${status.index + 1})">
+		            <img src="${imageUrl}" style="width: 25%">
+		        </span>
+		    </c:forEach>
 		<a class="next" onclick="plusSlides(1)"> <img
 			src="${pageContext.request.contextPath}/resources/image/right-icon.png" alt="Next" style="width: 80%">
 		</a>
+		</div>
 	</div>
 
 	<!-- 상세페이지, 리뷰페이지 -->
