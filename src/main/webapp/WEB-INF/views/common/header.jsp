@@ -49,6 +49,12 @@
 	<div class="header-category-wrap">
 		<ul class="category-wrap">
 			<li>
+				<a class="category-span" href="${pageContext.request.contextPath}/product/searchProductAll">
+					전체상품 <img src="${pageContext.request.contextPath}/resources/image/category_right_arrow.png"
+					width="5" height="10" />
+				</a>
+			</li>
+			<li>
 				<a class="category-span" href="${pageContext.request.contextPath}/product/search?category=스킨케어">
 					스킨케어 <img src="${pageContext.request.contextPath}/resources/image/category_right_arrow.png"
 					width="5" height="10" />
