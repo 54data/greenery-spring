@@ -40,7 +40,7 @@
 			</div>
 		</div>
 		<div class="notice-divider"></div>
-		<button class="notice-list-btn">목록 보기</button>
+		<button class="notice-list-btn" onclick="location.href='notices?pageNo=${pager.pageNo}'">목록 보기</button>
 	</div>
 	
 	<div id="footer">
