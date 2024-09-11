@@ -209,6 +209,7 @@
     position: relative;
     margin: 0 auto;
     width: 75%;
+    margin-top: 50px;
 }
 
 .scroll-btn-up {
@@ -233,7 +234,7 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr); /* 가로로 5개의 열 */
     gap: 20px; /* 각 상품 간격 */
-    margin: 20px auto; /* 페이지 중앙 정렬 */
+    margin: 50px auto 0px auto; /* 페이지 중앙 정렬 */
 }
 
 .product-item {
@@ -314,4 +315,12 @@
 
 #pager {
 	text-align: center;
+}
+
+h3{
+	text-align: center;
+	border-bottom: 2px solid;
+	border-color: rgba(0, 0, 0, 0.1);
+	padding-bottom: 15px;
+	margin-bottom: 30px;
 }
