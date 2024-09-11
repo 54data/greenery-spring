@@ -36,6 +36,7 @@
 	width: 100%;
 	display: flex;
 	align-items: center;
+	text-align: center;
 }
 
 .notice-date-text {
@@ -53,7 +54,6 @@
 
 .notice-date {
 	font-size: 14px;
-	display: flex;
 	margin-left: 10px;
 	color: #a9a9a9;	
 }
@@ -68,7 +68,6 @@
 
 .notice-hitcount {
 	font-size: 14px;
-	display: flex;
 	margin-left: 10px;
 	color: #a9a9a9;	
 }
@@ -83,7 +82,6 @@
 	display: flex;
 	align-items: center;
 	margin: 30px auto;
-	font-size: 18px
 }
 
 .notice-item .content {
@@ -92,5 +90,17 @@
 	margin-bottom: 80px;
 	text-align: center;
 	line-height: 300%;
-	color: #a9a9a9;	
+	color: #676767;	
+}
+
+.notice-list-btn {
+	width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #191919;
+    color: white;
+    border: none;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 80px;
 }

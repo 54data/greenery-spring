@@ -39,8 +39,10 @@
 				<div class="content">${fn:replace(notice.noticeContent, lf, "<br/>")}</div>
 			</div>
 		</div>
+		<div class="notice-divider"></div>
+		<button class="notice-list-btn">목록 보기</button>
 	</div>
-
+	
 	<div id="footer">
 		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	</div>
