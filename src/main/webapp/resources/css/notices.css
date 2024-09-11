@@ -14,12 +14,12 @@
 	width: 100%;
 }
 
-.notice-contents .divider {
-	border: 0.2px solid rgba(0, 0, 0, 0.1);
-}
-
 .notice-contents {
 	width: 100%;
+}
+
+.notice-contents .divider {
+	border: 0.2px solid rgba(0, 0, 0, 0.1);
 }
 
 .notice-contents-title {
@@ -27,7 +27,7 @@
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	height: 50px;
+	height: 60px;
 }
 
 .notice-contents-title div {
@@ -55,6 +55,14 @@
 	font-size: 16px;
 }
 
+.notice-contents-list .notice-date {
+	color: #a9a9a9;
+}
+
+.notice-contents-list div {
+	font-size: 16px;
+}
+
 .notice-inner-title {
 	font-size: 38px;
 	font-weight: 800;
@@ -69,83 +77,14 @@
 }
 
 .divider {
-	display: flex;
-	justify-content: space-between;
 	width: 100%;
 	border-top: 3px solid #191919;
-	margin: 0 auto;
 }
 
 .notice-contents .divider,
 .notice-contents-title .divider {
 	border: 0.2px solid rgba(0, 0, 0, 0.1);
 	width: 100%;
-	margin: 0 auto;
-}
-
-.content-title {
-	display: flex;
-	align-items: center;
-	margin-top: 2px;
-	margin-bottom: 2px;
-	font-weight: 600;
-	font-size: 18px;
-}
-
-.content-title .main-title {
-	margin-left: 215px
-}
-
-.content-title .num {
-	margin-left: 165px
-}
-
-.content-title .date {
-	margin-right: 160px;
-}
-
-.content-title div {
-	margin: 20px auto;
-}
-
-.contents {
-	display: flex;
-	flex-direction: column;
-	margin: auto;
-	width: 75%;
-	font-weight: 500;
-	text-align: left;
-}
-
-.notices-item {
-	display: flex;
-	align-items: center;
-	margin: 30px auto;
-	font-size: 15px
-}
-
-.notices-item .title {
-	cursor: pointer;
-}
-
-
-.title {
-	display: flex;
-	justify-content: center;
-	flex: 1.2;
-}
-
-.noticeId {
-	display: flex;
-	justify-content: center;
-	flex: 0.8;
-}
-
-.registrationDate {
-	display: flex;
-	justify-content: center;
-	flex: 0.8;
-	color: #a9a9a9;
 }
 
 .pageNum {
