@@ -21,4 +21,10 @@
 		select count(*)
 		from notice
 	</select>
+	
+	<select id="getNoticeById" resultType="Notice" parameterType="int">
+		select notice_title, notice_reg_date, notice_hitcount, notice_content
+		from notice
+		where notice_id = #{noticeId}
+	</select>
 </mapper>
