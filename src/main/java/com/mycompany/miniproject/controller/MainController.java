@@ -28,24 +28,8 @@ public class MainController {
 	private ProductService productService;
 	
 	@RequestMapping("")
-	public String main(Model model,
-				@RequestParam(defaultValue="1")int pageNo,
-				HttpSession session, String category) {
-		
-		int totalRows = productService.getTotalRows();
-		PagerDto pager = new PagerDto(15, 5, totalRows, pageNo);
-		session.setAttribute("pager", pager);
-		
-		List<ProductDto> productList;
-				if(category == null) {
-					productList = productService.getProducts(pager);
-				}else {
-					SearchDto searchDto = new SearchDto();
-					searchDto.setCategory(category);
-					productList = productService.getSearchProduct(searchDto);
-					model.addAttribute("category", category);
-				};
-		model.addAttribute("productList", productList);
+	public String main() {
+
 		log.info("실행");
 		
 		return "main";
