@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mycompany.miniproject.dto.PagerDto;
 import com.mycompany.miniproject.dto.ProductDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
 import com.mycompany.miniproject.dto.SearchDto;
@@ -65,8 +67,28 @@ public class ProductController {
 		searchDto.setSearchContent(search);
 		searchDto.setSort(sort);
 		List<ProductDto> productList = productService.getSearchProduct(searchDto);
+		int searchedRows = productService.getSearchedRows(searchDto);
+		model.addAttribute("searchedRows", searchedRows);
 		model.addAttribute("searchDto", searchDto);
 		model.addAttribute("productList", productList);
+		return "product/search";
+	}
+	
+	@GetMapping("/searchProductAll")
+	public String searchProductAll(Model model,
+				@RequestParam(defaultValue="1")int pageNo,
+				HttpSession session, String sort) {
+		
+		int totalRows = productService.getTotalRows();
+		PagerDto pager = new PagerDto(15, 5, totalRows, pageNo, sort);
+		session.setAttribute("pager", pager);
+		
+		List<ProductDto> productList;
+		productList = productService.getProducts(pager);
+				
+		model.addAttribute("productList", productList);
+		log.info("실행");
+		
 		return "product/search";
 	}
 	

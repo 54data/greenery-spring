@@ -32,6 +32,11 @@ public class ProductService {
 		List<ProductDto> products = productDao.getSearchProduct(searchDto);
 		return products;
 	}
+	
+	public int getSearchedRows(SearchDto searchDto) {
+		int searchedRows = productDao.countSearchedProduct(searchDto);
+		return searchedRows;
+	}
 
 	public ProductImageDto getMainImg(int productId) {
 		ProductImageDto productImage = productImageDao.selectImgByProductId(productId);

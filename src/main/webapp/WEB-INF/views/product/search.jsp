@@ -31,11 +31,13 @@
 
 	<div class="result-info">
 		<div class="product-count">
-			<span id="product-count-text">제품</span> <span id="product-count">13</span>개
+			<span id="product-count-text">제품</span> <span id="product-count">${searchedRows}</span>개
 		</div>
 
 		<!-- 상품 정렬 -->
-		<form class="toolbar-sort" method="get" action="${pageContext.request.contextPath}/product/search">
+		<form class="toolbar-sort" method="get" 
+			<c:if test="${searchDto == null}">action="${pageContext.request.contextPath}/product/searchProductAll"</c:if>
+			<c:if test="${searchDto != null}">action="${pageContext.request.contextPath}/product/search"</c:if>>
 			<c:if test="${searchDto.category != null}">
 				<input type="hidden" name="category" value="${searchDto.category}" />
 			</c:if>
@@ -81,6 +83,20 @@
 		</div>
 		<button class="scroll-btn-up" onclick="scrollToTop()"></button>
 	</div>
+	
+	<c:if test="${searchDto == null}">
+		<div id="pager">
+			<c:forEach begin="${pager.startPageNo}" end="${pager.endPageNo}"
+				step="1" var="i">
+				<c:if test="${pager.pageNo == i}">
+					<a href="?pageNo=${i}" class="btn btn-outline-dark">${i}</a>
+				</c:if>
+				<c:if test="${pager.pageNo != i}">
+					<a href="?pageNo=${i}" class="btn btn-light">${i}</a>
+				</c:if>
+			</c:forEach>
+		</div>
+	</c:if>
 
 	<div id="footer">
 		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
