@@ -21,28 +21,22 @@
 
 	<div class="notice-container">
 		<div class="notice-inner">
-			<p class="notice-title">공지사항</p>
+			<p class="notice-inner-text">공지사항</p>
 		</div>
 		<div class="divider"></div>
 		<div class="notice-content">
-			<div class="notices-title">
-				<div class="title">${notice.noticeTitle}</div>
+			<div class="notice-title">${notice.noticeTitle}</div>
+			<div class="notice-info">
+				<div class="notice-date-text">작성일</div>
+				<div class="notice-content-divider"></div>
+       			<div class="notice-date"><fmt:formatDate value="${notice.noticeRegDate}" pattern="yyyy-MM-dd"/></div>
+				<div class="notice-hitcount-text">조회</div>
+				<div class="notice-content-divider"></div>
+				<div class="notice-hitcount">${notice.noticeHitcount}</div>
 			</div>
-			<div class="notices-date">
-				<div class="date">작성일</div>
-				<div class="notices-content-divider"></div>
-       			<div class="registrationDate"><fmt:formatDate value="${notice.noticeRegDate}" pattern="yyyy-MM-dd"/></div>
-				<div class="count">조회</div>
-				<div class="notices-content-divider"></div>
-				<div class="count-num">${notice.noticeHitcount}</div>
-			</div>
-			<div class="notices-divider">
-				<div class="divider-bottom"></div>
-			</div>
-			<div class="notices-item">
-				<div class="content">
-					${fn:replace(notice.noticeContent, lf, "<br/>")}
-				</div>
+			<div class="notice-divider"></div>
+			<div class="notice-item">
+				<div class="content">${fn:replace(notice.noticeContent, lf, "<br/>")}</div>
 			</div>
 		</div>
 	</div>
