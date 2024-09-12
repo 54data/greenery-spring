@@ -35,12 +35,22 @@
 					<span class="header-nav-text">로그아웃</span>
 			</button>
 		</sec:authorize>
-		<button class="header-mypage"
-			onclick="location.href='${pageContext.request.contextPath}/mypage/mypage'">
-			<img
-				src="${pageContext.request.contextPath}/resources/image/mypage_icon.png"
-				class="header-nav-icon" /> <span class="header-nav-text">마이페이지</span>
-		</button>
+		<sec:authorize access="!hasRole('ROLE_admin')">
+			<button class="header-mypage"
+				onclick="location.href='${pageContext.request.contextPath}/mypage/mypage'">
+				<img
+					src="${pageContext.request.contextPath}/resources/image/mypage_icon.png"
+					class="header-nav-icon" /> <span class="header-nav-text">마이페이지</span>
+			</button>
+		</sec:authorize>
+		<sec:authorize access="hasRole('ROLE_admin')">
+			<button class="header-mypage"
+				onclick="location.href='${pageContext.request.contextPath}/admin/mainadmin'">
+				<img
+					src="${pageContext.request.contextPath}/resources/image/mypage_icon.png"
+					class="header-nav-icon" /> <span class="header-nav-text">관리자페이지</span>
+			</button>
+		</sec:authorize>
 		<button class="header-cart"
 			onclick="location.href='${pageContext.request.contextPath}/order/basket'">
 			<img
