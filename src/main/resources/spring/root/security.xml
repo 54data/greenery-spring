@@ -41,7 +41,7 @@
 	</security:authentication-manager>
 	
 	<bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
-		<property name="userDetailsService" ref="usersDetailService"/>
+		<property name="userDetailsService" ref="usersDetailsService"/>
 		<property name="authoritiesMapper" ref="roleHierarchyAuthoritiesMapper"/>
 	</bean>
 	
