@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import com.mycompany.miniproject.dao.ProductDao;
 import com.mycompany.miniproject.dao.ProductImageDao;
 import com.mycompany.miniproject.dto.PagerDto;
+import com.mycompany.miniproject.dto.ProductAddDto;
 import com.mycompany.miniproject.dto.ProductDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
+import com.mycompany.miniproject.dto.ProductImgDto;
 import com.mycompany.miniproject.dto.SearchDto;
 
 import lombok.extern.slf4j.Slf4j;
@@ -66,6 +68,19 @@ public class ProductService {
 	public List<ProductDto> getNewList() {
 		List<ProductDto> newList = productDao.getNewProduct();
 		return newList;
+	}
+
+	public void insertProduct(ProductAddDto prdAddDto) {
+		productDao.insertProduct(prdAddDto);
+	}
+
+	public void insertProductImg(ProductImgDto imgDto) {
+		productDao.insetProductImg(imgDto);
+	}
+
+	public int getProductIdByName(String productName) {
+		int productId = productDao.getProductIdByName(productName);
+		return productId;
 	}
 
 

@@ -5,7 +5,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.mycompany.miniproject.dto.PagerDto;
+import com.mycompany.miniproject.dto.ProductAddDto;
 import com.mycompany.miniproject.dto.ProductDto;
+import com.mycompany.miniproject.dto.ProductImgDto;
 import com.mycompany.miniproject.dto.SearchDto;
 
 @Mapper
@@ -18,5 +20,8 @@ public interface ProductDao {
 	public ProductDto getProductDetailInfo(int productId);
 	public List<ProductDto> getRecProduct();
 	public List<ProductDto> getNewProduct();
+	public int insertProduct(ProductAddDto prdAddDto);
+	public int getProductIdByName(String productName);
+	public int insetProductImg(ProductImgDto imgDto);
 
 }
