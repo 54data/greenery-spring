@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,62 +37,21 @@
 			<div class="item5">판매가</div>
 			<div class="item6">수정 / 삭제</div>
 		</div>
-
-		<div class="list-container">
-			<div class="list1">2024-07-21</div>
-			<div class="list2">
-				<img src="${pageContext.request.contextPath}/resources/image/productImages/5.png">
+		<c:forEach items="${productList}" var="product">
+			<div class="list-container">
+				<div class="list1">왜안나와</div>
+				<div class="list2">
+					<img src="#">
+				</div>
+				<div class="list3">${product.productName}</div>
+				<div class="list4">${product.productStock}</div>
+				<div class="list5"><fmt:formatNumber>${product.productPrice}</fmt:formatNumber>원</div>
+				<div class="list6">
+					<a href="${pageContext.request.contextPath}/admin/updateProduct?productId=${product.productId}" class=" btn btn1">수정</a>
+					<a href="${pageContext.request.contextPath}/admin/deleteProduct?productId=${product.productId}" class=" btn btn2">삭제</a>
+				</div>
 			</div>
-			<div class="list3">아렌시아</div>
-			<div class="list4">999</div>
-			<div class="list5">30,000원</div>
-			<div class="list6">
-				<button class="btn1">수정</button>
-				<button class="btn2">삭제</button>
-			</div>
-		</div>
-
-		<div class="list-container">
-			<div class="list1">2024-07-21</div>
-			<div class="list2">
-				<img src="${pageContext.request.contextPath}/resources/image/productImages/6.png">
-			</div>
-			<div class="list3">아렌시아</div>
-			<div class="list4">999</div>
-			<div class="list5">30,000원</div>
-			<div class="list6">
-				<button class="btn1">수정</button>
-				<button class="btn2">삭제</button>
-			</div>
-		</div>
-
-		<div class="list-container">
-			<div class="list1">2024-07-21</div>
-			<div class="list2">
-				<img src="${pageContext.request.contextPath}/resources/image/productImages/7.png">
-			</div>
-			<div class="list3">아렌시아</div>
-			<div class="list4">999</div>
-			<div class="list5">30,000원</div>
-			<div class="list6">
-				<button class="btn1">수정</button>
-				<button class="btn2">삭제</button>
-			</div>
-		</div>
-
-		<div class="list-container">
-			<div class="list1">2024-07-21</div>
-			<div class="list2">
-				<img src="${pageContext.request.contextPath}/resources/image/productImages/8.png">
-			</div>
-			<div class="list3">아렌시아</div>
-			<div class="list4">999</div>
-			<div class="list5">30,000원</div>
-			<div class="list6">
-				<button class="btn1">수정</button>
-				<button class="btn2">삭제</button>
-			</div>
-		</div>
+		</c:forEach>
 
 	</div>
 

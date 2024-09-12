@@ -86,4 +86,9 @@ public class ProductService {
 		ProductImageDto productImage = productImageDao.getImgByProductImgId(productImgId);
 		return productImage;
 	}
+
+	public void deleteProduct(int productId) {
+		productDao.deleteProductImage(productId);
+		productDao.deleteProduct(productId);
+	}
 }
