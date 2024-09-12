@@ -71,11 +71,21 @@
    			<param-value>UTF-8</param-value>
    		</init-param>
    	</filter>
-   	<!-- 브라우저야(클라이언트)가 요청하는 모든 URL에 대해서 CharacterEncodingFilter가 동작하도록 설정 -->
+   	<!-- 브라우저(클라이언트)가 요청하는 모든 URL에 대해서 CharacterEncodingFilter가 동작하도록 설정 -->
    	<filter-mapping>
    		<filter-name>characterEncodingFilter</filter-name>
    		<url-pattern>/*</url-pattern>
    	</filter-mapping>
-   
+   	
+	<!-- Spring Security 구동을 위한 필터 등록 -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
    <!--  ============================================================= -->
 </web-app>
