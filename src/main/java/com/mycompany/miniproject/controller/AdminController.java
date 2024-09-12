@@ -1,7 +1,6 @@
 package com.mycompany.miniproject.controller;
 
-import java.util.Map;
-import java.util.Map.Entry;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,8 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mycompany.miniproject.dto.NoticeDto;
 import com.mycompany.miniproject.dto.ProductAddDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
+import com.mycompany.miniproject.service.NoticeService;
 import com.mycompany.miniproject.service.ProductService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AdminController {
 	@Autowired
-	ProductService productService;
+	private ProductService productService;
+	
+	@Autowired
+	private NoticeService noticeService;
 	
 	@RequestMapping("/mainadmin")
 	public String mainAdmin() {
@@ -84,5 +88,16 @@ public class AdminController {
 		imgDto.setProductImg(mf.getBytes());
 		imgDto.setProductImgType(mf.getContentType());
 		productService.insertProductImg(imgDto);
+	}
+	
+	@PostMapping("/addNotice") 
+	public String addNotice(NoticeDto noticeForm, HttpSession session) {
+		NoticeDto notice = new NoticeDto();
+		notice.setNoticeWriter("greenery_admin");
+		notice.setNoticeTitle(noticeForm.getNoticeTitle());
+		notice.setNoticeContent(noticeForm.getNoticeContent());
+		notice.setNoticeHitcount(0);
+		noticeService.addNoticeContent(notice);
+		return "redirect:/admin/mainadmin";
 	}
 }

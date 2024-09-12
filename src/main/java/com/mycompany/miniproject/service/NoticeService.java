@@ -32,4 +32,8 @@ public class NoticeService {
 	public void addHitcount(int noticeId) {
 		noticeDao.updateHitcountById(noticeId);
 	}
+
+	public void addNoticeContent(NoticeDto notice) {
+		noticeDao.insert(notice);
+	}
 }
