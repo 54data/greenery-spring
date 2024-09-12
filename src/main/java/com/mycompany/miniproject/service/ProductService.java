@@ -42,16 +42,23 @@ public class ProductService {
 		int totalRows = productDao.countRows();
 		return totalRows;
 	}
-
+	
 	public ProductDto getProductDetail(int productId) {
 		ProductDto product = productDao.getProductDetailInfo(productId);
 		return product;
 	}
-
-	public List<ProductImageDto> getProductImgs(int productId) {
+	
+	public ProductImageDto getImgByProductId(int productImgId) {
+		ProductImageDto productImage = productImageDao.getImgByProductId(productImgId);
+		return productImage;
+	}
+	
+	public List<ProductImageDto> getImgsByProductId(int productId) {
 		List<ProductImageDto> productImages = productImageDao.getImgsByProductId(productId);
 		return productImages;
 	}
+	
+	
 
 
 

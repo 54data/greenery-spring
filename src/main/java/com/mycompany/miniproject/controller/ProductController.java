@@ -2,7 +2,9 @@ package com.mycompany.miniproject.controller;
 
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -37,26 +39,33 @@ public class ProductController {
     public String showReviewsSelect() {
         return "product/reviews-select";
     }
-    
+        
 	@RequestMapping("/detailpage")
 	public String detailpage(@RequestParam int productId, Model model) throws Exception  {
-	    ProductDto product = productService.getProductDetail(productId);  
-	    List<ProductImageDto> productImages = productService.getProductImgs(productId);
-	    
-	    List<String> imageUrls = new ArrayList<>();
-	    
-	    
-	    for(ProductImageDto productImage : productImages) {
-	    	String imageUrl = "loadImg?productId=" + productId + "&product_img_usage=" + productImage.getProductImgUsage();
-	    	imageUrls.add(imageUrl);
-	    }
+		ProductDto product = productService.getProductDetail(productId);
+	    List<ProductImageDto> productImages = productService.getImgsByProductId(productId);
 	    
 	    model.addAttribute("product", product);
-	    model.addAttribute("imageUrls", imageUrls);
+	    model.addAttribute("productImages", productImages);  
 	    
 	    return "product/detailpage"; 
 	}
 	
+	@GetMapping("/loadProductImage")
+    public void loadProductImage(int productImgId, HttpServletResponse response) throws Exception {
+		ProductImageDto productImage = productService.getImgByProductId(productImgId);
+		
+		Map<Integer, byte[]> map = new HashMap<>();
+		
+		map.put(productImgId, productImage.getProductImg());
+		
+		OutputStream out = response.getOutputStream();
+        out.write(map.get(productImgId));
+        out.flush(); 
+        out.close();
+               
+    }
+
 	@GetMapping("/search")
 	public String search(String category, String search, String sort, Model model) {
 		log.info("실행");
@@ -69,50 +78,7 @@ public class ProductController {
 		model.addAttribute("productList", productList);
 		return "product/search";
 	}
-	
-	@GetMapping("loadImg")
-	public void loadImg(int productId, String product_img_usage, HttpServletResponse response) throws Exception {
-		
-		List<ProductImageDto> productImages = productService.getProductImgs(productId);
-		
-		
-		for (ProductImageDto productImage : productImages) {
-			String fileUsage = productImage.getProductImgUsage();
-				        
-	        if(!fileUsage.equals(product_img_usage)) {
-	        	String contentType = productImage.getProductImgType();
-		        response.setContentType(contentType);
-	        		       
-	        	
-	        	String fileName = productImage.getProductImgName();
-		        String encodingFileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
-		        response.setHeader("Content-Disposition", "inline; filename=\"" + encodingFileName + "\"");
 
-		        OutputStream out = response.getOutputStream();
-		        out.write(productImage.getProductImg());
-		        out.flush();
-		        out.close();
-	        }
-	        
-	    }
-	}
-
-	@GetMapping("loadMainImg")
-	public void loadMainImg(int productId, HttpServletResponse response) throws Exception {
-		ProductImageDto productImage = productService.getMainImg(productId);
-		
-		String contentType = productImage.getProductImgType();
-		response.setContentType(contentType);
-		
-		String fileName = productImage.getProductImgName();
-		String encodingFileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
-		response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingFileName + "\"");		
-
-		OutputStream out = response.getOutputStream();
-		out.write(productImage.getProductImg());
-		out.flush();
-		out.close();
-	}
 	
 
 }

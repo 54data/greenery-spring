@@ -19,52 +19,52 @@
 	<div id="header">
 		<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	</div>
-
+	<c:forEach var="map", items="${map.entrySet()}">
+		<img src="loadProductImage?productImgId=${map.getKey()}&productImgUsage=${map.getValue()}">
+	</c:forEach>
+	
 	<div class="container">
-		<div class="left">
+<!-- 		<div class="left"> -->
 
-			<!-- 이미지 사이드 쇼 -->
-			<div class="slideshow-container">
-				<c:forEach var="imageUrl" items="${imageUrls}">
-			        <div class="mySlides fade">
-			            <img src="${imageUrl}">
-			        </div>
-			    </c:forEach>
-			    
-				<!-- Full-width images with number and caption text -->
-<%--			<div class="mySlides fade">
-					<img
-						src="loadMainImg?productId=${product.productId}"
-						alt="Slide 1">
-				</div>
+<!-- 			<!-- 이미지 사이드 쇼 --> -->
+<!-- 			<div class="slideshow-container"> -->
+<%-- 				<c:forEach var="productImage" items="${productImages}"> --%>
+<!-- 				   <div class="mySlides fade"> -->
+<%-- 				       <img src="loadProductImage?productId=${product.productId}&usage=detail"> --%>
+<!-- 				    </div> -->
+<%-- 				 </c:forEach>  --%>
 
-				<div class="mySlides fade">
-					<img
-						src="loadMainImg?productId=${product.productId}"
-						alt="Slide 2">
-				</div>
-
-				<div class="mySlides fade">
-					<img
-						src="loadMainImg?productId=${product.productId}"
-						alt="Slide 3">
-				</div>
+<!-- 				Full-width images with number and caption text -->
 				
- --%>
+<%-- <%-- 				<div class="mySlides fade"> --%>
+<%-- 					<img --%>
+<%-- 						src="loadMainImg?productId=${product.productId}?" --%>
+<%-- 						alt="Slide 1"> --%>
+<%-- 				</div> --%>
 
-			</div> 
+<%-- 				<div class="mySlides fade"> --%>
+<%-- 					<img --%>
+<%-- 						src="loadSub1Image?productId=${product.productId}" --%>
+<%-- 						alt="Slide 2"> --%>
+<%-- 				</div> --%>
+
+<%-- 				<div class="mySlides fade"> --%>
+<%-- 					<img --%>
+<%-- 						src="loadSub2Image?productId=${product.productId}" --%>
+<%-- 						alt="Slide 3"> --%>
+<%-- 				</div> --%> --%>
+
+<!-- 			</div>  -->
 			
-
-		</div>
+<!-- 		</div> -->
 
 		<div class="right">
 			<div class="title-container">
-				<p class="brand-name">브랜드 이름</p>
+				<p class="brand-name">${product.category}</p>
 				<p class="product-title">${product.productName}</p>
 			</div>
 			<div class="description-container">
 				<div class="divider"></div>
-				<p class="description">${product.productSummary}</p><br>
 				<p class="description">${product.productDetailSummary}</p>
 				<div class="divider"></div>
 			</div>
@@ -96,22 +96,25 @@
 		</a>
 
 		<div class="currentSlide-container">
-<%-- 		<span class="dot" onclick="currentSlide(1)"> <img
+ 		<span class="dot" onclick="currentSlide(1)"> <img
 				src="loadMainImg?productId=${product.productId}"
 				alt="currentSlide(1)" style="width: 25%">
 			</span> <span class="dot" onclick="currentSlide(2)"> <img
-				src="loadMainImg?productId=${product.productId}"
+				src="loadSub1Image?productId=${product.productId}"
 				alt="currentSlide(2)" style="width: 25%">
 			</span> <span class="dot" onclick="currentSlide(3)"> <img
-				src="loadMainImg?productId=${product.productId}"
+				src="loadSub2Image?productId=${product.productId}"
 				alt="currentSlide(3)" style="width: 25%">
-			</span> --%>
+			</span> 
+			<%--<div style="height: 80px">
+				<c:forEach var="productImage" items="${productImages}" varStatus="status">
+			        <span class="dot" onclick="currentSlide(${status.index + 1})">
+			            <img src="loadProductImage?productId=${product.productId}" alt="Thumbnail ${status.index + 1}" style="width: 25%">
+			        </span>
+			    </c:forEach>
+			</div> --%>
 			
-			<c:forEach var="imageUrl" items="${imageUrls}" varStatus="status">
-		        <span class="dot" onclick="currentSlide(${status.index + 1})">
-		            <img src="${imageUrl}" style="width: 25%">
-		        </span>
-		    </c:forEach>
+			
 		<a class="next" onclick="plusSlides(1)"> <img
 			src="${pageContext.request.contextPath}/resources/image/right-icon.png" alt="Next" style="width: 80%">
 		</a>

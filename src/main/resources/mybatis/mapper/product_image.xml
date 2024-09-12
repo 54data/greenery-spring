@@ -12,7 +12,7 @@
 		and product_img_usage = 'main'
 	</select>
 
-	<select id="getImgsByProductId"  parameterType="int"  resultType="ProductImage">
+	<select id="getImgsByProductId" resultType="ProductImage">
 		select
 			product_img_id, product_id, product_img_name, 
 			product_img_type, product_img, product_img_usage
@@ -21,4 +21,15 @@
 		using(product_id)
 		where product_id = #{productId}
 	</select>
+
+	<select id="getImgByProductId" resultType="ProductImage">
+		select
+			product_img_id, product_id, product_img_name, 
+			product_img_type, product_img, product_img_usage
+		from product
+		join product_image
+		using(product_id)
+		where product_id = #{productId}
+	</select>	
+	
 </mapper>
