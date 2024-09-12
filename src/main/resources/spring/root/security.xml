@@ -12,7 +12,7 @@
 	<security:http>
 		<!-- 폼 인증 방식 선택 -->
 		<security:form-login 
-			login-page="/ch17/loginForm"
+			login-page="/account/loginForm"
 			username-parameter="userId"
 			password-parameter="userPwd"
 			login-processing-url="/login"
@@ -32,8 +32,8 @@
 	<!-- @Secured를 사용하기 위한 설정 -->
 	<security:global-method-security secured-annotations="enabled"/>
 	
-	<bean id="loginAuthenticationSuccessHandler" class="com.mycompany.miniproject.security.LoginAuthenticationFailureHandler"></bean>
-	<bean id="loginAuthenticationFailureHandler" class="com.mycompany.miniproject.security.LoginAuthenticationSuccessHandler"></bean>
+	<bean id="loginAuthenticationSuccessHandler" class="com.mycompany.miniproject.security.LoginAuthenticationSuccessHandler"></bean>
+	<bean id="loginAuthenticationFailureHandler" class="com.mycompany.miniproject.security.LoginAuthenticationFailureHandler"></bean>
 	<bean id="logoutSuccessHandler" class="com.mycompany.miniproject.security.LogoutSuccessHandler"></bean>
 	
 	<security:authentication-manager>
