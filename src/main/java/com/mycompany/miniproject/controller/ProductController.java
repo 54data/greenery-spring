@@ -1,8 +1,10 @@
 package com.mycompany.miniproject.controller;
 
+import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -40,23 +42,30 @@ public class ProductController {
         return "product/reviews-select";
     }
     
-	@RequestMapping("/detailpage")
-	public String detailpage(@RequestParam int productId, Model model) throws Exception  {
-	    ProductDto product = productService.getProductDetail(productId);  
-	    List<ProductImageDto> productImages = productService.getProductImgs(productId);
-	    
-	    List<String> imageUrls = new ArrayList<>();
-	    
-	    
-	    for(ProductImageDto productImage : productImages) {
-	    	String imageUrl = "loadImg?productId=" + productId + "&product_img_usage=" + productImage.getProductImgUsage();
-	    	imageUrls.add(imageUrl);
-	    }
-	    
-	    model.addAttribute("product", product);
-	    model.addAttribute("imageUrls", imageUrls);
-	    
-	    return "product/detailpage"; 
+	@GetMapping("/detailpage")
+	public String detailpage(int productId, Model model) {
+		ProductDto product = productService.getProductDetail(productId);
+		model.addAttribute("product", product);
+		
+		List<ProductImageDto> productImages = productService.getProductImgs(productId);
+		Map<Integer, String> map = new HashMap<>();
+		
+		for (ProductImageDto productImage: productImages) {
+			map.put(productImage.getProductImgId(), productImage.getProductImgUsage());
+		}
+		
+		model.addAttribute("map", map);
+		return "product/detailpage";
+	}
+	
+	@GetMapping("/loadProductImgs")
+	public void loadProductImgs(int productImgId, String productImgUsage, HttpServletResponse response) throws IOException {
+		ProductImageDto productImage = productService.getProductImg(productImgId);
+
+		OutputStream out = response.getOutputStream();
+		out.write(productImage.getProductImg());
+		out.flush();
+		out.close();		
 	}
 	
 	@GetMapping("/search")
@@ -97,7 +106,6 @@ public class ProductController {
 		
 		List<ProductImageDto> productImages = productService.getProductImgs(productId);
 		
-		
 		for (ProductImageDto productImage : productImages) {
 			String fileUsage = productImage.getProductImgUsage();
 				        
@@ -105,7 +113,6 @@ public class ProductController {
 	        	String contentType = productImage.getProductImgType();
 		        response.setContentType(contentType);
 	        		       
-	        	
 	        	String fileName = productImage.getProductImgName();
 		        String encodingFileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
 		        response.setHeader("Content-Disposition", "inline; filename=\"" + encodingFileName + "\"");
@@ -115,7 +122,6 @@ public class ProductController {
 		        out.flush();
 		        out.close();
 	        }
-	        
 	    }
 	}
 
@@ -135,6 +141,4 @@ public class ProductController {
 		out.flush();
 		out.close();
 	}
-	
-
 }

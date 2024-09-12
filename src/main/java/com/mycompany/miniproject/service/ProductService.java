@@ -67,7 +67,9 @@ public class ProductService {
 		List<ProductDto> newList = productDao.getNewProduct();
 		return newList;
 	}
-
-
-
+	
+	public ProductImageDto getProductImg(int productImgId) {
+		ProductImageDto productImage = productImageDao.getImgByProductImgId(productImgId);
+		return productImage;
+	}
 }

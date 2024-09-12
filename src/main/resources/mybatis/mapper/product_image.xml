@@ -21,4 +21,10 @@
 		using(product_id)
 		where product_id = #{productId}
 	</select>
+	
+	<select id="getImgByProductImgId" parameterType="int"  resultType="ProductImage">
+		select product_img_id, product_img
+		from product_image
+		where product_img_id = #{productImgId}
+	</select>
 </mapper>
