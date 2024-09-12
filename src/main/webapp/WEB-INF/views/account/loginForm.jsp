@@ -12,6 +12,8 @@
 	<link href="${pageContext.request.contextPath}/resources/css/login.css" rel="stylesheet" type="text/css"/>
 	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 </head>
 
 <body>
@@ -26,9 +28,6 @@
 
 	<div class="container-form1">
 		<div class="container-form2">
-    		<c:if test="${SPRING_SECURITY_LAST_EXCEPTION.message == 'Bad credentials'}">
-    			아이디 또는 비밀번호가 틀립니다.
-    		</c:if>
 			<form method="post" action="${pageContext.request.contextPath}/login">
 				<input id="inputId" class="input-idpassword" type="text"
 					name="userId" placeholder="아이디 입력" required><br>
@@ -49,6 +48,18 @@
 <!-- 				<input id="checkBox" type="checkbox"> -->
 <!-- 				<div>관리자로그인</div> -->
 <!-- 			</div> -->
+		    <c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null}">
+   			    <c:if test="${SPRING_SECURITY_LAST_EXCEPTION.message == 'Bad credentials'}">
+			        <script>
+				        Swal.fire({
+				            icon: 'error',
+				            title: '아이디 또는 비밀번호가 틀립니다.',
+				            text: '다시 시도해주세요.'
+				        });
+			        </script>
+			        <c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session" />
+			    </c:if>
+		    </c:if>   
 		</div>
 	</div>
 
