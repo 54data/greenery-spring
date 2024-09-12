@@ -74,7 +74,7 @@ public class ProductService {
 	}
 
 	public void insertProductImg(ProductImageDto imgDto) {
-		productDao.insetProductImg(imgDto);
+		productDao.insertProductImg(imgDto);
 	}
 
 	public int getProductIdByName(String productName) {
@@ -82,9 +82,6 @@ public class ProductService {
 		return productId;
 	}
 
-
-
-	
 	public ProductImageDto getProductImg(int productImgId) {
 		ProductImageDto productImage = productImageDao.getImgByProductImgId(productImgId);
 		return productImage;

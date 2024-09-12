@@ -107,14 +107,14 @@
 	
 	<select id="getProductIdByName" parameterType="String" resultType="int">
 		select product_id
-		form product
+		from product
 		where product_name = #{productName}
 	</select>
 	
-	<insert id="insetProductImg" parameterType="ProductImgDto">
-		inset into product_img(
-			product_img_id, product_img_name, product_img_type, product_img, product_img_usage )
+	<insert id="insertProductImg" parameterType="ProductImage">
+		insert into product_image(
+			product_img_id, product_Id, product_img_name, product_img_type, product_img, product_img_usage )
 		values (
-			product_img_seq.nextval, #{productImgName}, #{productImgType}, #{productImg}, #{productImgUsage} )
+			product_img_seq.nextval, #{productId}, #{productImgName}, #{productImgType}, #{productImg}, #{productImgUsage} )
 	</insert>
 </mapper>

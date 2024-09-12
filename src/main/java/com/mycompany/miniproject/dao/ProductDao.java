@@ -22,6 +22,6 @@ public interface ProductDao {
 	public List<ProductDto> getNewProduct();
 	public int insertProduct(ProductAddDto prdAddDto);
 	public int getProductIdByName(String productName);
-	public int insetProductImg(ProductImageDto imgDto);
+	public int insertProductImg(ProductImageDto imgDto);
 
 }

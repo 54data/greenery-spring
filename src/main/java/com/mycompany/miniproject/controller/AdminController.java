@@ -1,5 +1,8 @@
 package com.mycompany.miniproject.controller;
 
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,19 +58,31 @@ public class AdminController {
 		productService.insertProduct(prdAddDto);
 		int productId = productService.getProductIdByName(prdAddDto.getProductName());
 		
-		for(int i=1; i<=5; i++) {
-			ProductImageDto imgDto = new ProductImageDto();
-			MultipartFile mf = prdAddDto.getProductMainImage();
-			imgDto.setProductId(productId);
-			imgDto.setProductImgName(prdAddDto.getCategory() + "_" + productId + "_main");
-			imgDto.setProductImg(mf.getBytes());
-			imgDto.setProductImgType(mf.getContentType());
-			imgDto.setProductImgUsage("main");
-			
-			productService.insertProductImg(imgDto);
+		if(!prdAddDto.getProductMainImage().isEmpty()) {
+			insertProduct(prdAddDto.getCategory(), productId, "main", prdAddDto.getProductMainImage());
 		}
-			
-		
+		if(!prdAddDto.getProductSub1Image().isEmpty()) {
+			insertProduct(prdAddDto.getCategory(), productId, "sub1", prdAddDto.getProductSub1Image());
+		}
+		if(!prdAddDto.getProductSub2Image().isEmpty()) {
+			insertProduct(prdAddDto.getCategory(), productId, "sub2", prdAddDto.getProductSub2Image());
+		}
+		if(!prdAddDto.getProductSub3Image().isEmpty()) {
+			insertProduct(prdAddDto.getCategory(), productId, "sub3", prdAddDto.getProductSub3Image());
+		}
+		if(!prdAddDto.getProductDetailImage().isEmpty()) {
+			insertProduct(prdAddDto.getCategory(), productId, "detail", prdAddDto.getProductDetailImage());
+		}
 		return "redirect:/admin/mainadmin";
+	}
+	
+	private void insertProduct(String category, int productId, String usage, MultipartFile mf) throws Exception {
+		ProductImageDto imgDto = new ProductImageDto();
+		imgDto.setProductId(productId);
+		imgDto.setProductImgUsage(usage);
+		imgDto.setProductImgName(category + "_" + productId + "_" + usage);
+		imgDto.setProductImg(mf.getBytes());
+		imgDto.setProductImgType(mf.getContentType());
+		productService.insertProductImg(imgDto);
 	}
 }
