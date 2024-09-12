@@ -17,7 +17,7 @@
 	</div>
 	<div class="header-nav">
 		<button class="header-login"
-			onclick="location.href='${pageContext.request.contextPath}/account/login'">
+			onclick="location.href='${pageContext.request.contextPath}/account/loginForm'">
 			<img
 				src="${pageContext.request.contextPath}/resources/image/login_icon.png"
 				class="header-nav-icon" /> <span class="header-nav-text">로그인</span>

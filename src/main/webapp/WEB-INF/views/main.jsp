@@ -13,8 +13,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
 	<link href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css" rel="stylesheet">
 	<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>
-
-	<title>메인페이지</title>
+	<title>Greenery</title>
 </head>
 
 <body>
@@ -133,7 +132,6 @@
 	            </div>
 			</c:forEach>
 		</div>
-
 
 		<button class="scroll-btn-up" onclick="scrollToTop()"></button>
 	</div>

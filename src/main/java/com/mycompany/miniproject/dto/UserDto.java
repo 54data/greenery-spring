@@ -17,5 +17,5 @@ public class UserDto {
 	private String userRole;
 	private int couponStatus;
 	private Date userRegDate;
-	private int userStatus;
+	private boolean userStatus;
 }

@@ -85,4 +85,9 @@ public class ProductService {
 
 
 
+	
+	public ProductImageDto getProductImg(int productImgId) {
+		ProductImageDto productImage = productImageDao.getImgByProductImgId(productImgId);
+		return productImage;
+	}
 }

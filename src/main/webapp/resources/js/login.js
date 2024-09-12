@@ -30,11 +30,11 @@ function inputPasswordCheck() {
 }
 
 document.querySelector('#IconClose').addEventListener('click', function() {
-    window.location.href = `${pageContext.request.contextPath}`;
+    window.location.href = '../';
 });
 
 document.querySelector('#boxSignup').addEventListener('click', function() {
-    window.location.href = `signup`;
+    window.location.href = 'signupForm';
 });
 
 document.getElementById('btnLogin').addEventListener('click', function() {

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -19,52 +18,51 @@
 	<div id="header">
 		<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	</div>
+	<c:forEach items="${map.entrySet()}" var="map">
+		<img src="loadProductImgs?productImgId=${map.getKey()}&productImgUsage=${map.getValue()}">
+	</c:forEach>
 
+<%-- 	<img src="loadProductImgs?productId=${product.productId}&productImgUsage=main"> --%>
+<%-- 	<c:if test="${not empty map['sub1']}"> --%>
+<%-- 		<img src="loadProductImgs?productId=${product.productId}&productImgUsage=sub1"> --%>
+<%-- 	</c:if> --%>
+<%-- 	<c:if test="${not empty map['sub2']}"> --%>
+<%-- 		<img src="loadProductImgs?productId=${product.productId}&productImgUsage=sub2"> --%>
+<%-- 	</c:if> --%>
 	<div class="container">
 		<div class="left">
 
 			<!-- 이미지 사이드 쇼 -->
 			<div class="slideshow-container">
-				<c:forEach var="imageUrl" items="${imageUrls}">
-			        <div class="mySlides fade">
-			            <img src="${imageUrl}">
-			        </div>
-			    </c:forEach>
-			    
+
 				<!-- Full-width images with number and caption text -->
-<%--			<div class="mySlides fade">
+				<div class="mySlides fade">
 					<img
-						src="loadMainImg?productId=${product.productId}"
+						src=""
 						alt="Slide 1">
 				</div>
 
 				<div class="mySlides fade">
 					<img
-						src="loadMainImg?productId=${product.productId}"
+						src=""
 						alt="Slide 2">
 				</div>
 
 				<div class="mySlides fade">
 					<img
-						src="loadMainImg?productId=${product.productId}"
+						src=""
 						alt="Slide 3">
 				</div>
-				
- --%>
-
-			</div> 
-			
-
+			</div>
 		</div>
 
 		<div class="right">
 			<div class="title-container">
-				<p class="brand-name">브랜드 이름</p>
+				<p class="brand-name">${product.category}</p>
 				<p class="product-title">${product.productName}</p>
 			</div>
 			<div class="description-container">
 				<div class="divider"></div>
-				<p class="description">${product.productSummary}</p><br>
 				<p class="description">${product.productDetailSummary}</p>
 				<div class="divider"></div>
 			</div>
@@ -96,26 +94,21 @@
 		</a>
 
 		<div class="currentSlide-container">
-<%-- 		<span class="dot" onclick="currentSlide(1)"> <img
-				src="loadMainImg?productId=${product.productId}"
+			<span class="dot" onclick="currentSlide(1)"> <img
+				src="https://i.pinimg.com/564x/db/a1/f2/dba1f28adc32bc960e89ee4dd4ffa027.jpg"
 				alt="currentSlide(1)" style="width: 25%">
 			</span> <span class="dot" onclick="currentSlide(2)"> <img
-				src="loadMainImg?productId=${product.productId}"
+				src="https://i.pinimg.com/564x/d9/d3/82/d9d3829fc798b6107ca26649c3000b13.jpg"
 				alt="currentSlide(2)" style="width: 25%">
 			</span> <span class="dot" onclick="currentSlide(3)"> <img
-				src="loadMainImg?productId=${product.productId}"
+				src="https://i.pinimg.com/564x/17/71/74/177174a71afb907c30f5af5563b7375d.jpg"
 				alt="currentSlide(3)" style="width: 25%">
-			</span> --%>
-			
-			<c:forEach var="imageUrl" items="${imageUrls}" varStatus="status">
-		        <span class="dot" onclick="currentSlide(${status.index + 1})">
-		            <img src="${imageUrl}" style="width: 25%">
-		        </span>
-		    </c:forEach>
+			</span>
+		</div>
+
 		<a class="next" onclick="plusSlides(1)"> <img
 			src="${pageContext.request.contextPath}/resources/image/right-icon.png" alt="Next" style="width: 80%">
 		</a>
-		</div>
 	</div>
 
 	<!-- 상세페이지, 리뷰페이지 -->

@@ -1,12 +1,11 @@
-
-let inputId = document.querySelector('#inputId');
-inputId.addEventListener('input', inputIdCheck);
+let userId = document.querySelector('#userId');
+userId.addEventListener('input', inputIdCheck);
 
 function inputIdCheck() {
     let inputIdMessage = document.querySelector('#inputIdMessage');
 
     let regExp = RegExp(/^[A-Za-z\d@$!%*?&]{6,16}$/);
-    if (regExp.test(inputId.value) || inputId.value === '') {
+    if (regExp.test(userId.value) || userId.value === '') {
         inputIdMessage.innerHTML =  ''; 
     } else {
         inputIdMessage.innerHTML = 
@@ -20,12 +19,12 @@ inputPassword1.addEventListener('input', inputPasswordCheck);
 inputPassword2.addEventListener('input', inputPasswordCheck);
 
 function inputPasswordCheck() {
-    let inputPasswordMessage1 = document.querySelector('#inputPasswordMessage1');
+    let userPwd = document.querySelector('#userPwd');
     let inputPasswordMessage2 = document.querySelector('#inputPasswordMessage2');
 
     let regExp = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,20}$/);
     if (regExp.test(inputPassword1.value) || inputPassword1.value === '') {
-        inputPasswordMessage1.innerHTML =  ''; 
+    	userPwd.innerHTML =  ''; 
     } else {
         inputPasswordMessage1.innerHTML = 
         "<span style='color:#F03F40; font-size:12px;'>6자 이상 20자 이하의 대소문자, 숫자, 특수문자를 조합해주세요</span>";
@@ -93,13 +92,13 @@ btnInputId.addEventListener('click', btnInputIdCheck);
 function btnInputIdCheck() {
     let regExp = RegExp(/^[A-Za-z\d@$!%*?&]{6,16}$/);
  
-    if(inputId.value == "") {
+    if(userId.value == "") {
         alert('아이디를 입력해주세요.');
-        inputId.focus();
-    } else if(!regExp.test(inputId.value)) {
+        userId.focus();
+    } else if(!regExp.test(userId.value)) {
         alert("6자 이상 16자 이하로 영문, 숫자, 특수문자를 사용해주세요");
-        inputId.value = '';
-        inputId.focus();
+        userId.value = '';
+        userId.focus();
     } else {
         alert("회원가입이 가능한 아이디입니다");
         idCheck = true;
@@ -132,15 +131,31 @@ btnZipcode.addEventListener('click', () => {
 
                 document.formSignup.zipcode.value = data.zonecode;
                 document.formSignup.address1.value = fullAddr;
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-                // 예제를 참고하여 다양한 활용법을 확인해 보세요.
             }
         }).open();
     }
 );
 
 document.querySelector('#iconClose').addEventListener('click', function() {
-    window.location.href = '../main/main.html';
+    window.location.href = '../';
 })
 
-
+function checkUserId() {
+	let userId = $('#userId').val();
+	$.ajax({
+		url: "userIdCheck",
+		type: "post",
+        contentType: "application/x-www-form-urlencoded", 
+        dataType: "json", 
+		data: {userId : userId},
+		success: function(checkResult) {
+			if (checkResult) {
+				$('.valid_userID').css("display","block"); 
+				$('.invalid_userID').css("display", "none");
+			} else {
+				$('.valid_userID').css("display","none"); 
+				$('.invalid_userID').css("display", "block");
+			}
+		}
+	});
+}

@@ -1,7 +1,21 @@
 package com.mycompany.miniproject.controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.mycompany.miniproject.dto.UserDto;
+import com.mycompany.miniproject.service.UserService;
+import com.mycompany.miniproject.service.UserService.JoinResult;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -9,15 +23,47 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/account")
 @Controller
 public class AccountController {
-	@RequestMapping("/login")
-	public String login() {
-		log.info("로그인 성공");
-		return "account/login";
+	@Autowired
+	private UserService userService;
+	
+//	@PostMapping("/login")
+//	public String login(UserDto user, Model model, HttpSession session) {
+//		LoginResult loginResult = userService.login(user);
+//		if (loginResult == LoginResult.FAIL_USERID) {
+//			model.addAttribute("errorUserId", "존재하지 않는 아이디 입니다.")
+//		}
+//		return "account/login";
+//	}
+	
+	@GetMapping("/loginForm")
+	public String loginForm() {
+		return "account/loginForm";
 	}
 	
-	@RequestMapping("/signup")
-	public String signup() {
-		log.info("회원가입");
-		return "account/signup";
+	@GetMapping("/signupForm")
+	public String signupForm() {
+		return "account/signupForm";
+	}
+	
+	@PostMapping("/userIdCheck")
+	@ResponseBody
+	public boolean userIdCheck(@RequestParam("userId") String userId, Model model) {
+		JoinResult joinResult = userService.userIdCheck(userId);
+	    return joinResult != JoinResult.FAIL_DUPLICATED_USERID;
+	}
+	
+	@PostMapping("/signup")
+	public String signup(UserDto user) {
+		// 계정 활성화
+		user.setUserStatus(true);
+		
+		// 비밀번호 암호화
+		PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		user.setUserPwd(passwordEncoder.encode(user.getUserPwd()));
+		JoinResult joinResult = userService.join(user);
+		if (joinResult == JoinResult.SUCCESS) {
+			return "redirect:/account/loginForm";
+		}
+		return "redirect:/account/signupForm";
 	}
 }
