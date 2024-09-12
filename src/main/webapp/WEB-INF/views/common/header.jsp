@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/common.css" />
@@ -16,12 +17,24 @@
 		</a>
 	</div>
 	<div class="header-nav">
-		<button class="header-login"
-			onclick="location.href='${pageContext.request.contextPath}/account/loginForm'">
-			<img
-				src="${pageContext.request.contextPath}/resources/image/login_icon.png"
-				class="header-nav-icon" /> <span class="header-nav-text">로그인</span>
-		</button>
+		<sec:authorize access="isAnonymous()">
+			<button class="header-login"
+				onclick="location.href='${pageContext.request.contextPath}/account/loginForm'">
+				<img
+					src="${pageContext.request.contextPath}/resources/image/login_icon.png"
+					class="header-nav-icon" /> 
+					<span class="header-nav-text">로그인</span>
+			</button>
+		</sec:authorize>
+		<sec:authorize access="isAuthenticated()">
+			<button class="header-login"
+				onclick="location.href='${pageContext.request.contextPath}/logout'">
+				<img
+					src="${pageContext.request.contextPath}/resources/image/login_icon.png"
+					class="header-nav-icon" /> 
+					<span class="header-nav-text">로그아웃</span>
+			</button>
+		</sec:authorize>
 		<button class="header-mypage"
 			onclick="location.href='${pageContext.request.contextPath}/mypage/mypage'">
 			<img
