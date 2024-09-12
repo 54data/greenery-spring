@@ -58,7 +58,7 @@
 			<button class="banner-indicator-btn" onclick="currentSlide(3)"></button>
 		</div>
 	</section>
-	<div class="toolbar">
+<%-- 	<div class="toolbar">
 		<!-- 카테고리 -->
 		<nav class="toolbar-category">
 		<form >
@@ -79,10 +79,11 @@
 				<option value="price-desc">높은 가격순</option>
 			</select>
 		</div>
-	</div>
+	</div> --%>
 	<div class="main-products">
+		<h3 class="coment">이달의 MD픽! 추천 상품</h3>
 		<div class="product-container">
-			<c:forEach items="${productList}" var="product">
+ 			<c:forEach items="${recProducts}" var="product">
 				<div class="product-item">
 	                <div class="product-image-container">
 	                    <img src="loadMainImg?productId=${product.productId}" class="product-image" onclick="location.href='${pageContext.request.contextPath}/product/detailpage?productId=${product.productId}'">
@@ -106,19 +107,33 @@
 	            </div>
 			</c:forEach>
 		</div>
-		<c:if test="${category == null}">
-			<div id="pager">
-				<c:forEach begin="${pager.startPageNo}" end="${pager.endPageNo}"
-					step="1" var="i">
-					<c:if test="${pager.pageNo == i}">
-						<a href="?pageNo=${i}" class="btn btn-outline-dark">${i}</a>
-					</c:if>
-					<c:if test="${pager.pageNo != i}">
-						<a href="?pageNo=${i}" class="btn btn-light">${i}</a>
-					</c:if>
-				</c:forEach>
-			</div>
-		</c:if>
+		<h3 class="coment">신상 업데이트</h3>
+		<div class="product-container">
+			<c:forEach items="${newProducts}" var="product">
+				<div class="product-item">
+	                <div class="product-image-container">
+	                    <img src="loadMainImg?productId=${product.productId}" class="product-image" onclick="location.href='${pageContext.request.contextPath}/product/detailpage?productId=${product.productId}'">
+	                    <div class="product-icons">
+				            <button class="icon like-icon">
+				                <img src="${pageContext.request.contextPath}/resources/image/heart.png" alt="찜하기 아이콘">
+				            </button>
+				            <button class="icon cart-icon" onclick="location.href='${pageContext.request.contextPath}/order/basket'">
+				                <img src="${pageContext.request.contextPath}/resources/image/cart_icon2.png" alt="장바구니 아이콘">
+				            </button>
+				            <button class="icon buy-icon" onclick="location.href='${pageContext.request.contextPath}/order/payment'">
+				                <img src="${pageContext.request.contextPath}/resources/image/dollar.png" alt="구매하기 아이콘" class="payment-img">
+				            </button>
+	                    </div>
+	                </div>
+	                <div class="product-details">
+	                    <p class="product-name">${product.productName}</p>
+	                    <p class="product-description">${product.productSummary}</p>
+	                    <p class="product-price"><span class="price-amount"><fmt:formatNumber value="${product.productPrice}" type="number" groupingUsed="true" /></span>원</p>
+	                </div>
+	            </div>
+			</c:forEach>
+		</div>
+
 
 		<button class="scroll-btn-up" onclick="scrollToTop()"></button>
 	</div>

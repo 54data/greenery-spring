@@ -32,6 +32,11 @@ public class ProductService {
 		List<ProductDto> products = productDao.getSearchProduct(searchDto);
 		return products;
 	}
+	
+	public int getSearchedRows(SearchDto searchDto) {
+		int searchedRows = productDao.countSearchedProduct(searchDto);
+		return searchedRows;
+	}
 
 	public ProductImageDto getMainImg(int productId) {
 		ProductImageDto productImage = productImageDao.selectImgByProductId(productId);
@@ -60,6 +65,18 @@ public class ProductService {
 	
 	
 
+	public List<ProductDto> getRecList() {
+		List<ProductDto> recList = productDao.getRecProduct();
+		return recList;
+	}
 
-
+	public List<ProductDto> getNewList() {
+		List<ProductDto> newList = productDao.getNewProduct();
+		return newList;
+	}
+	
+	public ProductImageDto getProductImg(int productImgId) {
+		ProductImageDto productImage = productImageDao.getImgByProductImgId(productImgId);
+		return productImage;
+	}
 }

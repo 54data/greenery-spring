@@ -14,4 +14,6 @@ public interface ProductImageDao {
 
 	public List<ProductImageDto> getImgsByProductId(int productId);
 
+	public ProductImageDto getImgByProductImgId(int productImgId);
+
 }

@@ -105,7 +105,7 @@ body {
 
 .product-image {
     width: 100%;
-    height: auto;
+    height: 300px;
     display: block;
     cursor: pointer;
 }
@@ -172,4 +172,8 @@ body {
 .product-details .product-price {
     font-size: 18px;
     font-weight: bold;
+}
+
+#pager {
+	text-align: center;
 }

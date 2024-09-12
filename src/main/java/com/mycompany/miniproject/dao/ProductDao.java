@@ -14,6 +14,9 @@ public interface ProductDao {
 	public List<ProductDto> getProductAll(PagerDto pager);
 	public List<ProductDto> getSearchProduct(SearchDto searchDto);
 	public int countRows();
+	public int countSearchedProduct(SearchDto searchDto);
 	public ProductDto getProductDetailInfo(int productId);
+	public List<ProductDto> getRecProduct();
+	public List<ProductDto> getNewProduct();
 
 }

@@ -7,16 +7,26 @@
 	<![CDATA[
 		select product_id, product_name, product_price, product_summary, category
 		from(
-			select rownum rnum, product_id, product_name, product_price, product_summary, category
+			select rownum rnum, product_id, product_name, product_price, product_summary, category, product_reg_date
 			from (
-				select product_id, product_name, product_price, product_summary, category
+				select product_id, product_name, product_price, product_summary, category, product_reg_date
 				from product
 				order by product_id desc
 			)
 			where rownum <= #{endRowNo}
 		)
-		where rnum >= #{startRowNo}
-	]]>
+		where rnum >= #{startRowNo} ]]>
+		<choose>
+			<when test="sort=='regDateDesc'">
+				order by product_reg_date desc
+			</when>
+			<when test="sort=='priceAsc'">
+				order by product_price asc
+			</when>
+			<when test="sort=='priceDesc'">
+				order by product_price desc
+			</when>
+		</choose>
 	</select>
 	
 	<select id="countRows" resultType="int">
@@ -26,7 +36,7 @@
 	
 	<select id="getSearchProduct" parameterType="SearchDto" resultType="Product">
 		select
-			product_id, product_name, product_price, product_summary, category, product_reg_date
+			product_id, product_name, product_price, product_summary, category
 		from product
 		<if test="searchContent == null">
 			where category=#{category}
@@ -47,10 +57,40 @@
 		</choose>
 	</select>
 	
+	<select id="countSearchedProduct"  parameterType="SearchDto" resultType="int">
+		select count(*)
+		from product
+		<if test="searchContent == null">
+			where category=#{category}
+		</if>
+		<if test="searchContent != null">
+			where product_name like '%'|| #{searchContent}|| '%'
+		</if>
+	</select>
 	
 	<select id = "getProductDetailInfo" parameterType="int" resultType="Product">
 		select PRODUCT_ID,  PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_SUMMARY, PRODUCT_DETAIL_SUMMARY, CATEGORY 
 		from product
 		where product_Id = #{productId}
+	</select>
+	
+	<select id="getRecProduct" resultType="Product">
+	<![CDATA[
+		select product_id, product_name, product_price, product_summary
+		from(
+			select rownum, product_id, product_name, product_price, product_summary
+			from product
+			order by product_stock desc)
+		where rownum<=5 ]]>
+	</select>
+
+	<select id="getNewProduct" resultType="Product">
+	<![CDATA[
+		select product_id, product_name, product_price, product_summary
+		from(
+			select rownum, product_id, product_name, product_price, product_summary
+			from product
+			order by product_reg_date desc)
+		where rownum<=5 ]]>
 	</select>
 </mapper>

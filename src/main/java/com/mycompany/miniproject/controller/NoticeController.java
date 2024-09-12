@@ -24,6 +24,12 @@ public class NoticeController {
 	@Autowired 
 	private NoticeService noticeService;
 	
+	@GetMapping("/noticeContentAddHitcount")
+	public String noticeContentAddHitcount(int noticeId, Model model) {
+		noticeService.addHitcount(noticeId);
+		return noticeContent(noticeId, model);
+	}
+
 	@GetMapping("/noticeContent")
 	public String noticeContent(int noticeId, Model model) {
 		NoticeDto notice = noticeService.getNoticeContent(noticeId);
