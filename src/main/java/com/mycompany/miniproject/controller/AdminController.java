@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mycompany.miniproject.dto.ProductAddDto;
-import com.mycompany.miniproject.dto.ProductImgDto;
+import com.mycompany.miniproject.dto.ProductImageDto;
 import com.mycompany.miniproject.service.ProductService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -56,10 +56,10 @@ public class AdminController {
 		int productId = productService.getProductIdByName(prdAddDto.getProductName());
 		
 		for(int i=1; i<=5; i++) {
-			ProductImgDto imgDto = new ProductImgDto();
+			ProductImageDto imgDto = new ProductImageDto();
 			MultipartFile mf = prdAddDto.getProductMainImage();
 			imgDto.setProductId(productId);
-			imgDto.setImgName(prdAddDto.getCategory() + "_" + productId + "_main");
+			imgDto.setProductImgName(prdAddDto.getCategory() + "_" + productId + "_main");
 			imgDto.setProductImg(mf.getBytes());
 			imgDto.setProductImgType(mf.getContentType());
 			imgDto.setProductImgUsage("main");

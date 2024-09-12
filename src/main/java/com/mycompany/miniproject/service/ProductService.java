@@ -11,7 +11,6 @@ import com.mycompany.miniproject.dto.PagerDto;
 import com.mycompany.miniproject.dto.ProductAddDto;
 import com.mycompany.miniproject.dto.ProductDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
-import com.mycompany.miniproject.dto.ProductImgDto;
 import com.mycompany.miniproject.dto.SearchDto;
 
 import lombok.extern.slf4j.Slf4j;
@@ -74,7 +73,7 @@ public class ProductService {
 		productDao.insertProduct(prdAddDto);
 	}
 
-	public void insertProductImg(ProductImgDto imgDto) {
+	public void insertProductImg(ProductImageDto imgDto) {
 		productDao.insetProductImg(imgDto);
 	}
 
