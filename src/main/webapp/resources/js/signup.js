@@ -13,34 +13,32 @@ function inputIdCheck() {
     }
 }
 
-let inputPassword1 = document.querySelector('#inputPassword1');
-let inputPassword2 = document.querySelector('#inputPassword2');
-inputPassword1.addEventListener('input', inputPasswordCheck);
-inputPassword2.addEventListener('input', inputPasswordCheck);
+let userPwd = document.querySelector('#userPwd');
+let checkUserPwd = document.querySelector('#checkUserPwd');
+userPwd.addEventListener('input', inputPasswordCheck);
+checkUserPwd.addEventListener('input', inputPasswordCheck);
 
 function inputPasswordCheck() {
-    let userPwd = document.querySelector('#userPwd');
+    let inputPasswordMessage1 = document.querySelector('#inputPasswordMessage1');
     let inputPasswordMessage2 = document.querySelector('#inputPasswordMessage2');
 
-    let regExp = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,20}$/);
-    if (regExp.test(inputPassword1.value) || inputPassword1.value === '') {
-    	userPwd.innerHTML =  ''; 
+    let regExp = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/);
+    if (regExp.test(userPwd.value) || userPwd.value === '') {
+    	inputPasswordMessage1.innerHTML =  ''; 
     } else {
         inputPasswordMessage1.innerHTML = 
-        "<span style='color:#F03F40; font-size:12px;'>6자 이상 20자 이하의 대소문자, 숫자, 특수문자를 조합해주세요</span>";
+        "<span style='color:#F03F40; font-size:12px;'>8자 이상 20자 이하의 대소문자, 숫자, 특수문자를 조합해주세요</span>";
     }
     
-    if (document.activeElement === inputPassword2) {
-        if (inputPassword1.value === inputPassword2.value || inputPassword2.value === '') {
-            inputPasswordMessage2.innerHTML =  '';
-        } else {
-            inputPasswordMessage2.innerHTML =
-            "<span style='color:#F03F40; font-size:12px;'>비밀번호를 확인해주세요</span>";
-        }
+    if (userPwd.value === checkUserPwd.value || checkUserPwd.value === '') {
+        inputPasswordMessage2.innerHTML =  '';
+    } else {
+        inputPasswordMessage2.innerHTML =
+        "<span style='color:#F03F40; font-size:12px;'>비밀번호를 확인해주세요</span>";
     }
 }
 
-let inputName = document.querySelector('#inputName');
+let inputName = document.querySelector('#userName');
 inputName.addEventListener('input', inputNameCheck);
 
 function inputNameCheck() {
@@ -55,7 +53,7 @@ function inputNameCheck() {
     }
 }
 
-let inputPhone = document.querySelector('#inputPhone');
+let inputPhone = document.querySelector('#userTel');
 inputPhone.addEventListener('input', inputPhoneCheck);
 
 function inputPhoneCheck() {
@@ -70,13 +68,13 @@ function inputPhoneCheck() {
     }
 }
 
-let inputEmail = document.querySelector('#inputEmail')
+let inputEmail = document.querySelector('#userEmail');
 inputEmail.addEventListener('input', inputEmailCheck);
 
 function inputEmailCheck() {
-    let inputEmailMessage = document.querySelector('#inputEmailMessage')
+    let inputEmailMessage = document.querySelector('#inputEmailMessage');
 
-    let regExp = RegExp(/^@{1,}$/);
+    let regExp = RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
     if (regExp.test(inputEmail.value) || inputEmail.value === '') {
         inputEmailMessage.innerHTML =  ''; 
     } else {
@@ -85,25 +83,25 @@ function inputEmailCheck() {
     }
 }
 
-let idCheck = false;
-let btnInputId = document.querySelector('#btnInputId');
-btnInputId.addEventListener('click', btnInputIdCheck);
-
-function btnInputIdCheck() {
-    let regExp = RegExp(/^[A-Za-z\d@$!%*?&]{6,16}$/);
- 
-    if(userId.value == "") {
-        alert('아이디를 입력해주세요.');
-        userId.focus();
-    } else if(!regExp.test(userId.value)) {
-        alert("6자 이상 16자 이하로 영문, 숫자, 특수문자를 사용해주세요");
-        userId.value = '';
-        userId.focus();
-    } else {
-        alert("회원가입이 가능한 아이디입니다");
-        idCheck = true;
-    }
-}
+//let idCheck = false;
+//let btnInputId = document.querySelector('#btnInputId');
+//btnInputId.addEventListener('click', btnInputIdCheck);
+//
+//function btnInputIdCheck() {
+//    let regExp = RegExp(/^[A-Za-z\d@$!%*?&]{6,16}$/);
+// 
+//    if(userId.value == "") {
+//        alert('아이디를 입력해주세요.');
+//        userId.focus();
+//    } else if(!regExp.test(userId.value)) {
+//        alert("6자 이상 16자 이하로 영문, 숫자, 특수문자를 사용해주세요");
+//        userId.value = '';
+//        userId.focus();
+//    } else {
+//        alert("회원가입이 가능한 아이디입니다");
+//        idCheck = true;
+//    }
+//}
 
 let btnZipcode = document.querySelector('#btnZipcode');
 btnZipcode.addEventListener('click', () => {
@@ -130,7 +128,7 @@ btnZipcode.addEventListener('click', () => {
                 }
 
                 document.formSignup.zipcode.value = data.zonecode;
-                document.formSignup.address1.value = fullAddr;
+                document.formSignup.roadAddress.value = fullAddr;
             }
         }).open();
     }
@@ -142,6 +140,17 @@ document.querySelector('#iconClose').addEventListener('click', function() {
 
 function checkUserId() {
 	let userId = $('#userId').val();
+	const Toast = Swal.mixin({
+	    toast: true,
+	    position: 'top',
+	    showConfirmButton: false,
+	    timer: 2500,
+	    timerProgressBar: true,
+	    didOpen: (toast) => {
+	        toast.addEventListener('mouseenter', Swal.stopTimer)
+	        toast.addEventListener('mouseleave', Swal.resumeTimer)
+	    }
+	});
 	$.ajax({
 		url: "userIdCheck",
 		type: "post",
@@ -150,11 +159,15 @@ function checkUserId() {
 		data: {userId : userId},
 		success: function(checkResult) {
 			if (checkResult) {
-				$('.valid_userID').css("display","block"); 
-				$('.invalid_userID').css("display", "none");
+				Toast.fire({
+				    icon: 'success',
+				    title: '사용 가능한 아이디입니다.'
+				})
 			} else {
-				$('.valid_userID').css("display","none"); 
-				$('.invalid_userID').css("display", "block");
+				Toast.fire({
+				    icon: 'error',
+				    title: '이미 존재하는 아이디입니다.'
+				})
 			}
 		}
 	});
