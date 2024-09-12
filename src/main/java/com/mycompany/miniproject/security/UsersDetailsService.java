@@ -15,7 +15,7 @@ import com.mycompany.miniproject.dao.UserDao;
 import com.mycompany.miniproject.dto.UserDto;
 
 @Service
-public class UsersDetailService implements UserDetailsService {
+public class UsersDetailsService implements UserDetailsService {
 	@Autowired
 	private UserDao userDao;
 	
