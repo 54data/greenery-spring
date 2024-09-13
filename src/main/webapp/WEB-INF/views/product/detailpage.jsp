@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -18,9 +20,6 @@
 	<div id="header">
 		<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	</div>
-	<c:forEach items="${map.entrySet()}" var="map">
-		<img src="loadProductImgs?productImgId=${map.getKey()}&productImgUsage=${map.getValue()}">
-	</c:forEach>
 
 <%-- 	<img src="loadProductImgs?productId=${product.productId}&productImgUsage=main"> --%>
 <%-- 	<c:if test="${not empty map['sub1']}"> --%>
@@ -34,9 +33,15 @@
 
 			<!-- 이미지 사이드 쇼 -->
 			<div class="slideshow-container">
-
+				<c:forEach items="${map.entrySet()}" var="map">
+					<c:if test="${map.getValue() ne 'detail'}">
+						<div class="mySlides fade">
+							<img src="loadProductImgs?productImgId=${map.getKey()}&productImgUsage=${map.getValue()}">
+						</div>
+					</c:if>	
+				</c:forEach>
 				<!-- Full-width images with number and caption text -->
-				<div class="mySlides fade">
+<!-- 				<div class="mySlides fade">
 					<img
 						src=""
 						alt="Slide 1">
@@ -52,7 +57,7 @@
 					<img
 						src=""
 						alt="Slide 3">
-				</div>
+				</div> -->
 			</div>
 		</div>
 
@@ -72,7 +77,9 @@
 					<span class="quantity-number" id="quantity">1</span>
 					<button onclick="increase(this)">+</button>
 				</div>
-				<span class="product-price" data-price="40000">${product.productPrice}</span>
+				<span class="product-price">
+					<fmt:formatNumber value="${product.productPrice}" type="number" pattern="#,###"/> 원
+				</span>
 			</div>
 			<div class="buttons">
 				<button onclick="saveToLocalStorage(); cart();" class="add-to-cart">장바구니</button>
@@ -89,11 +96,22 @@
 	<div class="sideimg">
 		<!-- Next and previous buttons -->
 		<a class="prev" onclick="plusSlides(-1)"> <img
-			src="${pageContext.request.contextPath}/resources/image/left-icon.png" alt="Previous"
-			style="width: 80%">
+			src="${pageContext.request.contextPath}/resources/image/left-icon.png" alt="Previous">
 		</a>
 
 		<div class="currentSlide-container">
+
+			<c:forEach items="${map.entrySet()}" var="map" varStatus="status">
+				<c:if test="${map.getValue() ne 'detail'}">
+					<span class="dot" onclick="currentSlide(${status.index % 5})">
+						<img src="loadProductImgs?productImgId=${map.getKey()}&productImgUsage=${map.getValue()}" style="width: 25%">
+					</span>
+				</c:if>
+			</c:forEach>
+			
+		</div>
+<!-- 
+ 		<div class="currentSlide-container">
 			<span class="dot" onclick="currentSlide(1)"> <img
 				src="https://i.pinimg.com/564x/db/a1/f2/dba1f28adc32bc960e89ee4dd4ffa027.jpg"
 				alt="currentSlide(1)" style="width: 25%">
@@ -105,9 +123,9 @@
 				alt="currentSlide(3)" style="width: 25%">
 			</span>
 		</div>
-
+-->
 		<a class="next" onclick="plusSlides(1)"> <img
-			src="${pageContext.request.contextPath}/resources/image/right-icon.png" alt="Next" style="width: 80%">
+			src="${pageContext.request.contextPath}/resources/image/right-icon.png" alt="Next">
 		</a>
 	</div>
 
@@ -115,11 +133,12 @@
 	<div class="tab-container">
 		<div class="tab">
 			<div class="tab-item">
-				<button class="tab-button tablinks" data-target="detail-info">상세정보</button>
+				<button class="tab-button tablinks" onclick="loadTabContent('detailInfo', ${product.productId})">상세정보</button>
 				<div class="detail-divider"></div>
 			</div>
+			
 			<div class="tab-item">
-				<button class="tab-button tablinks" data-target="reviews-select">리뷰</button>
+				<button class="tab-button tablinks" onclick="loadTabContent('reviewsSelect', ${product.productId})">리뷰</button>
 				<div class="reviews-divider"></div>
 			</div>
 		</div>
@@ -142,3 +161,4 @@
 </body>
 
 </html>
+

@@ -31,23 +31,23 @@ wishlistButton.addEventListener('click', function () {
         removeFromWishlist(productName);
     }
 });
-
-function saveToWishlist(productName) {
-    let wishlist = JSON.parse(localStorage.getItem('whislist')) || [];
-    if (!wishlist.includes(productName)) {
-        wishlist.push(productName);
-    }
-    localStorage.setItem('wishlist', JSON.stringify(wishlist));
-    console.log(`위시리스트에 저장된 아이템: ${wishlist.join(', ')}`);
-}
-
-function removeFromWishlist(productName) {
-    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-    wishlist = wishlist.filter(item => item !== productName);
-    localStorage.setItem('wishlist', JSON.stringify(wishlist));
-    console.log(`위시리스트에서 제거된 아이템: ${productName}`);
-}
-
+//
+//function saveToWishlist(productName) {
+//    let wishlist = JSON.parse(localStorage.getItem('whislist')) || [];
+//    if (!wishlist.includes(productName)) {
+//        wishlist.push(productName);
+//    }
+//    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+//    console.log(위시리스트에 저장된 아이템: ${wishlist.join(', ')});
+//}
+//
+//function removeFromWishlist(productName) {
+//    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+//    wishlist = wishlist.filter(item => item !== productName);
+//    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+//    console.log(위시리스트에서 제거된 아이템: ${productName});
+//}
+//
 /* 이미지 스크롤 */
 let slideIndex = 1;
 showSlides(slideIndex);
@@ -77,35 +77,34 @@ function showSlides(n) {
     }
     slides[slideIndex - 1].style.display = "block";
     dots[slideIndex - 1].className += " active";
-    // captionText.innerHTML = dots[slideIndex-1].alt;
 }
 
 // ---------------------탭 - 상세정보,  리뷰 --------------------
-$(document).ready(function () {
-    $('.tab-button').on('click', function () {
-        var target = "/miniproject/product/" + $(this).data('target');
 
-        //ajax 요청
-        $.ajax({
-            url: target,    // 각 탭에 맞는 html 파일 경로
-            method: 'GET',
-            success: function (data) {
-                $('#tab-content').html(data);
-                console.log('ajax 요청 성공');
 
-                if ($(this).data('target') === 'reviews-select') {
-                    loadReviews();  // 리뷰 데이터 불러옴
-                }
-            }.bind(this),
-            error: function () {
-                $('#tab-content').html('<p>내용을 불러오는 데 실패함.</p>');
-                console.log(target);
-            }
-        });
-    });
-    // 페이지 로드되면 기본적으로 detail탭이 열리게 
-    $('.tab-button').first().trigger('click');
+$(document).ready(function(){
+    loadTabContent('detailInfo', $('#productId').val());
 });
+
+function loadTabContent(tabName, productId) {
+	console.log("loadTabContent 호출됨, productId: ", productId);
+	
+    $.ajax({
+        url: "/miniproject/product/" + tabName,
+        type: "GET",
+        data: { productId: productId },
+        success: function(response) {
+        	console.log("Ajax 성공", response);
+            $('#tab-content').html(response);  
+        },
+        error: function() {
+        	console.error("Ajax 오류 발생: ", error);
+            console.log("xhr: ", xhr);
+            console.log("status: ", status);
+        }
+    });
+}
+
 
 
 
@@ -134,61 +133,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-
-
-// 리뷰 json데이터 
-function loadReviews() {
-    $.ajax({
-        url: '../../resources/content/reviews.json',
-        method: 'GET',
-        dataType: 'json',
-        success: function (data) {
-            console.log(data);  // 데이터 구조 확인
-
-            if (Array.isArray(data.reviews)) {
-                $('#reviewList').empty(); // 기존 리뷰 내용 초기화
-                data.reviews.forEach(i => {
-                    // 별 이미지를 rating 개수만큼 생성
-                    let starHTML = '';
-                    const totalStars = 5;   // 총 별의 개수(5점 만점 기준) -> 별점 3개라고 치면 나머지는 안채워진 별로 2개 채움
-                    for (let j = 0; j < totalStars; j++) {
-                        if (j < i.rating) {
-                            starHTML += `<img src="../../resources/image/fill-star.png" alt="별" class="star">`;
-                        } else {
-                            starHTML += `<img src="../../resources/image/empty-star.png" alt="빈 별" class="star">`;
-                        }
-                    }
-                    const reviewHTML = `
-                        <div class="reviews">
-                            <div class="reviews-container">
-                                <div class="star-container">
-                                    <!-- 별 이미지가 들어갈 div태그 -->  
-                                    ${starHTML} <!-- 이미지 HTML을 여기에 추가 -->
-                                    <span class="star-cnt"><strong>${i.rating}</strong></span>
-                                </div>
-            
-                                <div class="info-container">
-                                    <div class="user-id">${i.authorId}</div>
-                                    <span>${i.registrationDate}</span>
-                                </div>
-            
-                                <span class="review-span">${i.content}</span>
-                            </div>
-            
-                            <div class="img-box">
-                                <img src="${i.imageUrl}" alt="">
-                            </div>
-                        </div>
-                    `;
-                    $('#reviewList').append(reviewHTML);
-                });
-            }
-        },
-        error: function (err) {
-            console.error('리뷰 등록에 실패함', err);
-        }
-    });
-};
 
 
 
@@ -244,28 +188,28 @@ function decrease(button) {
 }
 
 // 로컬 스토리지에 저장하는 함수
-function saveToLocalStorage(productDiv) {
-    const quantitySpan = document.querySelector('.quantity-number');
-    const priceSpan = document.querySelector('.product-price');
-    const productNameSpan = document.querySelector('.product-title');
-
-    if (!quantitySpan || !priceSpan || !productNameSpan) return; // 요소가 없으면 함수 종료
-
-    const productName = productNameSpan.innerText.trim(); // 상품명
-    const quantity = parseInt(quantitySpan.innerText); // 수량
-    const price = priceSpan.getAttribute('data-price'); // 가격 (숫자형)
-
-    const productInfo = {
-        name: productName,
-        quantity: quantity,
-        price: price
-    };
-
-    // 로컬 스토리지에 저장
-    localStorage.setItem(productName, JSON.stringify(productInfo));
-
-    console.log(`저장된 상품: ${productName}, 수량: ${quantity}, 가격: ${price}`);
-}
+//function saveToLocalStorage(productDiv) {
+//    const quantitySpan = document.querySelector('.quantity-number');
+//    const priceSpan = document.querySelector('.product-price');
+//    const productNameSpan = document.querySelector('.product-title');
+//
+//    if (!quantitySpan || !priceSpan || !productNameSpan) return; // 요소가 없으면 함수 종료
+//
+//    const productName = productNameSpan.innerText.trim(); // 상품명
+//    const quantity = parseInt(quantitySpan.innerText); // 수량
+//    const price = priceSpan.getAttribute('data-price'); // 가격 (숫자형)
+//
+//    const productInfo = {
+//        name: productName,
+//        quantity: quantity,
+//        price: price
+//    };
+//
+//    // 로컬 스토리지에 저장
+//    localStorage.setItem(productName, JSON.stringify(productInfo));
+//
+//    console.log(저장된 상품: ${productName}, 수량: ${quantity}, 가격: ${price});
+//}
 
 // 결제 페이지로 이동 시 호출되는 함수
 function checkout() {
@@ -301,5 +245,3 @@ function scrollToTop() {
         behavior: "smooth",
     });
 }
-
-

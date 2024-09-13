@@ -27,5 +27,6 @@ public interface ProductDao {
 	public int deleteProductImage(int productId);
 	public int updateProduct(ProductAddDto prdAddDto);
 	public ProductDto getProductByProductId(int productId);
+	public List<ProductImageDto> getReviewImg();
 
 }

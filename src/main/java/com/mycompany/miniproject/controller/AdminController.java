@@ -35,25 +35,25 @@ public class AdminController {
 	@Autowired
 	private NoticeService noticeService;
 	
-	@RequestMapping("/mainadmin")
+	@GetMapping("/mainadmin")
 	public String mainAdmin() {
 		log.info("실행");
-		return "admin/mainadmin";
+		return "redirect:/admin/productselect";
 	}
 	
-	@RequestMapping("/noticeadd")
+	@GetMapping("/noticeadd")
 	public String noticeAdd() {
 		log.info("실행");
 		return "admin/noticeadd";
 	}
 	
-	@RequestMapping("/noticeselect")
+	@GetMapping("/noticeselect")
 	public String noticeSelect() {
 		log.info("실행");
 		return "admin/noticeselect";
 	}
 	
-	@RequestMapping("/productadd")
+	@GetMapping("/productadd")
 	public String productAdd(String pageUsage) {
 		log.info("실행");
 		return "admin/productadd";
@@ -78,23 +78,6 @@ public class AdminController {
 		return "admin/productselect";
 	}
 	
-	@GetMapping("loadMainImg")
-	public void loadMainImg(int productId, HttpServletResponse response) throws Exception {
-		ProductImageDto productImage = productService.getMainImg(productId);
-		
-		String contentType = productImage.getProductImgType();
-		response.setContentType(contentType);
-		
-		String fileName = productImage.getProductImgName();
-		String encodingFileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
-		response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingFileName + "\"");		
-
-		OutputStream out = response.getOutputStream();
-		out.write(productImage.getProductImg());
-		out.flush();
-		out.close();
-	}
-	
 	@PostMapping("/productInsert")
 	public String productInsert(ProductAddDto prdAddDto) throws Exception{
 		log.info("실행");
@@ -116,7 +99,7 @@ public class AdminController {
 		if(!prdAddDto.getProductDetailImage().isEmpty()) {
 			insertProduct(prdAddDto.getCategory(), productId, "detail", prdAddDto.getProductDetailImage());
 		}
-		return "redirect:/admin/mainadmin";
+		return "redirect:/admin/productselect";
 	}
 	
 	private void insertProduct(String category, int productId, String usage, MultipartFile mf) throws Exception {
@@ -129,27 +112,10 @@ public class AdminController {
 		productService.insertProductImg(imgDto);
 	}
 	
-	@GetMapping("/updateForm")
-	public String updateForm(int productId, String pageUsage, Model model) {
-		ProductDto product = productService.getProductByProductId(productId);
-		model.addAttribute("product", product);
-		return "admin/productadd";
-	}
-	
-	@PostMapping("/updateProduct")
-	public String updateProduct(ProductAddDto prdAddDto) {
-		log.info("실행");
-		if(prdAddDto.getProductMainImage().isEmpty()) {
-			productService.updateProduct(prdAddDto);
-			
-		}
-		return "redirect:/admin/mainadmin";
-	}
-	
 	@GetMapping("/deleteProduct")
 	public String deleteProduct(int productId) {
 		productService.deleteProduct(productId);
-		return "redirect:/admin/mainadmin";
+		return "redirect:/admin/productselect";
 	}
 	
 	@PostMapping("/addNotice") 
@@ -160,6 +126,6 @@ public class AdminController {
 		notice.setNoticeContent(noticeForm.getNoticeContent());
 		notice.setNoticeHitcount(0);
 		noticeService.addNoticeContent(notice);
-		return "redirect:/admin/mainadmin";
+		return "redirect:/admin/productselect";
 	}
 }

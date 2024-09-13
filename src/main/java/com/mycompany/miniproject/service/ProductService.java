@@ -54,11 +54,21 @@ public class ProductService {
 		return product;
 	}
 
+	public ProductImageDto getProductImg(int productImgId) {
+		ProductImageDto productImage = productImageDao.getImgByProductImgId(productImgId);
+		return productImage;
+	}
+	
 	public List<ProductImageDto> getProductImgs(int productId) {
 		List<ProductImageDto> productImages = productImageDao.getImgsByProductId(productId);
 		return productImages;
 	}
 
+	public List<ProductImageDto> getReviewImg(int reviewId) {
+		List<ProductImageDto> reviewList = productDao.getReviewImg();
+		return reviewList;
+	}
+	
 	public List<ProductDto> getRecList() {
 		List<ProductDto> recList = productDao.getRecProduct();
 		return recList;
@@ -80,11 +90,6 @@ public class ProductService {
 	public int getProductIdByName(String productName) {
 		int productId = productDao.getProductIdByName(productName);
 		return productId;
-	}
-
-	public ProductImageDto getProductImg(int productImgId) {
-		ProductImageDto productImage = productImageDao.getImgByProductImgId(productImgId);
-		return productImage;
 	}
 
 	public void deleteProduct(int productId) {

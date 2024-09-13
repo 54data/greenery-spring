@@ -34,6 +34,17 @@ body {
 	box-sizing: border-box;
 }
 
+.sideimg a img {
+	width: 8.26px;
+	height: 16.1px;
+}
+
+.mySlides img {
+	width: 564px;
+	height: 564px;	
+}
+
+
 .brand-name {
 	font-size: 28px;
 	font-weight: 800;
@@ -43,7 +54,7 @@ body {
 }
 
 .product-title {
-	font-size: 38px;
+	font-size: 25px;
 	margin-top: 50px;
 	font-weight: 800;
 	/* margin: 0; */

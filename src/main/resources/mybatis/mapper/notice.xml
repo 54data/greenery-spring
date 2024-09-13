@@ -3,11 +3,11 @@
 <mapper namespace="com.mycompany.miniproject.dao.NoticeDao">
 	<select id="getNoticeAll" resultType="Notice">
 		<![CDATA[
-			select notice_id, notice_title, notice_reg_date
+			select notice_num, notice_title, notice_reg_date
 			from (
-			    select rownum as rnum, notice_id, notice_title, notice_reg_date
+			    select notice_num, rownum as rnum, notice_title, notice_reg_date
 			    from (
-			        select notice_id, notice_title, notice_reg_date
+			        select row_number() over (order by notice_id) as notice_num, notice_title, notice_reg_date
 			        from notice
 			        order by notice_reg_date desc
 			    )
