@@ -33,4 +33,13 @@
 		set notice_hitcount = notice_hitcount + 1
 		where notice_id = #{noticeId}
 	</update>
+	
+	<insert id="insert" parameterType="Notice">
+		insert into notice (
+			notice_id, notice_writer, notice_title, notice_content, notice_reg_date, notice_hitcount
+		)
+		values (
+			notice_seq.NEXTVAL, #{noticeWriter}, #{noticeTitle}, #{noticeContent}, sysdate, #{noticeHitcount}
+		)
+	</insert>
 </mapper>

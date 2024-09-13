@@ -13,6 +13,8 @@
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 </head>
 
 <body>
@@ -30,13 +32,11 @@
 				placeholder="아이디 입력(6-20자)" required>
 			<button id="btnInputId" class="btn btn1" type="button" onclick="checkUserId()">중복확인</button>
 		</div>
-		<div class="valid_userID">사용 가능한 아이디입니다.</div>
-		<div class="invalid_userID">이미 존재하는 아이디입니다.</div>
 		<div id="inputIdMessage"></div>
 
 		<input id="userPwd" name="userPwd" class="input input2" type="password" placeholder="비밀번호 입력(문자, 숫자, 특수문자 포함 8-20자)" required>
 		<div id="inputPasswordMessage1"></div>
-		<input id="inputPassword2" class="input input3" type="password" placeholder="비밀번호 재입력" required>
+		<input id="checkUserPwd" class="input input3" type="password" placeholder="비밀번호 재입력" required>
 		<div id="inputPasswordMessage2"></div>
 		<input id="userName" name="userName" class="input input4" type="text" placeholder="이름을 입력해주세요." required>
 		<div id="inputNameMessage"></div>

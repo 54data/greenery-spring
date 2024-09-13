@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mycompany.miniproject.dto.PagerDto;
+import com.mycompany.miniproject.dto.NoticeDto;
 import com.mycompany.miniproject.dto.ProductAddDto;
 import com.mycompany.miniproject.dto.ProductDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
@@ -26,7 +27,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AdminController {
 	@Autowired
-	ProductService productService;
+	private ProductService productService;
+	
+	@Autowired
+	private NoticeService noticeService;
 	
 	@RequestMapping("/mainadmin")
 	public String mainAdmin() {
@@ -108,6 +112,17 @@ public class AdminController {
 	@GetMapping("/deleteProduct")
 	public String deleteProduct(int productId) {
 		productService.deleteProduct(productId);
+		return "redirect:/admin/mainadmin";
+	}
+	
+	@PostMapping("/addNotice") 
+	public String addNotice(NoticeDto noticeForm, HttpSession session) {
+		NoticeDto notice = new NoticeDto();
+		notice.setNoticeWriter("greenery_admin");
+		notice.setNoticeTitle(noticeForm.getNoticeTitle());
+		notice.setNoticeContent(noticeForm.getNoticeContent());
+		notice.setNoticeHitcount(0);
+		noticeService.addNoticeContent(notice);
 		return "redirect:/admin/mainadmin";
 	}
 }

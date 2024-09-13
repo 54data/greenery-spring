@@ -1,7 +1,5 @@
 package com.mycompany.miniproject.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,15 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 public class AccountController {
 	@Autowired
 	private UserService userService;
-	
-//	@PostMapping("/login")
-//	public String login(UserDto user, Model model, HttpSession session) {
-//		LoginResult loginResult = userService.login(user);
-//		if (loginResult == LoginResult.FAIL_USERID) {
-//			model.addAttribute("errorUserId", "존재하지 않는 아이디 입니다.")
-//		}
-//		return "account/login";
-//	}
 	
 	@GetMapping("/loginForm")
 	public String loginForm() {

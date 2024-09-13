@@ -17,5 +17,7 @@ public interface NoticeDao {
 	public NoticeDto getNoticeById(int noticeId);
 
 	public int updateHitcountById(int noticeId);
+
+	public int insert(NoticeDto notice);
 	
 }

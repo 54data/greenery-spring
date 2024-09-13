@@ -47,7 +47,6 @@ public class NoticeController {
 		
 		List<NoticeDto> noticeList = noticeService.getNotices(pager); // notice테이블의 각 행을 담은 객체를 담은 리스트
 		model.addAttribute("noticeList", noticeList);
-		
 		model.addAttribute("noticeSize", totalRows); // notice 데이터 총 개수 반환
 		return "notice/notices";
 	}
