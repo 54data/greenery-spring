@@ -13,33 +13,42 @@
 </head>
 
 <body>
-	<div>
-		<form class="container-form" method="post" action="addNotice">
-			<div class="top-text-margin">
-				공지사항 > <span class="text-success"><b>공지사항 등록</b></span>
-			</div>
-			<h2 class="top-text-margin">
-				<b>공지사항 등록</b>
-			</h2>
-			<h5 class="top-text-margin">
-				<b>기본 정보</b>
-			</h5>
-
-			<div class="form-group">
-				<label>제목</label> 
-				<input id="noticeTitle" name="noticeTitle" type="text" placeholder="그리너리 서버 점검 안내(8/21)" maxlength="250">
-				<div id="charCount">0 / 250</div>
-			</div>
-			<div class="form-group">
-				<label>내용</label>
-			</div>
-			<div class="container-textarea">
-				<textarea id="noticeContent" name="noticeContent" class="textarea" rows="5" placeholder="공지사항에 대한 내용을 입력하세요"></textarea>
-			</div>
-			<div class="btn-register-div">
-				<button type="submit" class="btn-register">등록</button>
-			</div>
-		</form>
+	<div class="section1">
+		<a href="${pageContext.request.contextPath}">
+			<h2 class="header-logo">greenery</h2>
+		</a>
+	</div>
+	<!-- 관리자 페이지 목록 -->
+	<div class="admin-page">
+		<%@ include file="mainadmin.jsp" %>
+		<div class="admin-content">
+			<form class="container-form" method="post" action="addNotice">
+				<div class="top-text-margin">
+					공지사항 > <span class="text-success"><b>공지사항 등록</b></span>
+				</div>
+				<h2 class="top-text-margin">
+					<b>공지사항 등록</b>
+				</h2>
+				<h5 class="top-text-margin">
+					<b>기본 정보</b>
+				</h5>
+	
+				<div class="form-group">
+					<label>제목</label> 
+					<input id="noticeTitle" name="noticeTitle" type="text" placeholder="그리너리 서버 점검 안내(8/21)" maxlength="250">
+					<div id="charCount">0 / 250</div>
+				</div>
+				<div class="form-group">
+					<label>내용</label>
+				</div>
+				<div class="container-textarea">
+					<textarea id="noticeContent" name="noticeContent" class="textarea" rows="5" placeholder="공지사항에 대한 내용을 입력하세요"></textarea>
+				</div>
+				<div class="btn-register-div">
+					<button type="submit" class="btn-register">등록</button>
+				</div>
+			</form>
+		</div>
 	</div>
 
 	<script src="${pageContext.request.contextPath}/resources/js/noticeadd.js"></script>
