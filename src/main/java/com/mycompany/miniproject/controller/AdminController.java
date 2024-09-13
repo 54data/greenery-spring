@@ -78,6 +78,23 @@ public class AdminController {
 		return "admin/productselect";
 	}
 	
+	@GetMapping("loadMainImg")
+	public void loadMainImg(int productId, HttpServletResponse response) throws Exception {
+		ProductImageDto productImage = productService.getMainImg(productId);
+		
+		String contentType = productImage.getProductImgType();
+		response.setContentType(contentType);
+		
+		String fileName = productImage.getProductImgName();
+		String encodingFileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+		response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingFileName + "\"");		
+
+		OutputStream out = response.getOutputStream();
+		out.write(productImage.getProductImg());
+		out.flush();
+		out.close();
+	}
+	
 	@PostMapping("/productInsert")
 	public String productInsert(ProductAddDto prdAddDto) throws Exception{
 		log.info("실행");
