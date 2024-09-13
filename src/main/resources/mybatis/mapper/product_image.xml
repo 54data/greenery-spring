@@ -23,7 +23,7 @@
 	</select>
 	
 	<select id="getImgByProductImgId" parameterType="int"  resultType="ProductImage">
-		select product_img_id, product_img
+		select product_img_id, product_img, product_img_type
 		from product_image
 		where product_img_id = #{productImgId}
 	</select>

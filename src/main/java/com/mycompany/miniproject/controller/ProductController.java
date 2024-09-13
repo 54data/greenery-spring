@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.mycompany.miniproject.dto.PagerDto;
 import com.mycompany.miniproject.dto.ProductDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
+import com.mycompany.miniproject.dto.ReviewDto;
 import com.mycompany.miniproject.dto.SearchDto;
 import com.mycompany.miniproject.service.ProductService;
+import com.mycompany.miniproject.service.ReviewService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,16 +32,31 @@ import lombok.extern.slf4j.Slf4j;
 public class ProductController {
 	@Autowired
 	private ProductService productService;
-
 	
-    @GetMapping("/detail-info")
-    public String showDetailInfo() {
-        return "product/detail-info";
+	@Autowired
+	private ReviewService reviewService;
+	
+    @GetMapping("/detailInfo")
+    public String detailInfo(@RequestParam int productId, Model model) {
+    	ProductDto product = productService.getProductDetail(productId);
+		model.addAttribute("product", product);
+		
+		List<ProductImageDto> productImages = productService.getProductImgs(productId);
+		Map<Integer, String> map = new HashMap<>();
+		
+		for (ProductImageDto productImage: productImages) {
+			map.put(productImage.getProductImgId(), productImage.getProductImgUsage());
+		}
+		
+		model.addAttribute("map", map);
+        return "product/detailInfo";  
     }
 
-    @GetMapping("/reviews-select")
-    public String showReviewsSelect() {
-        return "product/reviews-select";
+    @GetMapping("/reviewsSelect")
+    public String showReviewsSelect(@RequestParam int productId, Model model) {
+        List<ReviewDto> reviewList = reviewService.getReviewsByProductId(productId);
+        model.addAttribute("reviewList", reviewList);
+        return "product/reviewsSelect"; 
     }
     
 	@GetMapping("/detailpage")
@@ -101,29 +118,6 @@ public class ProductController {
 		return "product/search";
 	}
 	
-	@GetMapping("loadImg")
-	public void loadImg(int productId, String product_img_usage, HttpServletResponse response) throws Exception {
-		
-		List<ProductImageDto> productImages = productService.getProductImgs(productId);
-		
-		for (ProductImageDto productImage : productImages) {
-			String fileUsage = productImage.getProductImgUsage();
-				        
-	        if(!fileUsage.equals(product_img_usage)) {
-	        	String contentType = productImage.getProductImgType();
-		        response.setContentType(contentType);
-	        		       
-	        	String fileName = productImage.getProductImgName();
-		        String encodingFileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
-		        response.setHeader("Content-Disposition", "inline; filename=\"" + encodingFileName + "\"");
-
-		        OutputStream out = response.getOutputStream();
-		        out.write(productImage.getProductImg());
-		        out.flush();
-		        out.close();
-	        }
-	    }
-	}
 
 	@GetMapping("loadMainImg")
 	public void loadMainImg(int productId, HttpServletResponse response) throws Exception {
@@ -140,5 +134,24 @@ public class ProductController {
 		out.write(productImage.getProductImg());
 		out.flush();
 		out.close();
+	}
+	
+	@GetMapping("loadReviewImg")
+	public void loadReviewImg(@RequestParam int reviewId, HttpServletResponse response) throws Exception {
+		ReviewDto reviewImg = reviewService.getReviewImgByReviewId(reviewId);
+		
+		String contentType = reviewImg.getReviewImgType();
+		response.setContentType(contentType);
+		
+		String fileName = reviewImg.getReviewImgName();
+		String encodingFileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+		response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingFileName + "\"");		
+
+		log.info(fileName);
+		OutputStream out = response.getOutputStream();
+		out.write(reviewImg.getReviewImg());
+		out.flush();
+		out.close();
+
 	}
 }
