@@ -98,4 +98,18 @@ public class ProductService {
 	}
 	
 	
+
+	public void updateProduct(ProductAddDto prdAddDto) {
+		productDao.updateProduct(prdAddDto);
+	}
+
+	public ProductDto getProductByProductId(int productId) {
+		ProductDto product = productDao.getProductByProductId(productId);
+		return product;
+	}
+
+	public int updateProductImage(ProductImageDto imgDto) {
+		int result = productDao.updateProductImage(imgDto);
+		return result;
+	}
 }

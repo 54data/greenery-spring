@@ -1,7 +1,9 @@
 package com.mycompany.miniproject.controller;
 
+import java.io.OutputStream;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mycompany.miniproject.dto.PagerDto;
 import com.mycompany.miniproject.dto.NoticeDto;
+import com.mycompany.miniproject.dto.PagerDto;
 import com.mycompany.miniproject.dto.ProductAddDto;
 import com.mycompany.miniproject.dto.ProductDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
@@ -33,26 +35,26 @@ public class AdminController {
 	@Autowired
 	private NoticeService noticeService;
 	
-	@RequestMapping("/mainadmin")
+	@GetMapping("/mainadmin")
 	public String mainAdmin() {
 		log.info("실행");
-		return "admin/mainadmin";
+		return "redirect:/admin/productselect";
 	}
 	
-	@RequestMapping("/noticeadd")
+	@GetMapping("/noticeadd")
 	public String noticeAdd() {
 		log.info("실행");
 		return "admin/noticeadd";
 	}
 	
-	@RequestMapping("/noticeselect")
+	@GetMapping("/noticeselect")
 	public String noticeSelect() {
 		log.info("실행");
 		return "admin/noticeselect";
 	}
 	
-	@RequestMapping("/productadd")
-	public String productAdd() {
+	@GetMapping("/productadd")
+	public String productAdd(String pageUsage) {
 		log.info("실행");
 		return "admin/productadd";
 	}
@@ -76,6 +78,23 @@ public class AdminController {
 		return "admin/productselect";
 	}
 	
+	@GetMapping("loadMainImg")
+	public void loadMainImg(int productId, HttpServletResponse response) throws Exception {
+		ProductImageDto productImage = productService.getMainImg(productId);
+		
+		String contentType = productImage.getProductImgType();
+		response.setContentType(contentType);
+		
+		String fileName = productImage.getProductImgName();
+		String encodingFileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+		response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingFileName + "\"");		
+
+		OutputStream out = response.getOutputStream();
+		out.write(productImage.getProductImg());
+		out.flush();
+		out.close();
+	}
+	
 	@PostMapping("/productInsert")
 	public String productInsert(ProductAddDto prdAddDto) throws Exception{
 		log.info("실행");
@@ -97,7 +116,7 @@ public class AdminController {
 		if(!prdAddDto.getProductDetailImage().isEmpty()) {
 			insertProduct(prdAddDto.getCategory(), productId, "detail", prdAddDto.getProductDetailImage());
 		}
-		return "redirect:/admin/mainadmin";
+		return "redirect:/admin/productselect";
 	}
 	
 	private void insertProduct(String category, int productId, String usage, MultipartFile mf) throws Exception {
@@ -110,10 +129,70 @@ public class AdminController {
 		productService.insertProductImg(imgDto);
 	}
 	
+	@GetMapping("/updateForm")
+	public String updateForm(int productId, String pageUsage, Model model) {
+		ProductDto product = productService.getProductByProductId(productId);
+		model.addAttribute("product", product);
+		return "admin/productadd";
+	}
+
+	@PostMapping("/updateProduct")
+	public String updateProduct(ProductAddDto prdAddDto) throws Exception{
+		log.info("실행");
+		productService.updateProduct(prdAddDto);
+		
+		if(!prdAddDto.getProductMainImage().isEmpty()) {
+			int result = updateProductImage(prdAddDto.getProductId(), "main", prdAddDto.getProductMainImage());
+			if(result == 0) {
+				insertProduct(prdAddDto.getCategory(), prdAddDto.getProductId(), "main", prdAddDto.getProductMainImage());				
+			}
+		}
+		
+		if(!prdAddDto.getProductSub1Image().isEmpty()) {
+			int result = updateProductImage(prdAddDto.getProductId(), "sub1", prdAddDto.getProductSub1Image());
+			if(result == 0) {
+				insertProduct(prdAddDto.getCategory(), prdAddDto.getProductId(), "sub1", prdAddDto.getProductSub1Image());			
+			}
+		}
+		
+		if(!prdAddDto.getProductSub2Image().isEmpty()) {
+			int result = updateProductImage(prdAddDto.getProductId(), "sub2", prdAddDto.getProductSub2Image());
+			if(result == 0) {
+				insertProduct(prdAddDto.getCategory(), prdAddDto.getProductId(), "sub2", prdAddDto.getProductSub2Image());			
+			}
+		}
+		
+		if(!prdAddDto.getProductSub3Image().isEmpty()) {
+			int result = updateProductImage(prdAddDto.getProductId(), "sub3", prdAddDto.getProductSub3Image());
+			if(result == 0) {
+				insertProduct(prdAddDto.getCategory(), prdAddDto.getProductId(), "sub3", prdAddDto.getProductSub3Image());			
+			}
+		}
+		
+		if(!prdAddDto.getProductDetailImage().isEmpty()) {
+			int result = updateProductImage(prdAddDto.getProductId(), "detail", prdAddDto.getProductDetailImage());
+			if(result == 0) {
+				insertProduct(prdAddDto.getCategory(), prdAddDto.getProductId(), "detail", prdAddDto.getProductDetailImage());			
+			}
+		}
+		
+		return "redirect:/admin/mainadmin";
+	}
+	
+	private int updateProductImage( int productId, String usage, MultipartFile mf) throws Exception {
+		ProductImageDto imgDto = new ProductImageDto();
+		imgDto.setProductId(productId);
+		imgDto.setProductImgUsage(usage);
+		imgDto.setProductImg(mf.getBytes());
+		imgDto.setProductImgType(mf.getContentType());
+		int result = productService.updateProductImage(imgDto);
+		return result;
+	}
+	
 	@GetMapping("/deleteProduct")
 	public String deleteProduct(int productId) {
 		productService.deleteProduct(productId);
-		return "redirect:/admin/mainadmin";
+		return "redirect:/admin/productselect";
 	}
 	
 	@PostMapping("/addNotice") 
@@ -124,6 +203,6 @@ public class AdminController {
 		notice.setNoticeContent(noticeForm.getNoticeContent());
 		notice.setNoticeHitcount(0);
 		noticeService.addNoticeContent(notice);
-		return "redirect:/admin/mainadmin";
+		return "redirect:/admin/productselect";
 	}
 }

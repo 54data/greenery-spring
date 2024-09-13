@@ -118,6 +118,7 @@
 			product_img_seq.nextval, #{productId}, #{productImgName}, #{productImgType}, #{productImg}, #{productImgUsage} )
 	</insert>
 	
+	
 	<delete id="deleteProduct" parameterType="int">
 		delete from product
 		where product_id = #{productId}
@@ -127,4 +128,29 @@
 		delete from product_image
 		where product_id = #{productId}
 	</delete>
+	
+	<select id="getProductByProductId" parameterType="int" resultType="Product">
+		select product_id, product_name, product_price, product_stock, product_summary,
+			product_detail_summary, product_reg_date, category
+		from product
+		where product_id = #{productId}
+	</select>
+	
+	<update id="updateProduct" parameterType="ProductAdd">
+		update product set
+			product_name = #{productName},
+			product_price = #{productPrice},
+			product_stock = #{productStock},
+			product_summary = #{productSummary},
+			product_detail_summary = #{productDetailSummary},
+			category = #{category}
+		where product_id = #{productId}
+	</update>
+	<update id="updateProductImage" parameterType="ProductImage">
+		update product_image set
+			product_img = #{productImg}
+		where
+			product_id = #{productId}
+			and product_img_usage = #{productImgUsage}
+	</update>
 </mapper>

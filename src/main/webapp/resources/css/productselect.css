@@ -33,6 +33,7 @@
     }
 
     .list2 img {
+    	height: 65px;
         width: 50px;
     }
 
@@ -57,4 +58,10 @@
         width: 50px;
         font-size: 12px;
         margin-top: 2px;
+    }
+    
+    #pager {
+    	margin-top: 20px;
+    	margin-bottom: 50px;
+    	text-align: center;
     }
