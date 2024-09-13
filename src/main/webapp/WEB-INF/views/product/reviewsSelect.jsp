@@ -12,33 +12,40 @@
 </head>
 
 <body>
-<div id="reviewList">
-	<div class="reviews">
-		<div class="reviews-container">
-			<c:forEach items="${reviewList}" var = "review">
-				<div class="star-container">
-			    <!-- 별 이미지가 들어갈 div태그 -->  
-			   ${starHTML} <!-- 이미지 HTML을 여기에 추가 -->
-			   <span class="star-cnt"><strong>${review.reviewScore}</strong></span>
-				</div>
-		
-				<div class="info-container">
-			    <div class="user-id">${review.userid}</div>
-			    <span><fmt:formatDate value="${review.reviewRegDate}" pattern="yyyy-MM-dd"/></span>
-				</div>
-				
-	       		<span class="review-span">${review.reviewContent}</span>
-	        
-	        	<div class="img-box">	 
-	       			<c:if test="${!empty review.reviewImg}">
-	       				<img src="loadReviewImg?reviewId=${review.reviewId}">
-	       			</c:if>		
-	    		</div>	    		
-	    		<hr>
-			</c:forEach>
-	    </div>
+	<div id="reviewList">
+		<div class="reviews">
+			<div class="reviews-container">
+				<c:forEach items="${reviewList}" var="review">
+					<div class="review-row">
+						<div class="reviewLeft">
+							<div class="star-container">
+								    <c:set var="totalStars" value="5" />
+								    <c:forEach var="i" begin="1" end="${review.reviewScore}">
+								        <img src="${pageContext.request.contextPath}/resources/image/fill-star.png" alt="채워진 별" class="star">
+								    </c:forEach>
+								    <c:forEach var="i" begin="1" end="${totalStars - review.reviewScore}">
+								        <img src="${pageContext.request.contextPath}/resources/image/empty-star.png" alt="빈 별" class="star">
+								    </c:forEach>
+								<span class="star-cnt"><strong>${review.reviewScore}</strong></span>
+							</div>
+							<div class="info-container">
+								<div class="user-id">${review.userid}</div>
+								<span><fmt:formatDate value="${review.reviewRegDate}" pattern="yyyy-MM-dd"/></span>
+							</div>
+							<span class="review-span">${review.reviewContent}</span>
+						</div>
+						<div class="img-box">
+							<c:if test="${!empty review.reviewImg}">
+								<img src="loadReviewImg?reviewId=${review.reviewId}">
+							</c:if>
+						</div>
+					</div>
+					<hr>
+				</c:forEach>
+			</div>
+		</div>
 	</div>
-</div> 
+
 
 	
 </body>
