@@ -1,13 +1,12 @@
 package com.mycompany.miniproject.dto;
 
-import java.util.Map;
-
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
 @Data
 public class ProductAddDto {
+	private int productId;
 	private String productName;
 	private int productPrice;
 	private int productStock;
