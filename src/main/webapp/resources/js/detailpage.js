@@ -77,38 +77,10 @@ function showSlides(n) {
     }
     slides[slideIndex - 1].style.display = "block";
     dots[slideIndex - 1].className += " active";
-    // captionText.innerHTML = dots[slideIndex-1].alt;
 }
 
 // ---------------------탭 - 상세정보,  리뷰 --------------------
-/*$(document).ready(function () {
-    $('.tab-button').on('click', function () {
-        var target = "/miniproject/product/" + $(this).data('target');
 
-        //ajax 요청
-        $.ajax({
-            url: target,    // 각 탭에 맞는 html 파일 경로
-            method: 'GET',
-            success: function (data) {
-                $('#tab-content').html(data);
-                console.log('ajax 요청 성공');
-
-                if ($(this).data('target') === 'reviews-select') {
-                    loadReviews();  // 리뷰 데이터 불러옴
-                } else if ($(this).data('target') === 'detail-info'){
-                	$('#tab-content').html(response);
-                }
-            }.bind(this),
-            error: function () {
-                $('#tab-content').html('<p>내용을 불러오는 데 실패함.</p>');
-                console.log(target);
-            }
-        });
-    });
-    // 페이지 로드되면 기본적으로 detail탭이 열리게 
-    $('.tab-button').first().trigger('click');
-});
-*/
 
 $(document).ready(function(){
     loadTabContent('detailInfo', $('#productId').val());
@@ -132,6 +104,8 @@ function loadTabContent(tabName, productId) {
         }
     });
 }
+
+
 
 
 // 탭 버튼 클릭 시 색상 변경
@@ -160,61 +134,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-
-/*// 리뷰 json데이터 
-function loadReviews() {
-    $.ajax({
-        url: '../../resources/content/reviews.json',
-        method: 'GET',
-        dataType: 'json',
-        success: function (data) {
-            console.log(data);  // 데이터 구조 확인
-
-            if (Array.isArray(data.reviews)) {
-                $('#reviewList').empty(); // 기존 리뷰 내용 초기화
-                data.reviews.forEach(i => {
-                    // 별 이미지를 rating 개수만큼 생성
-                    let starHTML = '';
-                    const totalStars = 5;   // 총 별의 개수(5점 만점 기준) -> 별점 3개라고 치면 나머지는 안채워진 별로 2개 채움
-                    for (let j = 0; j < totalStars; j++) {
-                        if (j < i.rating) {
-                            starHTML += <img src="../../resources/image/fill-star.png" alt="별" class="star">;
-                        } else {
-                            starHTML += <img src="../../resources/image/empty-star.png" alt="빈 별" class="star">;
-                        }
-                    }
-                    const reviewHTML = 
-                        <div class="reviews">
-                            <div class="reviews-container">
-                                <div class="star-container">
-                                    <!-- 별 이미지가 들어갈 div태그 -->  
-                                    ${starHTML} <!-- 이미지 HTML을 여기에 추가 -->
-                                    <span class="star-cnt"><strong>${i.rating}</strong></span>
-                                </div>
-            
-                                <div class="info-container">
-                                    <div class="user-id">${i.authorId}</div>
-                                    <span>${i.registrationDate}</span>
-                                </div>
-            
-                                <span class="review-span">${i.content}</span>
-                            </div>
-            
-                            <div class="img-box">
-                                <img src="${i.imageUrl}" alt="">
-                            </div>
-                        </div>
-                    ;
-                    $('#reviewList').append(reviewHTML);
-                });
-            }
-        },
-        error: function (err) {
-            console.error('리뷰 등록에 실패함', err);
-        }
-    });
-};
-*/
 
 
 /* 수량 조절 */
