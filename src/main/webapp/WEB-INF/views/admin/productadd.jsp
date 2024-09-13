@@ -90,7 +90,7 @@
 							<span>Main</span>
 						</div>
 						<input name="productMainImage" type="file" id="productMainImage" accept="image/*" style="display: none;"
-							onchange="previewImage(event, 'image-preview1')" required/>
+							onchange="previewImage(event, 'image-preview1')" <c:if test="${param.pageUsage !='수정'}">required</c:if>>
 							
 						<div class="image-preview" id="image-preview2"
 							onclick="document.getElementById('productSub1Image').click();">
@@ -133,8 +133,8 @@
 							onclick="document.getElementById('productDetailImage').click();">
 							<span>Detail</span>
 						</div>
-						<input name="productDetailImage" type="file" id="productDetailImage" accept="image/*"
-						style="display: none;" onchange="previewImage(event, 'image-preview5')" required/>
+						<input name="productDetailImage" type="file" id="productDetailImage" accept="image/*" style="display: none;"
+						onchange="previewImage(event, 'image-preview5')" <c:if test="${param.pageUsage !='수정'}">required</c:if>/>
 					</div>
 				</div>
 				
