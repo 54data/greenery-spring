@@ -3,22 +3,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
-
-<link href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css" rel="stylesheet">
-<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/bootstrap/jquery.min.js"></script>
-<link href="${pageContext.request.contextPath}/resources/css/noticeadd.css" rel="stylesheet" type="text/css" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>공지사항 등록 및 수정</title>
+	<link href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
+	<link href="${pageContext.request.contextPath}/resources/css/noticeadd.css" rel="stylesheet" type="text/css" />
 </head>
 
-
-
 <body>
-
 	<div>
-		<form class="container-form" method="post" action="noticeWrite">
+		<form class="container-form" method="post" action="addNotice">
 			<div class="top-text-margin">
 				공지사항 > <span class="text-success"><b>공지사항 등록</b></span>
 			</div>
@@ -30,17 +26,16 @@
 			</h5>
 
 			<div class="form-group">
-				<label>제목</label> <input id="noticeTitle" type="text"
-					placeholder="그리너리 서버 점검 안내(8/21)" maxlength="250">
+				<label>제목</label> 
+				<input id="noticeTitle" name="noticeTitle" type="text" placeholder="그리너리 서버 점검 안내(8/21)" maxlength="250">
 				<div id="charCount">0 / 250</div>
 			</div>
 			<div class="form-group">
 				<label>내용</label>
 			</div>
 			<div class="container-textarea">
-				<textarea id="noticeContent" class="textarea" rows="5" placeholder="공지사항에 대한 내용을 입력하세요"></textarea>
+				<textarea id="noticeContent" name="noticeContent" class="textarea" rows="5" placeholder="공지사항에 대한 내용을 입력하세요"></textarea>
 			</div>
-
 			<div class="btn-register-div">
 				<button type="submit" class="btn-register">등록</button>
 			</div>
