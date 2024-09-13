@@ -105,4 +105,9 @@ public class ProductService {
 		ProductDto product = productDao.getProductByProductId(productId);
 		return product;
 	}
+
+	public int updateProductImage(ProductImageDto imgDto) {
+		int result = productDao.updateProductImage(imgDto);
+		return result;
+	}
 }

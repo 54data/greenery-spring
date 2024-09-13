@@ -129,6 +129,66 @@ public class AdminController {
 		productService.insertProductImg(imgDto);
 	}
 	
+	@GetMapping("/updateForm")
+	public String updateForm(int productId, String pageUsage, Model model) {
+		ProductDto product = productService.getProductByProductId(productId);
+		model.addAttribute("product", product);
+		return "admin/productadd";
+	}
+
+	@PostMapping("/updateProduct")
+	public String updateProduct(ProductAddDto prdAddDto) throws Exception{
+		log.info("실행");
+		productService.updateProduct(prdAddDto);
+		
+		if(!prdAddDto.getProductMainImage().isEmpty()) {
+			int result = updateProductImage(prdAddDto.getProductId(), "main", prdAddDto.getProductMainImage());
+			if(result == 0) {
+				insertProduct(prdAddDto.getCategory(), prdAddDto.getProductId(), "main", prdAddDto.getProductMainImage());				
+			}
+		}
+		
+		if(!prdAddDto.getProductSub1Image().isEmpty()) {
+			int result = updateProductImage(prdAddDto.getProductId(), "sub1", prdAddDto.getProductSub1Image());
+			if(result == 0) {
+				insertProduct(prdAddDto.getCategory(), prdAddDto.getProductId(), "sub1", prdAddDto.getProductSub1Image());			
+			}
+		}
+		
+		if(!prdAddDto.getProductSub2Image().isEmpty()) {
+			int result = updateProductImage(prdAddDto.getProductId(), "sub2", prdAddDto.getProductSub2Image());
+			if(result == 0) {
+				insertProduct(prdAddDto.getCategory(), prdAddDto.getProductId(), "sub2", prdAddDto.getProductSub2Image());			
+			}
+		}
+		
+		if(!prdAddDto.getProductSub3Image().isEmpty()) {
+			int result = updateProductImage(prdAddDto.getProductId(), "sub3", prdAddDto.getProductSub3Image());
+			if(result == 0) {
+				insertProduct(prdAddDto.getCategory(), prdAddDto.getProductId(), "sub3", prdAddDto.getProductSub3Image());			
+			}
+		}
+		
+		if(!prdAddDto.getProductDetailImage().isEmpty()) {
+			int result = updateProductImage(prdAddDto.getProductId(), "detail", prdAddDto.getProductDetailImage());
+			if(result == 0) {
+				insertProduct(prdAddDto.getCategory(), prdAddDto.getProductId(), "detail", prdAddDto.getProductDetailImage());			
+			}
+		}
+		
+		return "redirect:/admin/mainadmin";
+	}
+	
+	private int updateProductImage( int productId, String usage, MultipartFile mf) throws Exception {
+		ProductImageDto imgDto = new ProductImageDto();
+		imgDto.setProductId(productId);
+		imgDto.setProductImgUsage(usage);
+		imgDto.setProductImg(mf.getBytes());
+		imgDto.setProductImgType(mf.getContentType());
+		int result = productService.updateProductImage(imgDto);
+		return result;
+	}
+	
 	@GetMapping("/deleteProduct")
 	public String deleteProduct(int productId) {
 		productService.deleteProduct(productId);

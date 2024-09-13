@@ -63,19 +63,21 @@
 				</c:if>
 				<div class="form-group">
 					<label>상품명</label>
-					<input name="productName" value="${product.productName}"id="productName" type="text" placeholder="예시) 프레시 블랙 떡솝">
+					<input name="productName" value="${product.productName}"id="productName" type="text"
+						placeholder="예시) 프레시 블랙 떡솝" required>
 				</div>
 				
 				<div class="form-group">
 					<label>판매가</label>
 					<input name="productPrice" value="<fmt:formatNumber>${product.productPrice}</fmt:formatNumber>"
-						id="productPrice" type="text" placeholder="가격을 입력해주세요" maxlength="10">
+						id="productPrice" type="text" placeholder="가격을 입력해주세요" maxlength="10" required>
 					<div class="form-blank">원</div>
 				</div>
 				
 				<div class="form-group">
 					<label>상품 수량</label>
-					<input name="productStock" value="${product.productStock}" id="productStock" type="text" placeholder="수량을 입력해주세요">
+					<input name="productStock" value="${product.productStock}" id="productStock" type="text"
+						placeholder="수량을 입력해주세요" required>
 					<div class="form-blank">개</div>
 				</div>
 				
@@ -88,7 +90,7 @@
 							<span>Main</span>
 						</div>
 						<input name="productMainImage" type="file" id="productMainImage" accept="image/*" style="display: none;"
-							onchange="previewImage(event, 'image-preview1')" />
+							onchange="previewImage(event, 'image-preview1')" required/>
 							
 						<div class="image-preview" id="image-preview2"
 							onclick="document.getElementById('productSub1Image').click();">
@@ -115,12 +117,14 @@
 	
 				<div class="form-group">
 					<label>상품 대표 설명 (썸네일)</label>
-					<input name="productSummary" value="${product.productSummary}" id="productSummary" type="text" placeholder="상품의 대표 설명을 입력하세요">
+					<input name="productSummary" value="${product.productSummary}" id="productSummary" type="text"
+						placeholder="상품의 대표 설명을 입력하세요" required>
 				</div>
 				
 				<div class="form-group">
 					<label>상품 상세페이지 대표 설명</label>
-					<input name="productDetailSummary" value="${product.productDetailSummary}" id="productDetailSummary" type="text" placeholder="상품의 핵심 특징을 간단히 설명하세요">
+					<input name="productDetailSummary" value="${product.productDetailSummary}" id="productDetailSummary"
+						type="text" placeholder="상품의 핵심 특징을 간단히 설명하세요" required>
 				</div>
 				<div class="image-thumnail">
 					<label>상품 상세페이지 상세정보 설명</label>
@@ -130,13 +134,13 @@
 							<span>Detail</span>
 						</div>
 						<input name="productDetailImage" type="file" id="productDetailImage" accept="image/*"
-						style="display: none;" onchange="previewImage(event, 'image-preview5')"/>
+						style="display: none;" onchange="previewImage(event, 'image-preview5')" required/>
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label>카테고리</label>
-					<select name="category" id="category">
+					<select name="category" id="category" required>
 						<option value="스킨케어" <c:if test="${product.category=='스킨케어'}">selected</c:if>>스킨케어</option>
 						<option value="바디케어" <c:if test="${product.category=='바디케어'}">selected</c:if>>바디케어</option>
 						<option value="메이크업" <c:if test="${product.category=='메이크업'}">selected</c:if>>메이크업</option>

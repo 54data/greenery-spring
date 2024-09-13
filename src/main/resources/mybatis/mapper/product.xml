@@ -146,4 +146,11 @@
 			category = #{category}
 		where product_id = #{productId}
 	</update>
+	<update id="updateProductImage" parameterType="ProductImage">
+		update product_image set
+			product_img = #{productImg}
+		where
+			product_id = #{productId}
+			and product_img_usage = #{productImgUsage}
+	</update>
 </mapper>
