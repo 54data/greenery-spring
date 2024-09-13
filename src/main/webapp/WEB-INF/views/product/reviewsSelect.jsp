@@ -51,7 +51,8 @@
 		                  <a href="javascript:loadTabContent('reviewsSelect', ${product.productId}, ${i})" class="btn btn-light">${i}</a>
 		               </c:if>
 		               <script>
-           					 console.log("${i}");
+		               		
+							console.log("${i}");
         				</script>	               	               
 					</c:forEach>
 				</div>

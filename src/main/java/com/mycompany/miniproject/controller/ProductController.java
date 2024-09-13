@@ -65,14 +65,14 @@ public class ProductController {
                                 HttpSession session) {
 		ProductDto product = productService.getProductDetail(productId);
 		model.addAttribute("product", product);
-        int totalRows = reviewService.getTotalRows();  // 전체 리뷰 수 계산
-        PagerDto pager = new PagerDto(5, 5, totalRows, pageNo);  // 페이징 처리
-        session.setAttribute("pager", pager);  // 페이징 정보 세션에 저장
+        int totalRows = reviewService.getTotalRows();
+        PagerDto pager = new PagerDto(5, 5, totalRows, pageNo);
+        session.setAttribute("pager", pager);
 
         List<ReviewDto> reviewList = reviewService.getReviewsByProductId(productId, pager.getStartRowNo(), pager.getEndRowNo());
         
         model.addAttribute("reviewList", reviewList);
-        return "product/reviewsSelect";  // 리뷰 JSP로 데이터 반환
+        return "product/reviewsSelect";
     }
 
 	@GetMapping("/detailpage")
