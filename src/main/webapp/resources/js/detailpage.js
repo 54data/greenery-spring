@@ -82,29 +82,29 @@ function showSlides(n) {
 // ---------------------탭 - 상세정보,  리뷰 --------------------
 
 
-$(document).ready(function(){
-    loadTabContent('detailInfo', $('#productId').val());
-});
 
-function loadTabContent(tabName, productId) {
+function loadTabContent(tabName, productId, pageNo) {
 	console.log("loadTabContent 호출됨, productId: ", productId);
-	
+	console.log("pageNo 잘 넘어가는지?: ", pageNo)
     $.ajax({
         url: "/miniproject/product/" + tabName,
         type: "GET",
-        data: { productId: productId },
+        data: { productId: productId, pageNo: pageNo },
         success: function(response) {
         	console.log("Ajax 성공", response);
             $('#tab-content').html(response);  
         },
-        error: function() {
-        	console.error("Ajax 오류 발생: ", error);
+        error: function(xhr, status, errorThrown) {
+        	console.error("Ajax 오류 발생: ", errorThrown);
             console.log("xhr: ", xhr);
             console.log("status: ", status);
         }
     });
 }
 
+$(document).ready(function(){
+    loadTabContent('detailInfo', $('#productId').val());
+});
 
 
 

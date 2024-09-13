@@ -21,13 +21,7 @@
 		<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	</div>
 
-<%-- 	<img src="loadProductImgs?productId=${product.productId}&productImgUsage=main"> --%>
-<%-- 	<c:if test="${not empty map['sub1']}"> --%>
-<%-- 		<img src="loadProductImgs?productId=${product.productId}&productImgUsage=sub1"> --%>
-<%-- 	</c:if> --%>
-<%-- 	<c:if test="${not empty map['sub2']}"> --%>
-<%-- 		<img src="loadProductImgs?productId=${product.productId}&productImgUsage=sub2"> --%>
-<%-- 	</c:if> --%>
+
 	<div class="container">
 		<div class="left">
 
@@ -40,24 +34,7 @@
 						</div>
 					</c:if>	
 				</c:forEach>
-				<!-- Full-width images with number and caption text -->
-<!-- 				<div class="mySlides fade">
-					<img
-						src=""
-						alt="Slide 1">
-				</div>
 
-				<div class="mySlides fade">
-					<img
-						src=""
-						alt="Slide 2">
-				</div>
-
-				<div class="mySlides fade">
-					<img
-						src=""
-						alt="Slide 3">
-				</div> -->
 			</div>
 		</div>
 
@@ -110,20 +87,7 @@
 			</c:forEach>
 			
 		</div>
-<!-- 
- 		<div class="currentSlide-container">
-			<span class="dot" onclick="currentSlide(1)"> <img
-				src="https://i.pinimg.com/564x/db/a1/f2/dba1f28adc32bc960e89ee4dd4ffa027.jpg"
-				alt="currentSlide(1)" style="width: 25%">
-			</span> <span class="dot" onclick="currentSlide(2)"> <img
-				src="https://i.pinimg.com/564x/d9/d3/82/d9d3829fc798b6107ca26649c3000b13.jpg"
-				alt="currentSlide(2)" style="width: 25%">
-			</span> <span class="dot" onclick="currentSlide(3)"> <img
-				src="https://i.pinimg.com/564x/17/71/74/177174a71afb907c30f5af5563b7375d.jpg"
-				alt="currentSlide(3)" style="width: 25%">
-			</span>
-		</div>
--->
+
 		<a class="next" onclick="plusSlides(1)"> <img
 			src="${pageContext.request.contextPath}/resources/image/right-icon.png" alt="Next">
 		</a>
@@ -138,7 +102,7 @@
 			</div>
 			
 			<div class="tab-item">
-				<button class="tab-button tablinks" onclick="loadTabContent('reviewsSelect', ${product.productId})">리뷰</button>
+				<button class="tab-button tablinks" onclick="loadTabContent('reviewsSelect', ${product.productId}, ${pager.pageNo})">리뷰</button>
 				<div class="reviews-divider"></div>
 			</div>
 		</div>
@@ -156,6 +120,7 @@
 	<div id="footer">
 		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	</div>
+	
 
 	<script src="${pageContext.request.contextPath}/resources/js/detailpage.js"></script>
 </body>

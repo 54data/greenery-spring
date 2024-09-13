@@ -96,4 +96,6 @@ public class ProductService {
 		productDao.deleteProductImage(productId);
 		productDao.deleteProduct(productId);
 	}
+	
+	
 }
