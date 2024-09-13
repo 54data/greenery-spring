@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +23,12 @@
 	<div class="admin-page">
 		<%@ include file="mainadmin.jsp" %>
 		<div class="admin-content">
-			<form class="container-form" method="post" action="addNotice">
+			<form class="container-form" method="post" 
+				<c:if test="${param.pageUsage != '수정'}">action="addNotice"</c:if>
+				<c:if test="${param.pageUsage == '수정'}">action="updateNotice"</c:if>>
+				<c:if test="${param.pageUsage == '수정'}">
+					<input type="hidden" name="noticeId" value="${notice.noticeId}">
+				</c:if>
 				<div class="top-text-margin">
 					공지사항 > <span class="text-success"><b>공지사항 등록</b></span>
 				</div>
@@ -32,17 +38,16 @@
 				<h5 class="top-text-margin">
 					<b>기본 정보</b>
 				</h5>
-	
 				<div class="form-group">
 					<label>제목</label> 
-					<input id="noticeTitle" name="noticeTitle" type="text" placeholder="그리너리 서버 점검 안내(8/21)" maxlength="250">
+					<input id="noticeTitle" name="noticeTitle" type="text" placeholder="그리너리 서버 점검 안내(8/21)" maxlength="250" value="${notice.noticeTitle}">
 					<div id="charCount">0 / 250</div>
 				</div>
 				<div class="form-group">
 					<label>내용</label>
 				</div>
 				<div class="container-textarea">
-					<textarea id="noticeContent" name="noticeContent" class="textarea" rows="5" placeholder="공지사항에 대한 내용을 입력하세요"></textarea>
+					<textarea id="noticeContent" name="noticeContent" class="textarea" rows="5" placeholder="공지사항에 대한 내용을 입력하세요">${notice.noticeContent}</textarea>
 				</div>
 				<div class="btn-register-div">
 					<button type="submit" class="btn-register">등록</button>

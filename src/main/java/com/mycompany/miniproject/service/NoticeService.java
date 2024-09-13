@@ -36,4 +36,12 @@ public class NoticeService {
 	public void addNoticeContent(NoticeDto notice) {
 		noticeDao.insert(notice);
 	}
+
+	public void deleteNotice(int noticeId) {
+		noticeDao.delete(noticeId);
+	}
+
+	public void updateNotice(NoticeDto notice) {
+		noticeDao.update(notice);
+	}
 }

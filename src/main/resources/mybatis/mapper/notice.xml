@@ -3,11 +3,11 @@
 <mapper namespace="com.mycompany.miniproject.dao.NoticeDao">
 	<select id="getNoticeAll" resultType="Notice">
 		<![CDATA[
-			select notice_num, notice_title, notice_reg_date
+			select notice_num, notice_id, notice_title, notice_reg_date
 			from (
-			    select notice_num, rownum as rnum, notice_title, notice_reg_date
+			    select notice_num, rownum as rnum, notice_id, notice_title, notice_reg_date
 			    from (
-			        select row_number() over (order by notice_id) as notice_num, notice_title, notice_reg_date
+			        select row_number() over (order by notice_id) as notice_num, notice_id, notice_title, notice_reg_date
 			        from notice
 			        order by notice_reg_date desc
 			    )
@@ -23,7 +23,7 @@
 	</select>
 	
 	<select id="getNoticeById" resultType="Notice" parameterType="int">
-		select notice_title, notice_reg_date, notice_hitcount, notice_content
+		select notice_id, notice_title, notice_reg_date, notice_hitcount, notice_content
 		from notice
 		where notice_id = #{noticeId}
 	</select>
@@ -42,4 +42,17 @@
 			notice_seq.NEXTVAL, #{noticeWriter}, #{noticeTitle}, #{noticeContent}, sysdate, #{noticeHitcount}
 		)
 	</insert>
+	
+	<delete id="delete" parameterType="int">
+		delete from notice
+		where notice_id = #{noticeId}
+	</delete>
+	
+	<update id="update" parameterType="Notice">
+		update notice
+		set 
+			notice_title = #{noticeTitle},
+			notice_content = #{noticeContent}
+		where notice_id = #{noticeId}
+	</update>
 </mapper>
