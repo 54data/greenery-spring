@@ -1,7 +1,9 @@
 package com.mycompany.miniproject.controller;
 
+import java.io.OutputStream;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mycompany.miniproject.dto.PagerDto;
 import com.mycompany.miniproject.dto.NoticeDto;
+import com.mycompany.miniproject.dto.PagerDto;
 import com.mycompany.miniproject.dto.ProductAddDto;
 import com.mycompany.miniproject.dto.ProductDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
+import com.mycompany.miniproject.service.NoticeService;
 import com.mycompany.miniproject.service.ProductService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -51,7 +54,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/productadd")
-	public String productAdd() {
+	public String productAdd(String pageUsage) {
 		log.info("실행");
 		return "admin/productadd";
 	}
@@ -73,6 +76,23 @@ public class AdminController {
 		 log.info("Product List: " + productList);
 		
 		return "admin/productselect";
+	}
+	
+	@GetMapping("loadMainImg")
+	public void loadMainImg(int productId, HttpServletResponse response) throws Exception {
+		ProductImageDto productImage = productService.getMainImg(productId);
+		
+		String contentType = productImage.getProductImgType();
+		response.setContentType(contentType);
+		
+		String fileName = productImage.getProductImgName();
+		String encodingFileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+		response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingFileName + "\"");		
+
+		OutputStream out = response.getOutputStream();
+		out.write(productImage.getProductImg());
+		out.flush();
+		out.close();
 	}
 	
 	@PostMapping("/productInsert")
@@ -107,6 +127,23 @@ public class AdminController {
 		imgDto.setProductImg(mf.getBytes());
 		imgDto.setProductImgType(mf.getContentType());
 		productService.insertProductImg(imgDto);
+	}
+	
+	@GetMapping("/updateForm")
+	public String updateForm(int productId, String pageUsage, Model model) {
+		ProductDto product = productService.getProductByProductId(productId);
+		model.addAttribute("product", product);
+		return "admin/productadd";
+	}
+	
+	@PostMapping("/updateProduct")
+	public String updateProduct(ProductAddDto prdAddDto) {
+		log.info("실행");
+		if(prdAddDto.getProductMainImage().isEmpty()) {
+			productService.updateProduct(prdAddDto);
+			
+		}
+		return "redirect:/admin/mainadmin";
 	}
 	
 	@GetMapping("/deleteProduct")

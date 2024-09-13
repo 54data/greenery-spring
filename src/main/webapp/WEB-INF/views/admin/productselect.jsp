@@ -39,19 +39,31 @@
 		</div>
 		<c:forEach items="${productList}" var="product">
 			<div class="list-container">
-				<div class="list1">왜안나와</div>
+				<div class="list1"><fmt:formatDate value="${product.productRegDate}" pattern="yyyy-MM-dd"/> </div>
 				<div class="list2">
-					<img src="#">
+					<img src="loadMainImg?productId=${product.productId}">
 				</div>
 				<div class="list3">${product.productName}</div>
 				<div class="list4">${product.productStock}</div>
 				<div class="list5"><fmt:formatNumber>${product.productPrice}</fmt:formatNumber>원</div>
 				<div class="list6">
-					<a href="${pageContext.request.contextPath}/admin/updateProduct?productId=${product.productId}" class=" btn btn1">수정</a>
+					<a href="${pageContext.request.contextPath}/admin/updateForm?productId=${product.productId}&pageUsage=수정" class=" btn btn1">수정</a>
 					<a href="${pageContext.request.contextPath}/admin/deleteProduct?productId=${product.productId}" class=" btn btn2">삭제</a>
 				</div>
 			</div>
 		</c:forEach>
+		
+		<div id="pager">
+			<c:forEach begin="${pager.startPageNo}" end="${pager.endPageNo}"
+				step="1" var="i">
+				<c:if test="${pager.pageNo == i}">
+					<a href="?pageNo=${i}&sort=${pager.sort}" class="btn btn-outline-dark">${i}</a>
+				</c:if>
+				<c:if test="${pager.pageNo != i}">
+					<a href="?pageNo=${i}&sort=${pager.sort}" class="btn btn-light">${i}</a>
+				</c:if>
+			</c:forEach>
+		</div>
 
 	</div>
 
