@@ -96,6 +96,8 @@ public class ProductService {
 		productDao.deleteProductImage(productId);
 		productDao.deleteProduct(productId);
 	}
+	
+	
 
 	public void updateProduct(ProductAddDto prdAddDto) {
 		productDao.updateProduct(prdAddDto);

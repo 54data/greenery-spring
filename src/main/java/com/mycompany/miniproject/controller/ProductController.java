@@ -52,15 +52,31 @@ public class ProductController {
         return "product/detailInfo";  
     }
 
+//    @GetMapping("/reviewsSelect")
+//    public String reviewsSelect(@RequestParam int productId, Model model) {
+//        List<ReviewDto> reviewList = reviewService.getReviewsByProductId(productId);
+//        model.addAttribute("reviewList", reviewList);
+//        return "product/reviewsSelect"; 
+//    }
+
     @GetMapping("/reviewsSelect")
-    public String showReviewsSelect(@RequestParam int productId, Model model) {
-        List<ReviewDto> reviewList = reviewService.getReviewsByProductId(productId);
+    public String reviewsSelect(@RequestParam int productId,
+                                @RequestParam(defaultValue = "1") int pageNo, Model model,
+                                HttpSession session) {
+		ProductDto product = productService.getProductDetail(productId);
+		model.addAttribute("product", product);
+        int totalRows = reviewService.getTotalRows();
+        PagerDto pager = new PagerDto(5, 5, totalRows, pageNo);
+        session.setAttribute("pager", pager);
+
+        List<ReviewDto> reviewList = reviewService.getReviewsByProductId(productId, pager.getStartRowNo(), pager.getEndRowNo());
+        
         model.addAttribute("reviewList", reviewList);
-        return "product/reviewsSelect"; 
+        return "product/reviewsSelect";
     }
-    
+
 	@GetMapping("/detailpage")
-	public String detailpage(int productId, Model model) {
+	public String detailpage(@RequestParam int productId, @RequestParam(defaultValue="1") int pageNo, Model model) {
 		ProductDto product = productService.getProductDetail(productId);
 		model.addAttribute("product", product);
 		
@@ -72,6 +88,11 @@ public class ProductController {
 		}
 		
 		model.addAttribute("map", map);
+
+		int totalRows = reviewService.getTotalRows();  // 전체 리뷰 수
+	    PagerDto pager = new PagerDto(5, 5, totalRows, pageNo);  // 페이징 객체 생성
+	    model.addAttribute("pager", pager);
+	    
 		return "product/detailpage";
 	}
 	
@@ -147,7 +168,6 @@ public class ProductController {
 		String encodingFileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
 		response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingFileName + "\"");		
 
-		log.info(fileName);
 		OutputStream out = response.getOutputStream();
 		out.write(reviewImg.getReviewImg());
 		out.flush();

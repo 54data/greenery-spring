@@ -42,11 +42,27 @@
 					</div>
 					<hr>
 				</c:forEach>
+				<div class="pageNum">
+					<c:forEach begin="${pager.startPageNo}" end="${pager.endPageNo}" step="1" var="i">
+		            	<c:if test="${pager.pageNo == i}">
+		                  <a href="javascript:void(0);" class="btn btn-outline-dark">${i}</a>
+		               </c:if>
+		               <c:if test="${pager.pageNo != i}">
+		                  <a href="javascript:loadTabContent('reviewsSelect', ${product.productId}, ${i})" class="btn btn-light">${i}</a>
+		               </c:if>
+		               <script>
+		               		
+							console.log("${i}");
+        				</script>	               	               
+					</c:forEach>
+				</div>
+
+
 			</div>
 		</div>
 	</div>
 
-
+	
 	
 </body>
 

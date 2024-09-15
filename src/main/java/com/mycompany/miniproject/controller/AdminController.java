@@ -42,15 +42,30 @@ public class AdminController {
 		return "redirect:/admin/productselect";
 	}
 	
+	@GetMapping("noticeUpdateForm")
+	public String noticeAddForm(String pageUsage, int noticeId, Model model) {
+		if (pageUsage.equals("수정")) {
+			NoticeDto notice = noticeService.getNoticeContent(noticeId);
+			model.addAttribute("notice", notice);
+		}
+		return "admin/noticeadd";
+	}
+	
 	@GetMapping("/noticeadd")
-	public String noticeAdd() {
-		log.info("실행");
+	public String noticeAdd(String pageUsage) {
 		return "admin/noticeadd";
 	}
 	
 	@GetMapping("/noticeselect")
-	public String noticeSelect() {
-		log.info("실행");
+	public String noticeSelect(
+			Model model, 
+			@RequestParam(defaultValue="1") int pageNo,
+			HttpSession session) {
+		int totalRows = noticeService.getTotalRows();
+		PagerDto pager = new PagerDto(7, 5, totalRows, pageNo);
+		session.setAttribute("pager", pager);
+		List<NoticeDto> noticeList = noticeService.getNotices(pager);
+		model.addAttribute("noticeList", noticeList);
 		return "admin/noticeselect";
 	}
 	
@@ -233,14 +248,30 @@ public class AdminController {
 	}
 	
 	@PostMapping("/addNotice") 
-	public String addNotice(NoticeDto noticeForm, HttpSession session) {
+	public String addNotice(NoticeDto noticeForm) {
 		NoticeDto notice = new NoticeDto();
-		notice.setNoticeWriter("greenery_admin");
+		notice.setNoticeWriter("greenery_admin"); // 임시 
 		notice.setNoticeTitle(noticeForm.getNoticeTitle());
 		notice.setNoticeContent(noticeForm.getNoticeContent());
 		notice.setNoticeHitcount(0);
 		noticeService.addNoticeContent(notice);
-		return "redirect:/admin/productselect";
+		return "redirect:/admin/noticeselect";
+	}
+	
+	@PostMapping("/updateNotice")
+	public String updateNotice(NoticeDto noticeForm) {
+		NoticeDto notice = new NoticeDto();
+		notice.setNoticeId(noticeForm.getNoticeId());
+		notice.setNoticeTitle(noticeForm.getNoticeTitle());
+		notice.setNoticeContent(noticeForm.getNoticeContent());
+		noticeService.updateNotice(notice);
+		return "redirect:/admin/noticeselect";
+	}
+	
+	@GetMapping("/deleteNotice") 
+	public String deleteNotice(int noticeId) {
+		noticeService.deleteNotice(noticeId);
+		return "redirect:/admin/noticeselect";
 	}
 	
 }
