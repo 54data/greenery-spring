@@ -85,30 +85,65 @@
 					<label>상품 대표 이미지 (썸네일)</label>
 					<div class="image-upload-container">
 					
-						<div class="image-preview" id="image-preview1"
+						<div class="image-preview " id="image-preview1"
 							onclick="document.getElementById('productMainImage').click();">
-							<span>Main</span>
+							<c:if test="${mainImage}">
+								<div class="deleteImgButton">
+									<a class="btn btn-sm text-danger" onclick="event.stopPropagation();" 
+										href="deleteProductImg?productId=${product.productId}&usage=main">X</a>								
+								</div>
+								<img class= "insertedImg" src="loadImgByUsage?productId=${product.productId}&usage=main">
+							</c:if>
+							<c:if test="${!mainImage}">
+								<span>Main</span>
+							</c:if>
 						</div>
 						<input name="productMainImage" type="file" id="productMainImage" accept="image/*" style="display: none;"
 							onchange="previewImage(event, 'image-preview1')" <c:if test="${param.pageUsage !='수정'}">required</c:if>>
 							
 						<div class="image-preview" id="image-preview2"
 							onclick="document.getElementById('productSub1Image').click();">
-							<span>Sub1</span>
+							<c:if test="${sub1Image}">
+								<div class="deleteImgButton">
+									<a class="btn btn-sm text-danger" href="deleteProductImg?productId=${product.productId}&usage=sub1">X</a>								
+								</div>
+								<img class= "insertedImg" src="loadImgByUsage?productId=${product.productId}&usage=sub1">
+							</c:if>
+							<c:if test="${!sub1Image}">
+								<span>Sub1</span>
+							</c:if>
 						</div>
 						<input name="productSub1Image" type="file" id="productSub1Image" accept="image/*" style="display: none;"
 							onchange="previewImage(event, 'image-preview2')" />
 							
 						<div class="image-preview" id="image-preview3"
 							onclick="document.getElementById('productSub2Image').click();">
-							<span>Sub2</span>
+							<c:if test="${sub2Image}">
+								<div class="deleteImgButton">
+									<a class="btn btn-sm text-danger" onclick="event.stopPropagation();"
+										href="deleteProductImg?productId=${product.productId}&usage=sub2">X</a>								
+								</div>
+								<img class= "insertedImg" src="loadImgByUsage?productId=${product.productId}&usage=sub2">
+							</c:if>
+							<c:if test="${!sub2Image}">
+								<span>Sub2</span>
+							</c:if>
 						</div>
 						<input name="productSub2Image" type="file" id="productSub2Image" accept="image/*" style="display: none;"
 							onchange="previewImage(event, 'image-preview3')" />
 							
 						<div class="image-preview" id="image-preview4"
 							onclick="document.getElementById('productSub3Image').click();">
-							<span>Sub3</span>
+							<c:if test="${sub3Image}">
+								<div class="deleteImgButton">
+									<a class="btn btn-sm text-danger" onclick="event.stopPropagation();"
+										href="deleteProductImg?productId=${product.productId}&usage=sub3">X</a>								
+								</div>
+								<img class= "insertedImg" src="loadImgByUsage?productId=${product.productId}&usage=sub3">
+							</c:if>
+							<c:if test="${!sub3Image}">
+								<span>Sub3</span>
+							</c:if>
 						</div>
 						<input name="productSub3Image" type="file" id="productSub3Image" accept="image/*" style="display: none;"
 							onchange="previewImage(event, 'image-preview4')" />
@@ -131,7 +166,16 @@
 					<div class="image-upload-container">
 						<div class="image-preview" id="image-preview5"
 							onclick="document.getElementById('productDetailImage').click();">
-							<span>Detail</span>
+							<c:if test="${detailImage}">
+								<div class="deleteImgButton">
+									<a class="btn btn-sm text-danger" onclick="event.stopPropagation();"
+										href="deleteProductImg?productId=${product.productId}&usage=detail">X</a>								
+								</div>
+								<img class= "insertedImg" src="loadImgByUsage?productId=${product.productId}&usage=detail">
+							</c:if>
+							<c:if test="${!detailImage}">
+								<span>Detail</span>
+							</c:if>
 						</div>
 						<input name="productDetailImage" type="file" id="productDetailImage" accept="image/*" style="display: none;"
 						onchange="previewImage(event, 'image-preview5')" <c:if test="${param.pageUsage !='수정'}">required</c:if>/>

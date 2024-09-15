@@ -14,4 +14,8 @@ public interface ProductImageDao {
 
 	public ProductImageDto getImgByProductImgId(int productImgId);
 
+	public ProductImageDto getImgByUsage(ProductImageDto productImageDto);
+
+	public void deleteProductImg(ProductImageDto productImgDto);
+
 }

@@ -1,6 +1,7 @@
 package com.mycompany.miniproject.controller;
 
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -94,6 +95,24 @@ public class AdminController {
 		out.flush();
 		out.close();
 	}
+
+	@GetMapping("loadImgByUsage")
+	public void loadImgByUsage(int productId, String usage, HttpServletResponse response) throws Exception {		
+		ProductImageDto productImageDto = new ProductImageDto();
+		ProductImageDto productImage = productService.getImgByUsage(productId, usage);
+		
+		String contentType = productImage.getProductImgType();
+		response.setContentType(contentType);
+		
+		String fileName = productImage.getProductImgName();
+		String encodingFileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+		response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingFileName + "\"");		
+		
+		OutputStream out = response.getOutputStream();
+		out.write(productImage.getProductImg());
+		out.flush();
+		out.close();
+	}
 	
 	@PostMapping("/productInsert")
 	public String productInsert(ProductAddDto prdAddDto) throws Exception{
@@ -131,9 +150,20 @@ public class AdminController {
 	
 	@GetMapping("/updateForm")
 	public String updateForm(int productId, String pageUsage, Model model) {
-		ProductDto product = productService.getProductByProductId(productId);
+		ProductAddDto product = productService.getProductByProductId(productId);
 		model.addAttribute("product", product);
+		
+		model.addAttribute("mainImage", productService.getImgByUsage(productId, "main") != null);
+	    model.addAttribute("sub1Image", productService.getImgByUsage(productId, "sub1") != null);
+	    model.addAttribute("sub2Image", productService.getImgByUsage(productId, "sub2") != null);
+	    model.addAttribute("sub3Image", productService.getImgByUsage(productId, "sub3") != null);
+	    model.addAttribute("detailImage", productService.getImgByUsage(productId, "detail") != null);
+	    
 		return "admin/productadd";
+	}
+	
+	public void getPreviewImage() {
+		
 	}
 
 	@PostMapping("/updateProduct")
@@ -189,6 +219,13 @@ public class AdminController {
 		return result;
 	}
 	
+	@GetMapping("deleteProductImg")
+	private String deleteProductImg(int productId, String usage) throws Exception {
+		productService.deleteProductImg(productId, usage);
+		String encodedPageUsage = URLEncoder.encode("수정", "UTF-8");
+		return "redirect:/admin/updateForm?productId=" + productId + "&pageUsage="+ encodedPageUsage;
+	}
+	
 	@GetMapping("/deleteProduct")
 	public String deleteProduct(int productId) {
 		productService.deleteProduct(productId);
@@ -205,4 +242,5 @@ public class AdminController {
 		noticeService.addNoticeContent(notice);
 		return "redirect:/admin/productselect";
 	}
+	
 }

@@ -77,7 +77,7 @@ form-group textarea {
 }
 
 .image-preview {
-    display: flex;
+	position: relative;
     justify-content: center;
     align-items: center;
     height: 150px;
@@ -137,6 +137,13 @@ form-group textarea {
     border: 1px solid #ccc;
     font-size: 14px;
     padding-left: 10px;
+}
+
+.deleteImgButton {
+    position: absolute;  /* 부모에 상대적인 위치 설정 */
+    top: 0px;  /* 위에서 10px 떨어짐 */
+    right: 3px;  /* 오른쪽에서 10px 떨어짐 */
+    cursor: pointer;
 }
 
 

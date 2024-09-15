@@ -101,13 +101,29 @@ public class ProductService {
 		productDao.updateProduct(prdAddDto);
 	}
 
-	public ProductDto getProductByProductId(int productId) {
-		ProductDto product = productDao.getProductByProductId(productId);
+	public ProductAddDto getProductByProductId(int productId) {
+		ProductAddDto product = productDao.getProductByProductId(productId);
 		return product;
 	}
 
 	public int updateProductImage(ProductImageDto imgDto) {
 		int result = productDao.updateProductImage(imgDto);
 		return result;
+	}
+
+	public ProductImageDto getImgByUsage(int productId, String usage) {
+		ProductImageDto productImageDto = new ProductImageDto();
+		productImageDto.setProductId(productId);
+		productImageDto.setProductImgUsage(usage);
+		ProductImageDto productImage = productImageDao.getImgByUsage(productImageDto);
+		return productImage;
+	}
+
+	public void deleteProductImg(int productId, String usage) {
+		ProductImageDto productImgDto = new ProductImageDto();
+		productImgDto.setProductId(productId);
+		productImgDto.setProductImgUsage(usage);
+		productImageDao.deleteProductImg(productImgDto);
+		
 	}
 }

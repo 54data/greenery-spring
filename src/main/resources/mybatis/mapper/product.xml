@@ -129,7 +129,7 @@
 		where product_id = #{productId}
 	</delete>
 	
-	<select id="getProductByProductId" parameterType="int" resultType="Product">
+	<select id="getProductByProductId" parameterType="int" resultType="ProductAdd">
 		select product_id, product_name, product_price, product_stock, product_summary,
 			product_detail_summary, product_reg_date, category
 		from product

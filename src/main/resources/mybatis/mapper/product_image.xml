@@ -11,6 +11,13 @@
 		where product_id = #{productId}
 		and product_img_usage = 'main'
 	</select>
+	
+	<select id="getImgByUsage" parameterType="ProductImage" resultType="ProductImage">
+		select product_img_id, product_id, product_img_name, product_img_type, product_img, product_img_usage
+		from product_image
+		where product_id = #{productId}
+		and product_img_usage = #{productImgUsage}
+	</select>
 
 	<select id="getImgsByProductId"  parameterType="int"  resultType="ProductImage">
 		select
@@ -27,4 +34,10 @@
 		from product_image
 		where product_img_id = #{productImgId}
 	</select>
+	
+	<delete id="deleteProductImg" parameterType="ProductImage">
+		delete from product_image
+		where product_id = #{productId}
+		and product_img_usage = #{productImgUsage}
+	</delete>
 </mapper>
