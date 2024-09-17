@@ -52,12 +52,6 @@ public class ProductController {
         return "product/detailInfo";  
     }
 
-//    @GetMapping("/reviewsSelect")
-//    public String reviewsSelect(@RequestParam int productId, Model model) {
-//        List<ReviewDto> reviewList = reviewService.getReviewsByProductId(productId);
-//        model.addAttribute("reviewList", reviewList);
-//        return "product/reviewsSelect"; 
-//    }
 
     @GetMapping("/reviewsSelect")
     public String reviewsSelect(@RequestParam int productId,
@@ -65,13 +59,22 @@ public class ProductController {
                                 HttpSession session) {
 		ProductDto product = productService.getProductDetail(productId);
 		model.addAttribute("product", product);
-        int totalRows = reviewService.getTotalRows();
-        PagerDto pager = new PagerDto(5, 5, totalRows, pageNo);
-        session.setAttribute("pager", pager);
-
-        List<ReviewDto> reviewList = reviewService.getReviewsByProductId(productId, pager.getStartRowNo(), pager.getEndRowNo());
+		
+        int totalRows = reviewService.getTotalRows(productId);
+        PagerDto pager = new PagerDto(5, 5, totalRows, pageNo);      
         
+        log.info("PagerDto 생성됨");
+        log.info("startRowNo: {}", pager.getStartRowNo());
+        log.info("endRowNo: {}", pager.getEndRowNo());
+        log.info("totalRows: {}", totalRows);
+        log.info("totalPageNo: {}", pager.getTotalPageNo());
+        log.info("pageNo: {}", pager.getPageNo());
+        
+        List<ReviewDto> reviewList = reviewService.getReviewsByProductId(productId, pager);
+        
+        session.setAttribute("pager", pager);
         model.addAttribute("reviewList", reviewList);
+        
         return "product/reviewsSelect";
     }
 
@@ -88,11 +91,10 @@ public class ProductController {
 		}
 		
 		model.addAttribute("map", map);
-
-		int totalRows = reviewService.getTotalRows();  // 전체 리뷰 수
-	    PagerDto pager = new PagerDto(5, 5, totalRows, pageNo);  // 페이징 객체 생성
-	    model.addAttribute("pager", pager);
-	    
+		
+		int totalRows = reviewService.getTotalRows(productId);
+	    PagerDto pager = new PagerDto(5, 5, totalRows, pageNo);
+	    model.addAttribute("pager", pager); 
 		return "product/detailpage";
 	}
 	

@@ -1,6 +1,7 @@
 package com.mycompany.miniproject.dto;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 @Data
 public class PagerDto {
@@ -74,5 +75,6 @@ public class PagerDto {
 		startRowIndex = startRowNo - 1;
 		endRowNo = pageNo * rowsPerPage;
 		endRowIndex = endRowNo - 1;
+		
 	}
 }

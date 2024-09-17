@@ -102,7 +102,7 @@
 			</div>
 			
 			<div class="tab-item">
-				<button class="tab-button tablinks" onclick="loadTabContent('reviewsSelect', ${product.productId}, ${pager.pageNo})">리뷰</button>
+				<button class="tab-button tablinks" onclick="loadTabContent('reviewsSelect', ${product.productId}, 1)">리뷰</button>
 				<div class="reviews-divider"></div>
 			</div>
 		</div>

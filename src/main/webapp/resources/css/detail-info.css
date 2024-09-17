@@ -12,3 +12,12 @@ body {
     justify-content: center;
 	margin: 0 auto;
 }
+
+.pageNum {
+	cursor: pointer;
+	margin: 70px auto;
+}
+
+.pageNum > a {
+	font-size: 16px;
+}

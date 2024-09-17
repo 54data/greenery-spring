@@ -2,6 +2,7 @@ package com.mycompany.miniproject.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,26 +18,19 @@ public class ReviewService {
 	
 	@Autowired
 	private ReviewDao reviewDao;
-
-//	public List<ReviewDto> getReviewsByProductId(int productId) {
-//		List<ReviewDto> reviewList = reviewDao.getReviewById(productId);
-//		return reviewList;
-//	}
-
-
 	
 	public ReviewDto getReviewImgByReviewId(int reviewId) {
 		ReviewDto reviewImg = reviewDao.getReviewImgById(reviewId);
 		return reviewImg;
 	}
 
-	public int getTotalRows() {
-		int totalRows = reviewDao.countRows();
+	public int getTotalRows(@Param("productId") int productId) {
+		int totalRows = reviewDao.countRows(productId);
 		return totalRows;
 	}
 
-	public List<ReviewDto> getReviewsByProductId(int productId, int startRowNo, int endRowNo) {
-		List<ReviewDto> reviewList = reviewDao.getReviewsById(productId, startRowNo,endRowNo);
+	public List<ReviewDto> getReviewsByProductId(int productId, PagerDto pager) {
+		List<ReviewDto> reviewList = reviewDao.getReviewsById(productId, pager);
 		return reviewList;
 	}
 

@@ -83,7 +83,7 @@ function showSlides(n) {
 
 
 
-function loadTabContent(tabName, productId, pageNo) {
+/*function loadTabContent(tabName, productId, pageNo) {
 	console.log("loadTabContent 호출됨, productId: ", productId);
 	console.log("pageNo 잘 넘어가는지?: ", pageNo)
     $.ajax({
@@ -100,12 +100,34 @@ function loadTabContent(tabName, productId, pageNo) {
             console.log("status: ", status);
         }
     });
-}
+}*/
 
 $(document).ready(function(){
     loadTabContent('detailInfo', $('#productId').val());
 });
 
+
+
+function loadTabContent(tabName, productId, pageNo) {
+    console.log("loadTabContent 호출됨, productId: ", productId);
+    console.log("pageNo 잘 넘어가는지?: ", pageNo);
+
+    $.ajax({
+        url: "/miniproject/product/" + tabName,  // 서버에 요청할 URL
+        type: "GET",
+        data: { productId: productId, pageNo: pageNo },  // 서버에 전달할 데이터
+        success: function(response) {
+            console.log("Ajax 성공", response);
+            $('#tab-content').html(response);  // 받아온 HTML을 탭 내용 영역에 삽입
+            
+        },
+        error: function(xhr, status, errorThrown) {
+            console.error("Ajax 오류 발생: ", errorThrown);
+            console.log("xhr: ", xhr);
+            console.log("status: ", status);
+        }
+    });
+}
 
 
 // 탭 버튼 클릭 시 색상 변경
@@ -234,7 +256,6 @@ function cart() {
         const item = JSON.parse(localStorage.getItem(key));
         cartItems.push(item);
     }
-
     sessionStorage.setItem('add-to-cart', JSON.stringify(cart));
     window.location.href = '../order/basket'; // 장바구니 페이지로 이동 
 }

@@ -8,6 +8,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상품 상세 페이지</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css">    
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>	
+	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/detail-info.css">
 </head>
 
@@ -42,7 +45,7 @@
 					</div>
 					<hr>
 				</c:forEach>
-				<div class="pageNum">
+<%-- 				<div class="pageNum">
 					<c:forEach begin="${pager.startPageNo}" end="${pager.endPageNo}" step="1" var="i">
 		            	<c:if test="${pager.pageNo == i}">
 		                  <a href="javascript:void(0);" class="btn btn-outline-dark">${i}</a>
@@ -55,9 +58,17 @@
 							console.log("${i}");
         				</script>	               	               
 					</c:forEach>
-				</div>
-
-
+				</div> --%>
+			<div class="pageNum d-flex justify-content-center">
+			    <c:forEach begin="${pager.startPageNo}" end="${pager.endPageNo}" var="i">
+			        <c:if test="${pager.pageNo == i}">
+			            <a href="javascript:void(0);" class="btn btn-outline-dark">${i}</a>
+			        </c:if>
+			        <c:if test="${pager.pageNo != i}">
+			            <a href="javascript:loadTabContent('reviewsSelect', ${product.productId}, ${i})" class="btn btn-light">${i}</a>
+			        </c:if>
+			    </c:forEach>
+			</div>
 			</div>
 		</div>
 	</div>
