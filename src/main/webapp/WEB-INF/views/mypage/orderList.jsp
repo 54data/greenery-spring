@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <section class="mypage-title">
 	<div class="mypage-title-greeting">
 		<img src="${pageContext.request.contextPath}/resources/image/thum.png">
 		<div class="greeting-text">
-			홍길동 님 반갑습니다.
+			${orders.userId} 님 반갑습니다.
 		</div>
 	</div>
 	<div class="mypage-title-coupon">
@@ -22,25 +23,29 @@
 		<div class="ol-1">주문금액</div>
 		<div class="ol-1">상태</div>
 	</div>
-	<div class="order-item-col">
-		<div class="ol-1">2024-07-21</div>
-		<div class="ol-3">
-			<div class="order-item-img">
-				<img src="${pageContext.request.contextPath}/resources/image/productImages/1.png" class="order-img">
+	<c:forEach items="${orderDetails}" var="orderDetail">
+		<div class="order-item-col">
+			<div class="ol-1">${orders.orderDate}</div>
+			<div class="ol-3">
+				<div class="order-item-img">
+					<img src="${pageContext.request.contextPath}/resources/image/productImages/1.png" class="order-img">
+				</div>
+				<div class="order-item-info">
+					<span class="item-title">${orderDetail.productId}</span>
+					<span class="item-desc">상품설명</span> <!-- 상품설명이 없어서 임의로 추가 -->
+				</div>
 			</div>
-			<div class="order-item-info">
-				<span class="item-title">수분 크림</span>
-				<span class="item-desc">피부에 깊은 보습을 제공합니다.</span>
+			<div class="ol-1">${orderDetail.productQty}</div>
+			<div class="ol-1">${orderDetail.productPrice}</div>
+			<div class="ol-1 order-status">
+				결제완료
+				<%@ include file="/WEB-INF/views/mypage/reviews.jsp" %>
 			</div>
-		</div>
-		<div class="ol-1">1</div>
-		<div class="ol-1">24,000원</div>
-		<div class="ol-1 order-status">
-			결제완료
-			<%@ include file="/WEB-INF/views/mypage/reviews.jsp" %>
-		</div>
-	</div>
-	<div class="order-item-col">
+		</div>	
+	</c:forEach>
+</div>
+
+<%-- 	<div class="order-item-col">
 		<div class="ol-1">2024-07-20</div>
 		<div class="ol-3">
 			<div class="order-item-img">
@@ -57,5 +62,4 @@
 			결제완료
 			<%@ include file="/WEB-INF/views/mypage/reviews.jsp" %>
 		</div>
-	</div>
-</div>
+	</div> --%>
