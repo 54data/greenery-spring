@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mycompany.miniproject.dao.ReviewDao" >
-<!-- 
- 	<select id="getReviewById" resultType="Review" parameterType="int">
-		select review_id, product_id, user_id, review_content, review_reg_date, 
-			review_score, review_img, review_img_type, review_img_name 
-		from review
-		where product_id = #{productId}
-		order by review_reg_date desc
-	</select> -->
 	
 	<select id="getReviewImgById" resultType="Review" parameterType="int">
 		select review_id, product_id, review_img, review_img_type, review_img_name
@@ -17,24 +9,6 @@
 		order by review_reg_date desc
 	</select>
 	
-<!--   	<select id="getReviewById" resultType="Review">
-		<![CDATA[
-			select review_id, product_id, user_id, review_content, review_reg_date, 
-				review_score, review_img, review_img_type, review_img_name
-			from (
-			    select rownum as rnum, review_id, product_id, user_id, review_content, review_reg_date, 
-				review_score, review_img, review_img_type, review_img_name
-			    from (
-			        select review_id, product_id, user_id, review_content, review_reg_date, 
-					review_score, review_img, review_img_type, review_img_name
-			        from review
-			        order by review_reg_date desc
-			    )
-			    where rownum <= #{pager.endRowNo}
-			)
-			where rnum >= #{pager.startRowNo}					
-		]]>
-	</select> -->
 	 
  	<select id="getReviewsById" resultType="Review">
 	    <![CDATA[
@@ -51,28 +25,6 @@
 	    where rnum >= #{pager.startRowNo}  
 	    ]]>
 	</select>
-
-	
-<!-- 	<select id="getReviewsById" resultType="Review">
-		<![CDATA[
-	        select review_id, product_id, user_id, review_content, review_reg_date, 
-	               review_score, review_img, review_img_type, review_img_name
-	        from (
-	            select rownum as rnum, review_id, product_id, user_id, review_content, review_reg_date, 
-	                   review_score, review_img, review_img_type, review_img_name
-	            from (
-	                select review_id, product_id, user_id, review_content, review_reg_date, 
-	                       review_score, review_img, review_img_type, review_img_name
-	                from review
-	                where product_id = #{productId}
-	                order by review_reg_date desc
-	            )
-	            where rownum <= #{endRowNo}
-	        )
-	        where rnum >= #{startRowNo}
-	    ]]>	
-	</select> -->
-
     
 	<select id="countRows" resultType="int">
 	    select count(*) from review where product_id = #{productId} 

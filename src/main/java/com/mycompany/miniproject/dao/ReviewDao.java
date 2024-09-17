@@ -11,8 +11,6 @@ import com.mycompany.miniproject.dto.ReviewDto;
 @Mapper
 public interface ReviewDao {
 
-	//public List<ReviewDto> getReviewById(int productId);
-
 	public List<ReviewDto> getReviewsById(@Param("productId") int productId, @Param("pager") PagerDto pager);
 	
 	public ReviewDto getReviewImgById(int reviewId);
