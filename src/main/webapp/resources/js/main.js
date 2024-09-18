@@ -192,12 +192,4 @@ $(document).ready(function () {
 //    $(document).on('click', '.product-image', function () {
 //        window.location.href = 'product/detailpage';
 //    });
-
-    $(document).on('click', '.buy-icon', function () {
-        window.location.href = 'order/payment';
-    });
-    
-    $(document).on('click', '.cart-icon', function () {
-        window.location.href = 'order/basket';
-    });
 });
