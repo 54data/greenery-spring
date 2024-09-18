@@ -134,9 +134,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-
-
-
 /* 수량 조절 */
 function increase(button) {
     const productDiv = button.closest('.product-info'); // 부모 요소 찾기

@@ -64,11 +64,11 @@ public class ProductController {
         PagerDto pager = new PagerDto(5, 5, totalRows, pageNo);      
         
         log.info("PagerDto 생성됨");
-        log.info("startRowNo: {}", pager.getStartRowNo());
-        log.info("endRowNo: {}", pager.getEndRowNo());
-        log.info("totalRows: {}", totalRows);
-        log.info("totalPageNo: {}", pager.getTotalPageNo());
-        log.info("pageNo: {}", pager.getPageNo());
+        log.info("startRowNo: ", pager.getStartRowNo());
+        log.info("endRowNo: ", pager.getEndRowNo());
+        log.info("totalRows: ", totalRows);
+        log.info("totalPageNo: ", pager.getTotalPageNo());
+        log.info("pageNo: ", pager.getPageNo());
         
         List<ReviewDto> reviewList = reviewService.getReviewsByProductId(productId, pager);
         
