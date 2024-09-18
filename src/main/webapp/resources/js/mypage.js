@@ -101,6 +101,8 @@ $(document).ready(function () {
     });
     
     $(document).on('click', '.order-img', function () {
-        window.location.href = '../product/detailpage';
+    	var productId = $(this).data('product-id');
+        
+        window.location.href = '../product/detailpage?productId=' + productId;
     });
 });

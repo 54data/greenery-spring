@@ -29,7 +29,7 @@
 			<div class="ol-1"><fmt:formatDate value="${orderDetail.orderDate}" pattern="yyyy-MM-dd" /></div>
 			<div class="ol-3">
 				<div class="order-item-img">
-					<img src="loadMainImg?productId=${orderDetail.productId}" class="order-img">
+					<img src="loadMainImg?productId=${orderDetail.productId}" class="order-img" data-product-id="${orderDetail.productId}">
 				</div>
 				<div class="order-item-info">
 					<span class="item-title">${orderDetail.productName}</span>
