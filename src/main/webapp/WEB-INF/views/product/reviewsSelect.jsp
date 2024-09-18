@@ -8,10 +8,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상품 상세 페이지</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css">    
-	<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>	
-	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/detail-info.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css">
+    
 </head>
 
 <body>
