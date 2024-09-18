@@ -5,26 +5,31 @@
 <script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/reviews.js"></script>
 
-<button type="button" class="review-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<form action="${pageContext.request.contextPath}/mypage/reviewInsert" method="post"> 
+<button type="button" class="review-btn" data-bs-toggle="modal" data-bs-target="#reviewModal">
     리뷰 작성
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
 
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">리뷰 작성</h1>
+                <h1 class="modal-title fs-5" id="reviewModalLabel">리뷰 작성</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
+			    <input type="hidden" id="productIdInput" name="productId"  value="">
+			    <input type="hidden" id="userIdInput" name="userId" value="">
+            	<input type="hidden" id="reviewScoreInput" name="reviewScore" value="">
+            	
                 <div class="product-container">
-                    <img src="${pageContext.request.contextPath}/resources/image/productImages/1.png" alt="" id="review_img">
+                    <img src="" alt="" id="review_img">
                     <div class="product-label">
-                        <div class="product-name"><span><strong>아벤느</strong></span></div>
-                        <div class="product-description"><span>아벤느 이드랑스 에센스 인 로션 200ml 더블기획</span></div>
+                        <div class="product-name"><span><strong>${orderDetail.productName}</strong></span></div>
+                        <div class="product-description"><span>${orderDetail.productSummary}</span></div>
                     </div>
                 </div>
 
@@ -51,7 +56,7 @@
 
                     <span>솔직한 상품 리뷰를 남겨주세요.</span>
                     <div class="textarea-wrapper">
-                        <textarea class="star_box" id="reviewTextarea" maxlength="1000" placeholder="꿀팁 가득, 상세한 리뷰를 작성해보세요!
+                        <textarea class="star_box" id="reviewTextarea" name="reviewContent" maxlength="1000" placeholder="꿀팁 가득, 상세한 리뷰를 작성해보세요!
 도움수가 올라가면 포인트도 받고,
 탑리뷰어가 될 확률도 높아져요!
 
@@ -74,9 +79,10 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn" data-bs-dismiss="modal">닫기</button>
-                <button type="button" class="btn">리뷰 등록하기</button>
+                <button type="submit" class="btn">리뷰 등록하기</button>
             </div>
 
         </div>
     </div>
 </div>
+</form>

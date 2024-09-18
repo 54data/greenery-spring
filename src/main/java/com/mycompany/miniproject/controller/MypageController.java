@@ -4,7 +4,6 @@ import java.io.OutputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -13,10 +12,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mycompany.miniproject.dto.OrderDetailDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
+import com.mycompany.miniproject.dto.ReviewDto;
 import com.mycompany.miniproject.interceptor.LoginCheck;
 import com.mycompany.miniproject.service.OrderDetailService;
 import com.mycompany.miniproject.service.OrderService;
@@ -52,10 +53,8 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/likedProducts")
-	public String likedProducts(HttpSession session) {
+	public String likedProducts() {
 		log.info("실행");
-		String userId = session.getId();
-		log.info("아이디는?" + userId);
 		
 		return "mypage/likedProducts";
 	}
@@ -69,24 +68,26 @@ public class MypageController {
 	
 	@GetMapping("/orderList")
 	public String orderList(Model model) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String userId = null;
-		if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
-			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-			userId = userDetails.getUsername(); 
-		}
-		
-		List<OrderDetailDto> orderDetailsByOd = orderDetailService.getOrderDetailsByOd(userId);
-		String userName = userService.getUserName(userId);
-		
-		model.addAttribute("orderDetails", orderDetailsByOd);
-		model.addAttribute("userName", userName);
-		
-		log.info(userId);
-		
-		log.info("실행");
-		return "mypage/orderList";
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String userId = null;
+	    if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+	        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+	        userId = userDetails.getUsername(); 
+	    }
+
+	    log.info("User ID: " + userId);
+
+	    List<OrderDetailDto> orderDetails = orderDetailService.getOrderDetailsByOd(userId);
+	    String userName = userService.getUserName(userId);
+	    
+	    model.addAttribute("orderDetails", orderDetails);
+	    model.addAttribute("userName", userName);
+	    model.addAttribute("userId", userId);
+	    
+	    log.info("실행");
+	    return "mypage/orderList";
 	}
+
 	
 	@GetMapping("loadMainImg")
 	public void loadMainImg(int productId, HttpServletResponse response) throws Exception {
@@ -105,9 +106,18 @@ public class MypageController {
 		out.close();
 	}
 	
-	@RequestMapping("/reviews")
+	@GetMapping("/reviews")
 	public String reviews() {
 		log.info("실행");
 		return "mypage/reviews";
 	}
+	
+	@PostMapping("/reviewInsert")
+	public String reviewInsert(ReviewDto reviewDto) {
+		log.info("Review DTO: " + reviewDto);
+		reviewService.insertReview(reviewDto);	
+		
+		return "redirect:/mypage/orderList";
+	}
+	
 }

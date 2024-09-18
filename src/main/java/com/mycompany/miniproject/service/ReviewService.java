@@ -34,5 +34,9 @@ public class ReviewService {
 		return reviewList;
 	}
 
+	public void insertReview(ReviewDto reviewDto){
+		reviewDao.insertReview(reviewDto);
+	}
+
 
 }

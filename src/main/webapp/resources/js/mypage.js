@@ -105,4 +105,30 @@ $(document).ready(function () {
         
         window.location.href = '../product/detailpage?productId=' + productId;
     });
+    
+    $(document).on('click', '.review-btn', function () {
+    	var productId = $(this).closest('.order-item-col').find('.order-img').data('product-id');
+    	var userId = $('#userIdInput').val();
+    	
+        var productName = $(this).closest('.order-item-col').find('.item-title').text();
+        var productSummary = $(this).closest('.order-item-col').find('.item-desc').text();
+        
+        console.log("Product ID: " + productId);
+        console.log("User ID: " + userId);
+        
+        $('#reviewModal').find('#productIdInput').val(productId);
+        $('#reviewModal').find('#userIdInput').val(userId);
+        
+        $('#reviewModal').find('.product-name').html(productName);
+        $('#reviewModal').find('.product-description').text(productSummary);      
+        $('#reviewModal').find('#review_img').attr('src', 'loadMainImg?productId=' + productId);
+        
+        $('#reviewModal').modal('show');
+    });
+    
+    $(document).on('click', '.star', function() {
+        var score = $(this).attr('value'); 
+        $('#reviewScoreInput').val(score); 
+        console.log("Selected review score: " + score);
+    });
 });
