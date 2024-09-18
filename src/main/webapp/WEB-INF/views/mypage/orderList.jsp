@@ -37,7 +37,7 @@
 				</div>
 			</div>
 			<div class="ol-1">${orderDetail.productQty}</div>
-			<div class="ol-1">${orderDetail.productPrice}</div>
+			<div class="ol-1"><fmt:formatNumber value="${orderDetail.productPrice}" type="number" pattern="#,###"/>원</div>
 			<div class="ol-1 order-status">
 				결제완료
 				<%@ include file="/WEB-INF/views/mypage/reviews.jsp" %>
