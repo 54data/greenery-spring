@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <section class="mypage-title">
 	<div class="mypage-title-greeting">
@@ -25,14 +26,14 @@
 	</div>
 	<c:forEach items="${orderDetails}" var="orderDetail">
 		<div class="order-item-col">
-			<div class="ol-1">${orders.orderDate}</div>
+			<div class="ol-1"><fmt:formatDate value="${orderDetail.orderDate}" pattern="yyyy-MM-dd" /></div>
 			<div class="ol-3">
 				<div class="order-item-img">
-					<img src="${pageContext.request.contextPath}/resources/image/productImages/1.png" class="order-img">
+					<img src="loadMainImg?productId=${orderDetail.productId}" class="order-img">
 				</div>
 				<div class="order-item-info">
-					<span class="item-title">${orderDetail.productId}</span>
-					<span class="item-desc">상품설명</span> <!-- 상품설명이 없어서 임의로 추가 -->
+					<span class="item-title">${orderDetail.productName}</span>
+					<span class="item-desc">${orderDetail.productSummary}</span>
 				</div>
 			</div>
 			<div class="ol-1">${orderDetail.productQty}</div>

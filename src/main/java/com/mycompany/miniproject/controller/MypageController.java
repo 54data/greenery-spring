@@ -1,7 +1,9 @@
 package com.mycompany.miniproject.controller;
 
+import java.io.OutputStream;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +12,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mycompany.miniproject.dto.OrderDetailDto;
+import com.mycompany.miniproject.dto.OrderDto;
+import com.mycompany.miniproject.dto.ProductImageDto;
 import com.mycompany.miniproject.interceptor.LoginCheck;
 import com.mycompany.miniproject.service.OrderDetailService;
+import com.mycompany.miniproject.service.OrderService;
 import com.mycompany.miniproject.service.ProductService;
 import com.mycompany.miniproject.service.ReviewService;
 import com.mycompany.miniproject.service.UserService;
@@ -27,6 +33,9 @@ import lombok.extern.slf4j.Slf4j;
 public class MypageController {
 	@Autowired
 	private ProductService productService;
+
+	@Autowired
+	private OrderService orderService;	
 	
 	@Autowired
 	private OrderDetailService orderDetailService;
@@ -59,7 +68,7 @@ public class MypageController {
 		return "mypage/mypage";
 	}
 	
-	@RequestMapping("/orderList")
+	@GetMapping("/orderList")
 	public String orderList(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String userId = null;
@@ -68,13 +77,31 @@ public class MypageController {
 			userId = userDetails.getUsername(); 
 		}
 		
-		List<OrderDetailDto> orderDetails = orderDetailService.getOrderDetails(userId);
-		model.addAttribute("orderDetails", orderDetails);
-
+		List<OrderDetailDto> orderDetailsByOd = orderDetailService.getOrderDetailsByOd(userId);
+		
+		model.addAttribute("orderDetails", orderDetailsByOd);
+		
 		log.info(userId);
 		
 		log.info("실행");
 		return "mypage/orderList";
+	}
+	
+	@GetMapping("loadMainImg")
+	public void loadMainImg(int productId, HttpServletResponse response) throws Exception {
+		ProductImageDto productImage = productService.getMainImg(productId);
+		
+		String contentType = productImage.getProductImgType();
+		response.setContentType(contentType);
+		
+		String fileName = productImage.getProductImgName();
+		String encodingFileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+		response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingFileName + "\"");		
+
+		OutputStream out = response.getOutputStream();
+		out.write(productImage.getProductImg());
+		out.flush();
+		out.close();
 	}
 	
 	@RequestMapping("/reviews")

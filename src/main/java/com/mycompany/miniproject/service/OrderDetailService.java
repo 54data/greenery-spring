@@ -13,10 +13,11 @@ public class OrderDetailService {
 
 	@Autowired
 	private OrderDetailDao orderDetailDao;
-	
-	public List<OrderDetailDto> getOrderDetails(String userId){
-		List<OrderDetailDto> orderDetailList = orderDetailDao.getOrderDetailAll(userId);
+
+	public List<OrderDetailDto> getOrderDetailsByOd(String userId){
+		List<OrderDetailDto> orderDetailList = orderDetailDao.getOrderDetailByOd(userId);
 		return orderDetailList;
 	}
+
 	
 }

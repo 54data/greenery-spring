@@ -12,6 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>화장품 상세페이지</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/detailpage.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/detail-info.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reviews-select.css">
 <script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
 </head>
@@ -126,4 +127,3 @@
 </body>
 
 </html>
-

@@ -9,6 +9,6 @@ import com.mycompany.miniproject.dto.OrderDetailDto;
 @Mapper
 public interface OrderDetailDao {
 
-	List<OrderDetailDto> getOrderDetailAll(String userId);
+	List<OrderDetailDto> getOrderDetailByOd(String userId);
 
 }

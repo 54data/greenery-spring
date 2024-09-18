@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mycompany.miniproject.dao.OrderDetailDao">
-	<select id="getOrderDetailAll" resultType="OrderDetail" parameterType="String">
+	<select id="getOrderDetailByOd" resultType="OrderDetail" parameterType="String">
 	    SELECT 
-	        o.order_id AS order_id, 
-	        o.user_id AS user_id, 
-	        o.order_date AS order_date, 
-	        od.product_id AS product_id, 
-	        od.product_qty AS product_qty, 
-	        od.product_price AS product_price, 
-	        p.product_name AS product_name
+	        o.order_id, 
+	        o.user_id, 
+	        o.order_date, 
+	        od.product_id, 
+	        od.product_qty, 
+	        od.product_price, 
+	        p.product_name
 	    FROM orders o
 	    JOIN order_detail od 
-	      ON o.order_id = od.order_id  -- order_id로 조인
+	      ON o.order_id = od.order_id
 	    JOIN product p 
-	      ON od.product_id = p.product_id  -- product_id로 조인
+	      ON od.product_id = p.product_id
 	    WHERE o.user_id = #{userId}
 	</select>
+	
+
+	
+	
 </mapper>
