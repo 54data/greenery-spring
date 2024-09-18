@@ -4,13 +4,22 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.mycompany.miniproject.dto.CartDto;
 import com.mycompany.miniproject.dto.OrderDto;
 
 @Mapper
 public interface OrderDao {
 
-	List<OrderDto> getOrderDetailByOrder(String userId);
+	public List<OrderDto> getOrderDetailByOrder(String userId);
 
-	OrderDto getOrderInfo(int orderId);
+	public OrderDto getOrderInfo(int orderId);
+	
+	public int addProductToCart(CartDto cartDto);
+
+	public List<CartDto> getCartProuducts(String userId);
+
+	public int checkCartProduct(CartDto cartDto);
+
+	public int updateProductQty(CartDto cartDto);
 
 }
