@@ -10,4 +10,5 @@ public interface UserDao {
 	public UserDto selectByUserId(String username);
 
 	public int insert(UserDto user);
+
 }

@@ -24,4 +24,5 @@
 			0, sysdate, 1
 		)		
 	</insert>
+	
 </mapper>

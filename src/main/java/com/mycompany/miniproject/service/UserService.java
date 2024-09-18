@@ -32,4 +32,9 @@ public class UserService {
 	public boolean isMid(String mid) {
 		return userDao.selectByUserId(mid) != null;
 	}
+
+	public String getUserName(String userId) {
+		String userName = userDao.selectByUserId(userId).getUserName();
+		return userName;
+	}
 }

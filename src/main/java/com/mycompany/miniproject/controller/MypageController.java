@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mycompany.miniproject.dto.OrderDetailDto;
-import com.mycompany.miniproject.dto.OrderDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
 import com.mycompany.miniproject.interceptor.LoginCheck;
 import com.mycompany.miniproject.service.OrderDetailService;
@@ -78,8 +77,10 @@ public class MypageController {
 		}
 		
 		List<OrderDetailDto> orderDetailsByOd = orderDetailService.getOrderDetailsByOd(userId);
+		String userName = userService.getUserName(userId);
 		
 		model.addAttribute("orderDetails", orderDetailsByOd);
+		model.addAttribute("userName", userName);
 		
 		log.info(userId);
 		

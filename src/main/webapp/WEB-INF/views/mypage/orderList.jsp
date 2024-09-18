@@ -6,7 +6,7 @@
 	<div class="mypage-title-greeting">
 		<img src="${pageContext.request.contextPath}/resources/image/thum.png">
 		<div class="greeting-text">
-			${orders.userId} 님 반갑습니다.
+			${userName} 님 반갑습니다.
 		</div>
 	</div>
 	<div class="mypage-title-coupon">
