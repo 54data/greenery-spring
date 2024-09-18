@@ -30,7 +30,7 @@
 								<span class="star-cnt"><strong>${review.reviewScore}</strong></span>
 							</div>
 							<div class="info-container">
-								<div class="user-id">${review.userid}</div>
+								<div class="user-id">${review.userId}</div>
 								<span><fmt:formatDate value="${review.reviewRegDate}" pattern="yyyy-MM-dd"/></span>
 							</div>
 							<span class="review-span">${review.reviewContent}</span>

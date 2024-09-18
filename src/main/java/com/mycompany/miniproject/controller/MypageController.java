@@ -1,5 +1,6 @@
 package com.mycompany.miniproject.controller;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
@@ -12,8 +13,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mycompany.miniproject.dto.OrderDetailDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
@@ -113,8 +117,19 @@ public class MypageController {
 	}
 	
 	@PostMapping("/reviewInsert")
-	public String reviewInsert(ReviewDto reviewDto) {
+	public String reviewInsert(@ModelAttribute ReviewDto reviewDto, @RequestParam("reviewImage") MultipartFile reviewImage) {
 		log.info("Review DTO: " + reviewDto);
+		
+		try {
+	        if (!reviewImage.isEmpty()) {
+	            reviewDto.setReviewImg(reviewImage.getBytes());
+	            reviewDto.setReviewImgType(reviewImage.getContentType());
+	            reviewDto.setReviewImgName(reviewImage.getOriginalFilename());
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+		
 		reviewService.insertReview(reviewDto);	
 		
 		return "redirect:/mypage/orderList";

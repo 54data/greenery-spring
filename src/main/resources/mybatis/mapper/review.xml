@@ -31,9 +31,16 @@
 	</select>
 	
 	<insert id="insertReview" parameterType="Review">
-        INSERT INTO review (REVIEW_ID, PRODUCT_ID, USER_ID, 
-        REVIEW_CONTENT, REVIEW_REG_DATE, REVIEW_SCORE)
-        VALUES (product_img_seq.nextval, #{productId}, #{userId}, 
-        #{reviewContent}, sysdate, #{reviewScore})
-    </insert>
+	    INSERT INTO review (review_id, product_id, user_id, review_content, review_reg_date, review_score
+	        <if test="reviewImg != null">, review_img</if>
+	        <if test="reviewImgType != null">, review_img_type</if>
+	        <if test="reviewImgName != null">, review_img_name</if>
+	    )
+	    VALUES (product_img_seq.nextval, #{productId}, #{userId}, #{reviewContent}, sysdate, #{reviewScore}
+	        <if test="reviewImg != null">, #{reviewImg}</if>
+	        <if test="reviewImgType != null">, #{reviewImgType}</if>
+	        <if test="reviewImgName != null">, #{reviewImgName}</if>
+	    )
+	</insert>
+	
 </mapper>

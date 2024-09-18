@@ -5,7 +5,7 @@
 <script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/reviews.js"></script>
 
-<form action="${pageContext.request.contextPath}/mypage/reviewInsert" method="post"> 
+<form action="${pageContext.request.contextPath}/mypage/reviewInsert" method="post"  enctype="multipart/form-data"> 
 <button type="button" class="review-btn" data-bs-toggle="modal" data-bs-target="#reviewModal">
     리뷰 작성
 </button>
@@ -71,7 +71,7 @@
                             <span>+</span>
                         </div>
                     </div>
-                    <input type="file" id="image-input" accept="image/*" style="display: none;"
+                    <input type="file" id="image-input" name="reviewImage" accept="image/*" style="display: none;"
                         onchange="previewImage(event)" />
                 </div>
 
