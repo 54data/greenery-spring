@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mycompany.miniproject.dao.OrderDao">
-
+	<insert id="addProductToCart" parameterType="Cart">
+		insert into cart (
+			user_id, product_id, product_qty
+		) values (
+			#{userId}, #{productId}, #{productQty}
+		)
+	</insert>
+	
+	<select id="getCartProuducts" resultType="Cart" parameterType="String">
+		select 
+		    user_id, product_id, product_qty,
+		    product_name, product_price, product_summary
+		from cart
+		join product
+		using(product_id)
+		where user_id = #{userId}
+	</select>
+	
+	<select id="checkCartProduct" resultType="int" parameterType="Cart">
+		select count(*)
+		from cart
+		where user_id = #{userId}
+		and product_id = #{productId}
+	</select>
+	
+	<update id="updateProductQty" parameterType="Cart">
+		update cart
+		set product_qty = #{productQty}
+		where user_id = #{userId}
+		and product_id = #{productId}
+	</update>
 </mapper>
