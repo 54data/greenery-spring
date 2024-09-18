@@ -1,15 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 
 <head>
 	<meta charset="UTF-8">
 	<title>장바구니</title>
-	
 	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/basket.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/basket.css">
 </head>
 
 <body>
@@ -35,11 +36,40 @@
 			</div>
 
 			<hr id="hr-topLine">
-
-			<div id="productList"></div>
-			<!-- 동적으로 상품을 추가할 위치 -->
+			<div id="productList">
+				<c:forEach items="${cartList}" var="cart">
+					<div class="product">
+		                <div class="product-body">
+		                    <input type="checkbox" class="product-checkbox" data-price="${cart.productPrice}">
+		                    <div class="img">
+		                    	<img src="${pageContext.request.contextPath}/order/loadMainImg?productId=${cart.productId}" alt="${cart.productName}" class="picture">
+		                    </div>
+		                    <div class="product-label">
+		                        <div class="product-name">
+		                        	<span><strong>${cart.productName}</strong></span>
+		                        </div>
+		                        <div class="product-description">
+		                        	<span>${cart.productSummary}</span>
+		                        </div>
+		                    </div>
+	                    	<select class="product-amount" data-pid="${cart.productId}" data-qty="${cart.productQty}">
+	                    		<option value="1">1</option>
+	                    		<option value="2">2</option>
+	                    		<option value="3">3</option>
+	                    		<option value="4">4</option>
+	                    		<option value="5">5</option>
+	                    	</select>
+		                    <div class="product-price" data-price="${cart.productPrice}">
+								<p><strong><fmt:formatNumber value="${cart.productQty * cart.productPrice}" type="number" groupingUsed="true"/>원</strong></p>
+		                    </div>
+		                    <div class="basket-delete">
+		                    	<img src="${pageContext.request.contextPath}/resources/image/X버튼.png" alt="삭제 버튼" class="delete-icon" style="width: 30px; height: 30px;">
+		                    </div>
+		                </div>
+	                </div>
+	        	</c:forEach>
+			</div>
 			<button class="scroll-btn-up" onclick="scrollToTop()"></button>
-
 		</div>
 
 		<!-- 결제 정보 창 -->
