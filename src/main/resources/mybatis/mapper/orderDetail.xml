@@ -9,7 +9,8 @@
 	        od.product_id, 
 	        od.product_qty, 
 	        od.product_price, 
-	        p.product_name
+	        p.product_name,
+	        p.product_summary
 	    FROM orders o
 	    JOIN order_detail od 
 	      ON o.order_id = od.order_id
@@ -17,8 +18,4 @@
 	      ON od.product_id = p.product_id
 	    WHERE o.user_id = #{userId}
 	</select>
-	
-
-	
-	
 </mapper>
