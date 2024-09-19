@@ -15,6 +15,10 @@
 <script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
 <link href="${pageContext.request.contextPath}/resources/css/productadd.css" rel="stylesheet"
 	type="text/css" />
+	
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+	
 <!-- summernote html editor -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
 	crossorigin="anonymous"></script>
@@ -58,26 +62,25 @@
 			<form method="post" enctype="multipart/form-data" 
 				<c:if test="${param.pageUsage != '수정'}">action="productInsert"</c:if>
 				<c:if test="${param.pageUsage == '수정'}">action="updateProduct"</c:if>
-				onsubmit="return checkValid()"
-				>
+				onsubmit="return checkValid()">
 				<c:if test="${param.pageUsage == '수정'}">
 					<input type="hidden" name="productId" value="${product.productId}">
 				</c:if>
 				<div class="form-group">
-					<label>상품명</label>
-					<input name="productName" value="${product.productName}"id="productName" type="text"
+					<label>상품명 [30자 이하]</label>
+					<input name="productName" value="${product.productName}" id="productName" type="text"
 						placeholder="예시) 프레시 블랙 떡솝" required>
 				</div>
 				
 				<div class="form-group">
-					<label>판매가</label>
-					<input name="productPrice" value="<fmt:formatNumber>${product.productPrice}</fmt:formatNumber>"
+					<label>판매가 [10자리 이하]</label>
+					<input name="productPrice" value="${product.productPrice}"
 						id="productPrice" type="text" placeholder="가격을 입력해주세요" maxlength="10" required>
 					<div class="form-blank">원</div>
 				</div>
 				
 				<div class="form-group">
-					<label>상품 수량</label>
+					<label>상품 수량 [10자리 이하]</label>
 					<input name="productStock" value="${product.productStock}" id="productStock" type="text"
 						placeholder="수량을 입력해주세요" required>
 					<div class="form-blank">개</div>
@@ -90,18 +93,15 @@
 						<div class="image-preview " id="image-preview1"
 							onclick="document.getElementById('productMainImage').click();">
 							<c:if test="${mainImage}">
-								<div class="deleteImgButton">
-<%-- 									<a class="btn btn-sm text-danger" onclick="event.stopPropagation();" 
-										href="deleteProductImg?productId=${product.productId}&usage=main">X</a>	 --%>							
-								</div>
-								<img class= "insertedImg" src="loadImgByUsage?productId=${product.productId}&usage=main">
+
+								<img id="MainImage" src="loadImgByUsage?productId=${product.productId}&usage=main">
 							</c:if>
 							<c:if test="${!mainImage}">
 								<span>Main</span>
 							</c:if>
 						</div>
-						<input name="productMainImage" type="file" id="productMainImage" accept="image/*" style="display: none;"
-							onchange="previewImage(event, 'image-preview1')" <c:if test="${param.pageUsage !='수정'}">required</c:if>>
+						<input name="productMainImage" type="file" id="productMainImage" accept="image/*" style="display: none;" data-usage="Main"
+							onchange="previewImage(event, 'image-preview1')" >
 							
 						<div class="image-preview" id="image-preview2"
 							onclick="document.getElementById('productSub1Image').click();">
@@ -109,14 +109,14 @@
 								<div class="deleteImgButton">
 									<a class="btn btn-sm text-danger" href="deleteProductImg?productId=${product.productId}&usage=sub1">X</a>								
 								</div>
-								<img class= "insertedImg" src="loadImgByUsage?productId=${product.productId}&usage=sub1">
+								<img id="Sub1Image" src="loadImgByUsage?productId=${product.productId}&usage=sub1">
 							</c:if>
 							<c:if test="${!sub1Image}">
-								<span>Sub1</span>
+								<span>sub1</span>
 							</c:if>
 						</div>
 						<input name="productSub1Image" type="file" id="productSub1Image" accept="image/*" style="display: none;"
-							onchange="previewImage(event, 'image-preview2')" />
+							onchange="previewImage(event, 'image-preview2')" data-usage="Sub1"/>
 							
 						<div class="image-preview" id="image-preview3"
 							onclick="document.getElementById('productSub2Image').click();">
@@ -125,14 +125,14 @@
 									<a class="btn btn-sm text-danger" onclick="event.stopPropagation();"
 										href="deleteProductImg?productId=${product.productId}&usage=sub2">X</a>								
 								</div>
-								<img class= "insertedImg" src="loadImgByUsage?productId=${product.productId}&usage=sub2">
+								<img id="Sub2Image" src="loadImgByUsage?productId=${product.productId}&usage=sub2">
 							</c:if>
 							<c:if test="${!sub2Image}">
-								<span>Sub2</span>
+								<span>sub2</span>
 							</c:if>
 						</div>
 						<input name="productSub2Image" type="file" id="productSub2Image" accept="image/*" style="display: none;"
-							onchange="previewImage(event, 'image-preview3')" />
+							onchange="previewImage(event, 'image-preview3')" data-usage="Sub2"/>
 							
 						<div class="image-preview" id="image-preview4"
 							onclick="document.getElementById('productSub3Image').click();">
@@ -141,25 +141,25 @@
 									<a class="btn btn-sm text-danger" onclick="event.stopPropagation();"
 										href="deleteProductImg?productId=${product.productId}&usage=sub3">X</a>								
 								</div>
-								<img class= "insertedImg" src="loadImgByUsage?productId=${product.productId}&usage=sub3">
+								<img id="Sub3Image" src="loadImgByUsage?productId=${product.productId}&usage=sub3">
 							</c:if>
 							<c:if test="${!sub3Image}">
-								<span>Sub3</span>
+								<span>sub3</span>
 							</c:if>
 						</div>
 						<input name="productSub3Image" type="file" id="productSub3Image" accept="image/*" style="display: none;"
-							onchange="previewImage(event, 'image-preview4')" />
+							onchange="previewImage(event, 'image-preview4')" data-usage="Sub3" />
 					</div>
 				</div>
 	
 				<div class="form-group">
-					<label>상품 대표 설명 (썸네일)</label>
+					<label>상품 대표 설명 (썸네일)<br>[40자 이하]</label>
 					<input name="productSummary" value="${product.productSummary}" id="productSummary" type="text"
 						placeholder="상품의 대표 설명을 입력하세요" required>
 				</div>
 				
 				<div class="form-group">
-					<label>상품 상세페이지 대표 설명</label>
+					<label>상품 상세페이지 대표 설명<br>[80자 이하]</label>
 					<input name="productDetailSummary" value="${product.productDetailSummary}" id="productDetailSummary"
 						type="text" placeholder="상품의 핵심 특징을 간단히 설명하세요" required>
 				</div>
@@ -169,18 +169,14 @@
 						<div class="image-preview" id="image-preview5"
 							onclick="document.getElementById('productDetailImage').click();">
 							<c:if test="${detailImage}">
-								<div class="deleteImgButton">
-<%-- 									<a class="btn btn-sm text-danger" onclick="event.stopPropagation();"
-										href="deleteProductImg?productId=${product.productId}&usage=detail">X</a>	 --%>							
-								</div>
-								<img class= "insertedImg" src="loadImgByUsage?productId=${product.productId}&usage=detail">
+								<img id="DetailImage" src="loadImgByUsage?productId=${product.productId}&usage=detail">
 							</c:if>
 							<c:if test="${!detailImage}">
 								<span>Detail</span>
 							</c:if>
 						</div>
-						<input name="productDetailImage" type="file" id="productDetailImage" accept="image/*" style="display: none;"
-						onchange="previewImage(event, 'image-preview5')" <c:if test="${param.pageUsage !='수정'}">required</c:if>/>
+						<input name="productDetailImage" type="file" id="productDetailImage" accept="image/*" style="display: none;" data-usage="Detail"
+						onchange="previewImage(event, 'image-preview5')" />
 					</div>
 				</div>
 				
