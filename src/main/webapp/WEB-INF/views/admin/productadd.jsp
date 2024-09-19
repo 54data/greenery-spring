@@ -57,7 +57,9 @@
 			</h5>
 			<form method="post" enctype="multipart/form-data" 
 				<c:if test="${param.pageUsage != '수정'}">action="productInsert"</c:if>
-				<c:if test="${param.pageUsage == '수정'}">action="updateProduct"</c:if>>
+				<c:if test="${param.pageUsage == '수정'}">action="updateProduct"</c:if>
+				onsubmit="return checkValid()"
+				>
 				<c:if test="${param.pageUsage == '수정'}">
 					<input type="hidden" name="productId" value="${product.productId}">
 				</c:if>
@@ -89,8 +91,8 @@
 							onclick="document.getElementById('productMainImage').click();">
 							<c:if test="${mainImage}">
 								<div class="deleteImgButton">
-									<a class="btn btn-sm text-danger" onclick="event.stopPropagation();" 
-										href="deleteProductImg?productId=${product.productId}&usage=main">X</a>								
+<%-- 									<a class="btn btn-sm text-danger" onclick="event.stopPropagation();" 
+										href="deleteProductImg?productId=${product.productId}&usage=main">X</a>	 --%>							
 								</div>
 								<img class= "insertedImg" src="loadImgByUsage?productId=${product.productId}&usage=main">
 							</c:if>
@@ -168,8 +170,8 @@
 							onclick="document.getElementById('productDetailImage').click();">
 							<c:if test="${detailImage}">
 								<div class="deleteImgButton">
-									<a class="btn btn-sm text-danger" onclick="event.stopPropagation();"
-										href="deleteProductImg?productId=${product.productId}&usage=detail">X</a>								
+<%-- 									<a class="btn btn-sm text-danger" onclick="event.stopPropagation();"
+										href="deleteProductImg?productId=${product.productId}&usage=detail">X</a>	 --%>							
 								</div>
 								<img class= "insertedImg" src="loadImgByUsage?productId=${product.productId}&usage=detail">
 							</c:if>

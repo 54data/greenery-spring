@@ -19,7 +19,9 @@
 <body>
 	<div class="modal-container">
 		<div class="coupon-modal">
-			<img src="${pageContext.request.contextPath}/resources/image/modal.png" class="modal-image" />
+			<a href="${pageContext.request.contextPath}/recieveCoupon">
+				<img src="${pageContext.request.contextPath}/resources/image/modal.png" class="modal-image" />
+			</a>
 			<div class="modal-text">
 				<span class="today-close">오늘 그만 보기</span> <span class="close">닫기</span>
 			</div>
@@ -27,7 +29,16 @@
 	</div>
 	<div class="alert-coupon">
 		<img src="${pageContext.request.contextPath}/resources/image/coupon_modal_check.png"
-			class="img-alert-coupon" /> <span>쿠폰 발급이 완료되었습니다!</span>
+			class="img-alert-coupon" /> 
+		<c:if test="${couponStatus == 0}">
+			<span>쿠폰 발급이 완료되었습니다!</span>
+		</c:if>
+		<c:if test="${couponStatus == 1}">
+			<span class="text-danger">이미 발급받은 쿠폰입니다.</span>
+		</c:if>
+		<c:if test="${couponStatus == 0}">
+			<span class="text-danger">이미 사용한 쿠폰입니다.</span>
+		</c:if>
 	</div>
 	<!-- 헤더를 삽입할 위치 -->
 	<div id="header">

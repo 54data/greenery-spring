@@ -32,4 +32,10 @@
 		where user_id = #{userId}
 		and product_id = #{productId}
 	</update>
+	
+	<delete id="deleteCartProduct" parameterType="Cart">
+		delete from cart
+		where user_id = #{userId}
+		and product_id = #{productId}
+	</delete>
 </mapper>

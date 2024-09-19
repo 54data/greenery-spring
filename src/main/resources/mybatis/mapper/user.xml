@@ -25,4 +25,16 @@
 		)		
 	</insert>
 	
+	<select id="getUserCouptonStatus" parameterType="String" resultType="int">
+		select coupon_status
+		from users
+		where user_id = #{userId}
+	</select>
+	
+	<update id="updateCouponStatus" parameterType="Coupon">
+		update users set
+			coupon_status = #{couponStatus}
+		where user_id = #{userId}
+	</update>
+	
 </mapper>

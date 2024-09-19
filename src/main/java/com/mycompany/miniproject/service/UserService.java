@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mycompany.miniproject.dao.UserDao;
+import com.mycompany.miniproject.dto.CouponDto;
 import com.mycompany.miniproject.dto.UserDto;
 
 @Service
@@ -36,5 +37,17 @@ public class UserService {
 	public String getUserName(String userId) {
 		String userName = userDao.selectByUserId(userId).getUserName();
 		return userName;
+	}
+
+	public int getUserCouponStatus(String userId) {
+		int couponStatus = userDao.getUserCouptonStatus(userId);
+		return couponStatus;
+	}
+
+	public void updateCouponStatus(int couponStatus, String userId) {
+		CouponDto coupon = new CouponDto();
+		coupon.setCouponStatus(couponStatus);
+		coupon.setUserId(userId);
+		userDao.updateCouponStatus(coupon);
 	}
 }

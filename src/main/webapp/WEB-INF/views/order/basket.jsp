@@ -26,12 +26,13 @@
 			<!-- <h1 class="payment-title">결제하기</h1> -->
 			<div class="basket-list-header">
 				<div class="checkbox-container">
-					<input type="checkbox" id="allchk" onclick="allchk"> <label
-						for="allchk">전체선택</label>
+					<input type="checkbox" id="allchk" onclick="allchk"> 
+						<label for="allchk">전체선택</label>
 				</div>
 				<div class="button-group">
-					<button type="button" class="btn" onclick="deleteSelected()">선택
-						삭제</button>
+					<button type="button" class="btn" onclick="deleteSelected()">
+						선택 삭제
+					</button>
 				</div>
 			</div>
 
@@ -60,11 +61,11 @@
 	                    		<option value="5">5</option>
 	                    	</select>
 		                    <div class="product-price" data-price="${cart.productPrice}">
-								<p><strong><fmt:formatNumber value="${cart.productQty * cart.productPrice}" type="number" groupingUsed="true"/>원</strong></p>
+								<fmt:formatNumber value="${cart.productQty * cart.productPrice}" type="number" groupingUsed="true"/>원
 		                    </div>
-		                    <div class="basket-delete">
+		                    <button class="basket-delete" onclick="location.href='${pageContext.request.contextPath}/order/deleteBasket?productId=${cart.productId}'">
 		                    	<img src="${pageContext.request.contextPath}/resources/image/X버튼.png" alt="삭제 버튼" class="delete-icon" style="width: 30px; height: 30px;">
-		                    </div>
+		                    </button>
 		                </div>
 	                </div>
 	        	</c:forEach>
