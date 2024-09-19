@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -34,8 +35,44 @@
 
 			<hr id="hr-topLine">
 
-			<div id="productList"></div>
-			<!-- 동적으로 상품을 추가할 위치 -->
+			<div id="productList">
+				<c:if test="${not empty selectedProductList}">
+					<c:forEach items="${selectedProductList}" var="product">
+						<div class="product">
+			                <div class="product-body">
+			                    <input type="checkbox" class="product-checkbox" data-pid="${product.productId}">
+			                    <div class="img">
+			                    	<img src="${pageContext.request.contextPath}/order/loadMainImg?productId=${product.productId}" alt="${product.productName}" class="picture">
+			                    </div>
+			                    <div class="product-label">
+			                        <div class="product-name">
+			                        	<span><strong>${product.productName}</strong></span>
+			                        </div>
+			                        <div class="product-description">
+			                        	<span>${product.productSummary}</span>
+			                        </div>
+			                    </div>
+		                    	<select class="product-amount" data-pid="${product.productId}" data-qty="${product.productQty}">
+		                    		<option value="1">1</option>
+		                    		<option value="2">2</option>
+		                    		<option value="3">3</option>
+		                    		<option value="4">4</option>
+		                    		<option value="5">5</option>
+		                    	</select>
+			                    <div class="product-price" data-price="${product.productPrice}">
+									<p class="product-total-price">
+	<%-- 									<fmt:formatNumber value="${cart.productQty * cart.productPrice}" type="number" groupingUsed="true"/> --%>
+											${product.productQty * product.productPrice}
+									</p>원
+			                    </div>
+<%-- 			                    <button class="basket-delete" onclick="location.href='${pageContext.request.contextPath}/order/deleteBasket?productId=${cart.productId}'"> --%>
+<%-- 			                    	<img src="${pageContext.request.contextPath}/resources/image/X버튼.png" alt="삭제 버튼" class="delete-icon" style="width: 30px; height: 30px;"> --%>
+<!-- 			                    </button> -->
+			                </div>
+		                </div>
+		        	</c:forEach>
+		        </c:if>
+			</div>
 			<button class="scroll-btn-up" onclick="scrollToTop()"></button>
 
 			<div class="coupon-info">
