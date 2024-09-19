@@ -45,14 +45,13 @@
 	    )
 	</insert>
 	
-	<select id="countUserReviewForProduct" parameterType="map" resultType="int">
+	<select id="countUserReviewForProduct" parameterType="int" resultType="int">
 	    SELECT COUNT(*) FROM review 
-	    WHERE user_id = #{userId} 
-	    AND orderId = #{orderId}
+	    WHERE order_id = #{orderId}
 	</select>
 	
-	<delete id="deleteReviewById" parameterType="int">
-	    DELETE FROM review WHERE review_id = #{reviewId}
+	<delete id="deleteReview" parameterType="int">
+	    DELETE FROM review WHERE order_id = #{orderId}
 	</delete>
 	
 </mapper>

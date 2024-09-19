@@ -37,6 +37,15 @@ public class ReviewService {
 	public void insertReview(ReviewDto reviewDto){
 		reviewDao.insertReview(reviewDto);
 	}
+	
+	public void deleteReview(int orderId){
+		reviewDao.deleteReview(orderId);
+	}
+
+	public boolean hasReviewForProduct(int orderId) {
+		int count = reviewDao.countUserReviewForProduct(orderId);
+        return count > 0;
+	}
 
 
 }

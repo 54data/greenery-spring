@@ -18,5 +18,9 @@ public interface ReviewDao {
 	public int countRows(@Param("productId") int productId);
 
 	public int insertReview(ReviewDto reviewDto);
+	
+	public int deleteReview(int orderId);
+
+	public int countUserReviewForProduct(int orderId);
 
 }
