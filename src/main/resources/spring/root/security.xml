@@ -52,7 +52,7 @@
 	<bean id="roleHierachyImpl" class="org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl">
 		<property name="hierarchy">
 			<value>
-				admin > user
+				ROLE_admin > ROLE_user
 			</value>
 		</property>
 	</bean>
