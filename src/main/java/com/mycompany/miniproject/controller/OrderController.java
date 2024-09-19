@@ -1,6 +1,7 @@
 package com.mycompany.miniproject.controller;
 
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -86,6 +88,7 @@ public class OrderController {
 		orderService.updateQty(cartDto);
 	}
 	
+	@Secured("ROLE_user")
 	@GetMapping("/deleteBasket")
 	public String deleteBasket(int productId, Authentication authentication) {
 		CartDto cartDto = new CartDto();
@@ -94,6 +97,19 @@ public class OrderController {
 		cartDto.setUserId(userId);
 		orderService.deleteProduct(cartDto);
 		return "redirect:/order/basket";
+	}
+	
+	@Secured("ROLE_user")
+	@PostMapping("/deleteBasketProducts")
+	@ResponseBody
+	public void deleteBasketProducts(@RequestBody ArrayList<Integer> productList, Authentication authentication) {
+		for (int productId : productList) {
+			CartDto cartDto = new CartDto();
+			cartDto.setProductId(productId);
+			String userId = authentication.getName();
+			cartDto.setUserId(userId);
+			orderService.deleteProduct(cartDto);
+		}
 	}
 	
 	@RequestMapping("/order")
