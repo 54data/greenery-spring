@@ -95,13 +95,15 @@ function scrollToTop() {
 
 $(document).ready(function() {
     $('.product-amount').each(function() {
-        var productQty = $(this).data("qty"); 
+        let productQty = $(this).data("qty"); 
         $(this).val(productQty); 
     });
 	
 	$('#productList').on('change', '.product-amount', function() {
-		var selectedQty = $(this).val();
-		var productId = $(this).data("pid");
+		let selectedQty = $(this).val();
+		let productId = $(this).data("pid");
+		let productPrice = $(this).siblings('.product-price').data("price");
+		$(this).siblings('.product-price').text((productPrice * selectedQty).toLocaleString("ko-KR") + "원");
 		
 		$.ajax({
 			url: "updateQty",
