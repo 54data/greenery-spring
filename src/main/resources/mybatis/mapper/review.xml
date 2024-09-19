@@ -3,7 +3,7 @@
 <mapper namespace="com.mycompany.miniproject.dao.ReviewDao" >
 	
 	<select id="getReviewImgById" resultType="Review" parameterType="int">
-		select review_id, product_id, review_img, review_img_type, review_img_name
+		select review_id, product_id, order_id, review_img, review_img_type, review_img_name
 		from review
 		where review_id = #{review_id}
 		order by review_reg_date desc
@@ -12,10 +12,10 @@
 	 
  	<select id="getReviewsById" resultType="Review">
 	    <![CDATA[
-	    select review_id, product_id, user_id, review_content, review_reg_date, 
+	    select review_id, product_id, order_id, user_id, review_content, review_reg_date, 
 	           review_score, review_img, review_img_type, review_img_name
 	    from (
-	        select rownum as rnum, review_id, product_id, user_id, review_content, review_reg_date, 
+	        select rownum as rnum, review_id, product_id, order_id, user_id, review_content, review_reg_date, 
 	               review_score, review_img, review_img_type, review_img_name
 	        from review
 	        where product_id = #{productId}
@@ -32,15 +32,27 @@
 	
 	<insert id="insertReview" parameterType="Review">
 	    INSERT INTO review (review_id, product_id, user_id, review_content, review_reg_date, review_score
+	        <if test="orderId != null">, order_id</if>
 	        <if test="reviewImg != null">, review_img</if>
 	        <if test="reviewImgType != null">, review_img_type</if>
 	        <if test="reviewImgName != null">, review_img_name</if>
 	    )
-	    VALUES (product_img_seq.nextval, #{productId}, #{userId}, #{reviewContent}, sysdate, #{reviewScore}
+	    VALUES (review_seq.nextval, #{productId}, #{userId}, #{reviewContent}, sysdate, #{reviewScore}
+	        <if test="orderId != null">, #{orderId}</if>
 	        <if test="reviewImg != null">, #{reviewImg}</if>
 	        <if test="reviewImgType != null">, #{reviewImgType}</if>
 	        <if test="reviewImgName != null">, #{reviewImgName}</if>
 	    )
 	</insert>
+	
+	<select id="countUserReviewForProduct" parameterType="map" resultType="int">
+	    SELECT COUNT(*) FROM review 
+	    WHERE user_id = #{userId} 
+	    AND orderId = #{orderId}
+	</select>
+	
+	<delete id="deleteReviewById" parameterType="int">
+	    DELETE FROM review WHERE review_id = #{reviewId}
+	</delete>
 	
 </mapper>
