@@ -19,9 +19,7 @@
 <body>
 	<div class="modal-container">
 		<div class="coupon-modal">
-			<a href="${pageContext.request.contextPath}/recieveCoupon">
-				<img src="${pageContext.request.contextPath}/resources/image/modal.png" class="modal-image" />
-			</a>
+			<img src="${pageContext.request.contextPath}/resources/image/modal.png" class="modal-image" />
 			<div class="modal-text">
 				<span class="today-close">오늘 그만 보기</span> <span class="close">닫기</span>
 			</div>
@@ -30,15 +28,7 @@
 	<div class="alert-coupon">
 		<img src="${pageContext.request.contextPath}/resources/image/coupon_modal_check.png"
 			class="img-alert-coupon" /> 
-		<c:if test="${couponStatus == 0}">
-			<span>쿠폰 발급이 완료되었습니다!</span>
-		</c:if>
-		<c:if test="${couponStatus == 1}">
-			<span class="text-danger">이미 발급받은 쿠폰입니다.</span>
-		</c:if>
-		<c:if test="${couponStatus == 0}">
-			<span class="text-danger">이미 사용한 쿠폰입니다.</span>
-		</c:if>
+		<span class="alert-coupon-text"></span>
 	</div>
 	<!-- 헤더를 삽입할 위치 -->
 	<div id="header">
@@ -68,28 +58,6 @@
 			<button class="banner-indicator-btn" onclick="currentSlide(3)"></button>
 		</div>
 	</section>
-<%-- 	<div class="toolbar">
-		<!-- 카테고리 -->
-		<nav class="toolbar-category">
-		<form >
-		</form>
-			<a class="toolbar-category-btn active-category" href="${pageContext.request.contextPath}">전체</a>
-			<a class="toolbar-category-btn" href="${pageContext.request.contextPath}?category=스킨케어">스킨케어</a>
-			<a class="toolbar-category-btn" href="${pageContext.request.contextPath}?category=메이크업">메이크업</a>
-			<a class="toolbar-category-btn" href="${pageContext.request.contextPath}?category=바디케어">바디케어</a>
-			<a class="toolbar-category-btn" href="${pageContext.request.contextPath}?category=헤어케어">헤어케어</a>
-			<a class="toolbar-category-btn" href="${pageContext.request.contextPath}?category=미용소품">미용소품</a>
-			<a class="toolbar-category-btn" href="${pageContext.request.contextPath}?category=맨즈케어">맨즈케어</a>
-		</nav>
-		<!-- 상품 정렬 -->
-		<div class="toolbar-sort">
-			<select class="toolbar-sort-select">
-				<option value="default">신상품순</option>
-				<option value="price-asc">낮은 가격순</option>
-				<option value="price-desc">높은 가격순</option>
-			</select>
-		</div>
-	</div> --%>
 	<div class="main-products">
 		<h3 class="coment">이달의 MD픽! 추천 상품</h3>
 		<div class="product-container">

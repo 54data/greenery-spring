@@ -71,12 +71,19 @@ function isOverExp(name) {
 }
 
 // 쿠폰 받기 시 알림창
-function showAlertCoupon() {
+function showAlertCoupon(couponStatus) {
     $(".modal-container").hide();
-    $(".alert-coupon").addClass("show");    // show -> 쿠폰 화면에 보이게
+    $(".alert-coupon").addClass("show");
+    let alertCouponText = "";
+    if (couponStatus == "0") {
+    	alertCouponText = "쿠폰 발급이 완료되었습니다!";
+    } else {
+    	alertCouponText = "이미 발급받은 쿠폰입니다.";
+    }
+    $(".alert-coupon").children(".alert-coupon-text").text(alertCouponText);
     setTimeout(() => {
         $(".alert-coupon").removeClass("show");
-    }, 2000);       // 2초동안 보이게
+    }, 2000); 
 }
 
 // 상품 데이터 가져오기
@@ -157,29 +164,16 @@ function showAlertCoupon() {
 
 $(document).ready(function () {
     autoSlides();
-//    getData(); // 초기 데이터 로드 (전체)
     scrollToTop();
     isOverExp("TodayCloseTime");
+    
     $(".close").click(() => {
         $(".modal-container").hide();
     });
     $(".today-close").click(() => {
         setTime("TodayCloseTime", 1);
     });
-    $(".modal-image").click(() => {
-        showAlertCoupon();
-    });
-    $(".toolbar-category-btn").click(function () {
-        clickCategoryBtn($(this));
-        $(".toolbar-sort-select").val("default"); // 카테고리 변경시 정렬 옵션 기본으로 되돌아가기
-        filteredProducts($(this).data("category"));
-    });
-    $(".toolbar-sort-select").change(function () {
-        filteredProducts(
-            $(".toolbar-category .active-category").data("category")
-        );
-    });
-    // 동적으로 생성된 like 아이콘에 대한 이벤트 처리
+    
     $(document).on('click', '.icon.like-icon', function () {
         $(this).toggleClass("active");
         let heartIcon = $(this).find("img");
@@ -189,7 +183,16 @@ $(document).ready(function () {
             heartIcon.attr("src", "resources/image/heart.png")
         }
     });
-//    $(document).on('click', '.product-image', function () {
-//        window.location.href = 'product/detailpage';
-//    });
+    
+    $(document).on('click', '.modal-image', function () {
+		$.ajax({
+			url: "recieveCoupon",
+			success: function(couponStatus) {
+				showAlertCoupon(couponStatus);
+			},
+	        error: function(xhr, status, error) {
+	        	window.location.href = "account/loginForm";
+	        }
+		});
+    });
 });
