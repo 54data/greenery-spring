@@ -104,25 +104,44 @@ function changeTotalPrice() {
     $("#totalPrice-num").text(sumPrice + 2500);
 }
 
-function deleteProducts() {
+function getSelectedProducts() {
 	var selectedProductList = [];
+    $('.product-checkbox').each(function() {	    	
+    	if ($(this).prop("checked")) {
+    		selectedProductList.push($(this).data("pid"));
+    	};
+    });
+    return selectedProductList;
+}
+
+function deleteProducts() {;
 	$('.selected-delete-btn').click(function () {
-	    $('.product-checkbox').each(function() {	    	
-	    	if ($(this).prop("checked")) {
-	    		selectedProductList.push($(this).data("pid"));
-	    	};
-	    });
     	$.ajax({
     		url: "deleteBasketProducts",
     		type: "POST",
     		contentType: "application/json",
-    		data: JSON.stringify(selectedProductList),
+    		data: JSON.stringify(getSelectedProducts()),
     		success: function(response) {
     			console.log("선택 상품 삭제 완료");
     			window.location.href = "../order/basket";
     		}
     	});
 	});
+}
+
+function orderSelectedProducts() {
+	$("#order-button").click(function () {
+		$.ajax({
+    		url: "orderSelectedProducts",
+    		type: "POST",
+    		contentType: "application/json",
+    		data: JSON.stringify(getSelectedProducts()),
+    		success: function(response) {
+    			console.log("선택 상품 주문 페이지로 이동");
+    			window.location.href = "../order/payment";
+    		}
+    	});
+	})
 }
 
 $(document).ready(function() {
@@ -164,6 +183,7 @@ $(document).ready(function() {
 	});
 	
 	deleteProducts();
+	orderSelectedProducts();
 });
 //
 //function orderSelectedProudcts() {
