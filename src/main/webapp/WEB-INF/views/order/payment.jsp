@@ -46,12 +46,30 @@
 			                    <div class="product-price" data-price="${product.productPrice}">
 									<span class="product-total-price">${product.productQty * product.productPrice}</span>원
 			                    </div>
-<%-- 			                    <button class="basket-delete" onclick="location.href='${pageContext.request.contextPath}/order/deleteBasket?productId=${cart.productId}'"> --%>
-<%-- 			                    	<img src="${pageContext.request.contextPath}/resources/image/X버튼.png" alt="삭제 버튼" class="delete-icon" style="width: 30px; height: 30px;"> --%>
-<!-- 			                    </button> -->
 			                </div>
 		                </div>
 		        	</c:forEach>
+		        </c:if>
+		        <c:if test="${empty selectedProductList}">
+	        		<div class="product">
+		                <div class="product-body">
+		                    <div class="img">
+		                    	<img src="${pageContext.request.contextPath}/order/loadMainImg?productId=${productInfo.productId}" alt="${productInfo.productName}" class="picture">
+		                    </div>
+		                    <div class="product-label">
+		                        <div class="product-name">
+		                        	<span><strong>${productInfo.productName}</strong></span>
+		                        </div>
+		                        <div class="product-description">
+		                        	<span>${productInfo.productSummary}</span>
+		                        </div>
+		                    </div>
+	                    	<div class="product-amount">1</div>
+		                    <div class="product-price">
+								<span class="product-total-price">${productInfo.productPrice}</span>원
+		                    </div>
+		                </div>
+	                </div>
 		        </c:if>
 			</div>
 			<button class="scroll-btn-up" onclick="scrollToTop()"></button>

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mycompany.miniproject.dto.CartDto;
+import com.mycompany.miniproject.dto.ProductDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
 import com.mycompany.miniproject.service.OrderService;
 import com.mycompany.miniproject.service.ProductService;
@@ -126,18 +127,27 @@ public class OrderController {
 	
 	@Secured("ROLE_user")
 	@GetMapping("/payment")
-	public String payment(HttpSession session, Authentication authentication, Model model) {
-		@SuppressWarnings("unchecked")
-		List<Integer> productList = (List<Integer>) session.getAttribute("productList");
-		List<CartDto> selectedProductList = new ArrayList<>();
-		String userId = authentication.getName();
-		for (int productId : productList) {
-			CartDto cartDto = new CartDto();
-			cartDto.setProductId(productId);
-			cartDto.setUserId(userId);
-			selectedProductList.add(orderService.getProduct(cartDto));
+	public String payment(
+			@RequestParam(required=false) Integer productId, HttpSession session, 
+			Authentication authentication, Model model
+		) {
+		if (productId == null) {
+			@SuppressWarnings("unchecked")
+			List<Integer> productList = (List<Integer>) session.getAttribute("productList");
+			List<CartDto> selectedProductList = new ArrayList<>();
+			String userId = authentication.getName();
+			for (int pid : productList) {
+				CartDto cartDto = new CartDto();
+				cartDto.setProductId(pid);
+				cartDto.setUserId(userId);
+				selectedProductList.add(orderService.getProduct(cartDto));
+			}
+			model.addAttribute("selectedProductList", selectedProductList);
+		} else {
+			session.removeAttribute("productList");
+			ProductDto productInfo = productService.getProductDetail(productId);
+			model.addAttribute("productInfo", productInfo);
 		}
-		model.addAttribute("selectedProductList", selectedProductList);
 		return "order/payment";
 	}
 }
