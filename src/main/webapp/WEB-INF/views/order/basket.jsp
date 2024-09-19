@@ -60,13 +60,10 @@
 	                    		<option value="5">5</option>
 	                    	</select>
 		                    <div class="product-price" data-price="${cart.productPrice}">
-								<p class="product-total-price">
-<%-- 									<fmt:formatNumber value="${cart.productQty * cart.productPrice}" type="number" groupingUsed="true"/> --%>
-										${cart.productQty * cart.productPrice}
-								</p>원
+								<span class="product-total-price">${cart.productQty * cart.productPrice}</span>원
 		                    </div>
 		                    <button class="basket-delete" onclick="location.href='${pageContext.request.contextPath}/order/deleteBasket?productId=${cart.productId}'">
-		                    	<img src="${pageContext.request.contextPath}/resources/image/X버튼.png" alt="삭제 버튼" class="delete-icon" style="width: 30px; height: 30px;">
+		                    	<img src="${pageContext.request.contextPath}/resources/image/X버튼.png" alt="삭제 버튼" class="delete-icon" style="width: 20px; height: 20px;">
 		                    </button>
 		                </div>
 	                </div>
