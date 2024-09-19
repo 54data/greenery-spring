@@ -24,4 +24,6 @@ public interface OrderDao {
 
 	public int deleteCartProduct(CartDto cartDto);
 
+	public CartDto getSeletedProduct(CartDto cartDto);
+
 }

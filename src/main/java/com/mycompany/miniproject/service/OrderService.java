@@ -36,4 +36,9 @@ public class OrderService {
 	public void deleteProduct(CartDto cartDto) {
 		orderDao.deleteCartProduct(cartDto);
 	}
+
+	public CartDto getProduct(CartDto cartDto) {
+		CartDto selectedProduct  = orderDao.getSeletedProduct(cartDto);
+		return selectedProduct;
+	}
 }

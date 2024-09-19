@@ -38,4 +38,15 @@
 		where user_id = #{userId}
 		and product_id = #{productId}
 	</delete>
+	
+	<select id="getSeletedProduct" parameterType="Cart" resultType="Cart">
+		select 
+		    user_id, product_id, product_qty,
+		    product_name, product_price, product_summary
+		from cart
+		join product
+		using(product_id)
+		where user_id = #{userId}
+		and product_id = #{productId}
+	</select>
 </mapper>

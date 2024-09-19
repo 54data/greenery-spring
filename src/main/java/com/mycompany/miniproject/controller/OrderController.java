@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -99,7 +100,6 @@ public class OrderController {
 		return "redirect:/order/basket";
 	}
 	
-	@Secured("ROLE_user")
 	@PostMapping("/deleteBasketProducts")
 	@ResponseBody
 	public void deleteBasketProducts(@RequestBody ArrayList<Integer> productList, Authentication authentication) {
@@ -112,15 +112,32 @@ public class OrderController {
 		}
 	}
 	
+	@PostMapping("/orderSelectedProducts")
+	@ResponseBody
+	public void orderSelectedProducts(@RequestBody List<Integer> productList, HttpSession session) {
+		session.setAttribute("productList", productList);
+	}
+	
 	@RequestMapping("/order")
 	public String order() {
 		log.info("실행");
 		return "order/order";
 	}
 	
-	@RequestMapping("/payment")
-	public String payment() {
-		log.info("실행");
+	@Secured("ROLE_user")
+	@GetMapping("/payment")
+	public String payment(HttpSession session, Authentication authentication, Model model) {
+		@SuppressWarnings("unchecked")
+		List<Integer> productList = (List<Integer>) session.getAttribute("productList");
+		List<CartDto> selectedProductList = new ArrayList<>();
+		String userId = authentication.getName();
+		for (int productId : productList) {
+			CartDto cartDto = new CartDto();
+			cartDto.setProductId(productId);
+			cartDto.setUserId(userId);
+			selectedProductList.add(orderService.getProduct(cartDto));
+		}
+		model.addAttribute("selectedProductList", selectedProductList);
 		return "order/payment";
 	}
 }
