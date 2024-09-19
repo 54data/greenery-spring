@@ -181,15 +181,7 @@ $(document).ready(function() {
 			}
 		});
 	});
-	
+		
 	deleteProducts();
 	orderSelectedProducts();
 });
-//
-//function orderSelectedProudcts() {
-//	HashMap<String, 
-//	
-//	$.ajax({
-//	});
-//	}
-//}
