@@ -1,3 +1,11 @@
+function checkValid(){
+	console.log("###########checkValid");
+	return false;
+	
+	//순서대로 이미지가 적용되었는 지 확인
+	//원래 이미지가 있는지 확인
+}
+
 
 /* 사진 업로드 */
 function previewImage(event, previewId) {

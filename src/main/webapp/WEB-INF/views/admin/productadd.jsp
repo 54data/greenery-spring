@@ -57,7 +57,9 @@
 			</h5>
 			<form method="post" enctype="multipart/form-data" 
 				<c:if test="${param.pageUsage != '수정'}">action="productInsert"</c:if>
-				<c:if test="${param.pageUsage == '수정'}">action="updateProduct"</c:if>>
+				<c:if test="${param.pageUsage == '수정'}">action="updateProduct"</c:if>
+				onsubmit="return checkValid()"
+				>
 				<c:if test="${param.pageUsage == '수정'}">
 					<input type="hidden" name="productId" value="${product.productId}">
 				</c:if>
