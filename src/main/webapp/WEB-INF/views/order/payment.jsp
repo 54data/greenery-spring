@@ -21,17 +21,6 @@
 	<h1>결제하기</h1>
 	<div class="basket" id="basket">
 		<div class="product-list">
-			<!-- <h1 class="payment-title">결제하기</h1> -->
-			<div class="basket-list-header">
-				<div class="checkbox-container">
-					<input type="checkbox" id="allchk" onclick="allchk"> <label
-						for="allchk">전체선택</label>
-				</div>
-				<div class="button-group">
-					<button type="button" class="btn" onclick="deleteSelected()">선택
-						삭제</button>
-				</div>
-			</div>
 
 			<hr id="hr-topLine">
 
@@ -40,7 +29,6 @@
 					<c:forEach items="${selectedProductList}" var="product">
 						<div class="product">
 			                <div class="product-body">
-			                    <input type="checkbox" class="product-checkbox" data-pid="${product.productId}">
 			                    <div class="img">
 			                    	<img src="${pageContext.request.contextPath}/order/loadMainImg?productId=${product.productId}" alt="${product.productName}" class="picture">
 			                    </div>
@@ -52,18 +40,11 @@
 			                        	<span>${product.productSummary}</span>
 			                        </div>
 			                    </div>
-		                    	<select class="product-amount" data-pid="${product.productId}" data-qty="${product.productQty}">
-		                    		<option value="1">1</option>
-		                    		<option value="2">2</option>
-		                    		<option value="3">3</option>
-		                    		<option value="4">4</option>
-		                    		<option value="5">5</option>
-		                    	</select>
+		                    	<div class="product-amount" data-pid="${product.productId}" data-qty="${product.productQty}">
+		                    		${product.productQty}
+		                    	</div>
 			                    <div class="product-price" data-price="${product.productPrice}">
-									<p class="product-total-price">
-	<%-- 									<fmt:formatNumber value="${cart.productQty * cart.productPrice}" type="number" groupingUsed="true"/> --%>
-											${product.productQty * product.productPrice}
-									</p>원
+									<span class="product-total-price">${product.productQty * product.productPrice}</span>원
 			                    </div>
 <%-- 			                    <button class="basket-delete" onclick="location.href='${pageContext.request.contextPath}/order/deleteBasket?productId=${cart.productId}'"> --%>
 <%-- 			                    	<img src="${pageContext.request.contextPath}/resources/image/X버튼.png" alt="삭제 버튼" class="delete-icon" style="width: 30px; height: 30px;"> --%>
