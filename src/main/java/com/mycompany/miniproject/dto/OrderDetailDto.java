@@ -14,4 +14,5 @@ public class OrderDetailDto {
     private String productSummary;
     private int productQty;
     private int productPrice;
+    private boolean hasReview;
 }

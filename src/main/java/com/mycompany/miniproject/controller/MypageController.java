@@ -84,10 +84,10 @@ public class MypageController {
 	    List<OrderDetailDto> orderDetails = orderDetailService.getOrderDetailsByOd(userId);
 	    String userName = userService.getUserName(userId);
 	    
-//	    for (OrderDetailDto orderDetail : orderDetails) {
-//	        boolean hasReview = reviewService.hasReviewForProduct(orderDetail.getOrderId(), userId);
-//	        orderDetail.setHasReview(hasReview);
-//	    }
+	    for (OrderDetailDto orderDetail : orderDetails) {
+	        boolean hasReview = reviewService.hasReviewForProduct(orderDetail.getOrderId());
+	        orderDetail.setHasReview(hasReview);
+	    }
 	    
 	    model.addAttribute("orderDetails", orderDetails);
 	    model.addAttribute("userName", userName);
@@ -141,8 +141,8 @@ public class MypageController {
 	}
 	
 	@GetMapping("/deleteReview")
-	public String deleteReview(int orderId, String userId) {
-		reviewService.deleteReview(orderId, userId);
+	public String deleteReview(int orderId) {
+		reviewService.deleteReview(orderId);
 		return "redirect:/mypage/mypage";
 	}
 	
