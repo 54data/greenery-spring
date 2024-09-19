@@ -32,4 +32,8 @@ public class OrderService {
 	public void updateQty(CartDto cartDto) {
 		orderDao.updateProductQty(cartDto);
 	}
+
+	public void deleteProduct(CartDto cartDto) {
+		orderDao.deleteCartProduct(cartDto);
+	}
 }

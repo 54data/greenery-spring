@@ -86,6 +86,16 @@ public class OrderController {
 		orderService.updateQty(cartDto);
 	}
 	
+	@GetMapping("/deleteBasket")
+	public String deleteBasket(int productId, Authentication authentication) {
+		CartDto cartDto = new CartDto();
+		cartDto.setProductId(productId);
+		String userId = authentication.getName();
+		cartDto.setUserId(userId);
+		orderService.deleteProduct(cartDto);
+		return "redirect:/order/basket";
+	}
+	
 	@RequestMapping("/order")
 	public String order() {
 		log.info("실행");
