@@ -84,6 +84,11 @@ public class MypageController {
 	    List<OrderDetailDto> orderDetails = orderDetailService.getOrderDetailsByOd(userId);
 	    String userName = userService.getUserName(userId);
 	    
+//	    for (OrderDetailDto orderDetail : orderDetails) {
+//	        boolean hasReview = reviewService.hasReviewForProduct(orderDetail.getOrderId(), userId);
+//	        orderDetail.setHasReview(hasReview);
+//	    }
+	    
 	    model.addAttribute("orderDetails", orderDetails);
 	    model.addAttribute("userName", userName);
 	    model.addAttribute("userId", userId);
@@ -132,7 +137,13 @@ public class MypageController {
 		
 		reviewService.insertReview(reviewDto);	
 		
-		return "redirect:/mypage/orderList";
+		return "redirect:/mypage/mypage";
+	}
+	
+	@GetMapping("/deleteReview")
+	public String deleteReview(int orderId, String userId) {
+		reviewService.deleteReview(orderId, userId);
+		return "redirect:/mypage/mypage";
 	}
 	
 }
