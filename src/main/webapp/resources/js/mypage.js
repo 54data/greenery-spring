@@ -109,15 +109,18 @@ $(document).ready(function () {
     $(document).on('click', '.review-btn', function () {
     	var productId = $(this).closest('.order-item-col').find('.order-img').data('product-id');
     	var userId = $('#userIdInput').val();
+    	var orderId = $(this).closest('.order-item-col').find('.orderIdInput').data('order-id');
     	
         var productName = $(this).closest('.order-item-col').find('.item-title').text();
         var productSummary = $(this).closest('.order-item-col').find('.item-desc').text();
         
-        console.log("Product ID: " + productId);
-        console.log("User ID: " + userId);
+        console.log("productId: " + productId);
+        console.log("userId: " + userId);
+        console.log("orderId: " + orderId);
         
         $('#reviewModal').find('#productIdInput').val(productId);
         $('#reviewModal').find('#userIdInput').val(userId);
+        $('#reviewModal').find('.orderIdInput').val(orderId)
         
         $('#reviewModal').find('.product-name').html(productName);
         $('#reviewModal').find('.product-description').text(productSummary);      

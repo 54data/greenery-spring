@@ -23,6 +23,7 @@
             <div class="modal-body">
 			    <input type="hidden" id="productIdInput" name="productId"  value="">
 			    <input type="hidden" id="userIdInput" name="userId" value="">
+			    <input type="hidden" class="orderIdInput" data-order-id="${orderDetail.orderId}" name="orderId" value="">
             	<input type="hidden" id="reviewScoreInput" name="reviewScore" value="">
             	
                 <div class="product-container">
