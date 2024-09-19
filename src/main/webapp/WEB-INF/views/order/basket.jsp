@@ -9,8 +9,8 @@
 	<meta charset="UTF-8">
 	<title>장바구니</title>
 	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/basket.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
 </head>
 
 <body>
@@ -23,14 +23,13 @@
 
 	<div class="basket" id="basket">
 		<div class="product-list">
-			<!-- <h1 class="payment-title">결제하기</h1> -->
 			<div class="basket-list-header">
 				<div class="checkbox-container">
 					<input type="checkbox" id="allchk" onclick="allchk"> 
 						<label for="allchk">전체선택</label>
 				</div>
 				<div class="button-group">
-					<button type="button" class="btn" onclick="deleteSelected()">
+					<button type="button" class="selected-delete-btn">
 						선택 삭제
 					</button>
 				</div>
@@ -41,7 +40,7 @@
 				<c:forEach items="${cartList}" var="cart">
 					<div class="product">
 		                <div class="product-body">
-		                    <input type="checkbox" class="product-checkbox" data-price="${cart.productPrice}">
+		                    <input type="checkbox" class="product-checkbox" data-pid="${cart.productId}">
 		                    <div class="img">
 		                    	<img src="${pageContext.request.contextPath}/order/loadMainImg?productId=${cart.productId}" alt="${cart.productName}" class="picture">
 		                    </div>
@@ -61,7 +60,10 @@
 	                    		<option value="5">5</option>
 	                    	</select>
 		                    <div class="product-price" data-price="${cart.productPrice}">
-								<fmt:formatNumber value="${cart.productQty * cart.productPrice}" type="number" groupingUsed="true"/>원
+								<p class="product-total-price">
+<%-- 									<fmt:formatNumber value="${cart.productQty * cart.productPrice}" type="number" groupingUsed="true"/> --%>
+										${cart.productQty * cart.productPrice}
+								</p>원
 		                    </div>
 		                    <button class="basket-delete" onclick="location.href='${pageContext.request.contextPath}/order/deleteBasket?productId=${cart.productId}'">
 		                    	<img src="${pageContext.request.contextPath}/resources/image/X버튼.png" alt="삭제 버튼" class="delete-icon" style="width: 30px; height: 30px;">

@@ -85,7 +85,7 @@ function scrollToTop() {
 //$('.btn').on('click', function () {
 //    deleteSelected();
 //});
-//
+
 //function deleteSelected() {  
 //    $('.product-checkbox:checked').each(function () {
 //        $(this).closest('.product').remove(); // 체크된 상품 삭제
@@ -93,18 +93,66 @@ function scrollToTop() {
 //    calculatePrice(); // 결제 정보 업데이트
 //}
 
+function changeTotalPrice() {
+    var sumPrice = 0;
+    $('.product-price').each(function() {
+    	if ($(this).siblings(".product-checkbox").prop("checked")) {
+    		sumPrice += Number($(this).children(".product-total-price").text());
+    	}
+    });
+    $("#sumPrice").text(sumPrice);
+    $("#totalPrice-num").text(sumPrice + 2500);
+}
+
+function deleteProducts() {
+	var selectedProductList = [];
+	$('.selected-delete-btn').click(function () {
+	    $('.product-checkbox').each(function() {	    	
+	    	if ($(this).prop("checked")) {
+	    		selectedProductList.push($(this).data("pid"));
+	    	};
+	    });
+    	$.ajax({
+    		url: "deleteBasketProducts",
+    		type: "POST",
+    		contentType: "application/json",
+    		data: JSON.stringify(selectedProductList),
+    		success: function(response) {
+    			console.log("선택 상품 삭제 완료");
+    			window.location.href = "../order/basket";
+    		}
+    	});
+	});
+}
+
 $(document).ready(function() {
+	$('#allchk').prop('checked', true);
+	$('.product-checkbox').prop('checked', true);
+	changeTotalPrice();
+	
     $('.product-amount').each(function() {
         let productQty = $(this).data("qty"); 
         $(this).val(productQty); 
     });
+    
+    $('.product-checkbox').each(function() {
+    	$(this).click(function() {
+    		changeTotalPrice();
+    	});
+    });
+    
+	$('#allchk').click(function () {
+		let isChecked = $(this).is(':checked'); // 전체 선택 체크박스의 체크 상태를 true, false로 저장
+		$('.product-checkbox').prop('checked', isChecked);
+		changeTotalPrice();
+	});
 	
 	$('#productList').on('change', '.product-amount', function() {
 		let selectedQty = $(this).val();
 		let productId = $(this).data("pid");
 		let productPrice = $(this).siblings('.product-price').data("price");
-		$(this).siblings('.product-price').text((productPrice * selectedQty).toLocaleString("ko-KR") + "원");
-		
+		$(this).siblings('.product-price').children(".product-total-price").text(productPrice * selectedQty);
+		changeTotalPrice();
 		$.ajax({
 			url: "updateQty",
 			type: "POST",
@@ -114,4 +162,14 @@ $(document).ready(function() {
 			}
 		});
 	});
+	
+	deleteProducts();
 });
+//
+//function orderSelectedProudcts() {
+//	HashMap<String, 
+//	
+//	$.ajax({
+//	});
+//	}
+//}

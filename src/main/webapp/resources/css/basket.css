@@ -349,8 +349,13 @@ a {
     background-size: 40%;
 }
 
-.btn {
+.selected-delete-btn {
     padding: 2px 18px 3px 18px;
+    background-color: transparent;
+    color: black;
+    border: 0.5px solid black;
+    cursor: pointer;
+    font-size: 13px;
 }
 
 .product-amount {
