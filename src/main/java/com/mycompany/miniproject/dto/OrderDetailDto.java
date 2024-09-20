@@ -15,4 +15,6 @@ public class OrderDetailDto {
     private int productQty;
     private int productPrice;
     private boolean hasReview;
+    private int orderTotalPrice;
+    private int couponStatus;
 }

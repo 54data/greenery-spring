@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mycompany.miniproject.dto.CartDto;
+import com.mycompany.miniproject.dto.OrderDetailDto;
+import com.mycompany.miniproject.dto.OrderDto;
 import com.mycompany.miniproject.dto.ProductDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
 import com.mycompany.miniproject.service.OrderService;
@@ -123,9 +125,53 @@ public class OrderController {
 		session.setAttribute("productList", productList);
 	}
 	
-	@RequestMapping("/order")
+	@PostMapping("/orderProducts")
+	public void orderProducts(
+			@RequestBody OrderDetailDto orderDetail, 
+			HttpSession session, 
+			Authentication authentication) {
+		OrderDto orderDto = new OrderDto();
+		OrderDetailDto orderDetailDto = new OrderDetailDto();
+		
+		// orders 테이블에 입력
+		String userId = authentication.getName();
+		int orderTotalPrice = orderDetail.getOrderTotalPrice();
+		orderDto.setUserId(userId);
+		orderDto.setOrderTotalPrice(orderTotalPrice);
+		orderService.insertOrder(orderDto);
+		
+		// order_detail 테이블에 입력
+		int orderId = orderDto.getOrderId();
+		orderDetailDto.setOrderId(orderId);
+		List<CartDto> orderProductList = (List<CartDto>) session.getAttribute("orderProductList");
+		if (orderProductList != null) {
+			for (CartDto cartDto : orderProductList) {
+				orderDetailDto.setProductId(cartDto.getProductId());
+				orderDetailDto.setProductQty(cartDto.getProductQty());
+				orderDetailDto.setProductPrice(cartDto.getProductPrice());
+				orderService.insertOrderDetail(orderDetailDto);
+				log.info("장바구니 상품 결제 완료");
+			}
+		} else {
+			orderDetailDto.setProductId(orderDetail.getProductId());
+			orderDetailDto.setProductQty(1);
+			orderDetailDto.setProductPrice(orderDetail.getProductPrice());
+			orderService.insertOrderDetail(orderDetailDto);
+			log.info("선택 상품 결제 완료");
+		}
+		int couponStatus = orderDetail.getCouponStatus();
+		if (couponStatus != 0) {
+			usedCoupon(userId);
+		}
+	}
+	
+	public void usedCoupon(String userId) {
+		// 쿠폰 사용시 상태 변경
+		userService.updateCouponStatus(-1, userId);
+	}
+	
+	@GetMapping("/order")
 	public String order() {
-		log.info("실행");
 		return "order/order";
 	}
 	
@@ -135,25 +181,27 @@ public class OrderController {
 			@RequestParam(required=false) Integer productId, HttpSession session, 
 			Authentication authentication, Model model
 		) {
+		String userId = authentication.getName();
 		if (productId == null) {
 			@SuppressWarnings("unchecked")
 			List<Integer> productList = (List<Integer>) session.getAttribute("productList");
 			List<CartDto> selectedProductList = new ArrayList<>();
-			String userId = authentication.getName();
 			for (int pid : productList) {
 				CartDto cartDto = new CartDto();
 				cartDto.setProductId(pid);
 				cartDto.setUserId(userId);
 				selectedProductList.add(orderService.getProduct(cartDto));
+				session.setAttribute("orderProductList", selectedProductList);
 			}
 			model.addAttribute("selectedProductList", selectedProductList);
 		} else {
+			session.removeAttribute("orderProductList");
 			session.removeAttribute("productList");
 			ProductDto productInfo = productService.getProductDetail(productId);
 			model.addAttribute("productInfo", productInfo);
 		}
 		
-		int couponStatus = userService.getUserCouponStatus(authentication.getName());
+		int couponStatus = userService.getUserCouponStatus(userId);
 		model.addAttribute("couponStatus", couponStatus);
 		return "order/payment";
 	}
