@@ -256,7 +256,7 @@
 	display: flex;
 	align-items: center;
 	height: 50px;
-	border-bottom: 1px solid #AEAEAE;
+	border-bottom: 1px solid #F5F5F5;
 }
 
 .myinfo-list div:last-child {
@@ -282,11 +282,20 @@
 }
 
 .myinfo-edit-btn {
-	width: 40%;
+	width: 20%;
 	background-color: #CFF7D3;
 	border: none;
 	border-radius: 5px;
-	height: 50px;
+	height: 45px;
+}
+
+.myinfo-edit-cancel-btn {
+	width: 20%;
+	background-color: #FFF;
+	border: 1px solid #000;
+	border-radius: 5px;
+	height: 45px;
+	margin-right: 20px;
 }
 
 .order-img:hover {

@@ -23,7 +23,6 @@ import com.mycompany.miniproject.dto.OrderDetailDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
 import com.mycompany.miniproject.dto.ReviewDto;
 import com.mycompany.miniproject.dto.UserDto;
-import com.mycompany.miniproject.interceptor.LoginCheck;
 import com.mycompany.miniproject.service.OrderDetailService;
 import com.mycompany.miniproject.service.OrderService;
 import com.mycompany.miniproject.service.ProductService;
@@ -66,7 +65,6 @@ public class MypageController {
 		return "mypage/likedProducts";
 	}
 	
-	@LoginCheck
 	@RequestMapping("/mypage")
 	public String mypage() {
 		log.info("실행");
