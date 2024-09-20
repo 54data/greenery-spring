@@ -10,17 +10,20 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mycompany.miniproject.dto.PagerDto;
 import com.mycompany.miniproject.dto.ProductDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
 import com.mycompany.miniproject.dto.ReviewDto;
 import com.mycompany.miniproject.dto.SearchDto;
+import com.mycompany.miniproject.dto.WishlistDto;
 import com.mycompany.miniproject.service.ProductService;
 import com.mycompany.miniproject.service.ReviewService;
 
@@ -175,5 +178,24 @@ public class ProductController {
 		out.flush();
 		out.close();
 
+	}
+	
+	@GetMapping("/Wishlist")
+	@ResponseBody
+	public String addWishlist(Authentication authentication,
+			@RequestParam("productId") int productId) {
+		String result;
+		WishlistDto wishlist = new WishlistDto();
+		wishlist.setProductId(productId);
+		wishlist.setUserId(authentication.getName());
+		if(productService.getWishlist(wishlist) == null) {
+			productService.addWishlist(wishlist);
+			result = "fill";
+		}else {
+			productService.deleteWishlist(wishlist);						
+			result = "empty";
+		}
+		
+		return result;
 	}
 }

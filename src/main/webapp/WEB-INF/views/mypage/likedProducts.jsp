@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <section class="mypage-title">
 	<div class="mypage-title-greeting">
 		<img src="${pageContext.request.contextPath}/resources/image/thum.png">
@@ -15,9 +16,12 @@
 </section>
 <span class="mypage-content-title">찜한 상품</span>
 <div class="product-container">
+	<c:forEach items="productList" var="product">
+	
+	</c:forEach>
 	<div class="product-item">
 	    <div class="product-image-container">
-        	<img src="${pageContext.request.contextPath}/resources/image/productImages/1.png" alt="수분 크림" class="product-image">
+        	<img src="loadMainImg?productId=${product.productId}" class="product-image">
 	        <div class="product-icons">
 	            <button class="icon like-icon">
 	                <img src="${pageContext.request.contextPath}/resources/image/heart.png" alt="찜하기 아이콘">
@@ -31,9 +35,9 @@
 	        </div>
 	    </div>
         <div class="product-details">
-            <p class="product-name">수분 크림</p>
-            <p class="product-description">피부에 깊은 보습을 제공합니다.</p>
-            <p class="product-price"><span class="price-amount">25,000</span>원</p>
+            <p class="product-name">${product.productName}</p>
+            <p class="product-description">${product.productSummary}</p>
+            <p class="product-price"><span class="price-amount"><fmt:formatNumber value="${product.productPrice}" type="number" groupingUsed="true" /></span>원</p>
         </div>
 	</div>
 </div>

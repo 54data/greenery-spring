@@ -68,7 +68,7 @@
 	                <div class="product-image-container">
 	                    <img src="loadMainImg?productId=${product.productId}" class="product-image" onclick="location.href='${pageContext.request.contextPath}/product/detailpage?productId=${product.productId}'">
 	                    <div class="product-icons">
-				            <button class="icon like-icon">
+				            <button class="icon like-icon" data-pid="${product.productId}">
 				                <img src="${pageContext.request.contextPath}/resources/image/heart.png" alt="찜하기 아이콘">
 				            </button>
 				            <button class="icon cart-icon" onclick="location.href='${pageContext.request.contextPath}/order/basket'">
