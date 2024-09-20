@@ -43,8 +43,8 @@
 		                    	<div class="product-amount" data-pid="${product.productId}" data-qty="${product.productQty}">
 		                    		${product.productQty}
 		                    	</div>
-			                    <div class="product-price" data-price="${product.productPrice}">
-									<span class="product-total-price">${product.productQty * product.productPrice}</span>원
+			                    <div class="product-price">
+									<span class="product-total-price" data-price="${product.productQty * product.productPrice}">${product.productQty * product.productPrice}</span>원
 			                    </div>
 			                </div>
 		                </div>
@@ -64,9 +64,9 @@
 		                        	<span>${productInfo.productSummary}</span>
 		                        </div>
 		                    </div>
-	                    	<div class="product-amount">1</div>
+	                    	<div class="product-amount" data-qty=1>1</div>
 		                    <div class="product-price">
-								<span class="product-total-price">${productInfo.productPrice}</span>원
+								<span class="product-total-price" data-price="${productInfo.productPrice}">${productInfo.productPrice}</span>원
 		                    </div>
 		                </div>
 	                </div>
