@@ -93,26 +93,23 @@ function checkValid() {
 
 }
 
-$(document).on('click','.image-preview',function(event){
-	console.log("preview 동작중")
-	document.getElementById('productSub1Image').click();
-});
 
 /* 사진 업로드 */
 function previewImage(event, previewId) {
 	const file = event.target.files[0];
 	const imagePreview = document.getElementById(previewId);
+	console.log(imagePreview);
 	const usage = event.target.dataset.usage;
 	console.log("previewImage 동작중")
-
+	
 	if (file) {
 		const reader = new FileReader();
 		reader.onload = function(e) {
 			imagePreview.innerHTML = `<div class="deleteImgButton">
-										<a class="emptyInputFile btn btn-sm text-danger"
-											data-preview="${previewId}" data-usage="${usage}">X</a>
-									  </div>
-									  <img id="${usage}Image" src="${e.target.result}" />`;
+				<a class="emptyInputFile btn btn-sm text-danger"
+				data-preview="${previewId}" data-usage="${usage}">X</a>
+				</div>
+				<img id="${usage}Image" src="${e.target.result}" />`;
 		};
 		reader.readAsDataURL(file);
 	} else {
@@ -121,6 +118,17 @@ function previewImage(event, previewId) {
 	
 }
 	
+$(".imageInput").on('change',function(){
+	previewId = $(this).data('connect');
+	previewImage(event, previewId);
+})
+
+$(document).on('click','.image-preview',function(event){
+	inputId = "#product" + $(this).data('usage') + "Image";
+	console.log(inputId)
+	$(inputId).click();
+});
+
 $(document).on('click','.emptyInputFile',function(event){
 	console.log("emptyInputFile 동작중")
 	const previewId = "#" + $(this).data('preview');
