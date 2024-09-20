@@ -24,6 +24,7 @@ import com.mycompany.miniproject.dto.ProductDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
 import com.mycompany.miniproject.service.OrderService;
 import com.mycompany.miniproject.service.ProductService;
+import com.mycompany.miniproject.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,6 +37,9 @@ public class OrderController {
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@Secured("ROLE_user")
 	@GetMapping("/addBasket")
@@ -148,6 +152,9 @@ public class OrderController {
 			ProductDto productInfo = productService.getProductDetail(productId);
 			model.addAttribute("productInfo", productInfo);
 		}
+		
+		int couponStatus = userService.getUserCouponStatus(authentication.getName());
+		model.addAttribute("couponStatus", couponStatus);
 		return "order/payment";
 	}
 }
