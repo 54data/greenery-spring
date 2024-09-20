@@ -126,7 +126,8 @@ public class OrderController {
 	}
 	
 	@PostMapping("/orderProducts")
-	public void orderProducts(
+	@ResponseBody
+	public String orderProducts(
 			@RequestBody OrderDetailDto orderDetail, 
 			HttpSession session, 
 			Authentication authentication) {
@@ -159,10 +160,13 @@ public class OrderController {
 			orderService.insertOrderDetail(orderDetailDto);
 			log.info("선택 상품 결제 완료");
 		}
+		
 		int couponStatus = orderDetail.getCouponStatus();
 		if (couponStatus != 0) {
 			usedCoupon(userId);
 		}
+		
+		return "" + orderId; // 주문번호를 String 타입으로 변환하여 리턴
 	}
 	
 	public void usedCoupon(String userId) {
@@ -170,8 +174,10 @@ public class OrderController {
 		userService.updateCouponStatus(-1, userId);
 	}
 	
+	@Secured("ROLE_user")
 	@GetMapping("/order")
-	public String order() {
+	public String order(String orderId, Model model) {
+		model.addAttribute("orderId", orderId);
 		return "order/order";
 	}
 	

@@ -39,8 +39,7 @@ function orderProducts() {
     		contentType: "application/json",
     		data: JSON.stringify(data),
     		success: function(response) {
-    			console.log("주문 완료");
-    			window.location.href = "order/order"
+    			window.location.href = "order?orderId=" + response;
     		},
     		error: function(response) {
     			console.log("주문 실패");
