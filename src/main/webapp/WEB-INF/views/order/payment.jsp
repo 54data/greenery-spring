@@ -85,7 +85,14 @@
 					<span class="coupon-label">쿠폰</span>
 					<div class="custom-select">
 						<select id="coupon-select">
-							<option value="1">그리너리 회원을 위한 1,000원 할인 쿠폰</option>
+							<c:choose>
+								<c:when test="${couponStatus == 1}">
+									<option value="1">그리너리 회원을 위한 1,000원 할인 쿠폰</option>
+								</c:when>
+								<c:otherwise>
+									<option value="1">사용 가능한 쿠폰이 없습니다.</option>
+								</c:otherwise>
+							</c:choose>
 						</select> <img src="${pageContext.request.contextPath}/resources/image/dropdown-icon.png" alt="dropdown-icon"
 							class="dropdown-icon">
 					</div>
