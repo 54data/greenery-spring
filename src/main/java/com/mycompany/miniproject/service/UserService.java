@@ -50,4 +50,9 @@ public class UserService {
 		coupon.setUserId(userId);
 		userDao.updateCouponStatus(coupon);
 	}
+
+	public UserDto getUserInfo(String userId) {
+		UserDto user = userDao.selectByUserId(userId);
+		return user;
+	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.mycompany.miniproject.dto.CartDto;
+import com.mycompany.miniproject.dto.OrderDetailDto;
 import com.mycompany.miniproject.dto.OrderDto;
 
 @Mapper
@@ -25,5 +26,9 @@ public interface OrderDao {
 	public int deleteCartProduct(CartDto cartDto);
 
 	public CartDto getSeletedProduct(CartDto cartDto);
+
+	public int insertOrderProducts(OrderDto orderDto);
+
+	public int insertOrderDetailProducts(OrderDetailDto orderDetailDto);
 
 }

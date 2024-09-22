@@ -21,12 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mycompany.miniproject.dto.OrderDetailDto;
-import com.mycompany.miniproject.dto.ProductAddDto;
-import com.mycompany.miniproject.dto.ProductDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
 import com.mycompany.miniproject.dto.ReviewDto;
-import com.mycompany.miniproject.dto.WishlistDto;
-import com.mycompany.miniproject.interceptor.LoginCheck;
+import com.mycompany.miniproject.dto.UserDto;
 import com.mycompany.miniproject.service.OrderDetailService;
 import com.mycompany.miniproject.service.OrderService;
 import com.mycompany.miniproject.service.ProductService;
@@ -54,9 +51,11 @@ public class MypageController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping("/editMyInfo")
-	public String editMyInfo() {
-		log.info("실행");
+	@GetMapping("/editMyInfo")
+	public String editMyInfo(Authentication authentication, Model model) {
+		String userId = authentication.getName();
+		UserDto user = userService.getUserInfo(userId);
+		model.addAttribute("user", user);
 		return "mypage/editMyInfo";
 	}
 	
@@ -72,7 +71,6 @@ public class MypageController {
 		return "mypage/likedProducts";
 	}
 	
-	@LoginCheck
 	@RequestMapping("/mypage")
 	public String mypage() {
 		log.info("실행");

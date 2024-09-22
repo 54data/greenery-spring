@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.mycompany.miniproject.dao.OrderDao;
 import com.mycompany.miniproject.dto.CartDto;
+import com.mycompany.miniproject.dto.OrderDetailDto;
+import com.mycompany.miniproject.dto.OrderDto;
 
 @Service
 public class OrderService {
@@ -40,5 +42,13 @@ public class OrderService {
 	public CartDto getProduct(CartDto cartDto) {
 		CartDto selectedProduct  = orderDao.getSeletedProduct(cartDto);
 		return selectedProduct;
+	}
+
+	public void insertOrder(OrderDto orderDto) {
+		orderDao.insertOrderProducts(orderDto);
+	}
+
+	public void insertOrderDetail(OrderDetailDto orderDetailDto) {
+		orderDao.insertOrderDetailProducts(orderDetailDto);
 	}
 }

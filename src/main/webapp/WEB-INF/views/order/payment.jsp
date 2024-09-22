@@ -40,18 +40,18 @@
 			                        	<span>${product.productSummary}</span>
 			                        </div>
 			                    </div>
-		                    	<div class="product-amount" data-pid="${product.productId}" data-qty="${product.productQty}">
+		                    	<div class="product-amount" data-qty="${product.productQty}">
 		                    		${product.productQty}
 		                    	</div>
-			                    <div class="product-price" data-price="${product.productPrice}">
-									<span class="product-total-price">${product.productQty * product.productPrice}</span>원
+			                    <div class="product-price">
+									<span class="product-total-price" data-price="${product.productQty * product.productPrice}">${product.productQty * product.productPrice}</span>원
 			                    </div>
 			                </div>
 		                </div>
 		        	</c:forEach>
 		        </c:if>
 		        <c:if test="${empty selectedProductList}">
-	        		<div class="product">
+	        		<div class="product" data-pid="${productInfo.productId}" data-price="${productInfo.productPrice}">
 		                <div class="product-body">
 		                    <div class="img">
 		                    	<img src="${pageContext.request.contextPath}/order/loadMainImg?productId=${productInfo.productId}" alt="${productInfo.productName}" class="picture">
@@ -64,9 +64,9 @@
 		                        	<span>${productInfo.productSummary}</span>
 		                        </div>
 		                    </div>
-	                    	<div class="product-amount">1</div>
+	                    	<div class="product-amount" data-qty=1>1</div>
 		                    <div class="product-price">
-								<span class="product-total-price">${productInfo.productPrice}</span>원
+								<span class="product-total-price" data-price="${productInfo.productPrice}">${productInfo.productPrice}</span>원
 		                    </div>
 		                </div>
 	                </div>
@@ -77,15 +77,22 @@
 			<div class="coupon-info">
 				<!--  쿠폰 할인 정보 -->
 				<div class="coupon-title">
-					<h1>쿠폰할인정보</h1>
-					<button id="have-coupon">보유쿠폰(1)</button>
+					<h1>쿠폰 할인 정보</h1>
+					<button id="have-coupon">보유쿠폰 (<c:set var="coupon_cnt" value="${couponStatus ne 1 ? 0 : 1}"></c:set>${coupon_cnt})</button>
 				</div>
 				<hr id="hr-topLine">
 				<div class="coupon-input-container">
 					<span class="coupon-label">쿠폰</span>
 					<div class="custom-select">
 						<select id="coupon-select">
-							<option value="1">그리너리 회원을 위한 1,000원 할인 쿠폰</option>
+							<c:choose>
+								<c:when test="${couponStatus == 1}">
+									<option value=-1000>그리너리 회원을 위한 1,000원 할인 쿠폰</option>
+								</c:when>
+								<c:otherwise>
+									<option value=0>사용 가능한 쿠폰이 없습니다.</option>
+								</c:otherwise>
+							</c:choose>
 						</select> <img src="${pageContext.request.contextPath}/resources/image/dropdown-icon.png" alt="dropdown-icon"
 							class="dropdown-icon">
 					</div>
@@ -106,20 +113,20 @@
 			<div id="payment-info-body">
 				<div class="payment-info-body-content1">
 					<div class="orderPrice">
-						<span>총 주문 금액 &nbsp;</span><span id="sumPrice">0원</span>
+						<span>총 주문 금액 &nbsp;</span><span id="sumPrice">0</span>
 					</div>
 					<div class="delivery">
 						<span>배송비 </span><span id="deliveryPrice">2,500원</span>
 					</div>
 					<div class="coupon">
-						<span>쿠폰 할인 금액 &nbsp;</span><span id="discount">0원</span>
+						<span>쿠폰 할인 금액 &nbsp;</span><span id="discount">0</span>
 					</div>
 				</div>
 				<div class="divider"></div>
 
 				<div class="payment-info-body-content1">
 					<div class="totalPrice" id="sum_p_price">
-						<span>총 결제 금액 &nbsp;</span><span id="totalPrice-num">0</span>원
+						<span>총 결제 금액 &nbsp;</span><span id="totalPrice-num" data-discount=0>0</span>원
 					</div>
 					<div id="goOrder" class="">
 						<!-- 주문버튼 -->

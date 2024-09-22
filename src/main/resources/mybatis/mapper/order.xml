@@ -49,4 +49,24 @@
 		where user_id = #{userId}
 		and product_id = #{productId}
 	</select>
+	
+	<insert id="insertOrderProducts" parameterType="Order">
+		insert into orders (
+			order_id, user_id, order_date, order_total_price
+		) values (
+			orders_seq.NEXTVAL, #{userId}, sysdate, #{orderTotalPrice}
+		)
+		
+		<selectKey keyProperty="orderId" resultType="int" order="AFTER">
+			select orders_seq.CURRVAL from dual
+  		</selectKey>
+	</insert>
+	
+	<insert id="insertOrderDetailProducts" parameterType="Order">
+		insert into order_detail (
+			order_id, product_id, product_qty, product_price
+		) values (
+			#{orderId}, #{productId}, #{productQty}, #{productPrice}
+		)
+	</insert>
 </mapper>
