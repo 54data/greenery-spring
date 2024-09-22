@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mycompany.miniproject.dto.OrderDetailDto;
+import com.mycompany.miniproject.dto.ProductAddDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
 import com.mycompany.miniproject.dto.ReviewDto;
 import com.mycompany.miniproject.dto.UserDto;
@@ -59,15 +60,16 @@ public class MypageController {
 		return "mypage/editMyInfo";
 	}
 	
-	@RequestMapping("/likedProducts")
+	@GetMapping("/likedProducts")
 	public String likedProducts(Model model, Authentication authentication) {
 		log.info("실행");
-/*		int[] wishProducts = productService.getWishlist(authentication.getName());
-		List<ProductAddDto> list = new ArrayList<ProductAddDto>();
-		for(int i : wishProducts) {
-			list.add(productService.getProductByProductId(i));
+		List<Integer> wishlist = productService.getWishlistAll(authentication.getName());
+		List<ProductAddDto> productList = new ArrayList<>();
+		for(int i : wishlist) {
+			productList.add(productService.getProductByProductId(i));
 		}
-		model.addAttribute("productList", list);*/
+		log.info(productList.toString());
+		model.addAttribute("productList", productList);
 		return "mypage/likedProducts";
 	}
 	
