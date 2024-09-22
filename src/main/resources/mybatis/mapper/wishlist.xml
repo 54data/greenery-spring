@@ -22,4 +22,10 @@
 		where user_id = #{userId}
 			and product_id = #{productId}
 	</delete>
+	
+	<select id="getWishlistAll" parameterType="String" resultType="int">
+		select product_id
+		from wishlist
+		where user_id = #{userId}
+	</select>
 </mapper>
