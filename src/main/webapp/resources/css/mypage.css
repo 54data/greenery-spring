@@ -249,28 +249,80 @@
 
 .myinfo-list {
 	font-size: 14px;
-	width: 60%;
+	width: 600px;
 }
 
-.myinfo-list div {
+.myinfo-id,
+.myinfo-name,
+.myinfo-phone,
+.myinfo-email,
+.myinfo-address,
+.myinfo-edit {
 	display: flex;
 	align-items: center;
-	height: 50px;
+	height: 80px;
 	border-bottom: 1px solid #F5F5F5;
 }
 
-.myinfo-list div:last-child {
+.myinfo-id,
+.myinfo-name {
+	height: 60px;
+}
+
+.myinfo-col {
+	width: 180px;
+	font-weight: 600;
+}
+	
+.myinfo-address {
+	height: 160px;
 	border: none;
-	margin-top: 50px;
+}
+
+.myinfo-id input,
+.myinfo-name input,
+.myinfo-phone input,
+.myinfo-email input,
+.myinfo-address input {
+	box-sizing: border-box;
+	width: 400px;
+	height: 30px;
+	padding-left: 5px;
+}
+	
+.address {
+	width: 400px;
+	display: flex;
+	flex-direction: column;
+}
+
+.address input {
+    margin-bottom: 15px;
+}
+
+.address input:last-child {
+    margin-bottom: 0;
+}
+
+.address-zipcode {
+	display: flex;
+	justify-content: space-between;
+}
+
+.address-zipcode input {
+	width: 45%;
+}
+
+#btnZipcode {
+	width: 45%;
+	height: 30px;
+	border-radius: 2px;
+	border: 1px solid #000;
+	background-color: #fff;
 }
 
 .myinfo-list div span {
-	width: 50%;
 	box-sizing: border-box;
-}
-
-.myinfo-list div span:first-child {
-	font-weight: 600;
 }
 
 .myinfo-list div span:last-child {
@@ -279,18 +331,23 @@
 
 .myinfo-edit {
 	justify-content: center;
+	border-top: 1px solid #EEEEEE;
+	border-bottom: none;
+	margin-bottom: 80px;
+	padding-top: 50px;
 }
 
 .myinfo-edit-btn {
-	width: 20%;
-	background-color: #CFF7D3;
+	width: 150px;
+	background-color: #000;
+	color: #fff;
 	border: none;
 	border-radius: 5px;
 	height: 45px;
 }
 
 .myinfo-edit-cancel-btn {
-	width: 20%;
+	width: 150px;
 	background-color: #FFF;
 	border: 1px solid #000;
 	border-radius: 5px;
@@ -300,4 +357,51 @@
 
 .order-img:hover {
 	cursor: pointer;
+}
+
+.mypage-toast-alert {
+	width: 300px;
+	font-size: 10px;
+}
+
+.pwd-change-info {
+	font-size: 14px;
+}
+
+.pwd-change {
+	margin-top: 40px;
+	font-size: 14px;
+	width: 600px;
+}
+
+.current-pwd,
+.change-pwd,
+.change-check-pwd {
+	display: flex;
+	align-items: center;
+	height: 70px;
+}
+
+.current-pwd input,
+.change-pwd input,
+.change-check-pwd input {
+	box-sizing: border-box;
+	width: 270px;
+	height: 30px;
+	padding-left: 5px;
+}
+
+.pwd-change-btn {
+	width: 100px;
+	background-color: #000;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	height: 30px;
+	margin-left: 40px;
+}
+
+.pwd-change-form {
+	border-bottom: 1px solid #EEEEEE;
+	padding-bottom: 40px;
 }
