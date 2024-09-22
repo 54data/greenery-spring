@@ -144,4 +144,11 @@ public class ProductService {
 	public void deleteWishlist(WishlistDto wishlist) {
 		wishlistDao.deleteWishlist(wishlist);
 	}
+
+	public List<Integer> getWishlistAll(String userId) {
+		List<Integer> userWishlist = wishlistDao.getWishlistAll(userId);
+		return userWishlist;
+	}
+	
+	
 }
