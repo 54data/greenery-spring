@@ -4,17 +4,109 @@ function getContent(url) {
         method: "GET",
         success: function (data) {
             $(".mypage-content").append(data);
-//            if (url === "likedProducts") {
-//                getData();
-//            } else if (url === "orderList") {
-//                getReview();
-//            }
-        },
-        error: function (err) {
-            console.error("Error fetching product data:", err);
-        },
+        }
     });
 }
+
+function updateUserInfo() {
+	const userData = {
+		userTel : $(".myinfo-phone input").val(),
+		userEmail : $(".myinfo-email input").val(),
+	    zipcode: $("input[name='zipcode']").val(), 
+	    roadAddress: $("input[name='roadAddress']").val(),
+	    detailedAddress: $("input[name='detailedAddress']").val()
+	};
+    
+	const Toast = Swal.mixin({
+	    toast: true,
+	    position: 'top-center',
+	    showConfirmButton: false,
+	    timer: 2500,
+	    timerProgressBar: true,
+	    didOpen: (toast) => {
+	    	toast.style.width = '350px';
+	    	toast.style.fontSize = '14px';
+	        toast.addEventListener('mouseenter', Swal.stopTimer);
+	        toast.addEventListener('mouseleave', Swal.resumeTimer);
+	    }
+	});
+	
+    $.ajax({
+        url: "updateMyInfo", 
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(userData),
+        success: function (url) {
+        	$(".mypage-content").empty();
+        	getContent(url);
+			Toast.fire({
+			    icon: 'success',
+			    title: '정보가 성공적으로 업데이트되었습니다.'
+			})
+        }
+    });
+}
+
+function updateUserPwd() {
+	const pwdData = {
+		currentPwd: $(".current-pwd input").val(),
+		newPwd: $(".change-pwd input").val(), 
+		confirmPwd: $(".change-check-pwd input").val(),
+	};
+	
+    if (pwdData.newPwd !== pwdData.confirmPwd) {
+        alert("새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
+        return;
+    }
+    
+    $.ajax({
+        url: "updateUserPassword", 
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(pwdData),
+        success: function(response) {
+            if (response === "NOT EQUAL") {
+                alert("현재 비밀번호가 일치하지 않습니다.");
+            } else if (response === "SUCCESS") {
+                alert("비밀번호가 성공적으로 변경되었습니다.");
+            } else if (response === "FAIL") {
+                alert("비밀번호 변경에 실패했습니다.");
+            }
+            window.location.href = "../logout";
+        }
+    });
+}
+
+function zipcodeBtn() { 
+	$(document).on('click', '#btnZipcode', function() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                let fullAddr = '';
+                let extraAddr = '';
+
+                if (data.userSelectedType === 'R') {
+                    fullAddr = data.roadAddress;
+                } else {
+                    fullAddr = data.jibunAddress;
+                }
+
+                if (data.userSelectedType === 'R') { // 수정된 부분
+                    if (data.bname !== '') {
+                        extraAddr += data.bname;
+                    }
+                    if (data.buildingName !== '') {
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    fullAddr += (extraAddr !== '' ? '(' + extraAddr + ')' : '');
+                }
+
+                $('input[name="zipcode"]').val(data.zonecode);
+                $('input[name="roadAddress"]').val(fullAddr);
+            }
+        }).open();
+    });
+}
+
 
 //function dataToHtml(products) {
 //    if (Array.isArray(products)) {
@@ -134,4 +226,6 @@ $(document).ready(function () {
         $('#reviewScoreInput').val(score); 
         console.log("Selected review score: " + score);
     });
+    
+    zipcodeBtn();
 });
