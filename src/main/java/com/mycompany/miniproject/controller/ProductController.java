@@ -112,7 +112,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/search")
-	public String search(String category, String search, String sort, Model model) {
+	public String search(String category, String search, String sort, Model model, Authentication authentication) {
 		log.info("실행");
 		SearchDto searchDto = new SearchDto();
 		searchDto.setCategory(category);
@@ -123,6 +123,16 @@ public class ProductController {
 		model.addAttribute("searchedRows", searchedRows);
 		model.addAttribute("searchDto", searchDto);
 		model.addAttribute("productList", productList);
+		
+		if(authentication != null) {
+			List<Integer> userWishlist = productService.getWishlistAll(authentication.getName());
+			Map<Integer, Boolean> isWishlist = new HashMap<>();
+			for(ProductDto product :productList) {
+				isWishlist.put(product.getProductId(), userWishlist.contains(product.getProductId()));
+			}
+			model.addAttribute("isWishlist", isWishlist);
+		}
+		
 		return "product/search";
 	}
 	
