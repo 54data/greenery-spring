@@ -37,4 +37,19 @@
 		where user_id = #{userId}
 	</update>
 	
+	<update id="updateByUserId" parameterType="User">
+		update users 
+		set user_tel = #{userTel},
+			user_email = #{userEmail},
+			zipcode = #{zipcode},
+			road_address = #{roadAddress},
+			detailed_address = #{detailedAddress}
+		where user_id = #{userId}
+	</update>
+	
+	<update id="updateNewPwd" parameterType="User">
+	    update users
+	    set user_pwd = #{userPwd}
+	    where user_id = #{userId}
+	</update>
 </mapper>

@@ -55,4 +55,12 @@ public class UserService {
 		UserDto user = userDao.selectByUserId(userId);
 		return user;
 	}
+
+	public void updateUserInfo(UserDto user) {
+		userDao.updateByUserId(user);
+	}
+
+	public Boolean updatePwd(UserDto user) {
+		return userDao.updateNewPwd(user) != 0;
+	}
 }
