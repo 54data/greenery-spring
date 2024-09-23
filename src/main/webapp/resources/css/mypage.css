@@ -275,7 +275,7 @@
 }
 	
 .myinfo-address {
-	height: 160px;
+	height: 170px;
 	border: none;
 }
 
@@ -300,7 +300,7 @@
     margin-bottom: 15px;
 }
 
-.address input:last-child {
+.address .userDetailedAddress {
     margin-bottom: 0;
 }
 
@@ -325,7 +325,7 @@
 	box-sizing: border-box;
 }
 
-.myinfo-list div span:last-child {
+.myinfo-list div span:nth-child(2) {
 	color: #7E7E7E;
 }
 
@@ -366,6 +366,7 @@
 
 .pwd-change-info {
 	font-size: 14px;
+	line-height: 22px;
 }
 
 .pwd-change {
@@ -404,4 +405,14 @@
 .pwd-change-form {
 	border-bottom: 1px solid #EEEEEE;
 	padding-bottom: 40px;
+}
+
+.inputMessage {
+	display: flex;
+	flex-direction: column;
+}
+
+.errorMessage {
+	color: #F03F40; 
+	font-size: 12px;
 }
