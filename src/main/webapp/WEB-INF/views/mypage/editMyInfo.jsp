@@ -42,7 +42,7 @@
 <span class="pwd-change-info">
 	개인정보 보호를 위해 비밀번호는 90일마다 변경해주세요. <br>
 	타인에게 비밀번호가 노출되지 않도록 주의해 주세요. <br>
-	비밀번호 변경시, 서비스에서 로그아웃됩니다.
+	비밀번호 변경시, 서비스에서 자동 로그아웃됩니다.
 </span>
 <form class="pwd-change-form" method="post">
 	<div class="pwd-change">
