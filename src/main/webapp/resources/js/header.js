@@ -23,6 +23,18 @@ function searchTypeText() {
     }
 }
 
+function cartNum() {
+    $.ajax({
+        url: "order/getCartNum", 
+        datatype: "text",
+        success: function (cartNum) {
+        	console.log("장바구니 숫자 잘 찍힘")
+        	$(".header-cart-badge").empty();
+        	$(".header-cart-badge").text(cartNum);
+        }
+    });
+}
+
 /*function redirectToPage(paramName, paramValue) {
     if (paramValue) {
         // 검색 페이지 이동시 검색어를 파라미터로 전달
@@ -52,4 +64,5 @@ $(document).ready(() => {
 
 $(document).ready(() => {
 	searchTypeText();
+	cartNum();
 });
