@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css">    
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reviews.css">
+<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/reviews.js"></script>
+
 <input type="hidden" id="userIdInput" value="${userId}" />
 
 <section class="mypage-title">
@@ -26,7 +32,8 @@
 		<div class="ol-1">상태</div>
 	</div>	
 	<c:forEach items="${orderDetails}" var="orderDetail">
-		<input type="hidden" class="orderIdInput" data-order-id="${orderDetail.orderId}" value="${orderDetail.orderId}" />
+		<div>${orderDetail.review.reviewContent}</div>
+	
 		<div class="order-item-col">
 			<div class="ol-1"><fmt:formatDate value="${orderDetail.orderDate}" pattern="yyyy-MM-dd" /></div>
 			<div class="ol-3">
@@ -42,14 +49,18 @@
 			<div class="ol-1"><fmt:formatNumber value="${orderDetail.productPrice}" type="number" pattern="#,###"/>원</div>
 			<div class="ol-1 order-status">
 				결제완료
-<%-- 				<%@ include file="/WEB-INF/views/mypage/reviews.jsp" %>
- --%> 				
  				<c:choose>
 	                <c:when test="${orderDetail.hasReview}">
-	                    <a href="${pageContext.request.contextPath}/mypage/deleteReview?orderId=${orderDetail.orderId}" class="btn btn-danger">
-						    리뷰 삭제
+	                    <a href="${pageContext.request.contextPath}/mypage/deleteReview?reviewId=${orderDetail.review.reviewId}" class="btn btn-danger">
+						 	리뷰 삭제
 						</a>
-	                </c:when>
+
+   						<form action="${pageContext.request.contextPath}/mypage/reviewUpdate" method="post"  enctype="multipart/form-data"> 
+							<button type="button" class="update-btn" data-bs-toggle="modal" data-bs-target="#updateModal" data-review-id="${orderDetail.review.reviewId}" data-product-id="${orderDetail.productId}" data-order-id="${orderDetail.orderId}">
+							    리뷰 수정
+							</button>
+    					</form>    
+              		</c:when>
 	                <c:otherwise>
 	                    <%@ include file="/WEB-INF/views/mypage/reviews.jsp" %>
 	                </c:otherwise>
@@ -57,10 +68,8 @@
 				
 			</div>
 		</div>
-		<script>
-		    console.log("userID: " + $('#userIdInput').val());
-		    console.log("orderID: " + ${orderDetail.orderId});
-		    console.log("orderID: " + ${orderDetail.productId});
-		</script>	
 	</c:forEach>
+	
+	<div id="modalContainer"></div>
+	
 </div>
