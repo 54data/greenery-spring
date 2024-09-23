@@ -135,6 +135,9 @@ public class MypageController {
 			model.addAttribute("isWishlist", isWishlist);
 		}
 		
+		UserDto userInfo = userService.getUserInfo(authentication.getName());
+		model.addAttribute("userInfo", userInfo);
+		
 		return "mypage/likedProducts";
 	}
 	
