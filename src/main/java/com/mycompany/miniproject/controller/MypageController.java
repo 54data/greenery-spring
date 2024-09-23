@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -73,11 +72,7 @@ public class MypageController {
 	@GetMapping("/orderList")
 	public String orderList(Model model) {
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    String userId = null;
-	    if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
-	        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-	        userId = userDetails.getUsername(); 
-	    }
+	    String userId =  authentication.getName();
 
 	    log.info("User ID: " + userId);
 
@@ -85,7 +80,12 @@ public class MypageController {
 	    String userName = userService.getUserName(userId);
 	    
 	    for (OrderDetailDto orderDetail : orderDetails) {
-	        boolean hasReview = reviewService.hasReviewForProduct(orderDetail.getOrderId());
+	    	log.info("Order ID: " + orderDetail.getOrderId());
+	    	log.info("Product ID: " + orderDetail.getProductId());    	
+	    	
+	    	ReviewDto review = reviewService.getReview(orderDetail.getOrderId(), orderDetail.getProductId());
+    	    orderDetail.setReview(review);
+	        boolean hasReview = reviewService.hasReviewForProduct(orderDetail.getOrderId(), orderDetail.getProductId());
 	        orderDetail.setHasReview(hasReview);
 	    }
 	    
@@ -95,6 +95,21 @@ public class MypageController {
 	    
 	    log.info("실행");
 	    return "mypage/orderList";
+	}
+
+	@GetMapping("/loadUpdateForm")
+	public String loadUpdateForm(@RequestParam int reviewId, @RequestParam int productId, @RequestParam int orderId, Model model) {
+		log.info("##################################################"+ " orderId : "  + orderId + " productId : " + productId);
+		OrderDetailDto orderDetail = orderDetailService.getOrderDetailById(orderId, productId);
+	    ReviewDto review = reviewService.getReviewByReviewId(reviewId);
+
+	    model.addAttribute("orderDetail", orderDetail);
+	    model.addAttribute("review", review);
+	    
+	    log.info(orderDetail.getProductName() + " orderDetail");
+	    log.info(review.getReviewContent() + " review");
+	    
+	    return "mypage/updateReviewForm";
 	}
 
 	
@@ -141,9 +156,36 @@ public class MypageController {
 	}
 	
 	@GetMapping("/deleteReview")
-	public String deleteReview(int orderId) {
-		reviewService.deleteReview(orderId);
+	public String deleteReview(int reviewId) {
+		reviewService.deleteReview(reviewId);
 		return "redirect:/mypage/mypage";
 	}
 	
+	@GetMapping("loadReviewImg")
+	public void loadReviewImg(@RequestParam int reviewId, HttpServletResponse response) throws Exception {
+		ReviewDto reviewImg = reviewService.getReviewImgByReviewId(reviewId);
+		
+		String contentType = reviewImg.getReviewImgType();
+		response.setContentType(contentType);
+		
+		String fileName = reviewImg.getReviewImgName();
+		String encodingFileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+		response.setHeader("Content-Disposition", "attachment; filename=\"" + encodingFileName + "\"");		
+
+		OutputStream out = response.getOutputStream();
+		out.write(reviewImg.getReviewImg());
+		out.flush();
+		out.close();
+
+	}
+	
+	
+/*	@GetMapping("/updateReviewForm")
+	public String updateReview(int orderId, Model model) {
+		ReviewDto updatingReview = reviewService.getReview(orderId);
+		model.addAttribute("updatingReview", updatingReview);
+		
+		return "mypage/updateReviewForm";
+	}
+*/	
 }
