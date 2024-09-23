@@ -25,7 +25,7 @@ function searchTypeText() {
 
 function cartNum() {
     $.ajax({
-        url: "order/getCartNum", 
+        url: "../../miniproject/order/getCartNum", 
         datatype: "text",
         success: function (cartNum) {
         	console.log("장바구니 숫자 잘 찍힘")
