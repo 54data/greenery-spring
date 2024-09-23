@@ -21,8 +21,7 @@
 	<div id="header">
 		<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	</div>
-
-
+	<input type="hidden" id="productId" data-order-id="${product.productId}" value="${product.productId}" />
 	<div class="container">
 		<div class="left">
 
@@ -45,9 +44,9 @@
 				<p class="product-title">${product.productName}</p>
 			</div>
 			<div class="description-container">
-				<div class="divider"></div>
+				<div class="description-line"></div>
 				<p class="description">${product.productDetailSummary}</p>
-				<div class="divider"></div>
+				<div class="description-line"></div>
 			</div>
 			<div class="product-info">
 				<div class="product-quantity">
@@ -80,8 +79,9 @@
 		<div class="currentSlide-container">
 
 			<c:forEach items="${map.entrySet()}" var="map" varStatus="status">
+				
 				<c:if test="${map.getValue() ne 'detail'}">
-					<span class="dot" onclick="currentSlide(${status.index % 5})">
+					<span class="dot" onclick="currentSlide(${status.index})">
 						<img src="loadProductImgs?productImgId=${map.getKey()}&productImgUsage=${map.getValue()}" style="width: 25%">
 					</span>
 				</c:if>
