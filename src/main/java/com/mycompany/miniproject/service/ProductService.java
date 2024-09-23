@@ -7,11 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.mycompany.miniproject.dao.ProductDao;
 import com.mycompany.miniproject.dao.ProductImageDao;
+import com.mycompany.miniproject.dao.WishlistDao;
 import com.mycompany.miniproject.dto.PagerDto;
 import com.mycompany.miniproject.dto.ProductAddDto;
 import com.mycompany.miniproject.dto.ProductDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
 import com.mycompany.miniproject.dto.SearchDto;
+import com.mycompany.miniproject.dto.WishlistDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,6 +25,9 @@ public class ProductService {
 	
 	@Autowired
 	private ProductImageDao productImageDao;
+	
+	@Autowired
+	private WishlistDao wishlistDao;
 	
 	public List<ProductDto> getProducts(PagerDto pager) {
 		List<ProductDto> products = productDao.getProductAll(pager);
@@ -126,4 +131,24 @@ public class ProductService {
 		productImageDao.deleteProductImg(productImgDto);
 		
 	}
+
+	public void addWishlist(WishlistDto wishlist) {
+		wishlistDao.insertWishlist(wishlist);
+	}
+
+	public WishlistDto getWishlist(WishlistDto wishlistDto) {
+		WishlistDto wishlist = wishlistDao.getWishlist(wishlistDto);
+		return wishlist;
+	}
+
+	public void deleteWishlist(WishlistDto wishlist) {
+		wishlistDao.deleteWishlist(wishlist);
+	}
+
+	public List<Integer> getWishlistAll(String userId) {
+		List<Integer> userWishlist = wishlistDao.getWishlistAll(userId);
+		return userWishlist;
+	}
+	
+	
 }

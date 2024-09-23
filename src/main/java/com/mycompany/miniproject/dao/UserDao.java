@@ -16,4 +16,7 @@ public interface UserDao {
 	
 	public int updateCouponStatus(CouponDto coupon);
 
+	public int updateByUserId(UserDto user);
+
+	public int updateNewPwd(UserDto user);
 }

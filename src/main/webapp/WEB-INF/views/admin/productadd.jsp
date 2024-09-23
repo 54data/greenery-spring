@@ -90,8 +90,7 @@
 					<label>상품 대표 이미지 (썸네일)</label>
 					<div class="image-upload-container">
 					
-						<div class="image-preview " id="image-preview1"
-							onclick="document.getElementById('productMainImage').click();">
+						<div class="image-preview " id="image-preview1" data-usage="Main">
 							<c:if test="${mainImage}">
 
 								<img id="MainImage" src="loadImgByUsage?productId=${product.productId}&usage=main">
@@ -100,14 +99,14 @@
 								<span>Main</span>
 							</c:if>
 						</div>
-						<input name="productMainImage" type="file" id="productMainImage" accept="image/*" style="display: none;" data-usage="Main"
-							onchange="previewImage(event, 'image-preview1')" >
+						<input class="imageInput" name="productMainImage" type="file" id="productMainImage" accept="image/*"
+							style="display: none;" data-usage="Main" data-connect="image-preview1">
 							
-						<div class="image-preview" id="image-preview2"
-							onclick="document.getElementById('productSub1Image').click();">
+						<div class="image-preview" id="image-preview2" data-usage="Sub1">
 							<c:if test="${sub1Image}">
 								<div class="deleteImgButton">
-									<a class="btn btn-sm text-danger" href="deleteProductImg?productId=${product.productId}&usage=sub1">X</a>								
+									<a class="btn btn-sm text-danger" onclick="event.stopPropagation();"
+										href="deleteProductImg?productId=${product.productId}&usage=sub1">X</a>								
 								</div>
 								<img id="Sub1Image" src="loadImgByUsage?productId=${product.productId}&usage=sub1">
 							</c:if>
@@ -115,11 +114,10 @@
 								<span>sub1</span>
 							</c:if>
 						</div>
-						<input name="productSub1Image" type="file" id="productSub1Image" accept="image/*" style="display: none;"
-							onchange="previewImage(event, 'image-preview2')" data-usage="Sub1"/>
+						<input class="imageInput" name="productSub1Image" type="file" id="productSub1Image" accept="image/*"
+							style="display: none;" data-usage="Sub1" data-connect="image-preview2"/>
 							
-						<div class="image-preview" id="image-preview3"
-							onclick="document.getElementById('productSub2Image').click();">
+						<div class="image-preview" id="image-preview3" data-usage="Sub2">
 							<c:if test="${sub2Image}">
 								<div class="deleteImgButton">
 									<a class="btn btn-sm text-danger" onclick="event.stopPropagation();"
@@ -131,11 +129,10 @@
 								<span>sub2</span>
 							</c:if>
 						</div>
-						<input name="productSub2Image" type="file" id="productSub2Image" accept="image/*" style="display: none;"
-							onchange="previewImage(event, 'image-preview3')" data-usage="Sub2"/>
+						<input class="imageInput" name="productSub2Image" type="file" id="productSub2Image" accept="image/*"
+							style="display: none;" data-usage="Sub2" data-connect="image-preview3"/>
 							
-						<div class="image-preview" id="image-preview4"
-							onclick="document.getElementById('productSub3Image').click();">
+						<div class="image-preview" id="image-preview4" data-usage="Sub3">
 							<c:if test="${sub3Image}">
 								<div class="deleteImgButton">
 									<a class="btn btn-sm text-danger" onclick="event.stopPropagation();"
@@ -147,8 +144,8 @@
 								<span>sub3</span>
 							</c:if>
 						</div>
-						<input name="productSub3Image" type="file" id="productSub3Image" accept="image/*" style="display: none;"
-							onchange="previewImage(event, 'image-preview4')" data-usage="Sub3" />
+						<input class="imageInput" name="productSub3Image" type="file" id="productSub3Image" accept="image/*"
+							style="display: none;" data-usage="Sub3" data-connect="image-preview4"/>
 					</div>
 				</div>
 	
@@ -166,8 +163,7 @@
 				<div class="image-thumnail">
 					<label>상품 상세페이지 상세정보 설명</label>
 					<div class="image-upload-container">
-						<div class="image-preview" id="image-preview5"
-							onclick="document.getElementById('productDetailImage').click();">
+						<div class="image-preview" id="image-preview5" data-usage="Detail">
 							<c:if test="${detailImage}">
 								<img id="DetailImage" src="loadImgByUsage?productId=${product.productId}&usage=detail">
 							</c:if>
@@ -175,8 +171,8 @@
 								<span>Detail</span>
 							</c:if>
 						</div>
-						<input name="productDetailImage" type="file" id="productDetailImage" accept="image/*" style="display: none;" data-usage="Detail"
-						onchange="previewImage(event, 'image-preview5')" />
+						<input class="imageInput" name="productDetailImage" type="file" id="productDetailImage" accept="image/*"
+							style="display: none;" data-usage="Detail" data-connect="image-preview5"/>
 					</div>
 				</div>
 				

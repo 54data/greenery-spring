@@ -100,7 +100,7 @@
 			product_detail_summary, product_reg_date, category
 			)
 		values(
-			199, #{productName}, #{productPrice}, #{productStock}, #{productSummary},
+			product_seq.nextval, #{productName}, #{productPrice}, #{productStock}, #{productSummary},
 			#{productDetailSummary}, sysdate, #{category}
 			)
 	</insert>

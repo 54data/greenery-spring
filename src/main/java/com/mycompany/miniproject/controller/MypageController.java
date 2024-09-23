@@ -2,26 +2,37 @@ package com.mycompany.miniproject.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mycompany.miniproject.dto.OrderDetailDto;
+import com.mycompany.miniproject.dto.ProductAddDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
 import com.mycompany.miniproject.dto.ReviewDto;
-import com.mycompany.miniproject.interceptor.LoginCheck;
+import com.mycompany.miniproject.dto.UserDto;
+import com.mycompany.miniproject.security.UsersDetails;
+import com.mycompany.miniproject.security.UsersDetailsService;
 import com.mycompany.miniproject.service.OrderDetailService;
 import com.mycompany.miniproject.service.OrderService;
 import com.mycompany.miniproject.service.ProductService;
@@ -49,20 +60,72 @@ public class MypageController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping("/editMyInfo")
-	public String editMyInfo() {
-		log.info("실행");
+	@Autowired
+	private UsersDetailsService usersDetailsService;
+	
+	@GetMapping("/editMyInfo")
+	public String editMyInfo(Authentication authentication, Model model) {
+		String userId = authentication.getName();
+		UserDto user = userService.getUserInfo(userId);
+		model.addAttribute("user", user);
 		return "mypage/editMyInfo";
 	}
 	
-	@RequestMapping("/likedProducts")
-	public String likedProducts() {
+	@PostMapping("/updateMyInfo")
+	@ResponseBody
+	public String updateMyInfo(@RequestBody UserDto userDto, Authentication authentication) {
+		String userId = authentication.getName();
+		UserDto user = new UserDto();
+		user.setUserId(userId);
+		user.setUserTel(userDto.getUserTel());
+		user.setUserEmail(userDto.getUserEmail());
+		user.setZipcode(userDto.getZipcode());
+		user.setRoadAddress(userDto.getRoadAddress());
+		user.setDetailedAddress(userDto.getDetailedAddress());
+		userService.updateUserInfo(user);
+		return "editMyInfo";
+	}
+	
+	@PostMapping("/updateUserPassword")
+	@ResponseBody
+	public String updateUserPassword(@RequestBody Map<String, String> pwdData, Authentication authentication) {
+	    String currentPwd = pwdData.get("currentPwd");
+	    String newPwd = pwdData.get("newPwd");
+	    
+	    String userId = authentication.getName();
+	    UserDto user = userService.getUserInfo(userId);
+	    UsersDetails userDetails = (UsersDetails) usersDetailsService.loadUserByUsername(userId);
+	    
+	    PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+	    if (!passwordEncoder.matches(currentPwd, user.getUserPwd())) {
+	        return "NOT EQUAL";
+	    }
+	    
+	    String encodedNewPwd = passwordEncoder.encode(newPwd);
+	    user.setUserPwd(encodedNewPwd);
+	    
+	    Boolean updateResult = userService.updatePwd(user);
+	    if (updateResult) {
+	    	Authentication newAuth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+	        SecurityContextHolder.getContext().setAuthentication(newAuth);
+	        return "SUCCESS";
+	    }
+	    return "FAIL";
+	}
+	
+	@GetMapping("/likedProducts")
+	public String likedProducts(Model model, Authentication authentication) {
 		log.info("실행");
-		
+		List<Integer> wishlist = productService.getWishlistAll(authentication.getName());
+		List<ProductAddDto> productList = new ArrayList<>();
+		for(int i : wishlist) {
+			productList.add(productService.getProductByProductId(i));
+		}
+		log.info(productList.toString());
+		model.addAttribute("productList", productList);
 		return "mypage/likedProducts";
 	}
 	
-	@LoginCheck
 	@RequestMapping("/mypage")
 	public String mypage() {
 		log.info("실행");

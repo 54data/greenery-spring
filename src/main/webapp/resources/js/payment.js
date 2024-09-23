@@ -6,29 +6,55 @@ function scrollToTop() {
 }
 
 function changeTotalPrice() {
-    var sumPrice = 0;
+    let sumPrice = 0;
     $('.product-price').each(function() {
     	sumPrice += $(this).children(".product-total-price").data("price");
     });
+    let discountPrice = Number($("#discount").text());
+    const deliveryPrice = 2500;
     $("#sumPrice").text(sumPrice);
-    $("#totalPrice-num").text(sumPrice + 2500);
+    $("#totalPrice-num").text(sumPrice + discountPrice + deliveryPrice);
+}
+
+function applyCoupon() {
+	if ($("#coupon-select").val() == -1000) {
+		$("#discount").text("-1000");
+	} 
+	changeTotalPrice();
+}
+
+function orderProducts() {
+	$("#order-button").click(function () {
+		let data = {};
+		data["orderTotalPrice"] = Number($("#totalPrice-num").text());
+		data["productId"] = Number($(".product").data("pid"));
+		data["productPrice"] = Number($(".product").data("price"));
+		data["couponStatus"] = 0;
+		if ($("#discount").text() == "-1000") {
+			data["couponStatus"] = -1000;
+		}
+		$.ajax({
+    		url: "orderProducts",
+    		type: "POST",
+    		contentType: "application/json",
+    		data: JSON.stringify(data),
+    		success: function(response) {
+    			window.location.href = "order?orderId=" + response;
+    		},
+    		error: function(response) {
+    			console.log("주문 실패");
+    		}
+    	});
+	});
 }
 
 $(document).ready(function () {
     scrollToTop();
     changeTotalPrice();
+    orderProducts();
 });
 
-//
-///* 쿠폰 적용 */
-//function applyCoupon() {
-//    const couponDiscount = -1000; // 쿠폰 할인 금액
-//    const discountElement = document.querySelector('#discount');
-//    discountElement.innerText = couponDiscount.toLocaleString() + '원'; // 할인 금액을 #discount에 표시
-//    totalPriceCalculation(); // 총 가격 계산 업데이트
-//    showAlertCoupon();
-//}
-//
+
 //function orderPrice() {
 //    const checkedBoxes = document.querySelectorAll('.product-checkbox:checked');
 //    let finalPrice = 0;
