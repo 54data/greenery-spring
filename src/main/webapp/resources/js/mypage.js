@@ -330,3 +330,25 @@ $(document).ready(function () {
 
     zipcodeBtn();
 });
+
+$('.like-icon').on('click', function(){
+	let productId = $(this).data('pid');
+	let heartIcon = $(this).find("img");
+		
+	$.ajax({
+		url: "Wishlist",
+		type: "get",
+		data: { productId: productId },
+		success: function(response){
+			if(response == "fill"){
+				heartIcon.attr("src", "/miniproject/resources/image/fill_heart.png");
+			}
+			if(response == "empty"){
+				heartIcon.attr("src", "/miniproject/resources/image/heart.png")
+			}
+		},
+		error: function() {
+			console.log("전송 실패")
+		}
+	})
+});
