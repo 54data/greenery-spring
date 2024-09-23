@@ -51,4 +51,8 @@ public class OrderService {
 	public void insertOrderDetail(OrderDetailDto orderDetailDto) {
 		orderDao.insertOrderDetailProducts(orderDetailDto);
 	}
+
+	public int getCartNum(String userId) {
+		return orderDao.getCartNumById(userId);
+	}
 }
