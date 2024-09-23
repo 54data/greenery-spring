@@ -68,10 +68,7 @@ public class MainController {
 			} else if (couponStatus.equals("1")) {
 				log.info("이미발급 받음");
 				return ResponseEntity.ok(couponStatus);
-			} else if (couponStatus.equals("-1")) {			
-				log.info("이미 사용함");
-				return ResponseEntity.ok(couponStatus);
-			}		
+			}	
 		} else {
 			// 인증되지 않은 경우 401 상태 반환
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 하지 않은 상태");
