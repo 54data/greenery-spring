@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,6 +47,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/mypage")
 @Slf4j
+@Secured("ROLE_user")
 public class MypageController {
 	@Autowired
 	private ProductService productService;
