@@ -12,6 +12,14 @@
 </head>
 
 <body>
+	<div class="section1">
+		<a href="${pageContext.request.contextPath}">
+			<img src="${pageContext.request.contextPath}/resources/image/logo4.png" class="logo">
+		</a>
+	</div>
+	<!-- 관리자 페이지 목록 -->
+	<div class="admin-page">
+	
 	<div class="section3">
 		<div class="text-white" id="product">
 			<img src="${pageContext.request.contextPath}/resources/image/box.png"class="box-image">
