@@ -174,15 +174,6 @@ $(document).ready(function () {
         setTime("TodayCloseTime", 1);
     });
     
-    $(document).on('click', '.icon.like-icon', function () {
-        $(this).toggleClass("active");
-        let heartIcon = $(this).find("img");
-        if ($(this).hasClass("active")) {
-            heartIcon.attr("src", "resources/image/fill_heart.png");
-        } else {
-            heartIcon.attr("src", "resources/image/heart.png")
-        }
-    });
     
     $(document).on('click', '.modal-image', function () {
 		$.ajax({
@@ -206,6 +197,9 @@ $('.like-icon').on('click', function(){
 		type: "get",
 		data: { productId: productId },
 		success: function(response){
+			if(response == "notLogin"){
+				location.href = "account/loginForm";
+			}
 			if(response == "fill"){
 				heartIcon.attr("src", "/miniproject/resources/image/fill_heart.png");
 			}
