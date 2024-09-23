@@ -57,21 +57,21 @@
 			<span class="myinfo-col">현재 비밀번호</span>
 			<div class="inputMessage">
 				<input type="password" class="userPwd" >
-				<div id="pwdMessage" class="errorMessage"></div>
+				<div id="pwdMessage" class="pwdErrorMessage"></div>
 			</div>
 		</div>
 		<div class="change-pwd">
 			<span class="myinfo-col">새 비밀번호</span>
 			<div class="inputMessage">
 				<input type="password" class="userNewPwd" >
-				<div id="inputPwdMessage" class="errorMessage"></div>
+				<div id="inputPwdMessage" class="pwdErrorMessage"></div>
 			</div>
 		</div>
 		<div class="change-check-pwd">
 			<span class="myinfo-col">새 비밀번호 확인</span>
 			<div class="inputMessage">
 				<input type="password" class="checkUserNewPwd" >
-				<div id="inputCheckPwdMessage" class="errorMessage"></div>
+				<div id="inputCheckPwdMessage" class="pwdErrorMessage"></div>
 			</div>
 			<button type="button" class="pwd-change-btn" onclick="updateUserPwd()">확인</button>
 		</div>
