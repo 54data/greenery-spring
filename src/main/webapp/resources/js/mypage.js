@@ -31,6 +31,25 @@ function updateUserInfo() {
 	    detailedAddress: $("input[name='detailedAddress']").val()
 	};
 	
+	let checkResult = function() {
+		let isValid = true;
+		$('.errorMessage').each(function () {
+			if ($(this).html() != '') {
+				isValid = false;
+				return false; 
+			}
+		});
+		return isValid;
+	};
+	
+	if (!checkResult()) {
+		Toast.fire({
+		    icon: 'error',
+		    title: '입력값을 다시 확인해주세요.'
+		});
+		return;
+	}
+	
     $.ajax({
         url: "updateMyInfo", 
         method: "POST",
@@ -53,6 +72,25 @@ function updateUserPwd() {
 		newPwd: $(".change-pwd input").val(), 
 		confirmPwd: $(".change-check-pwd input").val(),
 	};
+	
+	let checkResult = function() {
+		let isValid = true;
+		$('.pwdErrorMessage').each(function () {
+			if ($(this).html() != '') {
+				isValid = false;
+				return false; 
+			}
+		});
+		return isValid;
+	};
+	
+	if (!checkResult()) {
+		Toast.fire({
+		    icon: 'error',
+		    title: '입력값을 다시 확인해주세요.'
+		});
+		return;
+	}
 	
     if (pwdData.newPwd !== pwdData.confirmPwd) {
 		Toast.fire({
@@ -82,7 +120,7 @@ function updateUserPwd() {
     		});
     		if (response === "SUCCESS") {
                 setTimeout(function() {
-                    window.location.href = "../account/loginForm";
+                    window.location.href = "../logout";
                 }, 2500); 
     		}
         }
@@ -404,9 +442,10 @@ $(document).ready(function () {
     checkDetailedAddress();
     
     // 비밀번호 변경 유효성 검사
-    $(document).on('input', '.userPwd', checkPwd);
-    $(document).on('input', '.userNewPwd', checkNewPwd);
-    $(document).on('input', '.checkUserNewPwd', checkNewPwd);
+    $(document).on('input', '.userPwd, .userNewPwd, .checkUserNewPwd', function() {
+        checkPwd();
+        checkNewPwd();
+    });
 });
 
 $('.like-icon').on('click', function(){
