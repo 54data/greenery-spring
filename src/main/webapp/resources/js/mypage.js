@@ -177,16 +177,6 @@ $(document).ready(function () {
         $(this).html('<strong>' + $(this).text() + '</strong>'); // 클릭한 메뉴 탭 글씨 진하게 함
     });
 
-    // 동적으로 생성된 like 아이콘에 대한 이벤트 처리
-    $(document).on('click', '.icon.like-icon', function () {
-        $(this).toggleClass("active");
-        let heartIcon = $(this).find("img");
-        if ($(this).hasClass("active")) {
-            heartIcon.attr("src", "../resources/image/fill_heart.png");
-        } else {
-            heartIcon.attr("src", "../resources/image/heart.png")
-        }
-    });
     
     $(document).on('click', '.product-image', function () {
         window.location.href = '../product/detailpage';
@@ -329,4 +319,26 @@ $(document).ready(function () {
 
 
     zipcodeBtn();
+});
+
+$('.like-icon').on('click', function(){
+	let productId = $(this).data('pid');
+	let heartIcon = $(this).find("img");
+		
+	$.ajax({
+		url: "/miniproject/product/Wishlist",
+		type: "get",
+		data: { productId: productId },
+		success: function(response){
+			if(response == "fill"){
+				heartIcon.attr("src", "/miniproject/resources/image/fill_heart.png");
+			}
+			if(response == "empty"){
+				heartIcon.attr("src", "/miniproject/resources/image/heart.png")
+			}
+		},
+		error: function() {
+			console.log("전송 실패")
+		}
+	})
 });

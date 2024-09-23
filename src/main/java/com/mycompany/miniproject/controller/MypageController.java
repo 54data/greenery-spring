@@ -3,6 +3,7 @@ package com.mycompany.miniproject.controller;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mycompany.miniproject.dto.OrderDetailDto;
 import com.mycompany.miniproject.dto.ProductAddDto;
+import com.mycompany.miniproject.dto.ProductDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
 import com.mycompany.miniproject.dto.ReviewDto;
 import com.mycompany.miniproject.dto.UserDto;
@@ -123,6 +125,16 @@ public class MypageController {
 		}
 		log.info(productList.toString());
 		model.addAttribute("productList", productList);
+		
+		if(authentication != null) {
+			List<Integer> userWishlist = productService.getWishlistAll(authentication.getName());
+			Map<Integer, Boolean> isWishlist = new HashMap<>();
+			for(ProductAddDto product :productList) {
+				isWishlist.put(product.getProductId(), userWishlist.contains(product.getProductId()));
+			}
+			model.addAttribute("isWishlist", isWishlist);
+		}
+		
 		return "mypage/likedProducts";
 	}
 	
