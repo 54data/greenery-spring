@@ -1,3 +1,17 @@
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top',
+    showConfirmButton: false,
+    timer: 2500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+    	toast.style.width = '350px';
+    	toast.style.fontSize = '14px';
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+    }
+});
+	
 function getContent(url) {
     $.ajax({
         url: url,
@@ -16,20 +30,6 @@ function updateUserInfo() {
 	    roadAddress: $("input[name='roadAddress']").val(),
 	    detailedAddress: $("input[name='detailedAddress']").val()
 	};
-    
-	const Toast = Swal.mixin({
-	    toast: true,
-	    position: 'top-center',
-	    showConfirmButton: false,
-	    timer: 2500,
-	    timerProgressBar: true,
-	    didOpen: (toast) => {
-	    	toast.style.width = '350px';
-	    	toast.style.fontSize = '14px';
-	        toast.addEventListener('mouseenter', Swal.stopTimer);
-	        toast.addEventListener('mouseleave', Swal.resumeTimer);
-	    }
-	});
 	
     $.ajax({
         url: "updateMyInfo", 
@@ -42,7 +42,7 @@ function updateUserInfo() {
 			Toast.fire({
 			    icon: 'success',
 			    title: '정보가 성공적으로 업데이트되었습니다.'
-			})
+			});
         }
     });
 }
@@ -55,7 +55,10 @@ function updateUserPwd() {
 	};
 	
     if (pwdData.newPwd !== pwdData.confirmPwd) {
-        alert("새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
+		Toast.fire({
+		    icon: 'error',
+		    title: '새 비밀번호와 확인 비밀번호가 일치하지 않습니다.'
+		});
         return;
     }
     
@@ -65,14 +68,23 @@ function updateUserPwd() {
         contentType: "application/json",
         data: JSON.stringify(pwdData),
         success: function(response) {
+        	let alertMessage = ""
             if (response === "NOT EQUAL") {
-                alert("현재 비밀번호가 일치하지 않습니다.");
+            	alertMessage = "현재 비밀번호가 일치하지 않습니다.";
             } else if (response === "SUCCESS") {
-                alert("비밀번호가 성공적으로 변경되었습니다.");
+            	alertMessage = "비밀번호가 성공적으로 변경되었습니다. 서비스에서 자동 로그아웃 됩니다.";
             } else if (response === "FAIL") {
-                alert("비밀번호 변경에 실패했습니다.");
+            	alertMessage = "비밀번호 변경에 실패했습니다.";
             }
-            window.location.href = "../logout";
+    		Toast.fire({
+    			icon: response === "SUCCESS" ? 'success' : 'error',
+    		    title: alertMessage
+    		});
+    		if (response === "SUCCESS") {
+                setTimeout(function() {
+                    window.location.href = "../account/loginForm";
+                }, 2500); 
+    		}
         }
     });
 }
