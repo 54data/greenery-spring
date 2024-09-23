@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -44,7 +45,8 @@
 		                    		${product.productQty}
 		                    	</div>
 			                    <div class="product-price">
-									<span class="product-total-price" data-price="${product.productQty * product.productPrice}">${product.productQty * product.productPrice}</span>원
+									<span class="product-total-price" data-total-price="${product.productQty * product.productPrice}">
+										<fmt:formatNumber value="${product.productQty * product.productPrice}" type="number" groupingUsed="true"/></span>원
 			                    </div>
 			                </div>
 		                </div>
@@ -66,7 +68,8 @@
 		                    </div>
 	                    	<div class="product-amount" data-qty=1>1</div>
 		                    <div class="product-price">
-								<span class="product-total-price" data-price="${productInfo.productPrice}">${productInfo.productPrice}</span>원
+								<span class="product-total-price" data-total-price="${productInfo.productPrice}">
+									<fmt:formatNumber value="${productInfo.productPrice}" type="number" groupingUsed="true"/></span>원
 		                    </div>
 		                </div>
 	                </div>
@@ -116,10 +119,10 @@
 						<span>총 주문 금액 &nbsp;</span><span id="sumPrice">0</span>
 					</div>
 					<div class="delivery">
-						<span>배송비 </span><span id="deliveryPrice">2,500원</span>
+						<span>배송비 </span><span id="deliveryPrice">2,500 원</span>
 					</div>
 					<div class="coupon">
-						<span>쿠폰 할인 금액 &nbsp;</span><span id="discount">0</span>
+						<span>쿠폰 할인 금액 &nbsp;</span><span id="discount" data-discount=0></span>
 					</div>
 				</div>
 				<div class="divider"></div>

@@ -100,8 +100,9 @@ function changeTotalPrice() {
     		sumPrice += Number($(this).children(".product-total-price").data("totalPrice"));
     	}
     });
+    const deliveryPrice = 2500;
     $("#sumPrice").text(sumPrice.toLocaleString() + ' 원');
-    $("#totalPrice-num").text((sumPrice + 2500).toLocaleString());
+    $("#totalPrice-num").text((sumPrice + deliveryPrice).toLocaleString());
 }
 
 function getSelectedProducts() {
