@@ -18,4 +18,22 @@
 	      ON od.product_id = p.product_id
 	    WHERE o.user_id = #{userId}
 	</select>
+	
+ 	<select id="getOrderDetail" resultType="OrderDetail" parameterType="map">
+	    SELECT 
+	        o.order_id, 
+	        o.user_id, 
+	        o.order_date, 
+	        od.product_id, 
+	        od.product_qty, 
+	        od.product_price, 
+	        p.product_name,
+	        p.product_summary
+	    FROM orders o
+	    JOIN order_detail od 
+	      ON o.order_id = od.order_id
+	    JOIN product p 
+	      ON od.product_id = p.product_id
+	    WHERE o.order_id = #{orderId} and od.product_id = #{productId}
+	</select> 
 </mapper>

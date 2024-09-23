@@ -79,6 +79,7 @@ function showSlides(n) {
     dots[slideIndex - 1].className += " active";
 }
 
+
 // ---------------------탭 - 상세정보,  리뷰 --------------------
 
 
@@ -131,7 +132,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 	});
 });
-
 
 
 /* 수량 조절 */

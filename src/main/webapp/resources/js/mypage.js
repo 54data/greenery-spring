@@ -227,5 +227,106 @@ $(document).ready(function () {
         console.log("Selected review score: " + score);
     });
     
+
+    
+/*    $(document).on('click', '.update-btn', function () {
+    	var productId = $(this).closest('.order-item-col').find('.order-img').data('product-id');
+    	var userId = $('#userIdInput').val();
+    	var orderId = $(this).closest('.order-item-col').find('.orderIdInput').data('order-id');
+    	
+        var productName = $(this).closest('.order-item-col').find('.item-title').text();
+        var productSummary = $(this).closest('.order-item-col').find('.item-desc').text();        
+        
+        console.log("productId: " + productId);
+        console.log("userId: " + userId);
+        console.log("orderId: " + orderId);
+        
+        $('#updateModal').find('#productIdInput').val(productId);
+        $('#updateModal').find('#userIdInput').val(userId);
+        $('#updateModal').find('.orderIdInput').val(orderId)
+        
+        $('#updateModal').find('.product-name').html(productName);
+        $('#updateModal').find('.product-description').text(productSummary);      
+        $('#updateModal').find('#review_img').attr('src', 'loadMainImg?productId=' + productId);
+        
+        $('#updateModal').modal('show');
+    });*/
+   
+    
+/*    $(document).on('click', '.update-btn', function () {
+        var reviewId = $(this).data('review-id');
+        var productId = $(this).data('product-id');
+        var orderId = $(this).data('order-id');
+
+        $.ajax({
+            url: '/miniproject/mypage/loadUpdateForm',
+            type: 'GET',
+            data: { reviewId: reviewId, productId: productId, orderId: orderId },
+            success: function(response) {
+                $('#modalContainer').empty().html(response);
+
+                var newModal = new bootstrap.Modal(document.getElementById('updateModal'));
+                newModal.show();
+            },
+            error: function() {
+                alert('리뷰 수정 폼을 불러오는 데 실패했습니다.');
+            }
+        });
+    });
+    */
+    
+/*    $(document).on('click', '.update-btn', function () {
+        var reviewId = $(this).data('review-id');
+        var productId = $(this).data('product-id');
+        var orderId = $(this).data('order-id');
+
+        $.ajax({
+            url: '/miniproject/mypage/loadUpdateForm',
+            type: 'GET',
+            data: { reviewId: reviewId, productId: productId, orderId: orderId },
+            success: function(response) {
+                $('#modalContainer').empty();
+
+                $('#modalContainer').html(response);
+
+                var newModal = new bootstrap.Modal(document.getElementById('updateModal'));
+                newModal.show();
+            },
+            error: function() {
+                alert('리뷰 수정 폼을 불러오는 데 실패했습니다.');
+            }
+        });
+    });*/
+    
+    $(document).off('click', '.update-btn');
+
+    $(document).on('click', '.update-btn', function () {
+        var reviewId = $(this).data('review-id');
+        var productId = $(this).data('product-id');
+        var orderId = $(this).data('order-id');
+
+        console.log('처음 불러온것', $('#modalContainer').html());
+        $('#modalContainer').empty();
+        console.log('잘 지워졌는가', $('#modalContainer').html());
+        
+        $.ajax({
+            url: '/miniproject/mypage/loadUpdateForm',
+            type: 'GET',
+            data: { reviewId: reviewId, productId: productId, orderId: orderId },
+            success: function(response) {
+            	console.log('잘 지워졌는가', $('#modalContainer').html());
+                console.log('AJAX 요청 성공:', response);
+                
+                $('#modalContainer').html(response);
+                /*$('#updateModal').modal('show');*/
+                console.log('잘나옴.');
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX 요청 오류:', error);
+            }
+        });
+    });
+
+
     zipcodeBtn();
 });

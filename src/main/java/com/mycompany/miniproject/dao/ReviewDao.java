@@ -1,6 +1,7 @@
 package com.mycompany.miniproject.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -19,8 +20,14 @@ public interface ReviewDao {
 
 	public int insertReview(ReviewDto reviewDto);
 	
-	public int deleteReview(int orderId);
+	public int deleteReview(int reviewId);
 
-	public int countUserReviewForProduct(int orderId);
+	public int countUserReviewForProduct(Map<String, Object> params);
+
+	public void updateReview(int orderId);
+
+	public ReviewDto getReview(Map<String, Object> params);
+
+	public ReviewDto getReviewByReviewId(int reviewId);
 
 }

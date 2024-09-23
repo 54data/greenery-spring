@@ -1,6 +1,8 @@
 package com.mycompany.miniproject.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +44,29 @@ public class ReviewService {
 		reviewDao.deleteReview(orderId);
 	}
 
-	public boolean hasReviewForProduct(int orderId) {
-		int count = reviewDao.countUserReviewForProduct(orderId);
+	public boolean hasReviewForProduct(int orderId, int productId) {
+		Map<String, Object> params = new HashMap<>();
+	    params.put("orderId", orderId);
+	    params.put("productId", productId);
+	    
+		int count = reviewDao.countUserReviewForProduct(params);
         return count > 0;
 	}
 
+	public void updateReview(int orderId) {
+		reviewDao.updateReview(orderId);	
+	}
 
+	public ReviewDto getReview(int orderId, int productId){
+		Map<String, Object> params = new HashMap<>();
+	    params.put("orderId", orderId);
+	    params.put("productId", productId);
+	    
+	    return reviewDao.getReview(params);
+	}
+	
+	public ReviewDto getReviewByReviewId(int reviewId){	    
+	    return reviewDao.getReviewByReviewId(reviewId);
+	}
+	
 }

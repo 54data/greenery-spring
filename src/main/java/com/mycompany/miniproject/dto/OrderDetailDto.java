@@ -14,7 +14,8 @@ public class OrderDetailDto {
     private String productSummary;
     private int productQty;
     private int productPrice;
-    private boolean hasReview;
+    private boolean hasReview;    
+    private ReviewDto review;
     private int orderTotalPrice;
     private int couponStatus;
 }

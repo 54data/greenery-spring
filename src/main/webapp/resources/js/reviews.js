@@ -22,7 +22,7 @@ $(document).ready(function () {
     });
 });
 
-/* 사진 업로드 */
+/* 등록 사진 업로드 */
 function previewImage(event) {
     const file = event.target.files[0]; 
     const imagePreview = document.getElementById('image-preview');
@@ -37,3 +37,4 @@ function previewImage(event) {
         imagePreview.innerHTML = `<span>+</span>`;
     }
 }
+
