@@ -8,8 +8,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상품 상세 페이지</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css">
-    
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reviews-select.css">
+
 </head>
 
 <body>
@@ -56,10 +56,7 @@
 			</div>
 		</div>
 	</div>
-
-	
 	
 </body>
-
 </html>
 
