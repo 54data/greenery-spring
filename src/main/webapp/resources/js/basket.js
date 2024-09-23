@@ -97,11 +97,12 @@ function changeTotalPrice() {
     var sumPrice = 0;
     $('.product-price').each(function() {
     	if ($(this).siblings(".product-checkbox").prop("checked")) {
-    		sumPrice += Number($(this).children(".product-total-price").text());
+    		sumPrice += Number($(this).children(".product-total-price").data("totalPrice"));
     	}
     });
-    $("#sumPrice").text(sumPrice);
-    $("#totalPrice-num").text(sumPrice + 2500);
+    const deliveryPrice = 2500;
+    $("#sumPrice").text(sumPrice.toLocaleString() + ' 원');
+    $("#totalPrice-num").text((sumPrice + deliveryPrice).toLocaleString());
 }
 
 function getSelectedProducts() {
@@ -170,7 +171,11 @@ $(document).ready(function() {
 		let selectedQty = $(this).val();
 		let productId = $(this).data("pid");
 		let productPrice = $(this).siblings('.product-price').data("price");
-		$(this).siblings('.product-price').children(".product-total-price").text(productPrice * selectedQty);
+		let productTotalPrice = $(this).siblings('.product-price').children(".product-total-price");
+		let totalPrice = productPrice * selectedQty;
+		productTotalPrice.data("totalPrice", totalPrice);
+		productTotalPrice.text(totalPrice.toLocaleString());
+		
 		changeTotalPrice();
 		$.ajax({
 			url: "updateQty",

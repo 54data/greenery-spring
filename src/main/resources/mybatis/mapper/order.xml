@@ -69,4 +69,10 @@
 			#{orderId}, #{productId}, #{productQty}, #{productPrice}
 		)
 	</insert>
+	
+	<select id="getCartNumById" parameterType="String" resultType="int">
+		select count(*)
+		from cart
+		where user_id = #{userId}
+	</select>
 </mapper>

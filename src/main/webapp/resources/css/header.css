@@ -198,10 +198,6 @@ header {
     align-items: center;
 }
 
-.category-wrap li a {
-    display: block;
-}
-
 .category-wrap li a:visited {
     color: inherit;
 }

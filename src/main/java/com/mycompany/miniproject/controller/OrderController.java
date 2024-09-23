@@ -211,4 +211,13 @@ public class OrderController {
 		model.addAttribute("couponStatus", couponStatus);
 		return "order/payment";
 	}
+	
+	@GetMapping("/getCartNum")
+	@ResponseBody
+	public int getCartNum(Authentication authentication) {
+		if (authentication == null || authentication.getName() == null) {
+	        return 0;
+	    }
+	    return orderService.getCartNum(authentication.getName());
+	}
 }

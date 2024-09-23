@@ -8,18 +8,19 @@ function scrollToTop() {
 function changeTotalPrice() {
     let sumPrice = 0;
     $('.product-price').each(function() {
-    	sumPrice += $(this).children(".product-total-price").data("price");
+    	sumPrice += $(this).children(".product-total-price").data("totalPrice");
     });
-    let discountPrice = Number($("#discount").text());
+    let discountPrice = $("#discount").data("discount");
     const deliveryPrice = 2500;
-    $("#sumPrice").text(sumPrice);
-    $("#totalPrice-num").text(sumPrice + discountPrice + deliveryPrice);
+    $("#sumPrice").text(sumPrice.toLocaleString() + ' 원');
+    $("#totalPrice-num").text((sumPrice + discountPrice + deliveryPrice).toLocaleString());
 }
 
 function applyCoupon() {
 	if ($("#coupon-select").val() == -1000) {
-		$("#discount").text("-1000");
+		$("#discount").data("discount", -1000);
 	} 
+	$("#discount").text($("#discount").data("discount").toLocaleString() + ' 원');
 	changeTotalPrice();
 }
 
@@ -30,7 +31,7 @@ function orderProducts() {
 		data["productId"] = Number($(".product").data("pid"));
 		data["productPrice"] = Number($(".product").data("price"));
 		data["couponStatus"] = 0;
-		if ($("#discount").text() == "-1000") {
+		if ($("#discount").data("discount") == -1000) {
 			data["couponStatus"] = -1000;
 		}
 		$.ajax({
@@ -52,6 +53,7 @@ $(document).ready(function () {
     scrollToTop();
     changeTotalPrice();
     orderProducts();
+    $("#discount").text($("#discount").data("discount").toLocaleString() + ' 원');
 });
 
 
