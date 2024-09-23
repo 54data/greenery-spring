@@ -1,7 +1,9 @@
 package com.mycompany.miniproject.controller;
 
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -30,12 +32,24 @@ public class MainController {
 	private UserService userService;
 	
 	@RequestMapping("")
-	public String main(Model model) {
+	public String main(Model model, Authentication authentication) {
 		List<ProductDto> recProducts = productService.getRecList();
 		List<ProductDto> newProducts = productService.getNewList();
 		log.info("실행");
 		model.addAttribute("recProducts", recProducts);
 		model.addAttribute("newProducts", newProducts);
+		
+		if(authentication != null) {
+			List<Integer> userWishlist = productService.getWishlistAll(authentication.getName());
+			Map<Integer, Boolean> isWishlist = new HashMap<>();
+			for(ProductDto product :recProducts) {
+				isWishlist.put(product.getProductId(), userWishlist.contains(product.getProductId()));
+			}
+			for(ProductDto product :newProducts) {
+				isWishlist.put(product.getProductId(), userWishlist.contains(product.getProductId()));
+			}
+			model.addAttribute("isWishlist", isWishlist);
+		}
 		
 		return "main";
 	}

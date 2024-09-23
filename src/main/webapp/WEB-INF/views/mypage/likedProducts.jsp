@@ -53,4 +53,5 @@
 	        </div>
 		</div>
 	</c:forEach>
+	<script src="${pageContext.request.contextPath}/resources/js/likeProducts.js"></script>
 </div>

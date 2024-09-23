@@ -202,7 +202,7 @@ $('.like-icon').on('click', function(){
 	let heartIcon = $(this).find("img");
 		
 	$.ajax({
-		url: "Wishlist",
+		url: "/miniproject/product/Wishlist",
 		type: "get",
 		data: { productId: productId },
 		success: function(response){
