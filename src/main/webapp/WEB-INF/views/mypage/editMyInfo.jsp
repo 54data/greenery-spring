@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 	
 <div class="mypage-myinfo-title">개인정보 수정</div>
-<form method="post">
+<form class="info-change-form" method="post">
 	<div class="myinfo-list">
 		<div class="myinfo-id">
 			<span class="myinfo-col">아이디</span>
@@ -14,21 +14,28 @@
 		</div>
 		<div class="myinfo-phone">
 			<span class="myinfo-col">전화번호</span>
-			<input type="text" name="userTel" value="${user.userTel}" required>
+			<div class="inputMessage">
+				<input type="text" class="userTelInput" name="userTel" value="${user.userTel}" >
+				<div id="inputPhoneMessage" class="errorMessage"></div>
+			</div>
 		</div>
 		<div class="myinfo-email">
 			<span class="myinfo-col">이메일</span>
-			<input type="text" name="userEmail" value="${user.userEmail}" required>
+			<div class="inputMessage">
+				<input type="text" class="userEmailInput" name="userEmail" value="${user.userEmail}" >
+				<div id="inputEmailMessage" class="errorMessage"></div>
+			</div>
 		</div>
 		<div class="myinfo-address">
 			<span class="myinfo-col">주소</span>
 			<div class="address">
 				<div class="address-zipcode">
-					<input type="text" name="zipcode" value="${user.zipcode}" readonly required>
+					<input type="text" name="zipcode" value="${user.zipcode}" readonly >
 					<button id="btnZipcode" type="button">우편번호 찾기</button>
 				</div>
-				<input type="text" name="roadAddress" value="${user.roadAddress}" readonly required>
-				<input type="text" name="detailedAddress" value="${user.detailedAddress}" required>
+				<input type="text" name="roadAddress" value="${user.roadAddress}" readonly >
+				<input type="text" class="userDetailedAddress" name="detailedAddress" value="${user.detailedAddress}" >
+				<div id="inputDetailedAddressMessage" class="errorMessage"></div>
 			</div>
 		</div>
 	</div>
@@ -48,15 +55,24 @@
 	<div class="pwd-change">
 		<div class="current-pwd">
 			<span class="myinfo-col">현재 비밀번호</span>
-			<input type="password" required>
+			<div class="inputMessage">
+				<input type="password" class="userPwd" >
+				<div id="pwdMessage" class="errorMessage"></div>
+			</div>
 		</div>
 		<div class="change-pwd">
 			<span class="myinfo-col">새 비밀번호</span>
-			<input type="password" required>
+			<div class="inputMessage">
+				<input type="password" class="userNewPwd" >
+				<div id="inputPwdMessage" class="errorMessage"></div>
+			</div>
 		</div>
 		<div class="change-check-pwd">
 			<span class="myinfo-col">새 비밀번호 확인</span>
-			<input type="password" required>
+			<div class="inputMessage">
+				<input type="password" class="checkUserNewPwd" >
+				<div id="inputCheckPwdMessage" class="errorMessage"></div>
+			</div>
 			<button type="button" class="pwd-change-btn" onclick="updateUserPwd()">확인</button>
 		</div>
 	</div>

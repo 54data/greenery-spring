@@ -102,7 +102,7 @@ function zipcodeBtn() {
                     fullAddr = data.jibunAddress;
                 }
 
-                if (data.userSelectedType === 'R') { // 수정된 부분
+                if (data.userSelectedType === 'R') { 
                     if (data.bname !== '') {
                         extraAddr += data.bname;
                     }
@@ -119,6 +119,72 @@ function zipcodeBtn() {
     });
 }
 
+function checkUserTel() {
+	$(document).on('input', '.userTelInput', function() {
+		let regExp = RegExp(/^[0-9]{1,11}$/);
+		if (regExp.test($(this).val())) {
+			$("#inputPhoneMessage").html('');
+		} else if ($(this).val() === '') {
+			$("#inputPhoneMessage").html('<span>해당 입력 값은 필수입니다.</span>');
+		} else {
+			$("#inputPhoneMessage").html("<span>- 하이픈을 제외하고 핸드폰 번호를 입력해주세요.</span>");
+		}
+	});
+}
+
+function checkUserEmail() {
+	$(document).on('input', '.userEmailInput', function() {
+	    let regExp = RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+		if (regExp.test($(this).val())) {
+			$("#inputEmailMessage").html('');
+		} else if ($(this).val() === '') {
+			$("#inputEmailMessage").html('<span>해당 입력 값은 필수입니다.</span>');
+		} else {
+			$("#inputEmailMessage").html("<span>이메일 입력을 확인해주세요.</span>");
+		}
+	});
+}
+
+function checkDetailedAddress() {
+	$(document).on('input', '.userDetailedAddress', function() {
+	    if ($(this).val() === '') {
+			$("#inputDetailedAddressMessage").html('<span>해당 입력 값은 필수입니다.</span>');
+		} else {
+			$("#inputDetailedAddressMessage").html('');
+		}
+	});
+}
+
+function checkPwd() {
+	let pwd = $(".userPwd").val();
+    if (pwd === '') {
+    	$("#pwdMessage").html('<span>해당 입력 값은 필수입니다.</span>'); 
+    } else {
+    	$("#pwdMessage").html(''); 
+    }
+}
+
+function checkNewPwd() {
+	let newPwd = $(".userNewPwd").val();
+	let checkNewPwd = $(".checkUserNewPwd").val();
+    let regExp = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,20}$/);
+    
+    if (regExp.test(newPwd)) {
+    	$("#inputPwdMessage").html(''); 
+    } else if (newPwd === '') {
+    	$("#inputPwdMessage").html('<span>해당 입력 값은 필수입니다.</span>');
+    } else {
+    	$("#inputPwdMessage").html('<span>8자 이상 20자 이하의 대소문자, 숫자, 특수문자를 조합해주세요.</span>');
+    }
+    
+    if (regExp.test(checkNewPwd)) {
+    	$("#inputCheckPwdMessage").html(''); 
+    } else if (checkNewPwd === '') {
+    	$("#inputCheckPwdMessage").html('<span>해당 입력 값은 필수입니다.</span>');
+    } else {
+    	$("#inputCheckPwdMessage").html('<span>비밀번호를 확인해주세요.</span>');
+    }
+}
 
 //function dataToHtml(products) {
 //    if (Array.isArray(products)) {
@@ -331,6 +397,16 @@ $(document).ready(function () {
 
 
     zipcodeBtn();
+    
+    // 개인정보 수정 유효성 검사
+    checkUserTel();
+    checkUserEmail();
+    checkDetailedAddress();
+    
+    // 비밀번호 변경 유효성 검사
+    $(document).on('input', '.userPwd', checkPwd);
+    $(document).on('input', '.userNewPwd', checkNewPwd);
+    $(document).on('input', '.checkUserNewPwd', checkNewPwd);
 });
 
 $('.like-icon').on('click', function(){
