@@ -209,7 +209,7 @@
     position: relative;
     margin: 0 auto;
     width: 75%;
-    margin-top: 50px;
+    margin-top: 70px;
 }
 
 .scroll-btn-up {
@@ -313,14 +313,13 @@
     font-weight: bold;
 }
 
-#pager {
+.comment {
 	text-align: center;
-}
-
-h3{
-	text-align: center;
-	border-bottom: 2px solid;
+	border-bottom: 1px solid;
 	border-color: rgba(0, 0, 0, 0.1);
 	padding-bottom: 15px;
-	margin-bottom: 30px;
+	font-weight: 700;
+    font-size: 25px;
+    color: #222;
+    letter-spacing: -0.05em;
 }
