@@ -11,8 +11,7 @@
 	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
-	<link href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css" rel="stylesheet">
-	<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<title>Greenery</title>
 </head>
 
@@ -83,7 +82,7 @@
 				            		</c:when>
 				            	</c:choose>
 				            </button>
-				            <button class="icon cart-icon" onclick="location.href='${pageContext.request.contextPath}/order/addBasket?productId=${product.productId}'">
+				            <button class="icon cart-icon" data-pid="${product.productId}">
 				                <img src="${pageContext.request.contextPath}/resources/image/cart_icon2.png" alt="장바구니 아이콘">
 				            </button>
 				            <button class="icon buy-icon" onclick="location.href='${pageContext.request.contextPath}/order/payment?productId=${product.productId}'">
@@ -106,10 +105,24 @@
 	                <div class="product-image-container">
 	                    <img src="loadMainImg?productId=${product.productId}" class="product-image" onclick="location.href='${pageContext.request.contextPath}/product/detailpage?productId=${product.productId}'">
 	                    <div class="product-icons">
-				            <button class="icon like-icon">
-				                <img src="${pageContext.request.contextPath}/resources/image/heart.png" alt="찜하기 아이콘">
+				            <button class="icon like-icon" data-pid="${product.productId}">
+				            	<c:choose>
+				            		<%-- 로그인 되어 있는 경우 --%>
+				            		<c:when test="${pageContext.request.userPrincipal != null}">
+				            			<c:if test="${isWishlist[product.productId]}">
+						               		<img src="${pageContext.request.contextPath}/resources/image/fill_heart.png" alt="찜하기 아이콘">
+				            			</c:if>
+				            			<c:if test="${!isWishlist[product.productId]}">
+					               			<img src="${pageContext.request.contextPath}/resources/image/heart.png" alt="찜하기 아이콘">				            	
+				            			</c:if>
+				            		</c:when>
+				            		<%-- 로그인이 안되어 있는 경우 --%>
+				            		<c:when test="${pageContext.request.userPrincipal == null}">
+					               		<img src="${pageContext.request.contextPath}/resources/image/heart.png" alt="찜하기 아이콘">				            	
+				            		</c:when>
+				            	</c:choose>
 				            </button>
-				            <button class="icon cart-icon" onclick="location.href='${pageContext.request.contextPath}/order/addBasket?productId=${product.productId}'">
+				            <button class="icon cart-icon" data-pid="${product.productId}">
 				                <img src="${pageContext.request.contextPath}/resources/image/cart_icon2.png" alt="장바구니 아이콘">
 				            </button>
 				            <button class="icon buy-icon" onclick="location.href='${pageContext.request.contextPath}/order/payment?productId=${product.productId}'">
