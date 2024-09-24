@@ -13,7 +13,9 @@ function changeTotalPrice() {
     let discountPrice = $("#discount").data("discount");
     const deliveryPrice = 2500;
     $("#sumPrice").text(sumPrice.toLocaleString() + ' 원');
-    $("#totalPrice-num").text((sumPrice + discountPrice + deliveryPrice).toLocaleString());
+    const totalPrice = sumPrice + discountPrice + deliveryPrice;
+    $("#totalPrice-num").text(totalPrice.toLocaleString());
+    $("#totalPrice-num").data("totalPrice", totalPrice);
 }
 
 function applyCoupon() {
@@ -27,7 +29,7 @@ function applyCoupon() {
 function orderProducts() {
 	$("#order-button").click(function () {
 		let data = {};
-		data["orderTotalPrice"] = Number($("#totalPrice-num").text());
+		data["orderTotalPrice"] = $("#totalPrice-num").data("totalPrice");
 		data["productId"] = Number($(".product").data("pid"));
 		data["productPrice"] = Number($(".product").data("price"));
 		data["couponStatus"] = 0;

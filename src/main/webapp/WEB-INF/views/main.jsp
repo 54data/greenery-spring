@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-	<%@ taglib prefix="fmt"	uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt"	uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -58,7 +57,7 @@
 		</div>
 	</section>
 	<div class="main-products">
-		<h3 class="coment">이달의 MD픽! 추천 상품</h3>
+		<div class="comment">이달의 MD픽! 추천 상품</div>
 		<div class="product-container">
  			<c:forEach items="${recProducts}" var="product">
 				<div class="product-item">
@@ -98,7 +97,7 @@
 	            </div>
 			</c:forEach>
 		</div>
-		<h3 class="coment">신상 업데이트</h3>
+		<div class="comment">신상 업데이트</div>
 		<div class="product-container">
 			<c:forEach items="${newProducts}" var="product">
 				<div class="product-item">

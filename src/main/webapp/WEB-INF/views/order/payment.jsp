@@ -22,31 +22,34 @@
 	<h1>결제하기</h1>
 	<div class="basket" id="basket">
 		<div class="product-list">
-
-			<hr id="hr-topLine">
-
+			<div class="product-list-col">
+				<div class="product-list-col-info">상품정보</div>
+				<div class="product-list-col-qty">수량</div>
+				<div class="product-list-col-price">구매가</div>
+			</div>
 			<div id="productList">
 				<c:if test="${not empty selectedProductList}">
 					<c:forEach items="${selectedProductList}" var="product">
 						<div class="product">
 			                <div class="product-body">
-			                    <div class="img">
-			                    	<img src="${pageContext.request.contextPath}/order/loadMainImg?productId=${product.productId}" alt="${product.productName}" class="picture">
-			                    </div>
-			                    <div class="product-label">
-			                        <div class="product-name">
-			                        	<span><strong>${product.productName}</strong></span>
-			                        </div>
-			                        <div class="product-description">
-			                        	<span>${product.productSummary}</span>
-			                        </div>
-			                    </div>
+			                	<div class="product-info">
+				                    <div class="img">
+				                    	<img src="${pageContext.request.contextPath}/order/loadMainImg?productId=${product.productId}" alt="${product.productName}" class="picture">
+				                    </div>
+				                    <div class="product-label">
+				                        <div class="product-name">
+				                        	<span><strong>${product.productName}</strong></span>
+				                        </div>
+				                        <div class="product-description">
+				                        	<span>${product.productSummary}</span>
+				                        </div>
+				                    </div>
+				                </div>
 		                    	<div class="product-amount" data-qty="${product.productQty}">
 		                    		${product.productQty}
 		                    	</div>
 			                    <div class="product-price">
-									<span class="product-total-price" data-total-price="${product.productQty * product.productPrice}">
-										<fmt:formatNumber value="${product.productQty * product.productPrice}" type="number" groupingUsed="true"/></span>원
+									<span class="product-total-price" data-total-price="${product.productQty * product.productPrice}"><fmt:formatNumber value="${product.productQty * product.productPrice}" type="number" groupingUsed="true"/></span>원
 			                    </div>
 			                </div>
 		                </div>
@@ -55,21 +58,22 @@
 		        <c:if test="${empty selectedProductList}">
 	        		<div class="product" data-pid="${productInfo.productId}" data-price="${productInfo.productPrice}">
 		                <div class="product-body">
-		                    <div class="img">
-		                    	<img src="${pageContext.request.contextPath}/order/loadMainImg?productId=${productInfo.productId}" alt="${productInfo.productName}" class="picture">
-		                    </div>
-		                    <div class="product-label">
-		                        <div class="product-name">
-		                        	<span><strong>${productInfo.productName}</strong></span>
-		                        </div>
-		                        <div class="product-description">
-		                        	<span>${productInfo.productSummary}</span>
-		                        </div>
+		                	<div class="product-info">
+			                    <div class="img">
+			                    	<img src="${pageContext.request.contextPath}/order/loadMainImg?productId=${productInfo.productId}" alt="${productInfo.productName}" class="picture">
+			                    </div>
+			                    <div class="product-label">
+			                        <div class="product-name">
+			                        	<span><strong>${productInfo.productName}</strong></span>
+			                        </div>
+			                        <div class="product-description">
+			                        	<span>${productInfo.productSummary}</span>
+			                        </div>
+			                    </div>
 		                    </div>
 	                    	<div class="product-amount" data-qty=1>1</div>
 		                    <div class="product-price">
-								<span class="product-total-price" data-total-price="${productInfo.productPrice}">
-									<fmt:formatNumber value="${productInfo.productPrice}" type="number" groupingUsed="true"/></span>원
+								<span class="product-total-price" data-total-price="${productInfo.productPrice}"><fmt:formatNumber value="${productInfo.productPrice}" type="number" groupingUsed="true"/></span>원
 		                    </div>
 		                </div>
 	                </div>
@@ -85,7 +89,6 @@
 				</div>
 				<hr id="hr-topLine">
 				<div class="coupon-input-container">
-					<span class="coupon-label">쿠폰</span>
 					<div class="custom-select">
 						<select id="coupon-select">
 							<c:choose>
@@ -103,8 +106,8 @@
 				</div>
 				<div class="coupon-discount" id="coupon-discount"></div>
 			</div>
-
 		</div>
+		
 		<div class="alert-coupon">
 			<img src="${pageContext.request.contextPath}/resources/image/coupon_modal_check.png"
 				class="img-alert-coupon" /> <span>쿠폰 적용 되었습니다.</span>
@@ -126,10 +129,9 @@
 					</div>
 				</div>
 				<div class="divider"></div>
-
 				<div class="payment-info-body-content1">
 					<div class="totalPrice" id="sum_p_price">
-						<span>총 결제 금액 &nbsp;</span><span id="totalPrice-num" data-discount=0>0</span>원
+						<span>총 결제 금액 &nbsp;</span><span id="totalPrice-num" data-total-price=0 data-discount=0>0</span>원
 					</div>
 					<div id="goOrder" class="">
 						<!-- 주문버튼 -->

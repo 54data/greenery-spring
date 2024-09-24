@@ -23,8 +23,21 @@
 	</select>
 	
 	<select id="getNoticeById" resultType="Notice" parameterType="int">
-		select notice_id, notice_title, notice_reg_date, notice_hitcount, notice_content
-		from notice
+		select 
+			notice_id, notice_title, notice_reg_date, 
+			notice_hitcount, notice_content, 
+			before_notice_id, before_notice_title, 
+			after_notice_id, after_notice_title
+		from (
+			select 
+				notice_id, notice_title, notice_reg_date, 
+				notice_hitcount, notice_content, 
+				lag(notice_id) over (order by notice_id) before_notice_id,
+				lag(notice_title) over (order by notice_id) before_notice_title,
+				lag(notice_id) over (order by notice_id desc) after_notice_id,
+				lag(notice_title) over (order by notice_id desc) after_notice_title
+			from notice
+		)
 		where notice_id = #{noticeId}
 	</select>
 	

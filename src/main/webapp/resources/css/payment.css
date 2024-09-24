@@ -1,5 +1,4 @@
 h1 {
-    margin: 120px 0 30px auto;
     width: 75%;
     margin: 120px auto 30px;
 }
@@ -7,6 +6,63 @@ h1 {
 h2 {
     margin: 14px;
     text-align: left;
+}
+
+.product-list-col {
+	display: flex;
+	border-top: 2px solid #AFAFAF;
+	background-color: #f2f2f2;
+	justify-content: space-between;
+    height: 40px;
+    text-align: center;
+   	font-size: 14px;
+	color: #212529;
+}
+
+.product-list-col-info {
+	flex: 6;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.product-list-col-qty {
+	flex: 2;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.product-list-col-price {
+	flex: 2;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.product-info {
+	display: flex;
+	flex: 6;
+	justify-content: center;
+}
+
+.product-info .img {
+	margin-right: 30px;
+}
+
+.product-amount {
+	display: flex;
+	flex: 2;
+	justify-content: center;
+}
+
+.product-price {
+	display: flex;
+    font-size: 16px;
+    text-align: right;
+    line-height: 0;
+    flex: 2;
+    justify-content: center;
 }
 
 .checkbox-container {
@@ -139,12 +195,6 @@ input[type="checkbox"]:checked::after {
     justify-content: center;
 }
 
-.product-price {
-    font-size: 22px;
-    text-align: right;
-    line-height: 0;
-}
-
 .basket-delete {
     margin: 0 10px 110px 0;
 }
@@ -223,11 +273,6 @@ input[type="checkbox"] {
     transition: background-color 0.3s;
 }
 
-#hr-topLine {
-    border: 1.5px solid black;
-    margin: 0 0 60px 0;
-}
-
 .orderPrice,
 .delivery,
 .coupon {
@@ -293,7 +338,7 @@ a {
 
 .coupon-title h1 {
     margin-left: 0;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 #have-coupon {
@@ -306,13 +351,7 @@ a {
 .coupon-input-container {
     display: flex;
     align-items: center;
-    margin-top: 10px;
-}
-
-.coupon-label {
-    margin-right: 10px;
-    font-size: 16px;
-
+    margin-top: 30px;
 }
 
 .custom-select {
@@ -406,5 +445,5 @@ select {
 }
 
 .product-total-price {
-	font-size: 19px;
+	font-size: 16px;
 }

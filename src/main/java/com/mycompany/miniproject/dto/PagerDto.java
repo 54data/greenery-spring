@@ -21,31 +21,7 @@ public class PagerDto {
 	private String sort;
 
 	public PagerDto(int rowsPerPage, int pagesPerGroup, int totalRows, int pageNo) {
-		this.rowsPerPage = rowsPerPage;
-		this.pagesPerGroup = pagesPerGroup;
-		this.totalRows = totalRows;
-		this.pageNo = pageNo;
-
-		totalPageNo = totalRows / rowsPerPage;
-		if (totalRows % rowsPerPage != 0)
-			totalPageNo++;
-
-		totalGroupNo = totalPageNo / pagesPerGroup;
-		if (totalPageNo % pagesPerGroup != 0)
-			totalGroupNo++;
-
-		groupNo = (pageNo - 1) / pagesPerGroup + 1;
-
-		startPageNo = (groupNo - 1) * pagesPerGroup + 1;
-
-		endPageNo = startPageNo + pagesPerGroup - 1;
-		if (groupNo == totalGroupNo)
-			endPageNo = totalPageNo;
-
-		startRowNo = (pageNo - 1) * rowsPerPage + 1;
-		startRowIndex = startRowNo - 1;
-		endRowNo = pageNo * rowsPerPage;
-		endRowIndex = endRowNo - 1;
+		this(rowsPerPage, pagesPerGroup, totalRows, pageNo, "");
 	}
 
 	public PagerDto(int rowsPerPage, int pagesPerGroup, int totalRows, int pageNo, String sort) {
