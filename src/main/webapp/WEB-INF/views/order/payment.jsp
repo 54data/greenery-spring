@@ -131,7 +131,7 @@
 				<div class="divider"></div>
 				<div class="payment-info-body-content1">
 					<div class="totalPrice" id="sum_p_price">
-						<span>총 결제 금액 &nbsp;</span><span id="totalPrice-num" data-discount=0>0</span>원
+						<span>총 결제 금액 &nbsp;</span><span id="totalPrice-num" data-total-price=0 data-discount=0>0</span>원
 					</div>
 					<div id="goOrder" class="">
 						<!-- 주문버튼 -->
