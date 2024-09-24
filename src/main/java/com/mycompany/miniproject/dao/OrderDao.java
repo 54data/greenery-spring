@@ -31,4 +31,6 @@ public interface OrderDao {
 
 	public int insertOrderDetailProducts(OrderDetailDto orderDetailDto);
 
+	public int getCartNumById(String userId);
+
 }

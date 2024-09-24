@@ -13,4 +13,8 @@ public class NoticeDto {
 	private String noticeContent;
 	private Date noticeRegDate;
 	private int noticeHitcount;
+	private int beforeNoticeId;
+	private String beforeNoticeTitle;
+	private int afterNoticeId;
+	private String afterNoticeTitle;
 }

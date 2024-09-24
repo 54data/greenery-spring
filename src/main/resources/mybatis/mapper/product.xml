@@ -4,29 +4,29 @@
 <mapper namespace="com.mycompany.miniproject.dao.ProductDao">
 
 	<select id="getProductAll" parameterType="Pager" resultType="Product">
-	<![CDATA[
-		select product_id, product_name, product_price, product_summary, category, product_reg_date, product_stock
+		select
+			product_id, product_name, product_price, product_summary, category, product_reg_date, product_stock
 		from(
-			select rownum rnum, product_id, product_name, product_price, product_summary, category, product_reg_date, product_stock
-			from (
-				select product_id, product_name, product_price, product_summary, category, product_reg_date, product_stock
-				from product
-				order by product_id desc
-			)
-			where rownum <= #{endRowNo}
+			select product_id, product_name, product_price, product_summary, category, product_reg_date, product_stock,
+				row_number() over(
+					<choose>
+						<when test="sort=='regDateDesc'">
+							order by product_reg_date desc
+						</when>
+						<when test="sort=='priceAsc'">
+							order by product_price asc
+						</when>
+						<when test="sort=='priceDesc'">
+							order by product_price desc
+						</when>
+						<otherwise>
+							order by product_id
+						</otherwise>
+					</choose>
+				)as rnum
+			from product
 		)
-		where rnum >= #{startRowNo} ]]>
-		<choose>
-			<when test="sort=='regDateDesc'">
-				order by product_reg_date desc
-			</when>
-			<when test="sort=='priceAsc'">
-				order by product_price asc
-			</when>
-			<when test="sort=='priceDesc'">
-				order by product_price desc
-			</when>
-		</choose>
+		where rnum between #{startRowNo} and #{endRowNo}
 	</select>
 	
 	<select id="countRows" resultType="int">

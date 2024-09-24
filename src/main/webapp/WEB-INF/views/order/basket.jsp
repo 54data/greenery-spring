@@ -11,6 +11,9 @@
 	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/basket.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 
 <body>
@@ -34,7 +37,6 @@
 					</button>
 				</div>
 			</div>
-
 			<hr id="hr-topLine">
 			<div id="productList">
 				<c:forEach items="${cartList}" var="cart">
@@ -60,7 +62,8 @@
 	                    		<option value="5">5</option>
 	                    	</select>
 		                    <div class="product-price" data-price="${cart.productPrice}">
-								<span class="product-total-price">${cart.productQty * cart.productPrice}</span>원
+								<span class="product-total-price" data-total-price="${cart.productQty * cart.productPrice}">
+									<fmt:formatNumber value="${cart.productQty * cart.productPrice}" type="number" groupingUsed="true"/></span>원
 		                    </div>
 		                    <button class="basket-delete" onclick="location.href='${pageContext.request.contextPath}/order/deleteBasket?productId=${cart.productId}'">
 		                    	<img src="${pageContext.request.contextPath}/resources/image/X버튼.png" alt="삭제 버튼" class="delete-icon" style="width: 20px; height: 20px;">

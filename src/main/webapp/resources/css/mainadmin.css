@@ -79,3 +79,9 @@
 	padding: 20px;
 	height: 100%;
 }
+
+.logo {
+	width: 75%;
+    vertical-align: baseline;
+    margin-top: 10px;
+}

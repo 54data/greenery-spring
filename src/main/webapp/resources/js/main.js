@@ -174,15 +174,6 @@ $(document).ready(function () {
         setTime("TodayCloseTime", 1);
     });
     
-    $(document).on('click', '.icon.like-icon', function () {
-        $(this).toggleClass("active");
-        let heartIcon = $(this).find("img");
-        if ($(this).hasClass("active")) {
-            heartIcon.attr("src", "resources/image/fill_heart.png");
-        } else {
-            heartIcon.attr("src", "resources/image/heart.png")
-        }
-    });
     
     $(document).on('click', '.modal-image', function () {
 		$.ajax({
@@ -195,4 +186,29 @@ $(document).ready(function () {
 	        }
 		});
     });
+});
+
+$('.like-icon').on('click', function(){
+	let productId = $(this).data('pid');
+	let heartIcon = $(this).find("img");
+		
+	$.ajax({
+		url: "/miniproject/product/Wishlist",
+		type: "get",
+		data: { productId: productId },
+		success: function(response){
+			if(response == "notLogin"){
+				location.href = "account/loginForm";
+			}
+			if(response == "fill"){
+				heartIcon.attr("src", "/miniproject/resources/image/fill_heart.png");
+			}
+			if(response == "empty"){
+				heartIcon.attr("src", "/miniproject/resources/image/heart.png")
+			}
+		},
+		error: function() {
+			console.log("전송 실패")
+		}
+	})
 });

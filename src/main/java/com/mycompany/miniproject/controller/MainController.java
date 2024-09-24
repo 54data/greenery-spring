@@ -1,7 +1,9 @@
 package com.mycompany.miniproject.controller;
 
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -30,12 +32,24 @@ public class MainController {
 	private UserService userService;
 	
 	@RequestMapping("")
-	public String main(Model model) {
+	public String main(Model model, Authentication authentication) {
 		List<ProductDto> recProducts = productService.getRecList();
 		List<ProductDto> newProducts = productService.getNewList();
 		log.info("실행");
 		model.addAttribute("recProducts", recProducts);
 		model.addAttribute("newProducts", newProducts);
+		
+		if(authentication != null) {
+			List<Integer> userWishlist = productService.getWishlistAll(authentication.getName());
+			Map<Integer, Boolean> isWishlist = new HashMap<>();
+			for(ProductDto product :recProducts) {
+				isWishlist.put(product.getProductId(), userWishlist.contains(product.getProductId()));
+			}
+			for(ProductDto product :newProducts) {
+				isWishlist.put(product.getProductId(), userWishlist.contains(product.getProductId()));
+			}
+			model.addAttribute("isWishlist", isWishlist);
+		}
 		
 		return "main";
 	}
@@ -60,24 +74,18 @@ public class MainController {
 	@GetMapping("recieveCoupon")
 	public ResponseEntity<String> recieveCoupon(Authentication authentication) {
 		if (authentication != null) {
-			String couponStatus = "" + userService.getUserCouponStatus(authentication.getName());
-			if (couponStatus.equals("0")) {
+			int couponStatus = userService.getUserCouponStatus(authentication.getName());
+			if (couponStatus == 0) {
 				userService.updateCouponStatus(1, authentication.getName());
 				log.info("쿠폰발급");
-				return ResponseEntity.ok(couponStatus);
-			} else if (couponStatus.equals("1")) {
+				return ResponseEntity.ok("" + couponStatus);
+			} else {
 				log.info("이미발급 받음");
-				return ResponseEntity.ok(couponStatus);
-			} else if (couponStatus.equals("-1")) {			
-				log.info("이미 사용함");
-				return ResponseEntity.ok(couponStatus);
-			}		
+				return ResponseEntity.ok("" + couponStatus);
+			}	
 		} else {
 			// 인증되지 않은 경우 401 상태 반환
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 하지 않은 상태");
-		};
-		
-		// 기본적으로 처리되지 않은 경우
-	    return ResponseEntity.badRequest().body("알 수 없는 오류");
+		}
 	}
 }

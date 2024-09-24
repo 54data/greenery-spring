@@ -51,4 +51,10 @@
         font-size: 12px;
         margin-top: 2px;
     }
+    
+    .pageNum {
+    	margin-top: 20px;
+    	margin-bottom: 50px;
+    	text-align: center;
+    }
 

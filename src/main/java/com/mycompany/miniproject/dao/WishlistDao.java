@@ -17,4 +17,6 @@ public interface WishlistDao {
 
 	public List<Integer> getWishlistAll(String userId);
 
+	public int deleteWishlistByProductId(int productId);
+
 }

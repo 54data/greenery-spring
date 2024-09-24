@@ -28,4 +28,9 @@
 		from wishlist
 		where user_id = #{userId}
 	</select>
+	
+	<delete id="deleteWishlistByProductId" parameterType="int">
+		delete from wishlist
+		where product_id = #{productId} 
+	</delete>
 </mapper>

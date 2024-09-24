@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -195,15 +196,19 @@ public class ProductController {
 	public String addWishlist(Authentication authentication,
 			@RequestParam("productId") int productId) {
 		String result;
-		WishlistDto wishlist = new WishlistDto();
-		wishlist.setProductId(productId);
-		wishlist.setUserId(authentication.getName());
-		if(productService.getWishlist(wishlist) == null) {
-			productService.addWishlist(wishlist);
-			result = "fill";
+		if(authentication == null) {
+			result = "notLogin";
 		}else {
-			productService.deleteWishlist(wishlist);						
-			result = "empty";
+			WishlistDto wishlist = new WishlistDto();
+			wishlist.setProductId(productId);
+			wishlist.setUserId(authentication.getName());
+			if(productService.getWishlist(wishlist) == null) {
+				productService.addWishlist(wishlist);
+				result = "fill";
+			}else {
+				productService.deleteWishlist(wishlist);						
+				result = "empty";
+			}			
 		}
 		
 		return result;
