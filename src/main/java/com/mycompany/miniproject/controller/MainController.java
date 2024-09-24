@@ -74,21 +74,18 @@ public class MainController {
 	@GetMapping("recieveCoupon")
 	public ResponseEntity<String> recieveCoupon(Authentication authentication) {
 		if (authentication != null) {
-			String couponStatus = "" + userService.getUserCouponStatus(authentication.getName());
-			if (couponStatus.equals("0")) {
+			int couponStatus = userService.getUserCouponStatus(authentication.getName());
+			if (couponStatus == 0) {
 				userService.updateCouponStatus(1, authentication.getName());
 				log.info("쿠폰발급");
-				return ResponseEntity.ok(couponStatus);
-			} else if (couponStatus.equals("1")) {
+				return ResponseEntity.ok("" + couponStatus);
+			} else {
 				log.info("이미발급 받음");
-				return ResponseEntity.ok(couponStatus);
+				return ResponseEntity.ok("" + couponStatus);
 			}	
 		} else {
 			// 인증되지 않은 경우 401 상태 반환
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 하지 않은 상태");
-		};
-		
-		// 기본적으로 처리되지 않은 경우
-	    return ResponseEntity.badRequest().body("알 수 없는 오류");
+		}
 	}
 }
