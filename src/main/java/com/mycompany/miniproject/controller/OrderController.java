@@ -45,7 +45,8 @@ public class OrderController {
 	
 	@Secured("ROLE_user")
 	@GetMapping("/addBasket")
-	public String addBasket(int productId, Authentication authentication) {
+	@ResponseBody
+	public String addBasket(@RequestParam("productId")int productId, Authentication authentication) {
 		CartDto cartDto = new CartDto();
 		cartDto.setProductId(productId);
 		String userId = authentication.getName();
@@ -53,8 +54,11 @@ public class OrderController {
 		if (orderService.checkCart(cartDto)) {
 			cartDto.setProductQty(1);
 			orderService.addCart(cartDto);
+			return "successAdd";
+		}else {
+			return "exist";
 		}
-		return "redirect:/order/basket";
+/*		return "redirect:/order/basket";*/
 	}
 	
 	@Secured("ROLE_user")
