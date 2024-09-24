@@ -126,7 +126,7 @@ public class ProductController {
 		model.addAttribute("productList", productList);
 		
 		if(authentication != null) {
-			List<Integer> userWishlist = productService.getWishlistAll(authentication.getName());
+			List<Integer> userWishlist = productService.getUserWishlist(authentication.getName());
 			Map<Integer, Boolean> isWishlist = new HashMap<>();
 			for(ProductDto product :productList) {
 				isWishlist.put(product.getProductId(), userWishlist.contains(product.getProductId()));
