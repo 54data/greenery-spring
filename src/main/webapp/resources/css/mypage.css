@@ -421,3 +421,7 @@
 	color: #F03F40; 
 	font-size: 12px;
 }
+
+#pager {
+	text-align: center;
+}
