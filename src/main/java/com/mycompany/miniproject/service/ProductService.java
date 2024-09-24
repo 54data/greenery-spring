@@ -151,9 +151,19 @@ public class ProductService {
 		wishlistDao.deleteWishlist(wishlist);
 	}
 
-	public List<Integer> getWishlistAll(String userId) {
-		List<Integer> userWishlist = wishlistDao.getWishlistAll(userId);
+	public List<ProductAddDto> getWishlistAll(PagerDto pager) {
+		List<ProductAddDto> userWishlist = wishlistDao.getWishlistAll(pager);
 		return userWishlist;
+	}
+
+	public int getTotalWishlistRows(String userId) {
+		int totalRows = wishlistDao.getTotalWishlistRows(userId);
+		return totalRows;
+	}
+
+	public List<Integer> getUserWishlist(String userId) {
+		List<Integer> wishlist = wishlistDao.getUserWishlist(userId);
+		return wishlist;
 	}
 	
 	
