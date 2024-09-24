@@ -16,4 +16,5 @@ public class ReviewDto {
 	private byte[] reviewImg;
 	private String reviewImgType;
 	private String reviewImgName;
+	private OrderDetailDto orderDetail;
 }

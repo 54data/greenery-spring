@@ -53,8 +53,8 @@ public class ReviewService {
         return count > 0;
 	}
 
-	public void updateReview(int orderId) {
-		reviewDao.updateReview(orderId);	
+	public void updateReview(ReviewDto reviewDto) {
+		reviewDao.updateReview(reviewDto);	
 	}
 
 	public ReviewDto getReview(int orderId, int productId){

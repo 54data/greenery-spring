@@ -24,7 +24,7 @@ public interface ReviewDao {
 
 	public int countUserReviewForProduct(Map<String, Object> params);
 
-	public void updateReview(int orderId);
+	public void updateReview(ReviewDto reviewDto);
 
 	public ReviewDto getReview(Map<String, Object> params);
 
