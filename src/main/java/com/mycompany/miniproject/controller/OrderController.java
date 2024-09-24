@@ -43,21 +43,26 @@ public class OrderController {
 	@Autowired
 	private UserService userService;
 	
-	@Secured("ROLE_user")
 	@GetMapping("/addBasket")
 	@ResponseBody
 	public String addBasket(@RequestParam("productId")int productId, Authentication authentication) {
+		String result;
+		if(authentication != null) {
 		CartDto cartDto = new CartDto();
 		cartDto.setProductId(productId);
 		String userId = authentication.getName();
 		cartDto.setUserId(userId);
-		if (orderService.checkCart(cartDto)) {
-			cartDto.setProductQty(1);
-			orderService.addCart(cartDto);
-			return "successAdd";
+			if (orderService.checkCart(cartDto)) {
+				cartDto.setProductQty(1);
+				orderService.addCart(cartDto);
+				result = "successAdd";
+			}else {
+				result = "exist";
+			}
 		}else {
-			return "exist";
+			result = "notLogin";
 		}
+		return result;
 /*		return "redirect:/order/basket";*/
 	}
 	

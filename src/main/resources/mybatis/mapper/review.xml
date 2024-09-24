@@ -52,13 +52,19 @@
 	    DELETE FROM review WHERE review_id = #{reviewId}
 	</delete>
 	
-	<update id="updateReview" parameterType="int">
+	<update id="updateReview" parameterType="Review">
 		update review set
-		review_id, product_id, user_id, review_content, review_reg_date, review_score, order_id
-	        <if test="reviewImg != null">, review_img</if>
-	        <if test="reviewImgType != null">, review_img_type</if>
-	        <if test="reviewImgName != null">, review_img_name</if>
-	   where order_id = #{orderId}     
+			review_id = #{reviewId}, 
+			product_id = #{productId}, 
+			user_id = #{userId}, 
+			review_content = #{reviewContent}, 
+			review_reg_date = sysdate, 
+			review_score = #{reviewScore}, 
+			order_id = #{orderId}
+	        <if test="reviewImg != null">, review_img = #{reviewImg}</if>
+	        <if test="reviewImgType != null">, review_img_type = #{reviewImgType}</if>
+	        <if test="reviewImgName != null">, review_img_name = #{reviewImgName}</if>
+	   where review_id = #{reviewId}     
 	</update>
 	
 	<select id="getReview" resultType="Review" parameterType="map">

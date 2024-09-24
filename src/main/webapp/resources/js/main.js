@@ -214,7 +214,6 @@ $('.like-icon').on('click', function(){
 });
 
 $('.cart-icon').on('click', function(event){
-	event.preventDefault();
 	
 	let productId = $(this).data('pid')
 	console.log("이건 작동하나?");
@@ -224,6 +223,9 @@ $('.cart-icon').on('click', function(event){
 		data:{productId: productId},
 		success: function(response){
 			console.log(response);
+			if(response == "notLogin"){
+				window.location.href="account/loginForm";
+			}
 			if(response == "successAdd"){
 				console.log("successAdd로 왔음");
 				Swal.fire({
