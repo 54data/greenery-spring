@@ -2,7 +2,6 @@ package com.mycompany.miniproject.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +27,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mycompany.miniproject.dto.OrderDetailDto;
+import com.mycompany.miniproject.dto.PagerDto;
 import com.mycompany.miniproject.dto.ProductAddDto;
-import com.mycompany.miniproject.dto.ProductDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
 import com.mycompany.miniproject.dto.ReviewDataDto;
 import com.mycompany.miniproject.dto.ReviewDto;
@@ -114,20 +113,18 @@ public class MypageController {
 	}
 	
 	@GetMapping("/likedProducts")
-	public String likedProducts(Model model, Authentication authentication) {
+	public String likedProducts(Model model, Authentication authentication, @RequestParam(defaultValue="1")int pageNo) {
 		log.info("실행");
-		List<Integer> wishlist = productService.getWishlistAll(authentication.getName());
-		List<ProductAddDto> productList = new ArrayList<>();
-		for(int i : wishlist) {
-			productList.add(productService.getProductByProductId(i));
-		}
-		log.info(productList.toString());
-		model.addAttribute("productList", productList);
+		int totalRows = productService.getTotalWishlistRows(authentication.getName());
+		PagerDto pager = new PagerDto(10, 5, totalRows, pageNo);
+		List<ProductAddDto> wishlistProduct = productService.getWishlistAll(pager);
+		model.addAttribute("productList", wishlistProduct);
+		model.addAttribute("pager", pager);
 		
 		if(authentication != null) {
-			List<Integer> userWishlist = productService.getWishlistAll(authentication.getName());
+			List<Integer> userWishlist = productService.getUserWishlist(authentication.getName());
 			Map<Integer, Boolean> isWishlist = new HashMap<>();
-			for(ProductAddDto product :productList) {
+			for(ProductAddDto product :wishlistProduct) {
 				isWishlist.put(product.getProductId(), userWishlist.contains(product.getProductId()));
 			}
 			model.addAttribute("isWishlist", isWishlist);

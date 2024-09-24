@@ -17,7 +17,7 @@ function getContent(url) {
         url: url,
         method: "GET",
         success: function (data) {
-            $(".mypage-content").append(data);
+            $(".mypage-content").html(data);
         }
     });
 }

@@ -84,10 +84,10 @@ public class AdminController {
 		
 		int totalRows = productService.getTotalRows();
 		PagerDto pager = new PagerDto(10, 5, totalRows, pageNo);
-		session.setAttribute("pager", pager);
+		pager.setSort("regDateDesc");
+		model.addAttribute("pager", pager);
 		
-		List<ProductDto> productList;
-		productList = productService.getProducts(pager);
+		List<ProductDto> productList = productService.getProducts(pager);
 				
 		model.addAttribute("productList", productList);
 		log.info("실행");

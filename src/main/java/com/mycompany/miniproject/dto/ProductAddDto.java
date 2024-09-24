@@ -18,4 +18,5 @@ public class ProductAddDto {
 	private MultipartFile productSub2Image;
 	private MultipartFile productSub3Image;
 	private MultipartFile productDetailImage;
+	private String userId;
 }
