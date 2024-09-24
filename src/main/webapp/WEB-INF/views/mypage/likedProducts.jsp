@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css">
+<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>
+
 <section class="mypage-title">
 	<div class="mypage-title-greeting">
 		<img src="${pageContext.request.contextPath}/resources/image/thum.png">
@@ -10,7 +14,11 @@
 	</div>
 	<div class="mypage-title-coupon">
 		<span class="coupon-status">
-			쿠폰 <span class="coupon-num">1</span>개
+			쿠폰
+			<span class="coupon-num">
+				<c:if test="${userInfo.couponStatus == 1}">1</c:if>
+				<c:if test="${userInfo.couponStatus != 1}">0</c:if>
+			</span>개
 		</span>
 	</div>
 </section>
@@ -53,5 +61,31 @@
 	        </div>
 		</div>
 	</c:forEach>
-	<script src="${pageContext.request.contextPath}/resources/js/likeProducts.js"></script>
+</div>
+<div id="pager">
+	<%-- [<] 1 2 3 4 5 [>] --%>
+	<c:if test="${pager.groupNo > 1}">
+		<button
+			onclick="getContent('likedProducts?pageNo=${pager.startPageNo-1}')"
+			class="btn btn-light">이전</button>
+	</c:if>
+
+	<c:forEach begin="${pager.startPageNo}" end="${pager.endPageNo}"
+		step="1" var="i">
+		<c:if test="${pager.pageNo == i}">
+			<button onclick="getContent('likedProducts?pageNo=${i}')"
+				class="btn btn-outline-dark">${i}</button>
+		</c:if>
+		<c:if test="${pager.pageNo != i}">
+			<button onclick="getContent('likedProducts?pageNo=${i}')"
+				class="btn btn-light">${i}</button>
+		</c:if>
+	</c:forEach>
+
+	<c:if test="${pager.groupNo < pager.totalGroupNo}">
+		<button
+			onclick="getContent('likedProducts?pageNo=${pager.endPageNo+1}')"
+			class="btn btn-light">다음</button>
+	</c:if>
+
 </div>
