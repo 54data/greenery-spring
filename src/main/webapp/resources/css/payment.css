@@ -1,7 +1,6 @@
 h1 {
-    margin: 120px 0 30px auto;
     width: 75%;
-    margin: 120px auto 20px;
+    margin: 120px auto 30px;
 }
 
 h2 {
@@ -339,7 +338,7 @@ a {
 
 .coupon-title h1 {
     margin-left: 0;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 #have-coupon {
@@ -352,7 +351,7 @@ a {
 .coupon-input-container {
     display: flex;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .custom-select {
