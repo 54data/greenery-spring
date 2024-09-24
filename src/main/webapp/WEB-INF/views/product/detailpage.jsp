@@ -61,9 +61,13 @@
 			<div class="buttons">
 				<button onclick="location.href='${pageContext.request.contextPath}/order/addBasket?productId=${product.productId}'" class="add-to-cart">장바구니</button>
 				<button onclick="location.href='${pageContext.request.contextPath}/order/payment?productId=${product.productId}'" class="checkout">바로구매</button>
-				<button class="wishlist-button">
-					<img src="${pageContext.request.contextPath}/resources/image/heart-icon.png" alt="wishlist"
-						class="wishlist">
+				<button class="wishlist-button" data-pid="${product.productId}">
+					<c:if test="${isWishlist}">
+						<img src="${pageContext.request.contextPath}/resources/image/fullheart-icon.png" class="wishlist">
+					</c:if>
+					<c:if test="${!isWishlist}">
+						<img src="${pageContext.request.contextPath}/resources/image/heart-icon.png" class="wishlist">
+					</c:if>
 				</button>
 			</div>
 		</div>

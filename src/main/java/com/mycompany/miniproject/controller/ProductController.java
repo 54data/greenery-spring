@@ -83,7 +83,8 @@ public class ProductController {
     }
 
 	@GetMapping("/detailpage")
-	public String detailpage(@RequestParam int productId, @RequestParam(defaultValue="1") int pageNo, Model model) {
+	public String detailpage(@RequestParam int productId, Authentication authentication,
+			@RequestParam(defaultValue="1") int pageNo, Model model) {
 		ProductDto product = productService.getProductDetail(productId);
 		model.addAttribute("product", product);
 		
@@ -98,7 +99,13 @@ public class ProductController {
 		
 		int totalRows = reviewService.getTotalRows(productId);
 	    PagerDto pager = new PagerDto(5, 5, totalRows, pageNo);
-	    model.addAttribute("pager", pager); 
+	    model.addAttribute("pager", pager);
+	    
+	    if(authentication != null) {
+	    	List<Integer> userWishlist = productService.getUserWishlist(authentication.getName());
+	    	boolean isWishlist = userWishlist.contains(productId);
+	    	model.addAttribute("isWishlist", isWishlist);
+	    }
 		return "product/detailpage";
 	}
 	

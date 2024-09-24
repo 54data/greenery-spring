@@ -11,7 +11,7 @@ $(document).ready(function () {
 });
 */
 // 찜 추가
-const wishlistButton = document.querySelector('.wishlist-button');
+/*const wishlistButton = document.querySelector('.wishlist-button');
 
 wishlistButton.addEventListener('click', function () {
     const productDiv = this.closest('.product-info');
@@ -30,7 +30,7 @@ wishlistButton.addEventListener('click', function () {
         console.log("아이템이 위시리스트에서 제거되었습니다.");
         removeFromWishlist(productName);
     }
-});
+});*/
 //
 //function saveToWishlist(productName) {
 //    let wishlist = JSON.parse(localStorage.getItem('whislist')) || [];
@@ -242,3 +242,28 @@ function scrollToTop() {
         behavior: "smooth",
     });
 }
+
+$(".wishlist-button").on("click", function() {
+	productId = $(this).data("pid");
+	let heartIcon = $(this).find("img");
+	
+	$.ajax({
+		url: "/miniproject/product/Wishlist",
+		type: "get",
+		data: { productId: productId },
+		success: function(response){
+			if(response == "notLogin"){
+				location.href = "/miniproject/account/loginForm";
+			}
+			if(response == "fill"){
+				heartIcon.attr("src", "/miniproject/resources/image/fullheart-icon.png");
+			}
+			if(response == "empty"){
+				heartIcon.attr("src", "/miniproject/resources/image/heart-icon.png")
+			}
+		},
+		error: function() {
+			console.log("전송 실패")
+		}
+	})
+})
