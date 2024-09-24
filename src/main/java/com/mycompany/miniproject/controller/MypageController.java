@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -29,12 +28,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mycompany.miniproject.dto.OrderDetailDto;
 import com.mycompany.miniproject.dto.ProductAddDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
+import com.mycompany.miniproject.dto.ReviewDataDto;
 import com.mycompany.miniproject.dto.ReviewDto;
 import com.mycompany.miniproject.dto.UserDto;
 import com.mycompany.miniproject.security.UsersDetails;
 import com.mycompany.miniproject.security.UsersDetailsService;
 import com.mycompany.miniproject.service.OrderDetailService;
-import com.mycompany.miniproject.service.OrderService;
 import com.mycompany.miniproject.service.ProductService;
 import com.mycompany.miniproject.service.ReviewService;
 import com.mycompany.miniproject.service.UserService;
@@ -47,9 +46,6 @@ import lombok.extern.slf4j.Slf4j;
 public class MypageController {
 	@Autowired
 	private ProductService productService;
-
-	@Autowired
-	private OrderService orderService;	
 	
 	@Autowired
 	private OrderDetailService orderDetailService;
@@ -160,21 +156,16 @@ public class MypageController {
 	    return "mypage/orderList";
 	}
 
-	@GetMapping("/loadUpdateForm")
-	public String loadUpdateForm(@RequestParam int reviewId, @RequestParam int productId, @RequestParam int orderId, Model model) {
-		log.info("##################################################"+ " orderId : "  + orderId + " productId : " + productId);
-		OrderDetailDto orderDetail = orderDetailService.getOrderDetailById(orderId, productId);
+
+	@GetMapping("/getReviewInfo")
+	@ResponseBody
+	public ReviewDto getReviewInfo(@RequestParam int reviewId, @RequestParam int productId, @RequestParam int orderId) {
 	    ReviewDto review = reviewService.getReviewByReviewId(reviewId);
-
-	    model.addAttribute("orderDetail", orderDetail);
-	    model.addAttribute("review", review);
+	    OrderDetailDto orderDetail = orderDetailService.getOrderDetailById(orderId, productId);
 	    
-	    log.info(orderDetail.getProductName() + " orderDetail");
-	    log.info(review.getReviewContent() + " review");
-	    
-	    return "mypage/updateReviewForm";
-	}
-
+	    review.setOrderDetail(orderDetail);
+	    return review;
+	}	
 	
 	@GetMapping("loadMainImg")
 	public void loadMainImg(int productId, HttpServletResponse response) throws Exception {
@@ -198,30 +189,73 @@ public class MypageController {
 		log.info("실행");
 		return "mypage/reviews";
 	}
+		
+	@GetMapping("/deleteReview")
+	public String deleteReview(int reviewId) {
+		reviewService.deleteReview(reviewId);
+		return "redirect:/mypage/mypage";
+	}
 	
 	@PostMapping("/reviewInsert")
-	public String reviewInsert(@ModelAttribute ReviewDto reviewDto, @RequestParam("reviewImage") MultipartFile reviewImage) {
-		log.info("Review DTO: " + reviewDto);
+	public String reviewInsert(@ModelAttribute ReviewDataDto reviewDataDto, @RequestParam(value = "reviewImg", required = false) MultipartFile reviewImage){
+		log.info("Review DTO: " + reviewDataDto);
+		log.info("실행");
+		
+		ReviewDto review = new ReviewDto();
+		
+		review.setOrderId(reviewDataDto.getOrderId());
+		review.setProductId(reviewDataDto.getProductId());
+		review.setUserId(reviewDataDto.getUserId());
+		review.setReviewContent(reviewDataDto.getReviewContent());
+		review.setReviewScore(reviewDataDto.getReviewScore());
+		
+		MultipartFile getReviewImage = reviewDataDto.getReviewImg();
 		
 		try {
-	        if (!reviewImage.isEmpty()) {
-	            reviewDto.setReviewImg(reviewImage.getBytes());
-	            reviewDto.setReviewImgType(reviewImage.getContentType());
-	            reviewDto.setReviewImgName(reviewImage.getOriginalFilename());
+	        if (reviewImage != null) {
+	        	review.setReviewImg(getReviewImage.getBytes());
+	        	review.setReviewImgType(getReviewImage.getContentType());
+	        	review.setReviewImgName(getReviewImage.getOriginalFilename());
 	        }
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	    }
 		
-		reviewService.insertReview(reviewDto);	
+		reviewService.insertReview(review);	
 		
-		return "redirect:/mypage/mypage";
+		return "redirect:/mypage/orderList";
 	}
 	
-	@GetMapping("/deleteReview")
-	public String deleteReview(int reviewId) {
-		reviewService.deleteReview(reviewId);
-		return "redirect:/mypage/mypage";
+	@ResponseBody
+	@PostMapping("/updateReview")
+	public String updateReview(@ModelAttribute ReviewDataDto reviewDataDto, @RequestParam(value = "reviewImg", required = false) MultipartFile reviewImage) {
+		log.info("Review DTO: " + reviewDataDto);
+		log.info("실행");
+		
+		ReviewDto review = new ReviewDto();
+		
+		review.setReviewId(reviewDataDto.getReviewId());	
+		review.setOrderId(reviewDataDto.getOrderId());
+		review.setProductId(reviewDataDto.getProductId());
+		review.setUserId(reviewDataDto.getUserId());
+		review.setReviewContent(reviewDataDto.getReviewContent());
+		review.setReviewScore(reviewDataDto.getReviewScore());
+		
+		MultipartFile getReviewImage = reviewDataDto.getReviewImg();
+		
+		try {
+	        if (reviewImage != null) {
+	        	review.setReviewImg(getReviewImage.getBytes());
+	        	review.setReviewImgType(getReviewImage.getContentType());
+	        	review.setReviewImgName(getReviewImage.getOriginalFilename());
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+		
+		reviewService.updateReview(review);	
+		
+		return "redirect:/mypage/orderList";
 	}
 	
 	@GetMapping("loadReviewImg")
@@ -241,14 +275,4 @@ public class MypageController {
 		out.close();
 
 	}
-	
-	
-/*	@GetMapping("/updateReviewForm")
-	public String updateReview(int orderId, Model model) {
-		ReviewDto updatingReview = reviewService.getReview(orderId);
-		model.addAttribute("updatingReview", updatingReview);
-		
-		return "mypage/updateReviewForm";
-	}
-*/	
 }
