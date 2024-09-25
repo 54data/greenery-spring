@@ -63,13 +63,6 @@
 	</div>
 
 	<div class="main-products">
-		<c:if test="${product == null}">
-			<div class="notFound">
-				<img src="${pageContext.request.contextPath}/resources/image/notFound.jpg">
-				<br>
-				검색된 내용이 없습니다.
-			</div>
-		</c:if>
 		<div class="product-container">
 			<c:forEach items="${productList}" var="product">
 				<div class="product-item">
@@ -111,6 +104,13 @@
 		</div>
 		<button class="scroll-btn-up" onclick="scrollToTop()"></button>
 	</div>
+	<c:if test="${empty product}">
+		<div class="notFound">
+			<img src="${pageContext.request.contextPath}/resources/image/notFound.jpg">
+			<br>
+			검색된 내용이 없습니다.
+		</div>
+	</c:if>
 	
 	<c:if test="${searchDto == null}">
 		<div id="pager">
