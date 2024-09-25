@@ -13,7 +13,6 @@
 <script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
 <link href="${pageContext.request.contextPath}/resources/css/productselect.css" rel="stylesheet" type="text/css" />
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>

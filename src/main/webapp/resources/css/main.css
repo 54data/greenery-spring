@@ -257,18 +257,22 @@
 
 .product-icons {
     position: absolute;
-    bottom: -100px; /* 아이콘들이 기본적으로 숨겨져 있는 위치 */
+    bottom: -100px; /* 초기에는 화면 아래쪽에 숨김 */
     left: 0;
     width: 100%;
     display: flex;
     justify-content: space-evenly;
-    transition: bottom 0.3s ease-in-out; /* 슬라이드 애니메이션 */
     background-color: rgba(0, 0, 0, 0.6);
     padding: 7px 0;
+    opacity: 0; /* 초기 투명도 */
+    visibility: hidden; /* 초기에는 보이지 않도록 설정 */
+    transition: bottom 0.15s ease-in-out, opacity 0.3s ease-in-out, visibility 0.15s ease-in-out; /* 트랜지션 설정 */
 }
 
 .product-image-container:hover .product-icons {
-    bottom: 0; /* 마우스 오버 시 아이콘들이 올라오는 위치(0이면 맨 밑에서 올라옴) */
+    bottom: 0; /* 마우스 오버 시 아이콘이 위로 슬라이드되면서 나타남 */
+    opacity: 1; /* 투명도가 1로 변경되어 보이도록 설정 */
+    visibility: visible; /* 요소가 보이도록 설정 */
 }
 
 .icon {
