@@ -292,7 +292,7 @@ $(document).ready(function () {
     		  showCancelButton: true,
     		  confirmButtonColor: "#3085d6",
     		  cancelButtonColor: "#d33",
-    		  confirmButtonText: "취소 성공하였습니다!"
+    		  confirmButtonText: "취소!"
     		}).then((result) => {
     		  if (result.isConfirmed) {
     			  $.ajax({
