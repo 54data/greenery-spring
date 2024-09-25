@@ -172,7 +172,6 @@ public class MypageController {
 	    return "mypage/orderList";
 	}
 
-
 	@GetMapping("/getReviewInfo")
 	@ResponseBody
 	public ReviewDto getReviewInfo(@RequestParam int reviewId, @RequestParam int productId, @RequestParam int orderId) {
@@ -294,6 +293,5 @@ public class MypageController {
 		out.write(reviewImg.getReviewImg());
 		out.flush();
 		out.close();
-
 	}
 }
