@@ -290,9 +290,10 @@ $(document).ready(function () {
     		  text: "삭제한 리뷰는 취소할 수 없습니다!",
     		  icon: "warning",
     		  showCancelButton: true,
+    		  cancelButtonText : "취소",
     		  confirmButtonColor: "#3085d6",
     		  cancelButtonColor: "#d33",
-    		  confirmButtonText: "취소!"
+    		  confirmButtonText: "확인"
     		}).then((result) => {
     		  if (result.isConfirmed) {
     			  $.ajax({
