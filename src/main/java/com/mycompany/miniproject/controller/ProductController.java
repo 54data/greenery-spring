@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -82,7 +83,8 @@ public class ProductController {
     }
 
 	@GetMapping("/detailpage")
-	public String detailpage(@RequestParam int productId, @RequestParam(defaultValue="1") int pageNo, Model model) {
+	public String detailpage(@RequestParam int productId, Authentication authentication,
+			@RequestParam(defaultValue="1") int pageNo, Model model) {
 		ProductDto product = productService.getProductDetail(productId);
 		model.addAttribute("product", product);
 		
@@ -97,7 +99,13 @@ public class ProductController {
 		
 		int totalRows = reviewService.getTotalRows(productId);
 	    PagerDto pager = new PagerDto(5, 5, totalRows, pageNo);
-	    model.addAttribute("pager", pager); 
+	    model.addAttribute("pager", pager);
+	    
+	    if(authentication != null) {
+	    	List<Integer> userWishlist = productService.getUserWishlist(authentication.getName());
+	    	boolean isWishlist = userWishlist.contains(productId);
+	    	model.addAttribute("isWishlist", isWishlist);
+	    }
 		return "product/detailpage";
 	}
 	
@@ -125,7 +133,7 @@ public class ProductController {
 		model.addAttribute("productList", productList);
 		
 		if(authentication != null) {
-			List<Integer> userWishlist = productService.getWishlistAll(authentication.getName());
+			List<Integer> userWishlist = productService.getUserWishlist(authentication.getName());
 			Map<Integer, Boolean> isWishlist = new HashMap<>();
 			for(ProductDto product :productList) {
 				isWishlist.put(product.getProductId(), userWishlist.contains(product.getProductId()));
@@ -195,15 +203,19 @@ public class ProductController {
 	public String addWishlist(Authentication authentication,
 			@RequestParam("productId") int productId) {
 		String result;
-		WishlistDto wishlist = new WishlistDto();
-		wishlist.setProductId(productId);
-		wishlist.setUserId(authentication.getName());
-		if(productService.getWishlist(wishlist) == null) {
-			productService.addWishlist(wishlist);
-			result = "fill";
+		if(authentication == null) {
+			result = "notLogin";
 		}else {
-			productService.deleteWishlist(wishlist);						
-			result = "empty";
+			WishlistDto wishlist = new WishlistDto();
+			wishlist.setProductId(productId);
+			wishlist.setUserId(authentication.getName());
+			if(productService.getWishlist(wishlist) == null) {
+				productService.addWishlist(wishlist);
+				result = "fill";
+			}else {
+				productService.deleteWishlist(wishlist);						
+				result = "empty";
+			}			
 		}
 		
 		return result;

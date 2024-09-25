@@ -23,7 +23,34 @@
 			and product_id = #{productId}
 	</delete>
 	
-	<select id="getWishlistAll" parameterType="String" resultType="int">
+	<select id="getWishlistAll" parameterType="Pager" resultType="ProductAdd">
+		select 
+    		product_id, product_name, product_price, product_summary
+		from (
+    		select 
+        		rownum AS rnum, product_id, product_name, product_price, product_summary
+    		from (
+        		select product_id, product_name, product_price, product_summary
+        		from wishlist
+        		join product USING (product_id)
+        		order by wishlist_id
+    		)
+		)
+		where rnum between #{startRowNo} and #{endRowNo}
+	</select>
+	
+	<delete id="deleteWishlistByProductId" parameterType="int">
+		delete from wishlist
+		where product_id = #{productId} 
+	</delete>
+	
+	<select id="getTotalWishlistRows" parameterType="String" resultType="int">
+		select count(*)
+		from wishlist
+		where user_id = #{userId}
+	</select>
+	
+	<select id="getUserWishlist" parameterType="String" resultType="int">
 		select product_id
 		from wishlist
 		where user_id = #{userId}

@@ -2,13 +2,14 @@ package com.mycompany.miniproject.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mycompany.miniproject.dto.OrderDetailDto;
+import com.mycompany.miniproject.dto.PagerDto;
 import com.mycompany.miniproject.dto.ProductAddDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
 import com.mycompany.miniproject.dto.ReviewDataDto;
@@ -43,6 +45,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/mypage")
 @Slf4j
+@Secured("ROLE_user")
 public class MypageController {
 	@Autowired
 	private ProductService productService;
@@ -110,15 +113,26 @@ public class MypageController {
 	}
 	
 	@GetMapping("/likedProducts")
-	public String likedProducts(Model model, Authentication authentication) {
+	public String likedProducts(Model model, Authentication authentication, @RequestParam(defaultValue="1")int pageNo) {
 		log.info("실행");
-		List<Integer> wishlist = productService.getWishlistAll(authentication.getName());
-		List<ProductAddDto> productList = new ArrayList<>();
-		for(int i : wishlist) {
-			productList.add(productService.getProductByProductId(i));
+		int totalRows = productService.getTotalWishlistRows(authentication.getName());
+		PagerDto pager = new PagerDto(10, 5, totalRows, pageNo);
+		List<ProductAddDto> wishlistProduct = productService.getWishlistAll(pager);
+		model.addAttribute("productList", wishlistProduct);
+		model.addAttribute("pager", pager);
+		
+		if(authentication != null) {
+			List<Integer> userWishlist = productService.getUserWishlist(authentication.getName());
+			Map<Integer, Boolean> isWishlist = new HashMap<>();
+			for(ProductAddDto product :wishlistProduct) {
+				isWishlist.put(product.getProductId(), userWishlist.contains(product.getProductId()));
+			}
+			model.addAttribute("isWishlist", isWishlist);
 		}
-		log.info(productList.toString());
-		model.addAttribute("productList", productList);
+		
+		UserDto userInfo = userService.getUserInfo(authentication.getName());
+		model.addAttribute("userInfo", userInfo);
+		
 		return "mypage/likedProducts";
 	}
 	

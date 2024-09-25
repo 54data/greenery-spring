@@ -1,18 +1,11 @@
-@charset "UTF-8";
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap');
-
-body {
-	font-family: 'Helvetica', 'Noto Sans KR', sans-serif;
+.container {
+	width: 75%;
+	margin: 50px auto;
+	box-sizing: border-box;
 }
 
-.container {
+.product-container {
 	display: flex;
-	width: 75%;
-	margin: 0 auto;
-	/* padding: 20px; */
-	margin-top: 50px;
-	justify-content: center;
-	box-sizing: border-box;
 }
 
 .left {
@@ -43,7 +36,6 @@ body {
 	width: 564px;
 	height: 564px;	
 }
-
 
 .brand-name {
 	font-size: 28px;
@@ -79,21 +71,21 @@ body {
 }
 
 .sideimg {
+	max-width: 564px;
 	display: flex;
-	flex-wrap: nowrap;
-	overflow: hidden;
-	white-space: nowrap;
-	height: 100px;
-	max-width: 560px;
-	margin: 0 218px;
+	margin-left: 20px;
+	justify-content: center;
 	align-items: center;
-	object-fit: cover;
-	gap: 40px;
-	justify-content: space-between;
+}
+
+.currentSlide-container {
+	display: flex;
+	gap: 10px;
+	height: 100px;
 }
 
 .dot {
-	margin-left: 26px;
+	width: 100px;
 }
 
 .tab-container {

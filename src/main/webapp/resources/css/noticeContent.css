@@ -100,5 +100,39 @@
     border: none;
     font-size: 14px;
     text-align: center;
-    margin-top: 80px;
+    margin-top: 50px;
+}
+
+.notice-list {
+	display: flex;
+	flex-direction: column;
+	width: 80%;
+	border: 1px solid rgba(0, 0, 0, 0.1); 
+	margin-top: 40px;
+}
+
+.notice-before,
+.notice-after {
+	display: flex;
+	padding: 15px;
+}
+
+.notice-before {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1); 
+}
+
+.notice-before span,
+.notice-after span {
+	font-size: 14px;
+	font-weight: 700;
+	text-align: center;
+	margin-left: 40px;
+}
+
+.notice-list-title {
+	flex: 9;
+	font-size: 14px;
+	color: #222;
+	text-align: center;
+	margin-right: 40px;
 }

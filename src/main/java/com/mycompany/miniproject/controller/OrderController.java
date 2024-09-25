@@ -43,18 +43,27 @@ public class OrderController {
 	@Autowired
 	private UserService userService;
 	
-	@Secured("ROLE_user")
 	@GetMapping("/addBasket")
-	public String addBasket(int productId, Authentication authentication) {
+	@ResponseBody
+	public String addBasket(@RequestParam("productId")int productId, Authentication authentication) {
+		String result;
+		if(authentication != null) {
 		CartDto cartDto = new CartDto();
 		cartDto.setProductId(productId);
 		String userId = authentication.getName();
 		cartDto.setUserId(userId);
-		if (orderService.checkCart(cartDto)) {
-			cartDto.setProductQty(1);
-			orderService.addCart(cartDto);
+			if (orderService.checkCart(cartDto)) {
+				cartDto.setProductQty(1);
+				orderService.addCart(cartDto);
+				result = "successAdd";
+			}else {
+				result = "exist";
+			}
+		}else {
+			result = "notLogin";
 		}
-		return "redirect:/order/basket";
+		return result;
+/*		return "redirect:/order/basket";*/
 	}
 	
 	@Secured("ROLE_user")
@@ -210,5 +219,14 @@ public class OrderController {
 		int couponStatus = userService.getUserCouponStatus(userId);
 		model.addAttribute("couponStatus", couponStatus);
 		return "order/payment";
+	}
+	
+	@GetMapping("/getCartNum")
+	@ResponseBody
+	public int getCartNum(Authentication authentication) {
+		if (authentication == null || authentication.getName() == null) {
+	        return 0;
+	    }
+	    return orderService.getCartNum(authentication.getName());
 	}
 }

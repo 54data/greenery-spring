@@ -14,13 +14,6 @@
 </head>
 
 <body>
-	<div class="section1">
-		<a href="${pageContext.request.contextPath}">
-			<h2 class="header-logo">greenery</h2>
-		</a>
-	</div>
-	<!-- 관리자 페이지 목록 -->
-	<div class="admin-page">
 		<%@ include file="mainadmin.jsp" %>
 		<div class="admin-content">
 			<form class="container-form" method="post" 

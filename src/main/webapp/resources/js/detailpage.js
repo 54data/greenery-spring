@@ -11,7 +11,7 @@ $(document).ready(function () {
 });
 */
 // 찜 추가
-const wishlistButton = document.querySelector('.wishlist-button');
+/*const wishlistButton = document.querySelector('.wishlist-button');
 
 wishlistButton.addEventListener('click', function () {
     const productDiv = this.closest('.product-info');
@@ -30,7 +30,7 @@ wishlistButton.addEventListener('click', function () {
         console.log("아이템이 위시리스트에서 제거되었습니다.");
         removeFromWishlist(productName);
     }
-});
+});*/
 //
 //function saveToWishlist(productName) {
 //    let wishlist = JSON.parse(localStorage.getItem('whislist')) || [];
@@ -52,14 +52,15 @@ wishlistButton.addEventListener('click', function () {
 let slideIndex = 1;
 showSlides(slideIndex);
 
-// Next/previous controls
-function plusSlides(n) {
-    showSlides(slideIndex += n);
-}
+let selectedImg = null;
 
-// Thumbnail image controls
-function currentSlide(n) {
+function currentSlide(n, elem) {
     showSlides(slideIndex = n);
+    if (selectedImg) {
+    	$(selectedImg).css('border', 'none');
+    }
+    $(elem).css('border', '1px solid #000');
+    selectedImg = elem;
 }
 
 function showSlides(n) {
@@ -81,7 +82,6 @@ function showSlides(n) {
 
 
 // ---------------------탭 - 상세정보,  리뷰 --------------------
-
 
 $(document).ready(function(){
     loadTabContent('detailInfo', $('#productId').val());
@@ -242,3 +242,28 @@ function scrollToTop() {
         behavior: "smooth",
     });
 }
+
+$(".wishlist-button").on("click", function() {
+	productId = $(this).data("pid");
+	let heartIcon = $(this).find("img");
+	
+	$.ajax({
+		url: "/miniproject/product/Wishlist",
+		type: "get",
+		data: { productId: productId },
+		success: function(response){
+			if(response == "notLogin"){
+				location.href = "/miniproject/account/loginForm";
+			}
+			if(response == "fill"){
+				heartIcon.attr("src", "/miniproject/resources/image/fullheart-icon.png");
+			}
+			if(response == "empty"){
+				heartIcon.attr("src", "/miniproject/resources/image/heart-icon.png")
+			}
+		},
+		error: function() {
+			console.log("전송 실패")
+		}
+	})
+})

@@ -97,6 +97,7 @@ header {
     color: #ffffff;
     text-align: center;
     line-height: 1.2rem;
+    font-size: 12px;
 }
 
 .header-category {
@@ -196,10 +197,6 @@ header {
     font-weight: 600;
     display: flex;
     align-items: center;
-}
-
-.category-wrap li a {
-    display: block;
 }
 
 .category-wrap li a:visited {

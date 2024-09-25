@@ -53,7 +53,7 @@
 			</c:if>
 			
 			<select class="toolbar-sort-select" name="sort" onchange="this.form.submit()">				
-				<option>정렬방법</option>
+				<option>기본순</option>
 				<option value="regDateDesc" <c:if test="${searchDto.sort||pager.sort == 'regDateDesc'}">selected</c:if>>신상품순</option>
 				<option value="priceAsc" <c:if test="${searchDto.sort||pager.sort  == 'priceAsc'}">selected</c:if>>낮은 가격순</option>
 				<option value="priceDesc" <c:if test="${searchDto.sort||pager.sort  == 'priceDesc'}">selected</c:if>>높은 가격순</option>

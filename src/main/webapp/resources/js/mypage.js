@@ -1,9 +1,23 @@
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top',
+    showConfirmButton: false,
+    timer: 2500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+    	toast.style.width = '350px';
+    	toast.style.fontSize = '14px';
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+    }
+});
+	
 function getContent(url) {
     $.ajax({
         url: url,
         method: "GET",
         success: function (data) {
-            $(".mypage-content").append(data);
+            $(".mypage-content").html(data);
         }
     });
 }
@@ -16,20 +30,25 @@ function updateUserInfo() {
 	    roadAddress: $("input[name='roadAddress']").val(),
 	    detailedAddress: $("input[name='detailedAddress']").val()
 	};
-    
-	const Toast = Swal.mixin({
-	    toast: true,
-	    position: 'top-center',
-	    showConfirmButton: false,
-	    timer: 2500,
-	    timerProgressBar: true,
-	    didOpen: (toast) => {
-	    	toast.style.width = '350px';
-	    	toast.style.fontSize = '14px';
-	        toast.addEventListener('mouseenter', Swal.stopTimer);
-	        toast.addEventListener('mouseleave', Swal.resumeTimer);
-	    }
-	});
+	
+	let checkResult = function() {
+		let isValid = true;
+		$('.errorMessage').each(function () {
+			if ($(this).html() != '') {
+				isValid = false;
+				return false; 
+			}
+		});
+		return isValid;
+	};
+	
+	if (!checkResult()) {
+		Toast.fire({
+		    icon: 'error',
+		    title: '입력값을 다시 확인해주세요.'
+		});
+		return;
+	}
 	
     $.ajax({
         url: "updateMyInfo", 
@@ -42,7 +61,7 @@ function updateUserInfo() {
 			Toast.fire({
 			    icon: 'success',
 			    title: '정보가 성공적으로 업데이트되었습니다.'
-			})
+			});
         }
     });
 }
@@ -54,8 +73,30 @@ function updateUserPwd() {
 		confirmPwd: $(".change-check-pwd input").val(),
 	};
 	
+	let checkResult = function() {
+		let isValid = true;
+		$('.pwdErrorMessage').each(function () {
+			if ($(this).html() != '') {
+				isValid = false;
+				return false; 
+			}
+		});
+		return isValid;
+	};
+	
+	if (!checkResult()) {
+		Toast.fire({
+		    icon: 'error',
+		    title: '입력값을 다시 확인해주세요.'
+		});
+		return;
+	}
+	
     if (pwdData.newPwd !== pwdData.confirmPwd) {
-        alert("새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
+		Toast.fire({
+		    icon: 'error',
+		    title: '새 비밀번호와 확인 비밀번호가 일치하지 않습니다.'
+		});
         return;
     }
     
@@ -65,14 +106,23 @@ function updateUserPwd() {
         contentType: "application/json",
         data: JSON.stringify(pwdData),
         success: function(response) {
+        	let alertMessage = ""
             if (response === "NOT EQUAL") {
-                alert("현재 비밀번호가 일치하지 않습니다.");
+            	alertMessage = "현재 비밀번호가 일치하지 않습니다.";
             } else if (response === "SUCCESS") {
-                alert("비밀번호가 성공적으로 변경되었습니다.");
+            	alertMessage = "비밀번호가 성공적으로 변경되었습니다. 서비스에서 자동 로그아웃 됩니다.";
             } else if (response === "FAIL") {
-                alert("비밀번호 변경에 실패했습니다.");
+            	alertMessage = "비밀번호 변경에 실패했습니다.";
             }
-            window.location.href = "../logout";
+    		Toast.fire({
+    			icon: response === "SUCCESS" ? 'success' : 'error',
+    		    title: alertMessage
+    		});
+    		if (response === "SUCCESS") {
+                setTimeout(function() {
+                    window.location.href = "../logout";
+                }, 2500); 
+    		}
         }
     });
 }
@@ -90,7 +140,7 @@ function zipcodeBtn() {
                     fullAddr = data.jibunAddress;
                 }
 
-                if (data.userSelectedType === 'R') { // 수정된 부분
+                if (data.userSelectedType === 'R') { 
                     if (data.bname !== '') {
                         extraAddr += data.bname;
                     }
@@ -107,6 +157,72 @@ function zipcodeBtn() {
     });
 }
 
+function checkUserTel() {
+	$(document).on('input', '.userTelInput', function() {
+		let regExp = RegExp(/^[0-9]{1,11}$/);
+		if (regExp.test($(this).val())) {
+			$("#inputPhoneMessage").html('');
+		} else if ($(this).val() === '') {
+			$("#inputPhoneMessage").html('<span>해당 입력 값은 필수입니다.</span>');
+		} else {
+			$("#inputPhoneMessage").html("<span>- 하이픈을 제외하고 핸드폰 번호를 입력해주세요.</span>");
+		}
+	});
+}
+
+function checkUserEmail() {
+	$(document).on('input', '.userEmailInput', function() {
+	    let regExp = RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+		if (regExp.test($(this).val())) {
+			$("#inputEmailMessage").html('');
+		} else if ($(this).val() === '') {
+			$("#inputEmailMessage").html('<span>해당 입력 값은 필수입니다.</span>');
+		} else {
+			$("#inputEmailMessage").html("<span>이메일 입력을 확인해주세요.</span>");
+		}
+	});
+}
+
+function checkDetailedAddress() {
+	$(document).on('input', '.userDetailedAddress', function() {
+	    if ($(this).val() === '') {
+			$("#inputDetailedAddressMessage").html('<span>해당 입력 값은 필수입니다.</span>');
+		} else {
+			$("#inputDetailedAddressMessage").html('');
+		}
+	});
+}
+
+function checkPwd() {
+	let pwd = $(".userPwd").val();
+    if (pwd === '') {
+    	$("#pwdMessage").html('<span>해당 입력 값은 필수입니다.</span>'); 
+    } else {
+    	$("#pwdMessage").html(''); 
+    }
+}
+
+function checkNewPwd() {
+	let newPwd = $(".userNewPwd").val();
+	let checkNewPwd = $(".checkUserNewPwd").val();
+    let regExp = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,20}$/);
+    
+    if (regExp.test(newPwd)) {
+    	$("#inputPwdMessage").html(''); 
+    } else if (newPwd === '') {
+    	$("#inputPwdMessage").html('<span>해당 입력 값은 필수입니다.</span>');
+    } else {
+    	$("#inputPwdMessage").html('<span>8자 이상 20자 이하의 대소문자, 숫자, 특수문자를 조합해주세요.</span>');
+    }
+    
+    if (regExp.test(checkNewPwd)) {
+    	$("#inputCheckPwdMessage").html(''); 
+    } else if (checkNewPwd === '') {
+    	$("#inputCheckPwdMessage").html('<span>해당 입력 값은 필수입니다.</span>');
+    } else {
+    	$("#inputCheckPwdMessage").html('<span>비밀번호를 확인해주세요.</span>');
+    }
+}
 
 //function dataToHtml(products) {
 //    if (Array.isArray(products)) {
@@ -177,16 +293,6 @@ $(document).ready(function () {
         $(this).html('<strong>' + $(this).text() + '</strong>'); // 클릭한 메뉴 탭 글씨 진하게 함
     });
 
-    // 동적으로 생성된 like 아이콘에 대한 이벤트 처리
-    $(document).on('click', '.icon.like-icon', function () {
-        $(this).toggleClass("active");
-        let heartIcon = $(this).find("img");
-        if ($(this).hasClass("active")) {
-            heartIcon.attr("src", "../resources/image/fill_heart.png");
-        } else {
-            heartIcon.attr("src", "../resources/image/heart.png")
-        }
-    });
     
     $(document).on('click', '.product-image', function () {
         window.location.href = '../product/detailpage';
@@ -198,135 +304,137 @@ $(document).ready(function () {
         window.location.href = '../product/detailpage?productId=' + productId;
     });
     
-    $(document).on('click', '.review-btn', function () {
-    	var productId = $(this).closest('.order-item-col').find('.order-img').data('product-id');
-    	var userId = $('#userIdInput').val();
-    	var orderId = $(this).closest('.order-item-col').find('.orderIdInput').data('order-id');
-    	
-        var productName = $(this).closest('.order-item-col').find('.item-title').text();
-        var productSummary = $(this).closest('.order-item-col').find('.item-desc').text();
-        
-        console.log("productId: " + productId);
-        console.log("userId: " + userId);
-        console.log("orderId: " + orderId);
-        
-        $('#reviewModal').find('#productIdInput').val(productId);
-        $('#reviewModal').find('#userIdInput').val(userId);
-        $('#reviewModal').find('.orderIdInput').val(orderId)
-        
-        $('#reviewModal').find('.product-name').html(productName);
-        $('#reviewModal').find('.product-description').text(productSummary);      
-        $('#reviewModal').find('#review_img').attr('src', 'loadMainImg?productId=' + productId);
-        
-        $('#reviewModal').modal('show');
-    });
-    
-    $(document).on('click', '.star', function() {
-        var score = $(this).attr('value'); 
-        $('#reviewScoreInput').val(score); 
-        console.log("Selected review score: " + score);
-    });
-    
-
-    
-/*    $(document).on('click', '.update-btn', function () {
-    	var productId = $(this).closest('.order-item-col').find('.order-img').data('product-id');
-    	var userId = $('#userIdInput').val();
-    	var orderId = $(this).closest('.order-item-col').find('.orderIdInput').data('order-id');
-    	
-        var productName = $(this).closest('.order-item-col').find('.item-title').text();
-        var productSummary = $(this).closest('.order-item-col').find('.item-desc').text();        
-        
-        console.log("productId: " + productId);
-        console.log("userId: " + userId);
-        console.log("orderId: " + orderId);
-        
-        $('#updateModal').find('#productIdInput').val(productId);
-        $('#updateModal').find('#userIdInput').val(userId);
-        $('#updateModal').find('.orderIdInput').val(orderId)
-        
-        $('#updateModal').find('.product-name').html(productName);
-        $('#updateModal').find('.product-description').text(productSummary);      
-        $('#updateModal').find('#review_img').attr('src', 'loadMainImg?productId=' + productId);
-        
-        $('#updateModal').modal('show');
-    });*/
-   
-    
-/*    $(document).on('click', '.update-btn', function () {
-        var reviewId = $(this).data('review-id');
-        var productId = $(this).data('product-id');
-        var orderId = $(this).data('order-id');
-
-        $.ajax({
-            url: '/miniproject/mypage/loadUpdateForm',
-            type: 'GET',
-            data: { reviewId: reviewId, productId: productId, orderId: orderId },
-            success: function(response) {
-                $('#modalContainer').empty().html(response);
-
-                var newModal = new bootstrap.Modal(document.getElementById('updateModal'));
-                newModal.show();
-            },
-            error: function() {
-                alert('리뷰 수정 폼을 불러오는 데 실패했습니다.');
-            }
-        });
-    });
-    */
-    
-/*    $(document).on('click', '.update-btn', function () {
-        var reviewId = $(this).data('review-id');
-        var productId = $(this).data('product-id');
-        var orderId = $(this).data('order-id');
-
-        $.ajax({
-            url: '/miniproject/mypage/loadUpdateForm',
-            type: 'GET',
-            data: { reviewId: reviewId, productId: productId, orderId: orderId },
-            success: function(response) {
-                $('#modalContainer').empty();
-
-                $('#modalContainer').html(response);
-
-                var newModal = new bootstrap.Modal(document.getElementById('updateModal'));
-                newModal.show();
-            },
-            error: function() {
-                alert('리뷰 수정 폼을 불러오는 데 실패했습니다.');
-            }
-        });
-    });*/
-    
-    $(document).off('click', '.update-btn');
-
-    $(document).on('click', '.update-btn', function () {
-        var reviewId = $(this).data('review-id');
-        var productId = $(this).data('product-id');
-        var orderId = $(this).data('order-id');
-
-        console.log('처음 불러온것', $('#modalContainer').html());
-        $('#modalContainer').empty();
-        console.log('잘 지워졌는가', $('#modalContainer').html());
-        
-        $.ajax({
-            url: '/miniproject/mypage/loadUpdateForm',
-            type: 'GET',
-            data: { reviewId: reviewId, productId: productId, orderId: orderId },
-            success: function(response) {
-            	console.log('잘 지워졌는가', $('#modalContainer').html());
-                console.log('AJAX 요청 성공:', response);
-                
-                $('#modalContainer').html(response);
-                /*$('#updateModal').modal('show');*/
-                console.log('잘나옴.');
-            },
-            error: function(xhr, status, error) {
-                console.error('AJAX 요청 오류:', error);
-            }
-        });
-    });
-
-
     zipcodeBtn();
+    
+    $(document).on('click', '.review-btn', function(){  	
+    	
+    	$("#image-input").val(''); 
+        $("#reviewTextarea").val('');  
+        $(".star").removeClass('on'); 
+        $("#image-preview").html('<span>+</span>');
+        
+    	var userId = $(this).data('userId');
+    	var orderId = $(this).data('orderId');
+    	var productId = $(this).data('productId');
+    	var productName = $(this).data('productName');
+    	var productSummary = $(this).data('productSummary');
+    	    	
+    	$('.write-btn').data('productId', productId).data('orderId', orderId).data('userId', userId);
+    	console.log($('.write-btn').data('productId'));
+    	$('#review_img').attr('src', 'loadMainImg?productId='+productId);
+    	$('.product-name').html('<span><strong>'+productName+'</strong></span>');
+    	$('.product-description').html('<span>'+productSummary+'</span>')
+		
+		$('#exampleModal').modal('show');
+    });
+    
+    $(document).on('click', '.update-btn', function(){  
+        
+    	$("#image-input").val(''); 
+        $("#reviewTextarea").val('');  
+        $(".star").removeClass('on'); 
+        $("#reviewTextarea").html('');
+        
+    	var userId = $(this).data('userId');
+    	var orderId = $(this).data('orderId');
+    	var productId = $(this).data('productId');
+    	var productName = $(this).data('productName');
+    	var productSummary = $(this).data('productSummary');
+    	var reviewId = $(this).data('reviewId');
+    	
+    	console.log("업데이트 버튼");
+    	
+    	$('.write-btn').data('productId', productId).data('orderId', orderId).data('userId', userId).data('reviewId', reviewId);
+    	
+    	$('#review_img').attr('src', 'loadMainImg?productId='+productId);
+    	$('.product-name').html('<span><strong>'+productName+'</strong></span>');
+    	$('.product-description').html('<span>'+productSummary+'</span>')
+		
+		$('#exampleModal').modal('show');
+    	
+    	$.ajax({
+    		url: 'getReviewInfo',
+    		method: 'GET',
+    		data: { reviewId: reviewId, orderId: orderId, productId: productId },
+    		success: function(review){
+    			$('#reviewTextarea').val(review.reviewContent);
+                $('#reviewScoreInput').val(review.reviewScore);
+
+                if (review.reviewImgName) {
+                    $('#image-preview #review-prev-img').attr('src', 'loadReviewImg?reviewId=' + reviewId);
+                } else {
+                    $('#image-preview').html('<span>+</span>');
+                }
+
+                var reviewScore = review.reviewScore;
+                var stars = $('.star_rating > .star');
+                stars.removeClass('on');
+                stars.each(function(index) {
+                    if (index < reviewScore) {
+                        $(this).addClass('on');
+                    }
+                });
+
+                $('#exampleModal').modal('show');
+    		}
+    	});
+    });
+    
+    $(document).off('click', 'write-btn').on('click', '.write-btn', function(){
+    	var reviewId = $(this).data('reviewId');
+    	var productId = $(this).data('productId');
+    	var orderId = $(this).data('orderId');
+    	var userId = $(this).data('userId');
+    	
+    	var reviewContent = $("#reviewTextarea").val();
+    	var reviewScore = $(".star_rating .on").length;
+    	var reviewImg = $("#image-input")[0].files[0];
+
+    	
+        console.log("reviewId:", reviewId);
+        console.log("productId:", productId);
+        console.log("orderId:", orderId);
+        console.log("userId:", userId);
+        console.log("reviewContent:", reviewContent);
+        console.log("reviewScore:", reviewScore);
+        console.log("reviewImg:", reviewImg);
+        
+    	var formData = new FormData();
+    	
+    	formData.append('productId', productId);
+    	formData.append('orderId', orderId);
+    	formData.append('userId', userId);
+		formData.append('reviewContent', reviewContent);
+    	formData.append('reviewScore', reviewScore);
+
+    	if (reviewImg) {
+            formData.append('reviewImg', reviewImg);
+        }
+
+    	var ajaxUrl = '';
+		if(reviewId){
+			formData.append('reviewId', reviewId);
+			ajaxUrl = '/miniproject/mypage/updateReview';
+		} else {
+			ajaxUrl = '/miniproject/mypage/reviewInsert';
+		}
+		
+		console.log(ajaxUrl);
+		
+    	$.ajax({
+    		url: ajaxUrl,
+    		method: 'POST',
+    		data: formData,
+    		processData: false,
+    		contentType: false,
+    		success: function(e){
+    			alert("리뷰 등록 성공")
+    		},
+    		error: function(data){
+    			alert("리뷰 등록 실패");
+    			console.log(data);
+    		}
+    	})	
+    });
+    
 });

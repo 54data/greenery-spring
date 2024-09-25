@@ -22,7 +22,7 @@ function inputPasswordCheck() {
     let inputPasswordMessage1 = document.querySelector('#inputPasswordMessage1');
     let inputPasswordMessage2 = document.querySelector('#inputPasswordMessage2');
 
-    let regExp = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/);
+    let regExp = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,20}$/);
     if (regExp.test(userPwd.value) || userPwd.value === '') {
     	inputPasswordMessage1.innerHTML =  ''; 
     } else {
@@ -162,12 +162,12 @@ function checkUserId() {
 				Toast.fire({
 				    icon: 'success',
 				    title: '사용 가능한 아이디입니다.'
-				})
+				});
 			} else {
 				Toast.fire({
 				    icon: 'error',
 				    title: '이미 존재하는 아이디입니다.'
-				})
+				});
 			}
 		}
 	});

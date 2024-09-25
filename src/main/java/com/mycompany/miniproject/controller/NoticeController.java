@@ -50,6 +50,4 @@ public class NoticeController {
 		model.addAttribute("noticeSize", totalRows); // notice 데이터 총 개수 반환
 		return "notice/notices";
 	}
-	
-	
 }

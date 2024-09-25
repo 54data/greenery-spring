@@ -3,8 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	
 <!DOCTYPE html>
-<html lang="ko">
-
+<html>
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,7 +35,7 @@
 		<c:forEach items="${noticeList}" var="notice">
 			<div class="notice-contents">
 				<div class="notice-contents-list">
-					<div class="notice-id">${notice.noticeId - 1999}</div>
+					<div class="notice-id">${notice.noticeNum}</div>
 					<div class="notice-title"><a href="noticeContentAddHitcount?noticeId=${notice.noticeId}">${notice.noticeTitle}</a></div>
 					<div class="notice-date"><fmt:formatDate value="${notice.noticeRegDate}" pattern="yyyy-MM-dd"/></div>
 				</div>

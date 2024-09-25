@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <link rel="stylesheet"
@@ -55,7 +54,7 @@
 			onclick="location.href='${pageContext.request.contextPath}/order/basket'">
 			<img
 				src="${pageContext.request.contextPath}/resources/image/cart_icon.png"
-				class="header-nav-icon" /> <span class="header-cart-badge">0</span>
+				class="header-nav-icon" /> <span class="header-cart-badge"></span>
 			<span class="header-nav-text">장바구니</span>
 		</button>
 	</div>
