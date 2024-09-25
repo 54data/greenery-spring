@@ -214,9 +214,7 @@ $('.like-icon').on('click', function(){
 });
 
 $('.cart-icon').on('click', function(event){
-	
 	let productId = $(this).data('pid')
-	console.log("이건 작동하나?");
 	$.ajax({
 		url: "/miniproject/order/addBasket",
 		type: "get",
@@ -229,9 +227,9 @@ $('.cart-icon').on('click', function(event){
 			if(response == "successAdd"){
 				console.log("successAdd로 왔음");
 				Swal.fire({
-					text : "장바구니에 상품이 담겼습니다. 장바구니로 이동하시겠습니까?",
-					confirmButtonText : "예",
-					cancelButtonText : "아니오",
+					html : "장바구니에 상품이 담겼습니다.<br>장바구니로 이동하시겠습니까?",
+					cancelButtonText : "쇼핑 계속하기",
+					confirmButtonText : "장바구니 확인",
 					showCancelButton : true,
 				}).then(function(result) {
 					if (result.isConfirmed) {												
@@ -245,9 +243,9 @@ $('.cart-icon').on('click', function(event){
 			if(response == "exist"){
 				console.log("exist 왔음");
 				Swal.fire({
-					text : "장바구니에 상품이 이미 존재합니다. 장바구니로 이동하시겠습니까?",
-					confirmButtonText : "예",
-					cancelButtonText : "아니오",
+					html : "장바구니에 상품이 담겼습니다.<br>장바구니로 이동하시겠습니까?",
+					cancelButtonText : "쇼핑 계속하기",
+					confirmButtonText : "장바구니 확인",
 					showCancelButton : true,
 				}).then(function(result) {
 					if (result.isConfirmed) {												
