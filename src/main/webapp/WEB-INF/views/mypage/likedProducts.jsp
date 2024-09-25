@@ -62,30 +62,38 @@
 		</div>
 	</c:forEach>
 </div>
+<c:if test="${product == null}">
+	<div class="notFound">
+		<img src="${pageContext.request.contextPath}/resources/image/notFound.jpg">
+		<br> 찜한 상품이 없습니다.
+	</div>
+</c:if>
 <div id="pager">
-	<%-- [<] 1 2 3 4 5 [>] --%>
-	<c:if test="${pager.groupNo > 1}">
-		<button
-			onclick="getContent('likedProducts?pageNo=${pager.startPageNo-1}')"
-			class="btn btn-light">이전</button>
-	</c:if>
-
-	<c:forEach begin="${pager.startPageNo}" end="${pager.endPageNo}"
-		step="1" var="i">
-		<c:if test="${pager.pageNo == i}">
-			<button onclick="getContent('likedProducts?pageNo=${i}')"
-				class="btn btn-outline-dark">${i}</button>
+	<c:if test="${product != null}">
+		<%-- [<] 1 2 3 4 5 [>] --%>
+		<c:if test="${pager.groupNo > 1}">
+			<button
+				onclick="getContent('likedProducts?pageNo=${pager.startPageNo-1}')"
+				class="btn btn-light">이전</button>
 		</c:if>
-		<c:if test="${pager.pageNo != i}">
-			<button onclick="getContent('likedProducts?pageNo=${i}')"
-				class="btn btn-light">${i}</button>
+	
+		<c:forEach begin="${pager.startPageNo}" end="${pager.endPageNo}"
+			step="1" var="i">
+			<c:if test="${pager.pageNo == i}">
+				<button onclick="getContent('likedProducts?pageNo=${i}')"
+					class="btn btn-outline-dark">${i}</button>
+			</c:if>
+			<c:if test="${pager.pageNo != i}">
+				<button onclick="getContent('likedProducts?pageNo=${i}')"
+					class="btn btn-light">${i}</button>
+			</c:if>
+		</c:forEach>
+	
+		<c:if test="${pager.groupNo < pager.totalGroupNo}">
+			<button
+				onclick="getContent('likedProducts?pageNo=${pager.endPageNo+1}')"
+				class="btn btn-light">다음</button>
 		</c:if>
-	</c:forEach>
-
-	<c:if test="${pager.groupNo < pager.totalGroupNo}">
-		<button
-			onclick="getContent('likedProducts?pageNo=${pager.endPageNo+1}')"
-			class="btn btn-light">다음</button>
 	</c:if>
 
 </div>
