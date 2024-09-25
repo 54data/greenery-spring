@@ -114,6 +114,10 @@
 	
 	<c:if test="${searchDto == null}">
 		<div id="pager">
+			<c:if test="${pager.groupNo > 1}">
+				<a href="?pageNo=${pager.startPageNo-1}&sort=${pager.sort}" class="btn btn-light">다음</a>
+			</c:if>
+			
 			<c:forEach begin="${pager.startPageNo}" end="${pager.endPageNo}"
 				step="1" var="i">
 				<c:if test="${pager.pageNo == i}">
@@ -123,6 +127,10 @@
 					<a href="?pageNo=${i}&sort=${pager.sort}" class="btn btn-light">${i}</a>
 				</c:if>
 			</c:forEach>
+			
+			<c:if test="${pager.groupNo < pager.totalGroupNo}">
+				<a href="?pageNo=${pager.endPageNo+1}&sort=${pager.sort}" class="btn btn-light">다음</a>
+			</c:if>
 		</div>
 	</c:if>
 
