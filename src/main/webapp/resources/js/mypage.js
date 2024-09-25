@@ -224,54 +224,6 @@ function checkNewPwd() {
     }
 }
 
-//function dataToHtml(products) {
-//    if (Array.isArray(products)) {
-//        products.forEach(product => {
-//            const productHtml = `
-//            <div class="product-item">
-//                <div class="product-image-container">
-//                    <img src="${product.imageUrls[0]}" alt="${product.productName
-//                }" class="product-image">
-//                    <div class="product-icons">
-//                        <span class="icon like-icon active">
-//                            <img src="../../res/images/fill_heart.png" alt="찜하기 아이콘">
-//                        </span>
-//                        <span class="icon cart-icon">
-//                            <img src="../../res/images/cart_icon2.png" alt="장바구니 아이콘">
-//                        </span>
-//                        <span class="icon buy-icon">
-//                            <img src="../../res/images/dollar.png" alt="구매하기 아이콘">
-//                        </span>
-//                    </div>
-//                </div>
-//                <div class="product-details">
-//                    <p class="product-name">${product.productName}</p>
-//                    <p class="product-description">${product.mainDescription
-//                }</p>
-//                    <p class="product-price"><span class="price-amount">${product.price.toLocaleString()}</span>원</p>
-//                </div>
-//            </div>`;
-//
-//            // 생성한 HTML을 product-container에 추가
-//            $(".product-container").append(productHtml);
-//        });
-//    }
-//}
-//
-//function getData() {
-//    $.ajax({
-//        url: "../../content/products.json",
-//        method: "GET",
-//        dataType: "json",
-//        success: function (data) {
-//            dataToHtml(data.products);
-//        },
-//        error: function (err) {
-//            console.error("Error fetching product data:", err);
-//        },
-//    });
-//}
-
 $(document).ready(function () {
     getContent("likedProducts");
 
@@ -305,15 +257,6 @@ $(document).ready(function () {
     });
     
     zipcodeBtn();
-    
-    $(document).on('click', '.delete-btn', function(){
-    	Swal.fire({
-			  icon: 'success',                   
-			  title: '리뷰가 삭제되었습니다.',    
-			}).then(() => {
-                getContent('orderList');
-            });
-    })
     
     $(document).on('click', '.review-btn', function(){  	
     	
@@ -494,7 +437,96 @@ $(document).ready(function () {
     	})
 
     });
+        
+});
+
+	$(document).on('click', '.like-icon', function(){
+    	let productId = $(this).data('pid');
+    	let heartIcon = $(this).find("img");
+
+    	$.ajax({
+    		url: "/miniproject/product/Wishlist",
+    		type: "get",
+    		data: { productId: productId },
+    		success: function(response){
+    			if(response == "fill"){
+    				heartIcon.attr("src", "/miniproject/resources/image/fill_heart.png");
+    			}
+    			if(response == "empty"){
+    				heartIcon.attr("src", "/miniproject/resources/image/heart.png")
+    			}
+    		},
+    		error: function() {
+    			console.log("전송 실패")
+    		}
+    	})
+    });
     
+    $(document).on('click', '.cart-icon', function(){
+    	
+    	let productId = $(this).data('pid')
+    	console.log("이건 작동하나?");
+    	$.ajax({
+    		url: "/miniproject/order/addBasket",
+    		type: "get",
+    		data:{productId: productId},
+    		success: function(response){
+    			console.log(response);
+    			if(response == "notLogin"){
+    				window.location.href="account/loginForm";
+    			}
+    			if(response == "successAdd"){
+    				console.log("successAdd로 왔음");
+    				Swal.fire({
+    					text : "장바구니에 상품이 담겼습니다. 장바구니로 이동하시겠습니까?",
+    					confirmButtonText : "예",
+    					cancelButtonText : "아니오",
+    					showCancelButton : true,
+    				}).then(function(result) {
+    					if (result.isConfirmed) {												
+    						console.log("이동!");
+    						window.location.href= "/miniproject/order/basket";
+    					}else{
+    						console.log("이동안함!");
+    					}
+    				});
+    			}
+    			if(response == "exist"){
+    				console.log("exist 왔음");
+    				Swal.fire({
+    					text : "장바구니에 상품이 이미 존재합니다. 장바구니로 이동하시겠습니까?",
+    					confirmButtonText : "예",
+    					cancelButtonText : "아니오",
+    					showCancelButton : true,
+    				}).then(function(result) {
+    					if (result.isConfirmed) {												
+    						console.log("이동!");
+    						window.location.href= "/miniproject/order/basket";
+    					}else{
+    						console.log("이동안함!");
+    					}
+    				});
+    			}
+    		},
+    		error: function(){
+    			console.log("응답실패");
+    		}
+    	})	
+    });
     
-    
+    zipcodeBtn();
+
+    // 개인정보 수정 유효성 검사
+    checkUserTel();
+    checkUserEmail();
+    checkDetailedAddress();
+
+    // 비밀번호 변경 유효성 검사
+    $(document).on('input', '.userPwd', checkPwd);
+    $(document).on('input', '.userNewPwd', checkNewPwd);
+    $(document).on('input', '.checkUserNewPwd', checkNewPwd);
+    $(document).on('input', '.userPwd, .userNewPwd, .checkUserNewPwd', function() {
+        checkPwd();
+        checkNewPwd();
+    });
 });

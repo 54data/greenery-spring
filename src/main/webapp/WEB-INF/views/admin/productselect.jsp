@@ -12,8 +12,8 @@
 <link href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css" rel="stylesheet">
 <script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
-<link href="${pageContext.request.contextPath}/resources/css/productselect.css" rel="stylesheet"
-	type="text/css" />
+<link href="${pageContext.request.contextPath}/resources/css/productselect.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -45,7 +45,7 @@
 					<div class="list5"><fmt:formatNumber>${product.productPrice}</fmt:formatNumber>원</div>
 					<div class="list6">
 						<a href="${pageContext.request.contextPath}/admin/updateForm?productId=${product.productId}&pageUsage=수정" class=" btn btn1">수정</a>
-						<a href="${pageContext.request.contextPath}/admin/deleteProduct?productId=${product.productId}" class=" btn btn2">삭제</a>
+						<a data-pid="${product.productId}" class=" btn btn2">삭제</a>
 					</div>
 				</div>
 			</c:forEach>

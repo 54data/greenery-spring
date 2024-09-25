@@ -46,7 +46,7 @@
 		            		</c:when>
 		            	</c:choose>
 		            </button>
-		            <button class="icon cart-icon" onclick="location.href='${pageContext.request.contextPath}/order/addBasket?productId=${product.productId}'">
+		            <button class="icon cart-icon" data-pid="${product.productId}">
 		                <img src="${pageContext.request.contextPath}/resources/image/cart_icon2.png" alt="장바구니 아이콘">
 		            </button>
 		            <button class="icon buy-icon" onclick="location.href='${pageContext.request.contextPath}/order/payment?productId=${product.productId}'">

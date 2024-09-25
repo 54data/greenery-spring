@@ -41,6 +41,58 @@ $('.like-icon').on('click', function(){
 	})
 });
 
+$('.cart-icon').on('click', function(event){
+	
+	let productId = $(this).data('pid')
+	console.log("이건 작동하나?");
+	$.ajax({
+		url: "/miniproject/order/addBasket",
+		type: "get",
+		data:{productId: productId},
+		success: function(response){
+			console.log(response);
+			if(response == "notLogin"){
+				window.location.href="account/loginForm";
+			}
+			if(response == "successAdd"){
+				console.log("successAdd로 왔음");
+				Swal.fire({
+					text : "장바구니에 상품이 담겼습니다. 장바구니로 이동하시겠습니까?",
+					confirmButtonText : "예",
+					cancelButtonText : "아니오",
+					showCancelButton : true,
+				}).then(function(result) {
+					if (result.isConfirmed) {												
+						console.log("이동!");
+						window.location.href= "/miniproject/order/basket";
+					}else{
+						console.log("이동안함!");
+					}
+				});
+			}
+			if(response == "exist"){
+				console.log("exist 왔음");
+				Swal.fire({
+					text : "장바구니에 상품이 이미 존재합니다. 장바구니로 이동하시겠습니까?",
+					confirmButtonText : "예",
+					cancelButtonText : "아니오",
+					showCancelButton : true,
+				}).then(function(result) {
+					if (result.isConfirmed) {												
+						console.log("이동!");
+						window.location.href= "/miniproject/order/basket";
+					}else{
+						console.log("이동안함!");
+					}
+				});
+			}
+		},
+		error: function(){
+			console.log("응답실패");
+		}
+	})	
+});
+
 /*function dataToHtml(products) {
     if (Array.isArray(products)) {
         products.forEach(product => {
