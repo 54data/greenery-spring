@@ -56,5 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		bsCollapse.toggle();
 	});
 	
+	$('.titleNum').text($('#noticeTitle').val().length);
 	checkNoticeTitle();
 });
