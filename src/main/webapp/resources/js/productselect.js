@@ -21,3 +21,22 @@ document.addEventListener('DOMContentLoaded', function() {
 		bsCollapse.toggle();
 	});
 });
+
+$(".btn2").on("click", function(){
+	productId = $(this).data("pid");
+	
+	Swal.fire({
+		  text: "정말 삭제하시겠습니까?",
+		  icon: "warning",
+		  showCancelButton: true,
+		  confirmButtonColor: "#d33",
+		  cancelButtonColor: "#3085d6",
+		  confirmButtonText: "삭제",
+		  cancelButtonText: "취소"
+		}).then((result) => {
+		  if (result.isConfirmed) {
+			  window.location.href ="/miniproject/admin/deleteProduct?productId="+productId;
+		  }
+		});
+	
+});
