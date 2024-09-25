@@ -256,6 +256,8 @@ $(document).ready(function () {
         window.location.href = '../product/detailpage?productId=' + productId;
     });
     
+    zipcodeBtn();
+    
     $(document).on('click', '.review-btn', function(){  	
     	
     	$("#image-input").val(''); 
@@ -278,6 +280,46 @@ $(document).ready(function () {
 		$('#exampleModal').modal('show');
     });
     
+    
+    $(document).on('click', '.delete-btn', function(){
+    	var reviewId = this.value;
+    	console.log(reviewId);
+    	
+    	Swal.fire({
+    		  title: "정말 삭제하시겠습니까?",
+    		  text: "삭제한 리뷰는 취소할 수 없습니다!",
+    		  icon: "warning",
+    		  showCancelButton: true,
+    		  cancelButtonText : "취소",
+    		  confirmButtonColor: "#3085d6",
+    		  cancelButtonColor: "#d33",
+    		  confirmButtonText: "확인"
+    		}).then((result) => {
+    		  if (result.isConfirmed) {
+    			  $.ajax({
+    				  url: '/miniproject/mypage/deleteReview',
+    				  method: 'POST',
+    				  data: {reviewId: reviewId},
+    				  success: function(response){
+    					  Swal.fire({
+    		    		      title: '삭제 성공!',
+    		    		      icon: 'success'
+    		    		    }).then(()=>{
+    		    		    	getContent('orderList');
+    		    		    });
+    				  },
+    				  
+    				  error: function(error){
+    					  Swal.fire({
+    		    		      title: '삭제 실패!',
+    		    		      icon: 'error'
+    		    		    });
+    				  }
+    			  })
+    		  }
+    		});
+    });
+    
     $(document).on('click', '.update-btn', function(){  
         
     	$("#image-input").val(''); 
@@ -293,6 +335,7 @@ $(document).ready(function () {
     	var reviewId = $(this).data('reviewId');
     	
     	console.log("업데이트 버튼");
+    	console.log("reviewId:", reviewId);
     	
     	$('.write-btn').data('productId', productId).data('orderId', orderId).data('userId', userId).data('reviewId', reviewId);
     	
@@ -378,16 +421,27 @@ $(document).ready(function () {
     		processData: false,
     		contentType: false,
     		success: function(e){
-    			alert("리뷰 등록 성공")
+    			Swal.fire({
+    				  icon: 'success',                   
+    				  title: '리뷰 등록이 성공 하였습니다.',    
+    				}).then(() => {
+    	                getContent('orderList');
+    	            });
     		},
     		error: function(data){
-    			alert("리뷰 등록 실패");
+    			Swal.fire({
+  				  icon: 'success',                   
+  				  title: '리뷰 등록이 실패하였습니다.',    
+  				});
     			console.log(data);
     		}
-    	})	
+    	})
+
     });
-    
-    $(document).on('click', '.like-icon', function(){
+        
+});
+
+	$(document).on('click', '.like-icon', function(){
     	let productId = $(this).data('pid');
     	let heartIcon = $(this).find("img");
 
@@ -476,4 +530,4 @@ $(document).ready(function () {
         checkPwd();
         checkNewPwd();
     });
-});
+

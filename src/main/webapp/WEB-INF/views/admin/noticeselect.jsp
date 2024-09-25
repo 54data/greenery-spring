@@ -34,7 +34,7 @@
 					<div class="list2">${notice.noticeTitle}</div>
 					<div class="list3">
 						<button class="btn1" onclick="location.href='noticeUpdateForm?pageUsage=수정&noticeId=${notice.noticeId}'">수정</button>
-						<button class="btn2" onclick="location.href='deleteNotice?noticeId=${notice.noticeId}'">삭제</button>
+						<button class="btn2" data-nid="${notice.noticeId}">삭제</button>
 					</div>
 				</div>
 			</c:forEach>

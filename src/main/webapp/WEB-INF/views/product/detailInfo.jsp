@@ -13,7 +13,7 @@
 <body>
 	<c:forEach items="${map.entrySet()}" var="map">
 		<c:if test="${map.getValue() eq 'detail'}">
-			<img src="loadProductImgs?productImgId=${map.getKey()}&productImgUsage=${map.getValue()}" style="display: block; margin: 0 auto;">
+			<img src="loadProductImgs?productImgId=${map.getKey()}&productImgUsage=${map.getValue()}" style="display: block; margin: 0 auto;" id="detailInfoImg">
 		</c:if>	
 	</c:forEach>
 </body>

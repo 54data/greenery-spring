@@ -21,3 +21,8 @@ body {
 .pageNum > a {
 	font-size: 16px;
 }
+
+#detailInfoImg{
+	width: 100%;
+	max-width: 960px;
+}
