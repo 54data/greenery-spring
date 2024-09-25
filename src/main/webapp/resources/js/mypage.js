@@ -434,7 +434,10 @@ $(document).ready(function () {
     			alert("리뷰 등록 실패");
     			console.log(data);
     		}
-    	})	
+    	})
+    	
     });
+    
+    
     
 });
