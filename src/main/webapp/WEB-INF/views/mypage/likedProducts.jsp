@@ -62,14 +62,14 @@
 		</div>
 	</c:forEach>
 </div>
-<c:if test="${product == null}">
+<c:if test="${empty productList}">
 	<div class="notFound">
 		<img src="${pageContext.request.contextPath}/resources/image/notFound.jpg">
 		<br> 찜한 상품이 없습니다.
 	</div>
 </c:if>
 <div id="pager">
-	<c:if test="${product != null}">
+	<c:if test="${!empty productList}">
 		<%-- [<] 1 2 3 4 5 [>] --%>
 		<c:if test="${pager.groupNo > 1}">
 			<button
@@ -95,5 +95,4 @@
 				class="btn btn-light">다음</button>
 		</c:if>
 	</c:if>
-
 </div>
