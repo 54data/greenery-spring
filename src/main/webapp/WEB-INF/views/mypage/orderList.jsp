@@ -4,7 +4,6 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css">    
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reviews.css">
-<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 <input type="hidden" id="userIdInput" value="${userId}" />
@@ -49,11 +48,14 @@
 				결제완료
  				<c:choose>
 	                <c:when test="${orderDetail.hasReview}">
-	                    <a href="${pageContext.request.contextPath}/mypage/deleteReview?reviewId=${orderDetail.review.reviewId}" class="delete-btn btn-outline-secondary" 
+<%-- 	                    <a href="${pageContext.request.contextPath}/mypage/deleteReview?reviewId=${orderDetail.review.reviewId}" class="delete-btn btn-outline-secondary" 
 	                    data-product-id="${orderDetail.productId}" data-user-id="${orderDetail.userId}" data-order-id="${orderDetail.orderId}" 
 	                    data-product-name="${orderDetail.productName}" data-product-summary="${orderDetail.productSummary}">
 							후기삭제
-						</a>
+						</a> --%>
+						<button type="button" class="delete-btn btn-outline-secondary" value="${orderDetail.review.reviewId}" >
+							후기삭제
+						</button>
 						<button type="button" class="update-btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"
 						data-user-id="${orderDetail.review.userId}" data-review-id="${orderDetail.review.reviewId}" 
 						data-product-id="${orderDetail.productId}" data-order-id="${orderDetail.orderId}"

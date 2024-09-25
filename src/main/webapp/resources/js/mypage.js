@@ -310,7 +310,9 @@ $(document).ready(function () {
     	Swal.fire({
 			  icon: 'success',                   
 			  title: '리뷰가 삭제되었습니다.',    
-			});
+			}).then(() => {
+                getContent('orderList');
+            });
     })
     
     $(document).on('click', '.review-btn', function(){  	
@@ -335,6 +337,45 @@ $(document).ready(function () {
 		$('#exampleModal').modal('show');
     });
     
+    
+    $(document).on('click', '.delete-btn', function(){
+    	var reviewId = this.value;
+    	console.log(reviewId);
+    	
+    	Swal.fire({
+    		  title: "정말 삭제하시겠습니까?",
+    		  text: "삭제한 리뷰는 취소할 수 없습니다!",
+    		  icon: "warning",
+    		  showCancelButton: true,
+    		  confirmButtonColor: "#3085d6",
+    		  cancelButtonColor: "#d33",
+    		  confirmButtonText: "취소 성공하였습니다!"
+    		}).then((result) => {
+    		  if (result.isConfirmed) {
+    			  $.ajax({
+    				  url: '/miniproject/mypage/deleteReview',
+    				  method: 'POST',
+    				  data: {reviewId: reviewId},
+    				  success: function(response){
+    					  Swal.fire({
+    		    		      title: '삭제 성공!',
+    		    		      icon: 'success'
+    		    		    }).then(()=>{
+    		    		    	getContent('orderList');
+    		    		    });
+    				  },
+    				  
+    				  error: function(error){
+    					  Swal.fire({
+    		    		      title: '삭제 실패!',
+    		    		      icon: 'error'
+    		    		    });
+    				  }
+    			  })
+    		  }
+    		});
+    });
+    
     $(document).on('click', '.update-btn', function(){  
         
     	$("#image-input").val(''); 
@@ -350,6 +391,7 @@ $(document).ready(function () {
     	var reviewId = $(this).data('reviewId');
     	
     	console.log("업데이트 버튼");
+    	console.log("reviewId:", reviewId);
     	
     	$('.write-btn').data('productId', productId).data('orderId', orderId).data('userId', userId).data('reviewId', reviewId);
     	
@@ -438,7 +480,9 @@ $(document).ready(function () {
     			Swal.fire({
     				  icon: 'success',                   
     				  title: '리뷰 등록이 성공 하였습니다.',    
-    				});
+    				}).then(() => {
+    	                getContent('orderList');
+    	            });
     		},
     		error: function(data){
     			Swal.fire({
@@ -448,9 +492,7 @@ $(document).ready(function () {
     			console.log(data);
     		}
     	})
-    	
-    	location.reload(true);
-    	getContent(orderList);
+
     });
     
     

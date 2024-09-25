@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -204,10 +206,15 @@ public class MypageController {
 		return "mypage/reviews";
 	}
 		
-	@GetMapping("/deleteReview")
-	public String deleteReview(int reviewId) {
-		reviewService.deleteReview(reviewId);
-		return "redirect:/mypage/mypage";
+	@PostMapping("/deleteReview")
+	public ResponseEntity<String> deleteReview(@RequestParam int reviewId) {
+		log.info("실행" + reviewId);
+		try {
+	        reviewService.deleteReview(reviewId);
+	        return ResponseEntity.ok("OK");  
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error");  
+	    }
 	}
 	
 	@PostMapping("/reviewInsert")
