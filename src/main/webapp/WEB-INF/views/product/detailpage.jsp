@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/detailpage.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/detail-info.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reviews-select.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
 <script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
 </head>
 
@@ -23,18 +24,18 @@
 	</div>
 	<input type="hidden" id="productId" data-order-id="${product.productId}" value="${product.productId}" />
 	<div class="container">
-		<div class="left">
-
-			<!-- 이미지 사이드 쇼 -->
-			<div class="slideshow-container">
-				<c:forEach items="${map.entrySet()}" var="map">
-					<c:if test="${map.getValue() ne 'detail'}">
-						<div class="mySlides fade">
-							<img src="loadProductImgs?productImgId=${map.getKey()}&productImgUsage=${map.getValue()}">
-						</div>
-					</c:if>	
-				</c:forEach>
-
+		<div class="product-container">
+			<div class="left">
+				<!-- 이미지 사이드 쇼 -->
+				<div class="slideshow-container">
+					<c:forEach items="${map.entrySet()}" var="map">
+						<c:if test="${map.getValue() ne 'detail'}">
+							<div class="mySlides fade">
+								<img src="loadProductImgs?productImgId=${map.getKey()}&productImgUsage=${map.getValue()}">
+							</div>
+						</c:if>	
+					</c:forEach>
+				</div>
 			</div>
 		</div>
 
@@ -69,33 +70,18 @@
 						<img src="${pageContext.request.contextPath}/resources/image/heart-icon.png" class="wishlist">
 					</c:if>
 				</button>
+		</div>
+		
+		<!-- 밑에 다른 이미지 -->
+		<div class="sideimg">
+			<div class="currentSlide-container">
+				<c:forEach items="${map.entrySet()}" var="map" varStatus="status">
+					<c:if test="${map.getValue() ne 'detail'}">
+						<img class="dot" src="loadProductImgs?productImgId=${map.getKey()}&productImgUsage=${map.getValue()}" onclick="currentSlide(${status.index}, this)">
+					</c:if>
+				</c:forEach>
 			</div>
 		</div>
-	</div>
-
-	<!-- 밑에 다른 이미지 -->
-	<div class="sideimg">
-		<!-- Next and previous buttons -->
-		<a class="prev" onclick="plusSlides(-1)"> <img
-			src="${pageContext.request.contextPath}/resources/image/left-icon.png" alt="Previous">
-		</a>
-
-		<div class="currentSlide-container">
-
-			<c:forEach items="${map.entrySet()}" var="map" varStatus="status">
-				
-				<c:if test="${map.getValue() ne 'detail'}">
-					<span class="dot" onclick="currentSlide(${status.index})">
-						<img src="loadProductImgs?productImgId=${map.getKey()}&productImgUsage=${map.getValue()}" style="width: 25%">
-					</span>
-				</c:if>
-			</c:forEach>
-			
-		</div>
-
-		<a class="next" onclick="plusSlides(1)"> <img
-			src="${pageContext.request.contextPath}/resources/image/right-icon.png" alt="Next">
-		</a>
 	</div>
 
 	<!-- 상세페이지, 리뷰페이지 -->
@@ -113,9 +99,7 @@
 		</div>
 	</div>
 
-	<div id="tab-content">
-		<!-- AJAX로 불러온 상세 페이지 or 리뷰 표시 -->
-	</div>
+	<div id="tab-content"></div>
 
 	<!-- 업버튼 -->
 	<div class="main-products">
@@ -126,7 +110,6 @@
 		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	</div>
 	
-
 	<script src="${pageContext.request.contextPath}/resources/js/detailpage.js"></script>
 </body>
 

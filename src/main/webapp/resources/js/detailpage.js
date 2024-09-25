@@ -52,14 +52,15 @@ wishlistButton.addEventListener('click', function () {
 let slideIndex = 1;
 showSlides(slideIndex);
 
-// Next/previous controls
-function plusSlides(n) {
-    showSlides(slideIndex += n);
-}
+let selectedImg = null;
 
-// Thumbnail image controls
-function currentSlide(n) {
+function currentSlide(n, elem) {
     showSlides(slideIndex = n);
+    if (selectedImg) {
+    	$(selectedImg).css('border', 'none');
+    }
+    $(elem).css('border', '1px solid #000');
+    selectedImg = elem;
 }
 
 function showSlides(n) {
@@ -81,7 +82,6 @@ function showSlides(n) {
 
 
 // ---------------------탭 - 상세정보,  리뷰 --------------------
-
 
 $(document).ready(function(){
     loadTabContent('detailInfo', $('#productId').val());

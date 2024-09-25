@@ -14,7 +14,6 @@ h2 {
     justify-content: space-between;
 }
 
-
 /* 기본 체크박스 스타일 제거 */
 input[type="checkbox"] {
     appearance: none;
@@ -54,6 +53,11 @@ input[type="checkbox"]:checked::after {
     background-position: center;
     margin-top: 3px;
     margin-left: 2px;
+}
+
+label {
+	font-size: 14px;
+	line-height: 0;
 }
 
 .basket {
