@@ -306,6 +306,13 @@ $(document).ready(function () {
     
     zipcodeBtn();
     
+    $(document).on('click', '.delete-btn', function(){
+    	Swal.fire({
+			  icon: 'success',                   
+			  title: '리뷰가 삭제되었습니다.',    
+			});
+    })
+    
     $(document).on('click', '.review-btn', function(){  	
     	
     	$("#image-input").val(''); 
@@ -428,14 +435,22 @@ $(document).ready(function () {
     		processData: false,
     		contentType: false,
     		success: function(e){
-    			alert("리뷰 등록 성공")
+    			Swal.fire({
+    				  icon: 'success',                   
+    				  title: '리뷰 등록이 성공 하였습니다.',    
+    				});
     		},
     		error: function(data){
-    			alert("리뷰 등록 실패");
+    			Swal.fire({
+  				  icon: 'success',                   
+  				  title: '리뷰 등록이 실패하였습니다.',    
+  				});
     			console.log(data);
     		}
     	})
     	
+    	location.reload(true);
+    	getContent(orderList);
     });
     
     

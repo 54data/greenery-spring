@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css">    
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reviews.css">
 <script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 <input type="hidden" id="userIdInput" value="${userId}" />
 
 <section class="mypage-title">
