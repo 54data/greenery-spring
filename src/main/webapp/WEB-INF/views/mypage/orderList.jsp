@@ -42,28 +42,28 @@
 				</div>
 			</div>
 			<div class="ol-1">${orderDetail.productQty}</div>
-			<div class="ol-1"><fmt:formatNumber value="${orderDetail.productPrice}" type="number" pattern="#,###"/>원</div>
+			<div class="ol-1"><fmt:formatNumber value="${orderDetail.productQty * orderDetail.productPrice}" type="number" pattern="#,###"/>원</div>
 			<div class="ol-1 order-status">
 				결제완료
  				<c:choose>
 	                <c:when test="${orderDetail.hasReview}">
-	                    <a href="${pageContext.request.contextPath}/mypage/deleteReview?reviewId=${orderDetail.review.reviewId}" class="btn btn-danger" 
+	                    <a href="${pageContext.request.contextPath}/mypage/deleteReview?reviewId=${orderDetail.review.reviewId}" class="delete-btn btn-outline-secondary" 
 	                    data-product-id="${orderDetail.productId}" data-user-id="${orderDetail.userId}" data-order-id="${orderDetail.orderId}" 
 	                    data-product-name="${orderDetail.productName}" data-product-summary="${orderDetail.productSummary}">
-						 	리뷰 삭제
+							후기삭제
 						</a>
-						<button type="button" class="update-btn" data-bs-toggle="modal" data-bs-target="#exampleModal"
+						<button type="button" class="update-btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"
 						data-user-id="${orderDetail.review.userId}" data-review-id="${orderDetail.review.reviewId}" 
 						data-product-id="${orderDetail.productId}" data-order-id="${orderDetail.orderId}"
 						data-product-name="${orderDetail.productName}" data-product-summary="${orderDetail.productSummary}">
-							    리뷰 수정
+							후기수정
 						</button>
  					</c:when>
 	                <c:otherwise>
-						<button type="button" class="review-btn" data-bs-toggle="modal" data-bs-target="#exampleModal"
+						<button type="button" class="review-btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"
 						data-user-id="${orderDetail.userId}" data-product-id="${orderDetail.productId}" data-order-id="${orderDetail.orderId}"
 						data-product-name="${orderDetail.productName}" data-product-summary="${orderDetail.productSummary}">
-							리뷰 작성
+							후기등록
 						</button>						
 	                </c:otherwise>
             	</c:choose> 				
@@ -133,7 +133,7 @@
 	
 	            <div class="modal-footer">
 	                <button type="button" class="btn" data-bs-dismiss="modal">닫기</button>
-	                <button type="button" class="btn write-btn" data-product-id="" data-order-id="" data-user-id="" data-review-id="">리뷰 등록하기</button>
+	                <button type="button" class="btn write-btn" data-bs-dismiss="modal" data-product-id="" data-order-id="" data-user-id="" data-review-id="">리뷰 등록하기</button>
 	            </div>
 	
 	        </div>
