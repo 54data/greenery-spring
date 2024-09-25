@@ -101,19 +101,23 @@
 }
 
 .product-icons {
-	position: absolute;
-	bottom: -100px;
-	left: 0;
-	width: 100%;
-	display: flex;
-	justify-content: space-evenly;
-	transition: bottom 0.3s ease-in-out;
-	background-color: rgba(0, 0, 0, 0.6);
-	padding: 7px 0;
+    position: absolute;
+    bottom: -100px; /* 초기에는 화면 아래쪽에 숨김 */
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 7px 0;
+    opacity: 0; /* 초기 투명도 */
+    visibility: hidden; /* 초기에는 보이지 않도록 설정 */
+    transition: bottom 0.15s ease-in-out, opacity 0.3s ease-in-out, visibility 0.15s ease-in-out; /* 트랜지션 설정 */
 }
 
 .product-image-container:hover .product-icons {
-	bottom: 0;
+    bottom: 0; /* 마우스 오버 시 아이콘이 위로 슬라이드되면서 나타남 */
+    opacity: 1; /* 투명도가 1로 변경되어 보이도록 설정 */
+    visibility: visible; /* 요소가 보이도록 설정 */
 }
 
 .icon {
