@@ -145,7 +145,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/searchProductAll")
-	public String searchProductAll(Model model,
+	public String searchProductAll(Model model, Authentication authentication,
 				@RequestParam(defaultValue="1")int pageNo,
 				HttpSession session, String sort) {
 		
@@ -158,6 +158,15 @@ public class ProductController {
 				
 		model.addAttribute("productList", productList);
 		log.info("실행");
+		
+		if(authentication != null) {
+			List<Integer> userWishlist = productService.getUserWishlist(authentication.getName());
+			Map<Integer, Boolean> isWishlist = new HashMap<>();
+			for(ProductDto product :productList) {
+				isWishlist.put(product.getProductId(), userWishlist.contains(product.getProductId()));
+			}
+			model.addAttribute("isWishlist", isWishlist);
+		}
 		
 		return "product/search";
 	}
