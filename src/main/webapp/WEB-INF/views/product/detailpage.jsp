@@ -37,36 +37,39 @@
 					</c:forEach>
 				</div>
 			</div>
-	
-			<div class="right">
-				<div class="title-container">
-					<p class="brand-name">${product.category}</p>
-					<p class="product-title">${product.productName}</p>
-				</div>
-				<div class="description-container">
-					<div class="description-line"></div>
-					<p class="description">${product.productDetailSummary}</p>
-					<div class="description-line"></div>
-				</div>
-				<div class="product-info">
-					<div class="product-quantity">
-						<button onclick="decrease(this)">-</button>
-						<span class="quantity-number" id="quantity">1</span>
-						<button onclick="increase(this)">+</button>
-					</div>
-					<span class="product-price">
-						<fmt:formatNumber value="${product.productPrice}" type="number" pattern="#,###"/> 원
-					</span>
-				</div>
-				<div class="buttons">
-					<button onclick="location.href='${pageContext.request.contextPath}/order/addBasket?productId=${product.productId}'" class="add-to-cart">장바구니</button>
-					<button onclick="location.href='${pageContext.request.contextPath}/order/payment?productId=${product.productId}'" class="checkout">바로구매</button>
-					<button class="wishlist-button">
-						<img src="${pageContext.request.contextPath}/resources/image/heart-icon.png" alt="wishlist"
-							class="wishlist">
-					</button>
-				</div>
+		</div>
+
+		<div class="right">
+			<div class="title-container">
+				<p class="brand-name">${product.category}</p>
+				<p class="product-title">${product.productName}</p>
 			</div>
+			<div class="description-container">
+				<div class="description-line"></div>
+				<p class="description">${product.productDetailSummary}</p>
+				<div class="description-line"></div>
+			</div>
+			<div class="product-info">
+				<div class="product-quantity">
+					<button onclick="decrease(this)">-</button>
+					<span class="quantity-number" id="quantity">1</span>
+					<button onclick="increase(this)">+</button>
+				</div>
+				<span class="product-price">
+					<fmt:formatNumber value="${product.productPrice}" type="number" pattern="#,###"/> 원
+				</span>
+			</div>
+			<div class="buttons">
+				<button onclick="location.href='${pageContext.request.contextPath}/order/addBasket?productId=${product.productId}'" class="add-to-cart">장바구니</button>
+				<button onclick="location.href='${pageContext.request.contextPath}/order/payment?productId=${product.productId}'" class="checkout">바로구매</button>
+				<button class="wishlist-button" data-pid="${product.productId}">
+					<c:if test="${isWishlist}">
+						<img src="${pageContext.request.contextPath}/resources/image/fullheart-icon.png" class="wishlist">
+					</c:if>
+					<c:if test="${!isWishlist}">
+						<img src="${pageContext.request.contextPath}/resources/image/heart-icon.png" class="wishlist">
+					</c:if>
+				</button>
 		</div>
 		
 		<!-- 밑에 다른 이미지 -->
