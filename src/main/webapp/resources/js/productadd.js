@@ -41,7 +41,7 @@ function checkValid() {
 	}
 
 	// 상세페이지 대표 설명 유효성 검사
-	if ($("#productDetailSummary").val().length > 80) {
+	if ($("#productDetailSummary").val().length > 100) {
 		Swal.fire({
 			icon : "error",
 			title : "오류",
