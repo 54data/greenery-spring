@@ -237,7 +237,7 @@ public class AdminController {
 	}
 	
 	@GetMapping("deleteProductImg")
-	private String deleteProductImg(int productId, String usage) throws Exception {
+	public String deleteProductImg(int productId, String usage) throws Exception {
 		productService.deleteProductImg(productId, usage);
 		String encodedPageUsage = URLEncoder.encode("수정", "UTF-8");
 		return "redirect:/admin/updateForm?productId=" + productId + "&pageUsage="+ encodedPageUsage;
