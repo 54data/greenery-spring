@@ -1,7 +1,6 @@
 package com.mycompany.miniproject.dto;
 
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 
 @Data
 public class PagerDto {
@@ -19,6 +18,7 @@ public class PagerDto {
 	private int endRowNo; // 페이지의 마지막 행 번호
 	private int endRowIndex; // 페이지의 마지막 행 인덱스
 	private String sort;
+	private String userId;
 
 	public PagerDto(int rowsPerPage, int pagesPerGroup, int totalRows, int pageNo) {
 		this(rowsPerPage, pagesPerGroup, totalRows, pageNo, "");

@@ -119,6 +119,7 @@ public class MypageController {
 		log.info("실행");
 		int totalRows = productService.getTotalWishlistRows(authentication.getName());
 		PagerDto pager = new PagerDto(10, 5, totalRows, pageNo);
+		pager.setUserId(authentication.getName());
 		List<ProductAddDto> wishlistProduct = productService.getWishlistAll(pager);
 		model.addAttribute("productList", wishlistProduct);
 		model.addAttribute("pager", pager);
@@ -171,7 +172,6 @@ public class MypageController {
 	    log.info("실행");
 	    return "mypage/orderList";
 	}
-
 
 	@GetMapping("/getReviewInfo")
 	@ResponseBody
@@ -294,6 +294,5 @@ public class MypageController {
 		out.write(reviewImg.getReviewImg());
 		out.flush();
 		out.close();
-
 	}
 }

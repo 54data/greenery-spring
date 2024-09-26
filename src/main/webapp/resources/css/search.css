@@ -178,3 +178,14 @@ body {
 #pager {
 	text-align: center;
 }
+
+.notFound {
+	margin-top: 20px;
+	align-items: center;
+	text-align: center;
+}
+
+.notFound > img {
+	width: 350px;
+	height: 350px;
+}

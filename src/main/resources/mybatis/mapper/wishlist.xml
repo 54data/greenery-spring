@@ -33,7 +33,8 @@
         		select product_id, product_name, product_price, product_summary
         		from wishlist
         		join product USING (product_id)
-        		order by wishlist_id
+        		where user_id = #{userId}
+        		order by wishlist_id desc
     		)
 		)
 		where rnum between #{startRowNo} and #{endRowNo}
