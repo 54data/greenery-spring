@@ -15,6 +15,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reviews-select.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
 <script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/sweetalert2/sweetalert2.min.css">
+<script src="${pageContext.request.contextPath}/resources/sweetalert2/sweetalert2.min.js"></script>
 </head>
 
 <body>
