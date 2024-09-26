@@ -515,3 +515,17 @@
     margin-right: auto;
     margin-left: auto;
 }
+
+.orderInfo {
+	background-color: #CFF7D3;
+	height: 40px;
+	margin-top: 30px;
+	padding: 0 1em;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.pageNum {
+	margin-top: 30px;
+}
