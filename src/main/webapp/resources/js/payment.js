@@ -31,7 +31,8 @@ function orderProducts() {
 		let data = {};
 		data["orderTotalPrice"] = $("#totalPrice-num").data("totalPrice");
 		data["productId"] = Number($(".product").data("pid"));
-		data["productPrice"] = Number($(".product").data("price"));
+		data["productQty"] = Number($(".product-amount").data("qty"));
+		data["productPrice"] = Number($(".product-total-price").data("totalPrice"));
 		data["couponStatus"] = 0;
 		if ($("#discount").data("discount") == -1000) {
 			data["couponStatus"] = -1000;
