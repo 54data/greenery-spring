@@ -224,6 +224,16 @@ function checkNewPwd() {
     }
 }
 
+function cartNum() {
+    $.ajax({
+        url: "/miniproject/order/getCartNum", 
+        datatype: "text",
+        success: function (cartNum) {
+        	$(".header-cart-badge").text(cartNum);
+        }
+    });
+}
+
 $(document).ready(function () {
     getContent("likedProducts");
 
@@ -468,6 +478,7 @@ $(document).ready(function () {
 					window.location.href="account/loginForm";
 				}
 				if(response == "successAdd"){
+					cartNum();
 					console.log("successAdd로 왔음");
 					Swal.fire({
 						html : "장바구니에 상품이 담겼습니다.<br>장바구니로 이동하시겠습니까?",
