@@ -277,3 +277,7 @@
 img:hover {
 	cursor: pointer;
 }
+
+#soldout {
+	color: red;
+}

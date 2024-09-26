@@ -48,16 +48,24 @@
                <p class="description">${product.productDetailSummary}</p>
                <div class="description-line"></div>
             </div>
-            <div class="product-info">
-               <div class="product-quantity">
-                  <button onclick="decrease(this)">-</button>
-                  <span class="quantity-number" id="quantity">1</span>
-                  <button onclick="increase(this)">+</button>
-               </div>
-               <span class="product-price" data-price="${product.productPrice}">
-                  <fmt:formatNumber value="${product.productPrice}" type="number" pattern="#,###"/> 원
-               </span>
-            </div>
+            
+	            <div class="product-info">
+	            <c:if test="${product.productStock != 0}">
+	               <div class="product-quantity">
+	                  <button onclick="decrease(this)">-</button>
+	                  <span class="quantity-number" id="quantity">1</span>
+	                  <button onclick="increase(this)">+</button>
+	               </div>
+	               <span class="product-price" data-price="${product.productPrice}">
+	                  <fmt:formatNumber value="${product.productPrice}" type="number" pattern="#,###"/> 원
+	               </span>
+	              </c:if>
+	            </div>
+            
+            <c:if test="${product.productStock == 0}">
+            	<span id="soldout">품절</span>
+            	<div>해당 상품은 품절 입니다.</div>
+            </c:if>
             <div class="buttons">
                <button onclick="location.href='${pageContext.request.contextPath}/order/addBasket?productId=${product.productId}'" class="add-to-cart">장바구니</button>
                <button onclick="location.href='${pageContext.request.contextPath}/order/payment?productId=${product.productId}'" class="checkout">바로구매</button>
