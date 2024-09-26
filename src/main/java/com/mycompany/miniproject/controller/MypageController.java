@@ -153,7 +153,6 @@ public class MypageController {
 	    log.info("User ID: " + userId);
 
 	    List<OrderDetailDto> orderDetails = orderDetailService.getOrderDetailsByOd(userId);
-	    String userName = userService.getUserName(userId);
 	    
 	    for (OrderDetailDto orderDetail : orderDetails) {
 	    	log.info("Order ID: " + orderDetail.getOrderId());
@@ -168,9 +167,6 @@ public class MypageController {
 	    UserDto userInfo = userService.getUserInfo(userId);
 		model.addAttribute("userInfo", userInfo);
 	    model.addAttribute("orderDetails", orderDetails);
-/*	    model.addAttribute("userName", userName);
-	    model.addAttribute("userId", userId);
-*/	    
 	    log.info("실행");
 	    return "mypage/orderList";
 	}
@@ -224,6 +220,15 @@ public class MypageController {
 		log.info("Review DTO: " + reviewDataDto);
 		log.info("실행");
 		
+		if (reviewDataDto.getReviewScore() == 0) {
+	        //에러발생
+			return "redirect:/mypage/orderList";
+	    }
+	    if (reviewDataDto.getReviewContent() == null || reviewDataDto.getReviewContent().isEmpty()) {
+	        //에러발생
+	    	return "redirect:/mypage/orderList";
+	    }
+		
 		ReviewDto review = new ReviewDto();
 		
 		review.setOrderId(reviewDataDto.getOrderId());
@@ -255,6 +260,15 @@ public class MypageController {
 		log.info("Review DTO: " + reviewDataDto);
 		log.info("실행");
 		
+		if (reviewDataDto.getReviewScore() == 0) {
+	        //에러발생
+			return "redirect:/mypage/orderList";
+	    }
+	    if (reviewDataDto.getReviewContent() == null || reviewDataDto.getReviewContent().isEmpty()) {
+	        //에러발생
+	    	return "redirect:/mypage/orderList";
+	    }
+
 		ReviewDto review = new ReviewDto();
 		
 		review.setReviewId(reviewDataDto.getReviewId());	

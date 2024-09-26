@@ -382,7 +382,6 @@ $(document).ready(function () {
     	var reviewContent = $("#reviewTextarea").val();
     	var reviewScore = $(".star_rating .on").length;
     	var reviewImg = $("#image-input")[0].files[0];
-
     	
         console.log("reviewId:", reviewId);
         console.log("productId:", productId);
@@ -392,14 +391,36 @@ $(document).ready(function () {
         console.log("reviewScore:", reviewScore);
         console.log("reviewImg:", reviewImg);
         
+        if (!reviewContent || reviewContent.trim() === "") {
+            Swal.fire({
+                icon: 'error',
+                title: '리뷰 내용을 입력해주세요.'
+            });
+            return;
+        }
+
+        if (reviewScore === 0) {
+            Swal.fire({
+                icon: 'error',
+                title: '별점을 선택해주세요.'
+            });
+            return;
+        }
+        
     	var formData = new FormData();
     	
     	formData.append('productId', productId);
     	formData.append('orderId', orderId);
     	formData.append('userId', userId);
-		formData.append('reviewContent', reviewContent);
-    	formData.append('reviewScore', reviewScore);
-
+    	
+    	if(reviewContent){
+    		formData.append('reviewContent', reviewContent);
+    	}
+		
+		if(reviewScore != 0){
+    		formData.append('reviewScore', reviewScore);
+    	}
+		
     	if (reviewImg) {
             formData.append('reviewImg', reviewImg);
         }
