@@ -54,7 +54,7 @@
                   <span class="quantity-number" id="quantity">1</span>
                   <button onclick="increase(this)">+</button>
                </div>
-               <span class="product-price">
+               <span class="product-price" data-price="${product.productPrice}">
                   <fmt:formatNumber value="${product.productPrice}" type="number" pattern="#,###"/> 원
                </span>
             </div>

@@ -12,8 +12,8 @@
 	<link href="${pageContext.request.contextPath}/resources/css/login.css" rel="stylesheet" type="text/css"/>
 	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/sweetalert2/sweetalert2.min.css">
+	<script src="${pageContext.request.contextPath}/resources/sweetalert2/sweetalert2.min.js"></script>
 </head>
 
 <body>

@@ -11,8 +11,8 @@
 	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/basket.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/sweetalert2/sweetalert2.min.css">
+	<script src="${pageContext.request.contextPath}/resources/sweetalert2/sweetalert2.min.js"></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 
@@ -39,38 +39,46 @@
 			</div>
 			<hr id="hr-topLine">
 			<div id="productList">
-				<c:forEach items="${cartList}" var="cart">
-					<div class="product">
-		                <div class="product-body">
-		                    <input type="checkbox" class="product-checkbox" data-pid="${cart.productId}">
-		                    <div class="img">
-		                    	<img src="${pageContext.request.contextPath}/order/loadMainImg?productId=${cart.productId}" alt="${cart.productName}" class="picture">
-		                    </div>
-		                    <div class="product-label">
-		                        <div class="product-name">
-		                        	<span><strong>${cart.productName}</strong></span>
-		                        </div>
-		                        <div class="product-description">
-		                        	<span>${cart.productSummary}</span>
-		                        </div>
-		                    </div>
-	                    	<select class="product-amount" data-pid="${cart.productId}" data-qty="${cart.productQty}">
-	                    		<option value="1">1</option>
-	                    		<option value="2">2</option>
-	                    		<option value="3">3</option>
-	                    		<option value="4">4</option>
-	                    		<option value="5">5</option>
-	                    	</select>
-		                    <div class="product-price" data-price="${cart.productPrice}">
-								<span class="product-total-price" data-total-price="${cart.productQty * cart.productPrice}">
-									<fmt:formatNumber value="${cart.productQty * cart.productPrice}" type="number" groupingUsed="true"/></span>원
-		                    </div>
-		                    <button class="basket-delete" onclick="location.href='${pageContext.request.contextPath}/order/deleteBasket?productId=${cart.productId}'">
-		                    	<img src="${pageContext.request.contextPath}/resources/image/X버튼.png" alt="삭제 버튼" class="delete-icon" style="width: 20px; height: 20px;">
-		                    </button>
+				<c:if test="${not empty cartList}">
+					<c:forEach items="${cartList}" var="cart">
+						<div class="product">
+			                <div class="product-body">
+			                    <input type="checkbox" class="product-checkbox" data-pid="${cart.productId}">
+			                    <div class="img">
+			                    	<img src="${pageContext.request.contextPath}/order/loadMainImg?productId=${cart.productId}" alt="${cart.productName}" class="picture">
+			                    </div>
+			                    <div class="product-label">
+			                        <div class="product-name">
+			                        	<span><strong>${cart.productName}</strong></span>
+			                        </div>
+			                        <div class="product-description">
+			                        	<span>${cart.productSummary}</span>
+			                        </div>
+			                    </div>
+		                    	<select class="product-amount" data-pid="${cart.productId}" data-qty="${cart.productQty}">
+		                    		<option value="1">1</option>
+		                    		<option value="2">2</option>
+		                    		<option value="3">3</option>
+		                    		<option value="4">4</option>
+		                    		<option value="5">5</option>
+		                    	</select>
+			                    <div class="product-price" data-price="${cart.productPrice}">
+									<span class="product-total-price" data-total-price="${cart.productQty * cart.productPrice}">
+										<fmt:formatNumber value="${cart.productQty * cart.productPrice}" type="number" groupingUsed="true"/></span>원
+			                    </div>
+			                    <button class="basket-delete" onclick="location.href='${pageContext.request.contextPath}/order/deleteBasket?productId=${cart.productId}'">
+			                    	<img src="${pageContext.request.contextPath}/resources/image/X버튼.png" alt="삭제 버튼" class="delete-icon" style="width: 20px; height: 20px;">
+			                    </button>
+			                </div>
 		                </div>
-	                </div>
-	        	</c:forEach>
+		        	</c:forEach>
+		        </c:if>
+		        <c:if test="${empty cartList}">
+		        	<div class="emptyInfo">
+		        		<img src="${pageContext.request.contextPath}/resources/image/info.png">
+		        		<span class="emptyInfoText">장바구니에 저장된 상품이 없습니다.</span>
+		        	</div>
+		        </c:if>
 			</div>
 			<button class="scroll-btn-up" onclick="scrollToTop()"></button>
 		</div>

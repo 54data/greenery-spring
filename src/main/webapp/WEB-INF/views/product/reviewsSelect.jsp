@@ -16,6 +16,7 @@
 	<div id="reviewList">
 		<div class="reviews">
 			<div class="reviews-container">
+				<c:if test="${not empty reviewList}">
 				<c:forEach items="${reviewList}" var="review">
 					<div class="review-row">
 						<div class="reviewLeft">
@@ -43,16 +44,25 @@
 					</div>
 					<hr>
 				</c:forEach>
-			<div class="pageNum d-flex justify-content-center">
-			    <c:forEach begin="${pager.startPageNo}" end="${pager.endPageNo}" var="i">
-			        <c:if test="${pager.pageNo == i}">
-			            <a href="javascript:void(0);" class="btn btn-outline-dark">${i}</a>
-			        </c:if>
-			        <c:if test="${pager.pageNo != i}">
-			            <a href="javascript:loadTabContent('reviewsSelect', ${product.productId}, ${i})" class="btn btn-light">${i}</a>
-			        </c:if>
-			    </c:forEach>
-			</div>
+					<div class="pageNum d-flex justify-content-center">
+				    <c:forEach begin="${pager.startPageNo}" end="${pager.endPageNo}" var="i">
+				        <c:if test="${pager.pageNo == i}">
+				            <a href="javascript:void(0);" class="btn btn-outline-dark">${i}</a>
+				        </c:if>
+				        <c:if test="${pager.pageNo != i}">
+				            <a href="javascript:loadTabContent('reviewsSelect', ${product.productId}, ${i})" class="btn btn-light">${i}</a>
+				        </c:if>
+				    </c:forEach>
+					</div>
+				</c:if>
+				<c:if test="${empty reviewList}">
+					<div class="emptyInfo">
+		        		<img src="${pageContext.request.contextPath}/resources/image/info.png">
+		        		<span class="emptyInfoText">해당 상품에 리뷰가 없습니다.</span>
+		        	</div>
+		        	<div class="blank"></div>
+				</c:if>
+			
 			</div>
 		</div>
 	</div>

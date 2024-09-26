@@ -2,22 +2,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css">    
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reviews.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
-<input type="hidden" id="userIdInput" value="${userId}" />
-
+	<link href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reviews.css">
+<%-- <input type="hidden" id="userIdInput" value="${userId}" />
+ --%>
 <section class="mypage-title">
 	<div class="mypage-title-greeting">
 		<img src="${pageContext.request.contextPath}/resources/image/thum.png">
 		<div class="greeting-text">
-			${userName} 님 반갑습니다.
+			${userInfo.userName} 님 반갑습니다.
 		</div>
 	</div>
 	<div class="mypage-title-coupon">
 		<span class="coupon-status">
-			쿠폰 <span class="coupon-num">1</span>개
+			쿠폰 
+			<span class="coupon-num">
+				<c:if test="${userInfo.couponStatus == 1}">1</c:if>
+				<c:if test="${userInfo.couponStatus != 1}">0</c:if>
+			</span>개
 		</span>
 	</div>
 </section>

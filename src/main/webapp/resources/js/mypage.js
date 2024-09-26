@@ -430,7 +430,7 @@ $(document).ready(function () {
     		},
     		error: function(data){
     			Swal.fire({
-  				  icon: 'success',                   
+  				  icon: 'error',                   
   				  title: '리뷰 등록이 실패하였습니다.',    
   				});
     			console.log(data);

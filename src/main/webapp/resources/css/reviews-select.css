@@ -68,18 +68,24 @@
     justify-content: space-between;
     align-items: flex-start; 
     padding: 30px;
+    position: relative;
 }
 
 .reviewLeft {
     flex: 1;
-    height: 104px;
-    margin-right: 20px; 
+    margin-right: 120px;
+    word-wrap: break-word; 
 }
 
 
 .img-box {
-    flex-shrink: 0;
+    position: absolute; 
+    right: 30px; 
+    top: 30px;
+    width: 75px; 
+    height: 100px; 
     text-align: right;
+    flex-shrink: 0;
 }
 
 .img-box img {
@@ -291,4 +297,32 @@
     }
 }
 
+.review-span {
+    word-wrap: break-word;  
+    overflow-wrap: break-word;  
+    white-space: pre-wrap;  
+    width: 25%;
+    display: block; 
+}
 
+.emptyInfo {
+	padding-top: 30px;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	align-items: center;
+}
+
+.emptyInfo img {
+	width: 100px;
+	height: 100px;
+}
+
+.emptyInfoText {
+	margin-top: 30px;
+    color: #888;
+}
+
+.blank {
+	margin-top: 45px;
+}

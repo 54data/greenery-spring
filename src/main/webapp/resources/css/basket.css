@@ -372,3 +372,21 @@ a {
 	width: 60px;
 	height: 28px;
 }
+
+.emptyInfo {
+	padding-top: 30px;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	align-items: center;
+}
+
+.emptyInfo img {
+	width: 100px;
+	height: 100px;
+}
+
+.emptyInfoText {
+	margin-top: 30px;
+    color: #888;
+}
