@@ -460,8 +460,28 @@
 }
  */
  
- .order-status button {
-    margin-bottom: 10px; 
+.order-status {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+}
+
+#payment-completed {
+	border: none;
+    border-radius: 10px;
+    width: 70px; 
+    font-size: 12px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-right: 10px;
+	color: #808080;	
+	border: dotted 1px #808080;	
+}
+
+.order-status > * {
+    margin: 0 auto; /* 텍스트와 버튼들을 수평으로 중앙에 위치 */
+    width: 100px; /* 버튼들과 동일한 너비를 설정, 필요에 따라 조절 가능 */
 }
 
 .update-btn, .review-btn {
@@ -470,6 +490,8 @@
     background-color: #CFF7D3;
     width: 70px; 
     font-size: 12px;
+    margin-top: 2px;
+    margin-bottom: 2px;
     margin-right: 10px; 
 }
 
@@ -481,5 +503,6 @@
     width: 70px; 
     font-size: 12px;
     margin-top: 2px;
+    margin-bottom: 2px;
     margin-right: 10px; 
 }

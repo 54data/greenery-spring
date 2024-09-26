@@ -53,7 +53,7 @@
 				<div class="ol-1">${orderDetail.productQty}</div>
 				<div class="ol-1"><fmt:formatNumber value="${orderDetail.productQty * orderDetail.productPrice}" type="number" pattern="#,###"/>원</div>
 				<div class="ol-1 order-status">
-					결제완료
+					<span id="payment-completed">결제완료</span>
 	 				<c:choose>
 		                <c:when test="${orderDetail.hasReview}">
 		                	<button type="button" class="update-btn" data-bs-toggle="modal" data-bs-target="#exampleModal"
