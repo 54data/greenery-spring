@@ -16,6 +16,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reviews-select.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
 <script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/sweetalert2/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/sweetalert2/sweetalert2.min.css">
 </head>
 
 <body>
@@ -59,7 +61,7 @@
                </span>
             </div>
             <div class="buttons">
-               <button onclick="location.href='${pageContext.request.contextPath}/order/addBasket?productId=${product.productId}'" class="add-to-cart">장바구니</button>
+               <button class="add-to-cart" data-pid="${product.productId}">장바구니</button>
                <button onclick="location.href='${pageContext.request.contextPath}/order/payment?productId=${product.productId}'" class="checkout">바로구매</button>
                <button class="wishlist-button" data-pid="${product.productId}">
 					<c:if test="${isWishlist}">
