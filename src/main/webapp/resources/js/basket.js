@@ -136,6 +136,16 @@ $(document).ready(function() {
 	$('.custom-amount-btn').on('click', function() {
 		const inputAmount = $(this).siblings('.custom-amount');
 		const inputNum = inputAmount.val();
+		const stock = $(this).data('stock');
+		if (inputNum > $(this).data('stock')) {
+            Swal.fire({
+                icon: 'error',
+                title: '상품 재고가 부족합니다.',
+                text: '현재 해당 상품의 남은 수량은 ' + stock + '개 입니다.',
+            });
+			return;
+		}
+		
 		const selectList = $(this).parent().siblings('.product-amount');
 		const selectAmount = selectList.children('.select-amount')
 		if (!Number.isNaN(inputNum) && inputNum !== '') {
