@@ -43,14 +43,21 @@
 			</div>
 		</c:forEach>
 		<div class="pageNum">
-			<c:forEach begin="${pager.startPageNo}" end="${pager.endPageNo}" step="1" var="i">
-            	<c:if test="${pager.pageNo == i}">
-                  <a href="notices?pageNo=${i}" class="btn btn-outline-dark">${i}</a>
-               </c:if>
-               <c:if test="${pager.pageNo != i}">
-                  <a href="notices?pageNo=${i}" class="btn btn-light">${i}</a>
-               </c:if>
-			</c:forEach>
+			<c:if test="${noticeList != null}">
+				<c:if test="${pager.groupNo > 1}">
+					<a href="notices?pageNo=${pager.startPageNo-1}" class="btn btn-light">이전</a>
+				</c:if>				<c:forEach begin="${pager.startPageNo}" end="${pager.endPageNo}" step="1" var="i">
+	            	<c:if test="${pager.pageNo == i}">
+	                  <a href="notices?pageNo=${i}" class="btn btn-outline-dark">${i}</a>
+	               </c:if>
+	               <c:if test="${pager.pageNo != i}">
+	                  <a href="notices?pageNo=${i}" class="btn btn-light">${i}</a>
+	               </c:if>
+				</c:forEach>
+				<c:if test="${pager.groupNo < pager.totalGroupNo}">
+					<a href="notices?pageNo=${pager.endPageNo+1}" class="btn btn-light">다음</a>
+				</c:if>
+			</c:if>
 		</div>
 	</div>
 	<div id="footer">
