@@ -86,81 +86,15 @@ function showAlertCoupon(couponStatus) {
     }, 2000); 
 }
 
-// 상품 데이터 가져오기
-//function dataToHtml(products) {
-//    if (Array.isArray(products)) {
-//        products.forEach(product => {
-//            const productHtml = `
-//            <div class="product-item">
-//                <div class="product-image-container">
-//                    <img src="${product.imageUrls[0]}" alt="${product.productName
-//                }" class="product-image">
-//                    <div class="product-icons">
-//                        <span class="icon like-icon">
-//                            <img src="../../res/images/heart.png" alt="찜하기 아이콘">
-//                        </span>
-//                        <span class="icon cart-icon">
-//                            <img src="../../res/images/cart_icon2.png" alt="장바구니 아이콘">
-//                        </span>
-//                        <span class="icon buy-icon">
-//                            <img src="../../res/images/dollar.png" alt="구매하기 아이콘" class="payment-img">
-//                        </span>
-//                    </div>
-//                </div>
-//                <div class="product-details">
-//                    <p class="product-name">${product.productName}</p>
-//                    <p class="product-description">${product.mainDescription
-//                }</p>
-//                    <p class="product-price"><span class="price-amount">${product.price.toLocaleString()}</span>원</p>
-//                </div>
-//            </div>`;
-//
-//            // 생성한 HTML을 product-container에 추가
-//            $(".product-container").append(productHtml);
-//        });
-//    }
-//}
-
-// 정렬(신상품, 가격 오름차순, 가격 내림차순)
-//function sortProducts(products, sortOption) {
-//    switch (sortOption) {
-//        case "price-asc":
-//            return products.slice().sort((a, b) => a.price - b.price);
-//        case "price-desc":
-//            return products.slice().sort((a, b) => b.price - a.price);
-//        default:
-//            return products;
-//    }
-//}
-//
-//function filteredProducts(category) {
-//    const sortOption = $(".toolbar-sort-select").val();
-//    let categoryProducts = products;
-//
-//    if (category) {
-//        categoryProducts = products.filter(
-//            product => product.category === category
-//        );
-//    }
-//
-//    $(".product-container").empty();
-//    dataToHtml(sortProducts(categoryProducts, sortOption));
-//}
-
-//function getData() {
-//    $.ajax({
-//        url: "../../content/products.json",
-//        method: "GET",
-//        dataType: "json",
-//        success: function (data) {
-//            products = data.products;
-//            filteredProducts();     // 데이터 불러올 때 성공하면 filteredProducts() 호출
-//        },
-//        error: function (err) {
-//            console.error("Error fetching product data:", err);
-//        },
-//    });
-//}
+function cartNum() {
+    $.ajax({
+        url: "/miniproject/order/getCartNum", 
+        datatype: "text",
+        success: function (cartNum) {
+        	$(".header-cart-badge").text(cartNum);
+        }
+    });
+}
 
 $(document).ready(function () {
     autoSlides();
@@ -225,6 +159,7 @@ $('.cart-icon').on('click', function(event){
 				window.location.href="account/loginForm";
 			}
 			if(response == "successAdd"){
+				cartNum();
 				console.log("successAdd로 왔음");
 				Swal.fire({
 					html : "장바구니에 상품이 담겼습니다.<br>장바구니로 이동하시겠습니까?",
