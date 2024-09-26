@@ -166,6 +166,8 @@ public class ProductService {
 		List<Integer> wishlist = wishlistDao.getUserWishlist(userId);
 		return wishlist;
 	}
-	
-	
+
+	public void updateProductStock(ProductDto productDto) {
+		productDao.updateStock(productDto);
+	}	
 }

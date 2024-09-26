@@ -36,7 +36,7 @@
 	
 	<select id="getSearchProduct" parameterType="SearchDto" resultType="Product">
 		select
-			product_id, product_name, product_price, product_summary, category
+			product_id, product_name, product_price, product_summary, category, product_stock
 		from product
 		<if test="searchContent == null">
 			where category=#{category}
@@ -69,16 +69,16 @@
 	</select>
 	
 	<select id = "getProductDetailInfo" parameterType="int" resultType="Product">
-		select PRODUCT_ID,  PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_SUMMARY, PRODUCT_DETAIL_SUMMARY, CATEGORY, product_stock 
+		select PRODUCT_ID,  PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_SUMMARY, PRODUCT_DETAIL_SUMMARY, CATEGORY ,product_stock
 		from product
 		where product_Id = #{productId}
 	</select>
 	
 	<select id="getRecProduct" resultType="Product">
 	<![CDATA[
-		select product_id, product_name, product_price, product_summary
+		select product_id, product_name, product_price, product_summary, product_stock
 		from(
-			select rownum, product_id, product_name, product_price, product_summary
+			select rownum, product_id, product_name, product_price, product_summary, product_stock
 			from product
 			order by product_stock desc)
 		where rownum<=5 ]]>
@@ -86,9 +86,9 @@
 
 	<select id="getNewProduct" resultType="Product">
 	<![CDATA[
-		select product_id, product_name, product_price, product_summary
+		select product_id, product_name, product_price, product_summary, product_stock
 		from(
-			select rownum, product_id, product_name, product_price, product_summary
+			select rownum, product_id, product_name, product_price, product_summary, product_stock
 			from product
 			where product_stock !=0
 			order by product_reg_date desc)
@@ -147,11 +147,18 @@
 			category = #{category}
 		where product_id = #{productId}
 	</update>
+	
 	<update id="updateProductImage" parameterType="ProductImage">
 		update product_image set
 			product_img = #{productImg}
 		where
 			product_id = #{productId}
 			and product_img_usage = #{productImgUsage}
+	</update>
+	
+	<update id="updateStock" parameterType="Product">
+		update product
+		set product_stock = product_stock - #{productStock}
+		where product_id = #{productId}
 	</update>
 </mapper>
