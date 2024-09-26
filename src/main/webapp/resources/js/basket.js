@@ -82,11 +82,6 @@ $(document).ready(function() {
 	$('#allchk').prop('checked', true);
 	$('.product-checkbox').prop('checked', true);
 	changeTotalPrice();
-	
-    $('.product-amount').each(function() {
-        let productQty = $(this).data("qty"); 
-        $(this).val(productQty); 
-    });
     
     $('.product-checkbox').each(function() {
     	$(this).click(function() {
@@ -102,6 +97,9 @@ $(document).ready(function() {
 	
 	$('#productList').on('change', '.product-amount', function() {
 		let selectedQty = $(this).val();
+		if (selectedQty === "직접입력") {
+			return;
+		}
 		let productId = $(this).data("pid");
 		let productPrice = $(this).parent().siblings('.product-price').data("price");
 		let productTotalPrice = $(this).parent().siblings('.product-price').children(".product-total-price");
@@ -119,6 +117,42 @@ $(document).ready(function() {
 			}
 		});
 	});
+	
+	$('.product-amount').on('change', function() {
+		const inputAmount = $(this).siblings('.userInput').children('.custom-amount');
+		const inputAmountBtn = $(this).siblings('.userInput').children('.custom-amount-btn');
+
+		if ($(this).find("option:selected").text() == '직접입력') {
+			inputAmount.show().val(''); 
+			inputAmountBtn.show();
+            $(this).hide();
+		} else {
+            inputAmount.hide();
+            inputAmountBtn.hide();
+            $(this).show();
+        }
+	});
+	
+	$('.custom-amount-btn').on('click', function() {
+		const inputAmount = $(this).siblings('.custom-amount');
+		const inputNum = inputAmount.val();
+		const selectList = $(this).parent().siblings('.product-amount');
+		const selectAmount = selectList.children('.select-amount')
+		if (!Number.isNaN(inputNum) && inputNum !== '') {
+			$(this).hide();
+			$(this).siblings('.custom-amount').hide();
+			selectList.show();
+			selectAmount.val(inputNum);
+			selectAmount.text(inputNum);
+			selectAmount.prop('selected', true);
+			selectList.trigger('change');
+		}
+	});
+	
+    $('.product-amount').each(function() {
+        let productQty = $(this).data("qty"); 
+        $(this).val(productQty); 
+    });
 		
 	deleteProducts();
 	orderSelectedProducts();
