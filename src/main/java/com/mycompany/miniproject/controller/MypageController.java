@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mycompany.miniproject.dto.OrderDetailDto;
+import com.mycompany.miniproject.dto.OrderDto;
 import com.mycompany.miniproject.dto.PagerDto;
 import com.mycompany.miniproject.dto.ProductAddDto;
 import com.mycompany.miniproject.dto.ProductImageDto;
@@ -38,6 +40,7 @@ import com.mycompany.miniproject.dto.UserDto;
 import com.mycompany.miniproject.security.UsersDetails;
 import com.mycompany.miniproject.security.UsersDetailsService;
 import com.mycompany.miniproject.service.OrderDetailService;
+import com.mycompany.miniproject.service.OrderService;
 import com.mycompany.miniproject.service.ProductService;
 import com.mycompany.miniproject.service.ReviewService;
 import com.mycompany.miniproject.service.UserService;
@@ -63,6 +66,9 @@ public class MypageController {
 	
 	@Autowired
 	private UsersDetailsService usersDetailsService;
+	
+	@Autowired
+	private OrderService orderService;
 	
 	@GetMapping("/editMyInfo")
 	public String editMyInfo(Authentication authentication, Model model) {
@@ -145,7 +151,7 @@ public class MypageController {
 		return "mypage/mypage";
 	}
 	
-	@GetMapping("/orderList")
+/*	@GetMapping("/orderList")
 	public String orderList(Model model) {
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    String userId =  authentication.getName();
@@ -169,8 +175,47 @@ public class MypageController {
 	    model.addAttribute("orderDetails", orderDetails);
 	    log.info("실행");
 	    return "mypage/orderList";
-	}
+	}*/
 
+	@GetMapping("/orderList")
+	public String orderList(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session) {
+	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	String userId =  authentication.getName();
+				
+	    log.info("User ID: " + userId);
+	    log.info("OrderDetailService: " + orderDetailService);
+
+	    List<OrderDetailDto> orderDetails = orderDetailService.getOrderDetailsByOd(userId);
+	    log.info("orderDetials나오나" + orderDetails);
+
+	    int orderLength = orderService.totalOrderNum(userId);
+	    PagerDto pager = new PagerDto(5, 5, orderLength, pageNo);
+	    List<OrderDto> orderDtos = orderService.getOrdersByUserId(pager, userId);
+	    
+	    log.info("#######################################################list길이" + orderLength);
+	    log.info("List<OrderDetailDto>: " + orderDetails);
+	    log.info("List<OrderDto>: " + orderDtos);
+
+	    for (OrderDetailDto orderDetail : orderDetails) {
+	    	log.info("Order ID: " + orderDetail.getOrderId());
+	    	log.info("Product ID: " + orderDetail.getProductId());
+
+	    	ReviewDto review = reviewService.getReview(orderDetail.getOrderId(), orderDetail.getProductId());
+		    orderDetail.setReview(review);
+	        boolean hasReview = reviewService.hasReviewForProduct(orderDetail.getOrderId(), orderDetail.getProductId());
+	        orderDetail.setHasReview(hasReview);
+	    }
+
+	    session.setAttribute("pager", pager);
+	    UserDto userInfo = userService.getUserInfo(userId);
+	    model.addAttribute("orderDtos", orderDtos);
+		model.addAttribute("userInfo", userInfo);
+	    model.addAttribute("orderDetails", orderDetails);
+	    
+	    log.info("실행");
+	    return "mypage/orderList";
+	}
+	
 	@GetMapping("/getReviewInfo")
 	@ResponseBody
 	public ReviewDto getReviewInfo(@RequestParam int reviewId, @RequestParam int productId, @RequestParam int orderId) {
