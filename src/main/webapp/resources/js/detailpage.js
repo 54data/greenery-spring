@@ -242,7 +242,7 @@ $('.add-to-cart').on('click', function(event){
 		success: function(response){
 			console.log(response);
 			if(response == "notLogin"){
-				window.location.href="account/loginForm";
+				window.location.href="/miniproject/account/loginForm";
 			}
 			if(response == "successAdd"){
 				console.log("successAdd로 왔음");
