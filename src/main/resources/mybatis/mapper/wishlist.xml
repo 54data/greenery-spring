@@ -25,12 +25,12 @@
 	
 	<select id="getWishlistAll" parameterType="Pager" resultType="ProductAdd">
 		select 
-    		product_id, product_name, product_price, product_summary
+    		product_id, product_name, product_price, product_summary, product_stock
 		from (
     		select 
-        		rownum AS rnum, product_id, product_name, product_price, product_summary
+        		rownum AS rnum, product_id, product_name, product_price, product_summary, product_stock
     		from (
-        		select product_id, product_name, product_price, product_summary
+        		select product_id, product_name, product_price, product_summary, product_stock
         		from wishlist
         		join product USING (product_id)
         		where user_id = #{userId}

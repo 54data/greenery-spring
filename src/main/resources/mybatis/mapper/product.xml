@@ -36,7 +36,7 @@
 	
 	<select id="getSearchProduct" parameterType="SearchDto" resultType="Product">
 		select
-			product_id, product_name, product_price, product_summary, category
+			product_id, product_name, product_price, product_summary, category, product_stock
 		from product
 		<if test="searchContent == null">
 			where category=#{category}
@@ -76,9 +76,9 @@
 	
 	<select id="getRecProduct" resultType="Product">
 	<![CDATA[
-		select product_id, product_name, product_price, product_summary
+		select product_id, product_name, product_price, product_summary, product_stock
 		from(
-			select rownum, product_id, product_name, product_price, product_summary
+			select rownum, product_id, product_name, product_price, product_summary, product_stock
 			from product
 			order by product_stock desc)
 		where rownum<=5 ]]>
@@ -86,9 +86,9 @@
 
 	<select id="getNewProduct" resultType="Product">
 	<![CDATA[
-		select product_id, product_name, product_price, product_summary
+		select product_id, product_name, product_price, product_summary, product_stock
 		from(
-			select rownum, product_id, product_name, product_price, product_summary
+			select rownum, product_id, product_name, product_price, product_summary, product_stock
 			from product
 			where product_stock !=0
 			order by product_reg_date desc)

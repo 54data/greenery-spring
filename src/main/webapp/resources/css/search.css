@@ -189,3 +189,9 @@ body {
 	width: 350px;
 	height: 350px;
 }
+
+#soldout {
+	width: 80%;
+	height:80%;
+	margin: 51px auto;
+}
