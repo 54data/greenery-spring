@@ -159,13 +159,13 @@ function zipcodeBtn() {
 
 function checkUserTel() {
 	$(document).on('input', '.userTelInput', function() {
-		let regExp = RegExp(/^[0-9]{1,11}$/);
+		let regExp = RegExp(/^(01[016789]{1})[0-9]{3,4}[0-9]{4}$/);
 		if (regExp.test($(this).val())) {
 			$("#inputPhoneMessage").html('');
 		} else if ($(this).val() === '') {
 			$("#inputPhoneMessage").html('<span>해당 입력 값은 필수입니다.</span>');
 		} else {
-			$("#inputPhoneMessage").html("<span>- 하이픈을 제외하고 핸드폰 번호를 입력해주세요.</span>");
+			$("#inputPhoneMessage").html("<span>유효하지 않은 전화번호입니다. (숫자만 입력)</span>");
 		}
 	});
 }
@@ -245,21 +245,16 @@ $(document).ready(function () {
         $(this).html('<strong>' + $(this).text() + '</strong>'); // 클릭한 메뉴 탭 글씨 진하게 함
     });
 
-    
     $(document).on('click', '.product-image', function () {
         window.location.href = '../product/detailpage';
     });
     
     $(document).on('click', '.order-img', function () {
     	var productId = $(this).data('product-id');
-        
         window.location.href = '../product/detailpage?productId=' + productId;
     });
-    
-    zipcodeBtn();
-    
+        
     $(document).on('click', '.review-btn', function(){  	
-    	
     	$("#image-input").val(''); 
         $("#reviewTextarea").val('');  
         $(".star").removeClass('on'); 
@@ -282,9 +277,7 @@ $(document).ready(function () {
     
     
     $(document).on('click', '.delete-btn', function(){
-    	var reviewId = this.value;
-    	console.log(reviewId);
-    	
+    	var reviewId = this.value;    	
     	Swal.fire({
     		  title: "정말 삭제하시겠습니까?",
     		  text: "삭제한 리뷰는 취소할 수 없습니다!",
@@ -308,7 +301,6 @@ $(document).ready(function () {
     		    		    	getContent('orderList');
     		    		    });
     				  },
-    				  
     				  error: function(error){
     					  Swal.fire({
     		    		      title: '삭제 실패!',
@@ -317,11 +309,10 @@ $(document).ready(function () {
     				  }
     			  })
     		  }
-    		});
+    	});
     });
     
     $(document).on('click', '.update-btn', function(){  
-        
     	$("#image-input").val(''); 
         $("#reviewTextarea").val('');  
         $(".star").removeClass('on'); 
@@ -333,9 +324,6 @@ $(document).ready(function () {
     	var productName = $(this).data('productName');
     	var productSummary = $(this).data('productSummary');
     	var reviewId = $(this).data('reviewId');
-    	
-    	console.log("업데이트 버튼");
-    	console.log("reviewId:", reviewId);
     	
     	$('.write-btn').data('productId', productId).data('orderId', orderId).data('userId', userId).data('reviewId', reviewId);
     	
@@ -378,19 +366,10 @@ $(document).ready(function () {
     	var productId = $(this).data('productId');
     	var orderId = $(this).data('orderId');
     	var userId = $(this).data('userId');
-    	
     	var reviewContent = $("#reviewTextarea").val();
     	var reviewScore = $(".star_rating .on").length;
     	var reviewImg = $("#image-input")[0].files[0];
-    	
-        console.log("reviewId:", reviewId);
-        console.log("productId:", productId);
-        console.log("orderId:", orderId);
-        console.log("userId:", userId);
-        console.log("reviewContent:", reviewContent);
-        console.log("reviewScore:", reviewScore);
-        console.log("reviewImg:", reviewImg);
-        
+
         if (!reviewContent || reviewContent.trim() === "") {
             Swal.fire({
                 icon: 'error',
@@ -408,7 +387,6 @@ $(document).ready(function () {
         }
         
     	var formData = new FormData();
-    	
     	formData.append('productId', productId);
     	formData.append('orderId', orderId);
     	formData.append('userId', userId);
@@ -432,9 +410,7 @@ $(document).ready(function () {
 		} else {
 			ajaxUrl = '/miniproject/mypage/reviewInsert';
 		}
-		
-		console.log(ajaxUrl);
-		
+				
     	$.ajax({
     		url: ajaxUrl,
     		method: 'POST',
@@ -456,16 +432,12 @@ $(document).ready(function () {
   				});
     			console.log(data);
     		}
-    	})
-
+    	});
     });
-        
-});
 
 	$(document).on('click', '.like-icon', function(){
     	let productId = $(this).data('pid');
     	let heartIcon = $(this).find("img");
-
     	$.ajax({
     		url: "/miniproject/product/Wishlist",
     		type: "get",
@@ -531,7 +503,7 @@ $(document).ready(function () {
 			error: function(){
 				console.log("응답실패");
 			}
-		})	
+		});	
 	});
     
     zipcodeBtn();
@@ -549,4 +521,4 @@ $(document).ready(function () {
         checkPwd();
         checkNewPwd();
     });
-
+});
