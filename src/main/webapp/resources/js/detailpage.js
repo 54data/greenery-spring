@@ -127,31 +127,6 @@ function decrease(button) {
     $('.checkout')[0].setAttribute('onClick', href + '=' + quantity + "'");
 }
 
-// 결제 페이지로 이동 시 호출되는 함수
-function checkout() {
-    const cartItems = [];
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        const item = JSON.parse(localStorage.getItem(key));
-        cartItems.push(item);
-    }
-
-    sessionStorage.setItem('checkout', JSON.stringify(checkout));
-    window.location.href = '../order/payment'; // 결제 페이지로 이동 
-}
-
-
-function cart() {
-    const cartItems = [];
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        const item = JSON.parse(localStorage.getItem(key));
-        cartItems.push(item);
-    }
-    sessionStorage.setItem('add-to-cart', JSON.stringify(cart));
-    window.location.href = '../order/basket'; // 장바구니 페이지로 이동 
-}
-
 function scrollToTop() {
     window.scrollTo({
         top: 0,
@@ -183,3 +158,53 @@ $(".wishlist-button").on("click", function() {
 		}
 	})
 })
+
+$('.add-to-cart').on('click', function(event){
+	let productId = $(this).data('pid')
+	$.ajax({
+		url: "/miniproject/order/addBasket",
+		type: "get",
+		data:{productId: productId},
+		success: function(response){
+			console.log(response);
+			if(response == "notLogin"){
+				window.location.href="account/loginForm";
+			}
+			if(response == "successAdd"){
+				console.log("successAdd로 왔음");
+				Swal.fire({
+					html : "장바구니에 상품이 담겼습니다.<br>장바구니로 이동하시겠습니까?",
+					cancelButtonText : "쇼핑 계속하기",
+					confirmButtonText : "장바구니 확인",
+					showCancelButton : true,
+				}).then(function(result) {
+					if (result.isConfirmed) {												
+						console.log("이동!");
+						window.location.href= "/miniproject/order/basket";
+					}else{
+						console.log("이동안함!");
+					}
+				});
+			}
+			if(response == "exist"){
+				console.log("exist 왔음");
+				Swal.fire({
+					html : "장바구니에 상품이 담겼습니다.<br>장바구니로 이동하시겠습니까?",
+					cancelButtonText : "쇼핑 계속하기",
+					confirmButtonText : "장바구니 확인",
+					showCancelButton : true,
+				}).then(function(result) {
+					if (result.isConfirmed) {												
+						console.log("이동!");
+						window.location.href= "/miniproject/order/basket";
+					}else{
+						console.log("이동안함!");
+					}
+				});
+			}
+		},
+		error: function(){
+			console.log("응답실패");
+		}
+	})	
+});
