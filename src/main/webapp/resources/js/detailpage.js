@@ -67,7 +67,6 @@ function showSlides(n) {
     let i;
     let slides = document.getElementsByClassName("mySlides");
     let dots = document.getElementsByClassName("dot");
-    /* let captionText = document.getElementById("caption"); */
     if (n > slides.length) { slideIndex = 1 }
     if (n < 1) { slideIndex = slides.length }
     for (i = 0; i < slides.length; i++) {
@@ -85,6 +84,8 @@ function showSlides(n) {
 
 $(document).ready(function(){
     loadTabContent('detailInfo', $('#productId').val());
+
+    $('.tab-button').first().addClass('active');
 });
 
 
@@ -121,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			dividers.forEach(div => {
 				div.style.backgroundColor = '#a9a9a9';
 				div.style.height = '0.2px';
-				});
+			});
 			
 			button.classList.add('active');
 			
@@ -136,38 +137,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
 /* 수량 조절 */
 function increase(button) {
-    const productDiv = button.closest('.product-info'); // 부모 요소 찾기
-    if (!productDiv) return; // productDiv가 null인 경우 함수 종료
+    const productDiv = button.closest('.product-info'); 
+    if (!productDiv) return; 
 
     const quantitySpan = productDiv.querySelector('.quantity-number');
     const priceSpan = productDiv.querySelector('.product-price');
 
-    if (!quantitySpan || !priceSpan) return; // 요소가 없으면 함수 종료
+    if (!quantitySpan || !priceSpan) return; 
 
     let quantity = parseInt(quantitySpan.innerText);
     quantity += 1;
     quantitySpan.innerText = quantity;
 
-    /* 가격 업데이트 */
     const pricePerUnit = parseFloat(priceSpan.getAttribute('data-price'));
-    const totalPrice = (pricePerUnit * quantity).toLocaleString() + '원';
-    priceSpan.innerText = totalPrice; // 가격 업데이트
-
-    // 해당 정보 로컬 스토리지에 저장
-    saveToLocalStorage(productDiv);
-    console.log("수량 증가");
+    const totalPrice = (pricePerUnit * quantity).toLocaleString() + ' 원';
+    priceSpan.innerText = totalPrice; 
 }
 
-
-
 function decrease(button) {
-    const productDiv = button.closest('.product-info'); // 부모 요소 찾기
-    if (!productDiv) return; // productDiv가 null인 경우 함수 종료
+    const productDiv = button.closest('.product-info'); 
+    if (!productDiv) return; 
 
     const quantitySpan = productDiv.querySelector('.quantity-number');
     const priceSpan = productDiv.querySelector('.product-price');
 
-    if (!quantitySpan || !priceSpan) return; // 요소가 없으면 함수 종료
+    if (!quantitySpan || !priceSpan) return; 
 
     let quantity = parseInt(quantitySpan.innerText);
     quantity -= 1;
@@ -176,38 +170,11 @@ function decrease(button) {
     }
     quantitySpan.innerText = quantity;
 
-    /* 가격 업데이트 */
     const pricePerUnit = parseFloat(priceSpan.getAttribute('data-price'));
-    const totalPrice = (pricePerUnit * quantity).toLocaleString() + '원';
+    const totalPrice = (pricePerUnit * quantity).toLocaleString() + ' 원';
     priceSpan.innerText = totalPrice; // 가격 업데이트
-
-    // 해당 정보 로컬 스토리지에 저장
-    saveToLocalStorage(productDiv);
 }
 
-// 로컬 스토리지에 저장하는 함수
-//function saveToLocalStorage(productDiv) {
-//    const quantitySpan = document.querySelector('.quantity-number');
-//    const priceSpan = document.querySelector('.product-price');
-//    const productNameSpan = document.querySelector('.product-title');
-//
-//    if (!quantitySpan || !priceSpan || !productNameSpan) return; // 요소가 없으면 함수 종료
-//
-//    const productName = productNameSpan.innerText.trim(); // 상품명
-//    const quantity = parseInt(quantitySpan.innerText); // 수량
-//    const price = priceSpan.getAttribute('data-price'); // 가격 (숫자형)
-//
-//    const productInfo = {
-//        name: productName,
-//        quantity: quantity,
-//        price: price
-//    };
-//
-//    // 로컬 스토리지에 저장
-//    localStorage.setItem(productName, JSON.stringify(productInfo));
-//
-//    console.log(저장된 상품: ${productName}, 수량: ${quantity}, 가격: ${price});
-//}
 
 // 결제 페이지로 이동 시 호출되는 함수
 function checkout() {
@@ -218,8 +185,6 @@ function checkout() {
         cartItems.push(item);
     }
 
-    /* document.getElementById('add-to-cart').addEventListener('click', function() {
-        window.location.href = '../payment/payment.html'; */
     sessionStorage.setItem('checkout', JSON.stringify(checkout));
     window.location.href = '../order/payment'; // 결제 페이지로 이동 
 }

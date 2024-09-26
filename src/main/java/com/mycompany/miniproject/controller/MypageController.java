@@ -168,9 +168,9 @@ public class MypageController {
 	    UserDto userInfo = userService.getUserInfo(userId);
 		model.addAttribute("userInfo", userInfo);
 	    model.addAttribute("orderDetails", orderDetails);
-	    model.addAttribute("userName", userName);
+/*	    model.addAttribute("userName", userName);
 	    model.addAttribute("userId", userId);
-	    
+*/	    
 	    log.info("실행");
 	    return "mypage/orderList";
 	}
