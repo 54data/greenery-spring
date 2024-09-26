@@ -16,6 +16,6 @@ public interface ProductImageDao {
 
 	public ProductImageDto getImgByUsage(ProductImageDto productImageDto);
 
-	public void deleteProductImg(ProductImageDto productImgDto);
+	public int deleteProductImg(ProductImageDto productImgDto);
 
 }

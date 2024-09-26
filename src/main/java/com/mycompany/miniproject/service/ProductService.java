@@ -136,7 +136,6 @@ public class ProductService {
 		productImgDto.setProductId(productId);
 		productImgDto.setProductImgUsage(usage);
 		productImageDao.deleteProductImg(productImgDto);
-		
 	}
 
 	public void addWishlist(WishlistDto wishlist) {
