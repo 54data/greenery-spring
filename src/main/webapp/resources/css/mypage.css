@@ -441,6 +441,12 @@
 	height: 200px;
 }
 
+#soldout {
+	width: 80%;
+	height:80%;
+	margin: 51px auto;
+}
+
 /* .update-btn, .review-btn {
 	border: none;
 	border-radius: 10px;

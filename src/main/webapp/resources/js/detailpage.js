@@ -91,17 +91,27 @@ function increase(button) {
 
     if (!quantitySpan || !priceSpan) return; 
 
+    const productStock = $(button).data('productStock');
     let quantity = parseInt(quantitySpan.innerText);
-    quantity += 1;
-    quantitySpan.innerText = quantity;
-    const pricePerUnit = parseFloat(priceSpan.getAttribute('data-price'));
-    const totalPrice = (pricePerUnit * quantity).toLocaleString() + ' 원';
     
-    quantitySpan.setAttribute('data-stock', quantity);
-    priceSpan.innerText = totalPrice; 
-    let herf = $('.checkout')[0].getAttribute('onClick')
-    href = herf.slice(0, herf.lastIndexOf('='));
-    $('.checkout')[0].setAttribute('onClick', href + '=' + quantity + "'");
+    if (quantity < productStock){
+    	quantity += 1;
+        quantitySpan.innerText = quantity;
+        const pricePerUnit = parseFloat(priceSpan.getAttribute('data-price'));
+        const totalPrice = (pricePerUnit * quantity).toLocaleString() + ' 원';
+        
+        quantitySpan.setAttribute('data-stock', quantity);
+        priceSpan.innerText = totalPrice; 
+        let herf = $('.checkout')[0].getAttribute('onClick')
+        href = herf.slice(0, herf.lastIndexOf('='));
+        $('.checkout')[0].setAttribute('onClick', href + '=' + quantity + "'");
+    } else {
+    	Swal.fire({
+            icon: 'error',
+            title: '최대 수량을 초과했습니다.'
+        });
+    }
+    
 }
 
 function decrease(button) {
@@ -168,7 +178,7 @@ $('.add-to-cart').on('click', function(event){
 		success: function(response){
 			console.log(response);
 			if(response == "notLogin"){
-				window.location.href="account/loginForm";
+				window.location.href="/miniproject/account/loginForm";
 			}
 			if(response == "successAdd"){
 				console.log("successAdd로 왔음");

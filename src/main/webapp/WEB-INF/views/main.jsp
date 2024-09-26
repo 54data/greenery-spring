@@ -86,7 +86,12 @@
 				                <img src="${pageContext.request.contextPath}/resources/image/cart_icon2.png" alt="장바구니 아이콘">
 				            </button>
 				            <button class="icon buy-icon" onclick="location.href='${pageContext.request.contextPath}/order/payment?productId=${product.productId}'">
-				                <img src="${pageContext.request.contextPath}/resources/image/dollar.png" alt="구매하기 아이콘" class="payment-img">
+				            	<c:if test="${product.productStock != 0}">
+					                <img src="${pageContext.request.contextPath}/resources/image/dollar.png" alt="구매하기 아이콘" class="payment-img">
+				            	</c:if>
+				            	<c:if test="${product.productStock == 0}">
+					                <img src="${pageContext.request.contextPath}/resources/image/soldout.png" alt="품절 아이콘" class="payment-img">
+				            	</c:if>
 				            </button>
 	                    </div>
 	                </div>
