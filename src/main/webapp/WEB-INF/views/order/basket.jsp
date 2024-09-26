@@ -44,24 +44,33 @@
 						<div class="product">
 			                <div class="product-body">
 			                    <input type="checkbox" class="product-checkbox" data-pid="${cart.productId}">
-			                    <div class="img">
-			                    	<img src="${pageContext.request.contextPath}/order/loadMainImg?productId=${cart.productId}" alt="${cart.productName}" class="picture">
-			                    </div>
-			                    <div class="product-label">
-			                        <div class="product-name">
-			                        	<span><strong>${cart.productName}</strong></span>
-			                        </div>
-			                        <div class="product-description">
-			                        	<span>${cart.productSummary}</span>
-			                        </div>
-			                    </div>
-		                    	<select class="product-amount" data-pid="${cart.productId}" data-qty="${cart.productQty}">
-		                    		<option value="1">1</option>
-		                    		<option value="2">2</option>
-		                    		<option value="3">3</option>
-		                    		<option value="4">4</option>
-		                    		<option value="5">5</option>
-		                    	</select>
+			                    <div class="product-info">
+				                    <div class="img">
+				                    	<img src="${pageContext.request.contextPath}/order/loadMainImg?productId=${cart.productId}" alt="${cart.productName}" class="picture">
+				                    </div>
+				                    <div class="product-label">
+				                        <div class="product-name">
+				                        	<span><strong>${cart.productName}</strong></span>
+				                        </div>
+				                        <div class="product-description">
+				                        	<span>${cart.productSummary}</span>
+				                        </div>
+				                    </div>
+				                </div>
+			                    <c:if test="${cart.productStock != 0}">
+			                    	<div class="amount">
+				                    	<select class="product-amount" data-pid="${cart.productId}" data-qty="${cart.productQty}">
+				                    		<option value="1">1</option>
+				                    		<option value="2">2</option>
+				                    		<option value="3">3</option>
+				                    		<option value="4">4</option>
+				                    		<option value="5">5</option>
+				                    	</select>
+			                    	</div>
+			                    </c:if>
+			                    <c:if test="${cart.productStock == 0}">
+			                    	<div class="soldout" data-status="soldout">품절</div>
+			                    </c:if>
 			                    <div class="product-price" data-price="${cart.productPrice}">
 									<span class="product-total-price" data-total-price="${cart.productQty * cart.productPrice}">
 										<fmt:formatNumber value="${cart.productQty * cart.productPrice}" type="number" groupingUsed="true"/></span>원
@@ -96,14 +105,11 @@
 					</div>
 				</div>
 				<div class="divider"></div>
-
 				<div class="payment-info-body-content1">
 					<div class="totalPrice" id="sum_p_price">
 						<span>총 결제 금액 &nbsp;</span><span id="totalPrice-num">0</span> 원
 					</div>
 					<div id="goOrder" class="">
-						<!-- 주문버튼 -->
-						<div class="clear"></div>
 						<div id="product-order">
 							<button id="order-button">선택 상품 주문</button>
 						</div>
