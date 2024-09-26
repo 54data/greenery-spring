@@ -9,7 +9,6 @@
 	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reviews.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/sweetalert2/sweetalert2.min.css">
 	<script src="${pageContext.request.contextPath}/resources/sweetalert2/sweetalert2.min.js"></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
