@@ -83,6 +83,8 @@ $(document).ready(function() {
 		
 	$('.product-checkbox').prop('checked', true);
 	
+	changeTotalPrice();
+	
 	$('.soldout').each(function() {
     	const checkBox = $(this).siblings(".product-checkbox");
     	if (checkBox.prop("checked")) {
