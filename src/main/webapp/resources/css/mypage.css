@@ -383,7 +383,6 @@
 .change-pwd,
 .change-check-pwd {
 	display: flex;
-	align-items: center;
 	height: 70px;
 }
 
