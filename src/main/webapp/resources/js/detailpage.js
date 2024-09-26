@@ -1,3 +1,17 @@
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top',
+    showConfirmButton: false,
+    timer: 2500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+    	toast.style.width = '350px';
+    	toast.style.fontSize = '14px';
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+    }
+});
+
 let slideIndex = 1;
 showSlides(slideIndex);
 
@@ -106,9 +120,9 @@ function increase(button) {
         href = herf.slice(0, herf.lastIndexOf('='));
         $('.checkout')[0].setAttribute('onClick', href + '=' + quantity + "'");
     } else {
-    	Swal.fire({
+    	Toast.fire({
             icon: 'error',
-            title: '최대 수량을 초과했습니다.'
+            title: '제품의 최대 수량은 '+productStock+'개 입니다.'
         });
     }
     
