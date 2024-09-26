@@ -12,7 +12,8 @@
 	<select id="getCartProuducts" resultType="Cart" parameterType="String">
 		select 
 		    user_id, product_id, product_qty,
-		    product_name, product_price, product_summary
+		    product_name, product_price, product_summary,
+		    product_stock
 		from cart
 		join product
 		using(product_id)
