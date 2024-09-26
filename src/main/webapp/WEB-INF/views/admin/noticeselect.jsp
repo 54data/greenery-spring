@@ -31,7 +31,9 @@
 		<c:forEach items="${noticeList}" var="notice">
 			<div class="list-container">
 				<div class="list1"><fmt:formatDate value="${notice.noticeRegDate}" pattern="yyyy-MM-dd"/></div>
-				<div class="list2">${notice.noticeTitle}</div>
+				<div class="list2">
+					<a href="${pageContext.request.contextPath}/notice/noticeContentAddHitcount?noticeId=${notice.noticeId}">${notice.noticeTitle}</a>
+				</div>
 				<div class="list3">
 					<button class="btn1" onclick="location.href='noticeUpdateForm?pageUsage=수정&noticeId=${notice.noticeId}'">수정</button>
 					<button class="btn2" data-nid="${notice.noticeId}">삭제</button>
