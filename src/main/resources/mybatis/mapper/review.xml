@@ -31,12 +31,12 @@
 	</select>
 	
 	<insert id="insertReview" parameterType="Review">
-	    INSERT INTO review (review_id, product_id, user_id, review_content, review_reg_date, review_score, order_id
+	    insert into review (review_id, product_id, user_id, review_content, review_reg_date, review_score, order_id
 	        <if test="reviewImg != null">, review_img</if>
 	        <if test="reviewImgType != null">, review_img_type</if>
 	        <if test="reviewImgName != null">, review_img_name</if>
 	    )
-	    VALUES (review_seq.nextval, #{productId}, #{userId}, #{reviewContent}, sysdate, #{reviewScore}, #{orderId}
+	    values (review_seq.nextval, #{productId}, #{userId}, #{reviewContent}, sysdate, #{reviewScore}, #{orderId}
 	        <if test="reviewImg != null">, #{reviewImg}</if>
 	        <if test="reviewImgType != null">, #{reviewImgType}</if>
 	        <if test="reviewImgName != null">, #{reviewImgName}</if>
