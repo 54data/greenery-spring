@@ -54,14 +54,14 @@
 	            		<div class="product-quantity">
 	            			<button onclick="decrease(this)">-</button>
 	            			<span class="quantity-number" id="quantity" data-stock=1>1</span>
-	            			<button onclick="increase(this)">+</button>
+	            			<button onclick="increase(this)" data-product-stock="${product.productStock}">+</button>
 	            		</div>
 	            		<span class="product-price" data-price="${product.productPrice}">
 	            			<fmt:formatNumber value="${product.productPrice}" type="number" pattern="#,###"/> 원
 	            		</span>
 	            </div>           
 	            <div class="buttons">
-	               <button class="add-to-cart" data-pid="$product.productId}">장바구니</button>
+	               <button class="add-to-cart" data-pid="${product.productId}">장바구니</button>
 	               <button onclick="location.href='${pageContext.request.contextPath}/order/payment?productId=${product.productId}&productStock=1'" class="checkout">바로구매</button>
 	               <button class="wishlist-button" data-pid="${product.productId}">
 						<c:if test="${isWishlist}">

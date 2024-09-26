@@ -1,3 +1,17 @@
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top',
+    showConfirmButton: false,
+    timer: 2500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+    	toast.style.width = '350px';
+    	toast.style.fontSize = '14px';
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+    }
+});
+
 let slideIndex = 1;
 showSlides(slideIndex);
 
@@ -91,17 +105,26 @@ function increase(button) {
 
     if (!quantitySpan || !priceSpan) return; 
 
+    const productStock = $(button).data('productStock');
     let quantity = parseInt(quantitySpan.innerText);
-    quantity += 1;
-    quantitySpan.innerText = quantity;
-    const pricePerUnit = parseFloat(priceSpan.getAttribute('data-price'));
-    const totalPrice = (pricePerUnit * quantity).toLocaleString() + ' 원';
-    
-    quantitySpan.setAttribute('data-stock', quantity);
-    priceSpan.innerText = totalPrice; 
-    let herf = $('.checkout')[0].getAttribute('onClick')
-    href = herf.slice(0, herf.lastIndexOf('='));
-    $('.checkout')[0].setAttribute('onClick', href + '=' + quantity + "'");
+
+    if (quantity < productStock){
+    	quantity += 1;
+        quantitySpan.innerText = quantity;
+        const pricePerUnit = parseFloat(priceSpan.getAttribute('data-price'));
+        const totalPrice = (pricePerUnit * quantity).toLocaleString() + ' 원';
+        
+        quantitySpan.setAttribute('data-stock', quantity);
+        priceSpan.innerText = totalPrice; 
+        let herf = $('.checkout')[0].getAttribute('onClick')
+        href = herf.slice(0, herf.lastIndexOf('='));
+        $('.checkout')[0].setAttribute('onClick', href + '=' + quantity + "'");
+    } else {
+    	Toast.fire({
+            icon: 'error',
+            title: '제품의 최대 수량은 '+productStock+'개 입니다.'
+        });
+    }
 }
 
 function decrease(button) {
@@ -161,10 +184,11 @@ $(".wishlist-button").on("click", function() {
 
 $('.add-to-cart').on('click', function(event){
 	let productId = $(this).data('pid')
+	let productStock = $('.quantity-number').data('stock');
 	$.ajax({
 		url: "/miniproject/order/addBasket",
 		type: "get",
-		data:{productId: productId},
+		data: {productId : productId, productStock: productStock},
 		success: function(response){
 			console.log(response);
 			if(response == "notLogin"){
@@ -189,7 +213,7 @@ $('.add-to-cart').on('click', function(event){
 			if(response == "exist"){
 				console.log("exist 왔음");
 				Swal.fire({
-					html : "장바구니에 상품이 담겼습니다.<br>장바구니로 이동하시겠습니까?",
+					html : "이미 담긴 상품입니다.<br>장바구니로 이동하시겠습니까?",
 					cancelButtonText : "쇼핑 계속하기",
 					confirmButtonText : "장바구니 확인",
 					showCancelButton : true,
