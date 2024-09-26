@@ -69,11 +69,7 @@
 	</select>
 	
 	<select id = "getProductDetailInfo" parameterType="int" resultType="Product">
-<<<<<<< HEAD
 		select PRODUCT_ID,  PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_SUMMARY, PRODUCT_DETAIL_SUMMARY, CATEGORY ,product_stock
-=======
-		select PRODUCT_ID,  PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_SUMMARY, PRODUCT_DETAIL_SUMMARY, CATEGORY, product_stock 
->>>>>>> branch 'master' of https://github.com/54data/miniproject.git
 		from product
 		where product_Id = #{productId}
 	</select>
