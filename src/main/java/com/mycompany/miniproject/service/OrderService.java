@@ -9,6 +9,7 @@ import com.mycompany.miniproject.dao.OrderDao;
 import com.mycompany.miniproject.dto.CartDto;
 import com.mycompany.miniproject.dto.OrderDetailDto;
 import com.mycompany.miniproject.dto.OrderDto;
+import com.mycompany.miniproject.dto.PagerDto;
 
 @Service
 public class OrderService {
@@ -54,5 +55,13 @@ public class OrderService {
 
 	public int getCartNum(String userId) {
 		return orderDao.getCartNumById(userId);
+	}
+
+	public List<OrderDto> getOrdersByUserId(PagerDto pager, String userId) {
+		return orderDao.getOrdersByUserId(pager, userId);
+	}
+	
+	public int totalOrderNum(String userId) {
+		return orderDao.totalOrderNum(userId);
 	}
 }

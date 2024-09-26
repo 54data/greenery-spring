@@ -27,8 +27,7 @@ public class OrderDetailService {
 	    params.put("orderId", orderId);
 	    params.put("productId", productId);
 	    
-	    return orderDetailDao.getOrderDetail(params);
-	    
+	    return orderDetailDao.getOrderDetail(params);	    
 	}
 
 	
