@@ -165,6 +165,8 @@ public class MypageController {
 	        orderDetail.setHasReview(hasReview);
 	    }
 	    
+	    UserDto userInfo = userService.getUserInfo(userId);
+		model.addAttribute("userInfo", userInfo);
 	    model.addAttribute("orderDetails", orderDetails);
 	    model.addAttribute("userName", userName);
 	    model.addAttribute("userId", userId);

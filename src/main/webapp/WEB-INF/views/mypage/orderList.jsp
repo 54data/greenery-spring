@@ -16,7 +16,11 @@
 	</div>
 	<div class="mypage-title-coupon">
 		<span class="coupon-status">
-			쿠폰 <span class="coupon-num">1</span>개
+			쿠폰 
+			<span class="coupon-num">
+				<c:if test="${userInfo.couponStatus == 1}">1</c:if>
+				<c:if test="${userInfo.couponStatus != 1}">0</c:if>
+			</span>개
 		</span>
 	</div>
 </section>
