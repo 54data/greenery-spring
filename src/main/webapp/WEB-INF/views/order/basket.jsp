@@ -13,7 +13,6 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/sweetalert2/sweetalert2.min.css">
 	<script src="${pageContext.request.contextPath}/resources/sweetalert2/sweetalert2.min.js"></script>
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 
 <body>
@@ -46,11 +45,15 @@
 			                    <input type="checkbox" class="product-checkbox" data-pid="${cart.productId}">
 			                    <div class="product-info">
 				                    <div class="img">
-				                    	<img src="${pageContext.request.contextPath}/order/loadMainImg?productId=${cart.productId}" alt="${cart.productName}" class="picture">
+				                    	<a href="${pageContext.request.contextPath}/product/detailpage?productId=${cart.productId}">
+				                    		<img src="${pageContext.request.contextPath}/order/loadMainImg?productId=${cart.productId}" alt="${cart.productName}" class="picture">
+				                    	</a>
 				                    </div>
 				                    <div class="product-label">
 				                        <div class="product-name">
-				                        	<span><strong>${cart.productName}</strong></span>
+				                        	<a href="${pageContext.request.contextPath}/product/detailpage?productId=${cart.productId}">
+					                        	<span><strong>${cart.productName}</strong></span>
+					                        </a>
 				                        </div>
 				                        <div class="product-description">
 				                        	<span>${cart.productSummary}</span>
