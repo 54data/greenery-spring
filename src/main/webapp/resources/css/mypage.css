@@ -470,11 +470,12 @@
 #payment-completed {
 	border: none;
     border-radius: 10px;
-    width: 70px; 
-    font-size: 12px;
+    width: 80px; 
+    font-size: 14px;
     margin-top: 2px;
     margin-bottom: 2px;
-    margin-right: 10px;
+    margin-right: auto;
+    margin-left: auto;
 	color: #808080;	
 	border: dotted 1px #808080;	
 }
@@ -488,11 +489,12 @@
     border: none;
     border-radius: 10px;
     background-color: #CFF7D3;
-    width: 70px; 
-    font-size: 12px;
+    width: 80px; 
+    font-size: 14px;
     margin-top: 2px;
     margin-bottom: 2px;
-    margin-right: 10px; 
+    margin-right: auto;
+    margin-left: auto; 
 }
 
 .delete-btn {
@@ -500,9 +502,10 @@
     border-radius: 10px;
     background-color: black;
     color: white;
-    width: 70px; 
-    font-size: 12px;
+    width: 80px; 
+    font-size: 14px;
     margin-top: 2px;
     margin-bottom: 2px;
-    margin-right: 10px; 
+    margin-right: auto;
+    margin-left: auto;
 }
