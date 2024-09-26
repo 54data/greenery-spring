@@ -80,9 +80,18 @@ function orderSelectedProducts() {
 
 $(document).ready(function() {
 	$('#allchk').prop('checked', true);
+		
 	$('.product-checkbox').prop('checked', true);
-	changeTotalPrice();
-    
+	
+	$('.soldout').each(function() {
+    	const checkBox = $(this).siblings(".product-checkbox");
+    	if (checkBox.prop("checked")) {
+    		checkBox.attr("onclick", "return false;");
+    		checkBox.prop('checked', false);
+        }
+    	changeTotalPrice();
+    });
+	    
     $('.product-checkbox').each(function() {
     	$(this).click(function() {
     		changeTotalPrice();
@@ -163,7 +172,7 @@ $(document).ready(function() {
         let productQty = $(this).data("qty"); 
         $(this).val(productQty); 
     });
-		
+    
 	deleteProducts();
 	orderSelectedProducts();
 });
