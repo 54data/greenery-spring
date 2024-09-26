@@ -62,7 +62,7 @@
 				<div class="form-group">
 					<label>상품명 [30자 이하]</label>
 					<input name="productName" value="${product.productName}" id="productName" type="text"
-						placeholder="예시) 프레시 블랙 떡솝" required>
+						placeholder="예시) 프레시 블랙 떡솝" maxlength="30" required>
 				</div>
 				
 				<div class="form-group">
@@ -75,7 +75,7 @@
 				<div class="form-group">
 					<label>상품 수량 [10자리 이하]</label>
 					<input name="productStock" value="${product.productStock}" id="productStock" type="text"
-						placeholder="수량을 입력해주세요" required>
+						placeholder="수량을 입력해주세요" maxlength="10" required>
 					<div class="form-blank">개</div>
 				</div>
 				
@@ -145,13 +145,13 @@
 				<div class="form-group">
 					<label>상품 대표 설명 (썸네일)<br>[40자 이하]</label>
 					<input name="productSummary" value="${product.productSummary}" id="productSummary" type="text"
-						placeholder="상품의 대표 설명을 입력하세요" required>
+						placeholder="상품의 대표 설명을 입력하세요" maxlength="40" required>
 				</div>
 				
 				<div class="form-group">
-					<label>상품 상세페이지 대표 설명<br>[80자 이하]</label>
+					<label>상품 상세페이지 대표 설명<br>[100자 이하]</label>
 					<input name="productDetailSummary" value="${product.productDetailSummary}" id="productDetailSummary"
-						type="text" placeholder="상품의 핵심 특징을 간단히 설명하세요" required>
+						type="text" placeholder="상품의 핵심 특징을 간단히 설명하세요" maxlength="100" required>
 				</div>
 				<div class="image-thumnail">
 					<label>상품 상세페이지 상세정보 설명</label>
