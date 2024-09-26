@@ -61,7 +61,7 @@
 	            		</span>
 	            </div>           
 	            <div class="buttons">
-	               <button class="add-to-cart" data-pid="$product.productId}">장바구니</button>
+	               <button class="add-to-cart" data-pid="${product.productId}">장바구니</button>
 	               <button onclick="location.href='${pageContext.request.contextPath}/order/payment?productId=${product.productId}&productStock=1'" class="checkout">바로구매</button>
 	               <button class="wishlist-button" data-pid="${product.productId}">
 						<c:if test="${isWishlist}">

@@ -107,7 +107,7 @@ function increase(button) {
 
     const productStock = $(button).data('productStock');
     let quantity = parseInt(quantitySpan.innerText);
-    
+
     if (quantity < productStock){
     	quantity += 1;
         quantitySpan.innerText = quantity;
@@ -125,7 +125,6 @@ function increase(button) {
             title: '제품의 최대 수량은 '+productStock+'개 입니다.'
         });
     }
-    
 }
 
 function decrease(button) {
@@ -185,10 +184,11 @@ $(".wishlist-button").on("click", function() {
 
 $('.add-to-cart').on('click', function(event){
 	let productId = $(this).data('pid')
+	let productStock = $('.quantity-number').data('stock');
 	$.ajax({
 		url: "/miniproject/order/addBasket",
 		type: "get",
-		data:{productId: productId},
+		data: {productId : productId, productStock: productStock},
 		success: function(response){
 			console.log(response);
 			if(response == "notLogin"){
@@ -213,7 +213,7 @@ $('.add-to-cart').on('click', function(event){
 			if(response == "exist"){
 				console.log("exist 왔음");
 				Swal.fire({
-					html : "장바구니에 상품이 담겼습니다.<br>장바구니로 이동하시겠습니까?",
+					html : "이미 담긴 상품입니다.<br>장바구니로 이동하시겠습니까?",
 					cancelButtonText : "쇼핑 계속하기",
 					confirmButtonText : "장바구니 확인",
 					showCancelButton : true,

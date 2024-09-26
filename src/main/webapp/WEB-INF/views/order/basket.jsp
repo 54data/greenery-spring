@@ -68,7 +68,13 @@
 				                    		<option value="3">3</option>
 				                    		<option value="4">4</option>
 				                    		<option value="5">5</option>
+				                    		<option class="select-amount" value="${cart.productQty}" style="display: none;">${cart.productQty}</option>
+				                    		<option class="input-amount">직접입력</option>
 				                    	</select>
+				                    	<div class="userInput">
+					                    	<input type="number" class="custom-amount" style="display: none;" placeholder="직접 입력" min="1" max="${cart.productStock}" />
+					                    	<button class="custom-amount-btn" data-stock="${cart.productStock}" style="display: none;">변경</button>
+					                    </div>
 			                    	</div>
 			                    </c:if>
 			                    <c:if test="${cart.productStock == 0}">
