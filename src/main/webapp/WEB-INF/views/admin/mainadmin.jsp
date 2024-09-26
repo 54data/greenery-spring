@@ -8,8 +8,8 @@
 <title>관리자페이지</title>
 <link href="${pageContext.request.contextPath}/resources/css/common.css" rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath}/resources/css/mainadmin.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reviews.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/sweetalert2/sweetalert2.min.css">
+<script src="${pageContext.request.contextPath}/resources/sweetalert2/sweetalert2.min.js"></script>
 </head>
 
 <body>

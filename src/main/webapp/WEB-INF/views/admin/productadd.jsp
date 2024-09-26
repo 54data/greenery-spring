@@ -13,10 +13,9 @@
 <link href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css" rel="stylesheet">
 <script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
-<link href="${pageContext.request.contextPath}/resources/css/productadd.css" rel="stylesheet"
-	type="text/css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reviews.css">
+<link href="${pageContext.request.contextPath}/resources/css/productadd.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/sweetalert2/sweetalert2.min.css">
+<script src="${pageContext.request.contextPath}/resources/sweetalert2/sweetalert2.min.js"></script>
 	
 <!-- summernote html editor -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
