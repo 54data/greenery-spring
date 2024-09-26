@@ -40,7 +40,14 @@
 						<img src="loadMainImg?productId=${product.productId}">
 					</div>
 					<div class="list3"><a href="${pageContext.request.contextPath}/product/detailpage?productId=${product.productId}">${product.productName}</a></div>
-					<div class="list4">${product.productStock}</div>
+					<div class="list4">
+						<c:if test="${product.productStock != 0}">
+							${product.productStock}
+						</c:if>
+						<c:if test="${product.productStock == 0}">
+							<span class="text-danger">품절</span>
+						</c:if>
+					</div>
 					<div class="list5"><fmt:formatNumber>${product.productPrice}</fmt:formatNumber>원</div>
 					<div class="list6">
 						<a href="${pageContext.request.contextPath}/admin/updateForm?productId=${product.productId}&pageUsage=수정" class=" btn btn1">수정</a>
