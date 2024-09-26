@@ -146,5 +146,10 @@ form-group textarea {
     cursor: pointer;
 }
 
+#category {
+	margin-left: 10px;
+	border: none;
+}
+
 
 
