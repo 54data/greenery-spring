@@ -46,7 +46,8 @@
 			<c:if test="${noticeList != null}">
 				<c:if test="${pager.groupNo > 1}">
 					<a href="notices?pageNo=${pager.startPageNo-1}" class="btn btn-light">이전</a>
-				</c:if>				<c:forEach begin="${pager.startPageNo}" end="${pager.endPageNo}" step="1" var="i">
+				</c:if>				
+				<c:forEach begin="${pager.startPageNo}" end="${pager.endPageNo}" step="1" var="i">
 	            	<c:if test="${pager.pageNo == i}">
 	                  <a href="notices?pageNo=${i}" class="btn btn-outline-dark">${i}</a>
 	               </c:if>
