@@ -103,8 +103,8 @@ $(document).ready(function() {
 	$('#productList').on('change', '.product-amount', function() {
 		let selectedQty = $(this).val();
 		let productId = $(this).data("pid");
-		let productPrice = $(this).siblings('.product-price').data("price");
-		let productTotalPrice = $(this).siblings('.product-price').children(".product-total-price");
+		let productPrice = $(this).parent().siblings('.product-price').data("price");
+		let productTotalPrice = $(this).parent().siblings('.product-price').children(".product-total-price");
 		let totalPrice = productPrice * selectedQty;
 		productTotalPrice.data("totalPrice", totalPrice);
 		productTotalPrice.text(totalPrice.toLocaleString());
