@@ -71,10 +71,18 @@
 			                        </div>
 			                    </div>
 		                    </div>
-	                    	<div class="product-amount" data-qty=1>1</div>
-		                    <div class="product-price">
-								<span class="product-total-price" data-total-price="${productInfo.productPrice}"><fmt:formatNumber value="${productInfo.productPrice}" type="number" groupingUsed="true"/></span>원
-		                    </div>
+		                    <c:if test="${productStock == null}">
+	                    		<div class="product-amount" data-qty=1>1</div>
+			                    <div class="product-price">
+									<span class="product-total-price" data-total-price="${productInfo.productPrice}"><fmt:formatNumber value="${productInfo.productPrice}" type="number" groupingUsed="true"/></span>원
+			                    </div>
+	                    	</c:if>
+		                    <c:if test="${productStock != null}">
+	                    		<div class="product-amount" data-qty="${productStock}">${productStock}</div>
+			                    <div class="product-price">
+									<span class="product-total-price" data-total-price="${productInfo.productPrice * productStock}"><fmt:formatNumber value="${productInfo.productPrice * productStock}" type="number" groupingUsed="true"/></span>원
+			                    </div>
+	                    	</c:if>
 		                </div>
 	                </div>
 		        </c:if>
@@ -133,7 +141,7 @@
 					<div class="totalPrice" id="sum_p_price">
 						<span>총 결제 금액 &nbsp;</span><span id="totalPrice-num" data-total-price=0 data-discount=0>0</span>원
 					</div>
-					<div id="goOrder" class="">
+					<div id="goOrder">
 						<!-- 주문버튼 -->
 						<div class="clear"></div>
 						<div id="product-order">

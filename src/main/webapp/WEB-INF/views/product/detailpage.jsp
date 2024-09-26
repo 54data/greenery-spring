@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -16,8 +15,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reviews-select.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
 <script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/sweetalert2/sweetalert2.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/sweetalert2/sweetalert2.min.css">
 </head>
 
 <body>
@@ -50,27 +47,25 @@
                <p class="description">${product.productDetailSummary}</p>
                <div class="description-line"></div>
             </div>
-            
-	            <div class="product-info">
-	            <c:if test="${product.productStock != 0}">
-	               <div class="product-quantity">
-	                  <button onclick="decrease(this)">-</button>
-	                  <span class="quantity-number" id="quantity">1</span>
-	                  <button onclick="increase(this)">+</button>
-	               </div>
-	               <span class="product-price" data-price="${product.productPrice}">
-	                  <fmt:formatNumber value="${product.productPrice}" type="number" pattern="#,###"/> 원
-	               </span>
-	              </c:if>
-	            </div>
-            
+            <div class="product-info">
+            	<c:if test="${product.productStock != 0}">
+            		<div class="product-quantity">
+            			<button onclick="decrease(this)">-</button>
+            			<span class="quantity-number" id="quantity" data-stock=1>1</span>
+            			<button onclick="increase(this)">+</button>
+            		</div>
+            		<span class="product-price" data-price="${product.productPrice}">
+            			<fmt:formatNumber value="${product.productPrice}" type="number" pattern="#,###"/> 원
+            		</span>
+            	</c:if>
+            </div>
             <c:if test="${product.productStock == 0}">
             	<span id="soldout">품절</span>
             	<div>해당 상품은 품절 입니다.</div>
             </c:if>
             <div class="buttons">
-               <button class="add-to-cart" data-pid="${product.productId}">장바구니</button>
-               <button onclick="location.href='${pageContext.request.contextPath}/order/payment?productId=${product.productId}'" class="checkout">바로구매</button>
+               <button class="add-to-cart" data-pid="$product.productId}">장바구니</button>
+               <button onclick="location.href='${pageContext.request.contextPath}/order/payment?productId=${product.productId}&productStock=1'" class="checkout">바로구매</button>
                <button class="wishlist-button" data-pid="${product.productId}">
 					<c:if test="${isWishlist}">
 						<img src="${pageContext.request.contextPath}/resources/image/fullheart-icon.png" class="wishlist">
