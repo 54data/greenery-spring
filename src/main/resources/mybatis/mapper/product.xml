@@ -90,6 +90,7 @@
 		from(
 			select rownum, product_id, product_name, product_price, product_summary
 			from product
+			where product_stock !=0
 			order by product_reg_date desc)
 		where rownum<=5 ]]>
 	</select>
