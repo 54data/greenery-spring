@@ -58,7 +58,7 @@
 			
 			<div id="pager">
 			<c:if test="${pager.groupNo > 1}">
-				<a href="?pageNo=${pager.startPageNo-1}&sort=${pager.sort}" class="btn btn-light">다음</a>
+				<a href="?pageNo=${pager.startPageNo-1}&sort=${pager.sort}" class="btn btn-light">이전</a>
 			</c:if>
 			
 			<c:forEach begin="${pager.startPageNo}" end="${pager.endPageNo}"
