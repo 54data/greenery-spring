@@ -83,7 +83,7 @@
 					<label>상품 대표 이미지 (썸네일)</label>
 					<div class="image-upload-container">
 					
-						<div class="image-preview " id="image-preview1" data-usage="Main">
+						<div class="image-preview " id="image-preview1" data-usage="Main" data-pid="${product.productId}" data-pusage="${param.pageUsage}">
 							<c:if test="${mainImage}">
 
 								<img id="MainImage" src="loadImgByUsage?productId=${product.productId}&usage=main">
@@ -104,7 +104,7 @@
 								<img id="Sub1Image" src="loadImgByUsage?productId=${product.productId}&usage=sub1">
 							</c:if>
 							<c:if test="${!sub1Image}">
-								<span>sub1</span>
+								<span>Sub1</span>
 							</c:if>
 						</div>
 						<input class="imageInput" name="productSub1Image" type="file" id="productSub1Image" accept="image/*"
@@ -119,7 +119,7 @@
 								<img id="Sub2Image" src="loadImgByUsage?productId=${product.productId}&usage=sub2">
 							</c:if>
 							<c:if test="${!sub2Image}">
-								<span>sub2</span>
+								<span>Sub2</span>
 							</c:if>
 						</div>
 						<input class="imageInput" name="productSub2Image" type="file" id="productSub2Image" accept="image/*"
@@ -134,7 +134,7 @@
 								<img id="Sub3Image" src="loadImgByUsage?productId=${product.productId}&usage=sub3">
 							</c:if>
 							<c:if test="${!sub3Image}">
-								<span>sub3</span>
+								<span>Sub3</span>
 							</c:if>
 						</div>
 						<input class="imageInput" name="productSub3Image" type="file" id="productSub3Image" accept="image/*"

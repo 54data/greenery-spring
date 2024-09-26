@@ -100,7 +100,7 @@ function previewImage(event, previewId) {
 	const imagePreview = document.getElementById(previewId);
 	console.log(imagePreview);
 	const usage = event.target.dataset.usage;
-	console.log("previewImage 동작중")
+	console.log("previewImage 동작중");
 	
 	if (file) {
 		const reader = new FileReader();
@@ -134,24 +134,32 @@ $(document).on('click','.emptyInputFile',function(event){
 	const previewId = "#" + $(this).data('preview');
 	const usage = $(this).data('usage');
 	const inputId = "#product"+ usage + "Image";
+	let productId = $("#image-preview1").data("pid");
+	let pageUsage = $("#image-preview1").data("pusage");
 	
-	$(previewId).html(`<span>${usage}</span>`);
-	$(inputId).val('');
+	if(usage=="Main"){
+		if(pageUsage == "수정"){
+			$(previewId).html(`<img id="MainImage" src="loadMainImg?productId=${productId}">`)			
+		}else{
+			$(previewId).html(`<span>${usage}</span>`);
+		}
+		$(inputId).val('');
+	}else if(usage=="Detail"){
+		if(pageUsage == "수정"){
+			$(previewId).html(`<img id="DetailImage" src="loadImgByUsage?productId=${productId}&usage=detail">`)			
+		}else{
+			$(previewId).html(`<span>${usage}</span>`);
+		}
+		$(inputId).val('');
+	}else{
+		$(previewId).html(`<span>${usage}</span>`);
+		$(inputId).val('');		
+	}
 	
 	event.preventDefault();
 	event.stopPropagation();
 });
 
-/*
- * $('#product-name').on('input', function() { var currentLength =
- * $(this).val().length;
- * 
- * var maxLength = 250; if (currentLength > maxLength) {
- * $(this).val($(this).val().substring(0, maxLength)); // 최대 길이 초과 시 자르기
- * currentLength = maxLength; // 현재 길이 업데이트 }
- * 
- * $('#charCount').text(currentLength + " / " + maxLength); });
- */
 
 var toggleElement1 = document.getElementById('product');
 var toggleElement2 = document.getElementById('notice')
