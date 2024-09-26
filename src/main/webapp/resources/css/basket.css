@@ -76,10 +76,8 @@ label {
 
 .product-list {
     margin: 0 130px 0 0;
-    width: 100%;
-    justify-content: space-between;
+    width: 70%;
 }
-
 
 .product-header {
     display: flex;
@@ -99,6 +97,7 @@ label {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 .product-checkbox {
@@ -115,6 +114,7 @@ label {
     text-align: right;
     font-size: 16px;
     line-height: 0;
+    flex: 2;
 }
 
 .product-total-price {
@@ -154,7 +154,6 @@ label {
     margin: 0 0 110px 0;
 }
 
-
 .payment-info {
     position: sticky;
     top: 200px;
@@ -164,12 +163,11 @@ label {
     /* 내부 여백 */
     height: 350px;
     /* 고정된 높이 */
-
+    width: 20%;
 }
 
 #payment-info-body {
     text-align: center;
-    justify-content: space-between;
 }
 
 .basket-list-header {
@@ -234,12 +232,6 @@ button {
     margin-top: 15px;
 }
 
-.totalPrice {
-    margin: 0 20px;
-    font-size: 16px;
-    line-height: 0;
-}
-
 #totalPrice-num {
     font-weight: bold;
     color: #d9534f;
@@ -253,7 +245,6 @@ button {
 
 #product-order {
     margin: 25px 0 10px 0;
-
 }
 
 a {
@@ -271,7 +262,6 @@ a {
 
 .product-picture {
     display: flex;
-
 }
 
 #sum_p_price {
@@ -279,7 +269,9 @@ a {
     align-items: center;
     /* 세로 중앙 정렬 */
     justify-content: space-between;
-    width: 200px;
+    margin: 0 14px;
+    font-size: 16px;
+    line-height: 0;
 }
 
 .coupon-info {
@@ -363,6 +355,11 @@ a {
     font-size: 13px;
 }
 
+.amount {
+	flex: 2;
+	text-align: center;
+}
+
 .product-amount {
 	border: 1px solid #ccc;
 	border-radius: 5px;
@@ -389,4 +386,22 @@ a {
 .emptyInfoText {
 	margin-top: 30px;
     color: #888;
+}
+
+.soldout {
+	width: 60px;
+	flex: 2;
+	text-align: center;
+	font-size: 16px;
+	color: red;
+}
+
+.product-info {
+	flex: 6;
+	display: flex;
+	justify-content: center;
+}
+
+.product-info .img {
+    margin-right: 30px;
 }

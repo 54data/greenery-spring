@@ -10,4 +10,5 @@ public class CartDto {
 	private String productName;
 	private int productPrice;
 	private String productSummary;
+	private int productStock;
 }

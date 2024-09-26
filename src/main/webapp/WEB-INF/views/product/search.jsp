@@ -104,7 +104,7 @@
 		</div>
 		<button class="scroll-btn-up" onclick="scrollToTop()"></button>
 	</div>
-	<c:if test="${empty product}">
+	<c:if test="${empty productList}">
 		<div class="notFound">
 			<img src="${pageContext.request.contextPath}/resources/image/notFound.jpg">
 			<br>

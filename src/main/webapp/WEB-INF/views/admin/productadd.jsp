@@ -60,7 +60,7 @@
 				<div class="form-group">
 					<label>상품명 [30자 이하]</label>
 					<input name="productName" value="${product.productName}" id="productName" type="text"
-						placeholder="예시) 프레시 블랙 떡솝" required>
+						placeholder="예시) 프레시 블랙 떡솝" maxlength="30" required>
 				</div>
 				
 				<div class="form-group">
@@ -73,7 +73,7 @@
 				<div class="form-group">
 					<label>상품 수량 [10자리 이하]</label>
 					<input name="productStock" value="${product.productStock}" id="productStock" type="text"
-						placeholder="수량을 입력해주세요" required>
+						placeholder="수량을 입력해주세요" maxlength="10" required>
 					<div class="form-blank">개</div>
 				</div>
 				
@@ -81,7 +81,7 @@
 					<label>상품 대표 이미지 (썸네일)</label>
 					<div class="image-upload-container">
 					
-						<div class="image-preview " id="image-preview1" data-usage="Main">
+						<div class="image-preview " id="image-preview1" data-usage="Main" data-pid="${product.productId}" data-pusage="${param.pageUsage}">
 							<c:if test="${mainImage}">
 
 								<img id="MainImage" src="loadImgByUsage?productId=${product.productId}&usage=main">
@@ -102,7 +102,7 @@
 								<img id="Sub1Image" src="loadImgByUsage?productId=${product.productId}&usage=sub1">
 							</c:if>
 							<c:if test="${!sub1Image}">
-								<span>sub1</span>
+								<span>Sub1</span>
 							</c:if>
 						</div>
 						<input class="imageInput" name="productSub1Image" type="file" id="productSub1Image" accept="image/*"
@@ -117,7 +117,7 @@
 								<img id="Sub2Image" src="loadImgByUsage?productId=${product.productId}&usage=sub2">
 							</c:if>
 							<c:if test="${!sub2Image}">
-								<span>sub2</span>
+								<span>Sub2</span>
 							</c:if>
 						</div>
 						<input class="imageInput" name="productSub2Image" type="file" id="productSub2Image" accept="image/*"
@@ -132,7 +132,7 @@
 								<img id="Sub3Image" src="loadImgByUsage?productId=${product.productId}&usage=sub3">
 							</c:if>
 							<c:if test="${!sub3Image}">
-								<span>sub3</span>
+								<span>Sub3</span>
 							</c:if>
 						</div>
 						<input class="imageInput" name="productSub3Image" type="file" id="productSub3Image" accept="image/*"
@@ -143,13 +143,13 @@
 				<div class="form-group">
 					<label>상품 대표 설명 (썸네일)<br>[40자 이하]</label>
 					<input name="productSummary" value="${product.productSummary}" id="productSummary" type="text"
-						placeholder="상품의 대표 설명을 입력하세요" required>
+						placeholder="상품의 대표 설명을 입력하세요" maxlength="40" required>
 				</div>
 				
 				<div class="form-group">
-					<label>상품 상세페이지 대표 설명<br>[80자 이하]</label>
+					<label>상품 상세페이지 대표 설명<br>[100자 이하]</label>
 					<input name="productDetailSummary" value="${product.productDetailSummary}" id="productDetailSummary"
-						type="text" placeholder="상품의 핵심 특징을 간단히 설명하세요" required>
+						type="text" placeholder="상품의 핵심 특징을 간단히 설명하세요" maxlength="100" required>
 				</div>
 				<div class="image-thumnail">
 					<label>상품 상세페이지 상세정보 설명</label>
