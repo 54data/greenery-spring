@@ -54,7 +54,6 @@ public class OrderController {
 			CartDto cartDto = new CartDto();
 			cartDto.setProductId(productId);
 			String userId = authentication.getName();
-			log.info("########################" + productStock);
 			cartDto.setUserId(userId);
 			if (orderService.checkCart(cartDto)) {
 				cartDto.setProductQty(productStock);
