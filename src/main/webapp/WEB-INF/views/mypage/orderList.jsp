@@ -2,11 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-	<link href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css" rel="stylesheet">
-	<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js"></script>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reviews.css">
-<%-- <input type="hidden" id="userIdInput" value="${userId}" />
- --%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.bundle.min.js">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reviews.css">
 <section class="mypage-title">
 	<div class="mypage-title-greeting">
 		<img src="${pageContext.request.contextPath}/resources/image/thum.png">
@@ -24,60 +22,63 @@
 		</span>
 	</div>
 </section>
-<span class="mypage-content-title">주문 내역</span>
-<div class="order-list">
-	<div class="order-list-col">
-		<div class="ol-1">주문일자</div>
-		<div class="ol-3">상품명</div>
-		<div class="ol-1">수량</div>
-		<div class="ol-1">주문금액</div>
-		<div class="ol-1">상태</div>
+	<span class="mypage-content-title">주문 내역</span>
+<c:if test="${empty orderDetails}">
+	<div class="notFound">
+		<img src="${pageContext.request.contextPath}/resources/image/notFound.jpg">
+		<br> 주문한 상품이 없습니다.
+	</div>
+</c:if>
+<c:if test="${not empty orderDetails}">
+	<div class="order-list">
+		<div class="order-list-col">
+			<div class="ol-1">주문일자</div>
+			<div class="ol-3">상품명</div>
+			<div class="ol-1">수량</div>
+			<div class="ol-1">주문금액</div>
+			<div class="ol-1">상태</div>
+		</div>	
+		<c:forEach items="${orderDetails}" var="orderDetail">	
+			<div class="order-item-col">
+				<div class="ol-1"><fmt:formatDate value="${orderDetail.orderDate}" pattern="yyyy-MM-dd" /></div>
+				<div class="ol-3">
+					<div class="order-item-img">
+						<img src="loadMainImg?productId=${orderDetail.productId}" class="order-img" data-product-id="${orderDetail.productId}">
+					</div>
+					<div class="order-item-info">
+						<span class="item-title">${orderDetail.productName}</span>
+						<span class="item-desc">${orderDetail.productSummary}</span>
+					</div>
+				</div>
+				<div class="ol-1">${orderDetail.productQty}</div>
+				<div class="ol-1"><fmt:formatNumber value="${orderDetail.productQty * orderDetail.productPrice}" type="number" pattern="#,###"/>원</div>
+				<div class="ol-1 order-status">
+					<span id="payment-completed">결제완료</span>
+	 				<c:choose>
+		                <c:when test="${orderDetail.hasReview}">
+		                	<button type="button" class="update-btn" data-bs-toggle="modal" data-bs-target="#exampleModal"
+							data-user-id="${orderDetail.review.userId}" data-review-id="${orderDetail.review.reviewId}" 
+							data-product-id="${orderDetail.productId}" data-order-id="${orderDetail.orderId}"
+							data-product-name="${orderDetail.productName}" data-product-summary="${orderDetail.productSummary}">
+								후기수정
+							</button>
+							<button type="button" class="delete-btn" value="${orderDetail.review.reviewId}" >
+								후기삭제
+							</button>
+	 					</c:when>
+		                <c:otherwise>
+							<button type="button" class="review-btn" data-bs-toggle="modal" data-bs-target="#exampleModal"
+							data-user-id="${orderDetail.userId}" data-product-id="${orderDetail.productId}" data-order-id="${orderDetail.orderId}"
+							data-product-name="${orderDetail.productName}" data-product-summary="${orderDetail.productSummary}">
+								후기등록
+							</button>						
+		                </c:otherwise>
+	            	</c:choose> 				
+				</div>
+			</div>
+		</c:forEach>
 	</div>	
-	<c:forEach items="${orderDetails}" var="orderDetail">	
-		<div class="order-item-col">
-			<div class="ol-1"><fmt:formatDate value="${orderDetail.orderDate}" pattern="yyyy-MM-dd" /></div>
-			<div class="ol-3">
-				<div class="order-item-img">
-					<img src="loadMainImg?productId=${orderDetail.productId}" class="order-img" data-product-id="${orderDetail.productId}">
-				</div>
-				<div class="order-item-info">
-					<span class="item-title">${orderDetail.productName}</span>
-					<span class="item-desc">${orderDetail.productSummary}</span>
-				</div>
-			</div>
-			<div class="ol-1">${orderDetail.productQty}</div>
-			<div class="ol-1"><fmt:formatNumber value="${orderDetail.productQty * orderDetail.productPrice}" type="number" pattern="#,###"/>원</div>
-			<div class="ol-1 order-status">
-				결제완료
- 				<c:choose>
-	                <c:when test="${orderDetail.hasReview}">
-<%-- 	                    <a href="${pageContext.request.contextPath}/mypage/deleteReview?reviewId=${orderDetail.review.reviewId}" class="delete-btn btn-outline-secondary" 
-	                    data-product-id="${orderDetail.productId}" data-user-id="${orderDetail.userId}" data-order-id="${orderDetail.orderId}" 
-	                    data-product-name="${orderDetail.productName}" data-product-summary="${orderDetail.productSummary}">
-							후기삭제
-						</a> --%>
-						<button type="button" class="delete-btn btn-outline-secondary" value="${orderDetail.review.reviewId}" >
-							후기삭제
-						</button>
-						<button type="button" class="update-btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-						data-user-id="${orderDetail.review.userId}" data-review-id="${orderDetail.review.reviewId}" 
-						data-product-id="${orderDetail.productId}" data-order-id="${orderDetail.orderId}"
-						data-product-name="${orderDetail.productName}" data-product-summary="${orderDetail.productSummary}">
-							후기수정
-						</button>
- 					</c:when>
-	                <c:otherwise>
-						<button type="button" class="review-btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-						data-user-id="${orderDetail.userId}" data-product-id="${orderDetail.productId}" data-order-id="${orderDetail.orderId}"
-						data-product-name="${orderDetail.productName}" data-product-summary="${orderDetail.productSummary}">
-							후기등록
-						</button>						
-	                </c:otherwise>
-            	</c:choose> 				
-			</div>
-		</div>
-	</c:forEach>
-	
+</c:if>
 	<!-- modal -->						
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	    <div class="modal-dialog modal-dialog-scrollable" >

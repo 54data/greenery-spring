@@ -142,7 +142,9 @@ public class OrderController {
 			Authentication authentication) {
 		OrderDto orderDto = new OrderDto();
 		OrderDetailDto orderDetailDto = new OrderDetailDto();
-		
+		int productId = 0;
+		int productQty = 0;
+				
 		// orders 테이블에 입력
 		String userId = authentication.getName();
 		int orderTotalPrice = orderDetail.getOrderTotalPrice();
@@ -156,15 +158,20 @@ public class OrderController {
 		List<CartDto> orderProductList = (List<CartDto>) session.getAttribute("orderProductList");
 		if (orderProductList != null) {
 			for (CartDto cartDto : orderProductList) {
-				orderDetailDto.setProductId(cartDto.getProductId());
-				orderDetailDto.setProductQty(cartDto.getProductQty());
-				orderDetailDto.setProductPrice(cartDto.getProductPrice());
+				orderService.deleteProduct(cartDto);
+				productId = cartDto.getProductId();
+				orderDetailDto.setProductId(productId);
+				productQty = cartDto.getProductQty();
+				orderDetailDto.setProductQty(productQty);
+				orderDetailDto.setProductPrice(cartDto.getProductPrice() * productQty);
 				orderService.insertOrderDetail(orderDetailDto);
 				log.info("장바구니 상품 결제 완료");
 			}
 		} else {
-			orderDetailDto.setProductId(orderDetail.getProductId());
-			orderDetailDto.setProductQty(1);
+			productId = orderDetail.getProductId();
+			orderDetailDto.setProductId(productId);
+			productQty = orderDetail.getProductQty();
+			orderDetailDto.setProductQty(productQty);
 			orderDetailDto.setProductPrice(orderDetail.getProductPrice());
 			orderService.insertOrderDetail(orderDetailDto);
 			log.info("선택 상품 결제 완료");
@@ -175,6 +182,10 @@ public class OrderController {
 			usedCoupon(userId);
 		}
 		
+		ProductDto productDto = new ProductDto();
+		productDto.setProductId(productId);
+		productDto.setProductStock(productQty);
+		productService.updateProductStock(productDto);
 		return "" + orderId; // 주문번호를 String 타입으로 변환하여 리턴
 	}
 	
@@ -193,8 +204,11 @@ public class OrderController {
 	@Secured("ROLE_user")
 	@GetMapping("/payment")
 	public String payment(
-			@RequestParam(required=false) Integer productId, HttpSession session, 
-			Authentication authentication, Model model
+			@RequestParam(required=false) Integer productId, 
+			@RequestParam(required=false) Integer productStock,
+			HttpSession session, 
+			Authentication authentication, 
+			Model model
 		) {
 		String userId = authentication.getName();
 		if (productId == null) {
@@ -214,6 +228,9 @@ public class OrderController {
 			session.removeAttribute("productList");
 			ProductDto productInfo = productService.getProductDetail(productId);
 			model.addAttribute("productInfo", productInfo);
+			if (productStock != null) {
+				model.addAttribute("productStock", productStock);
+			}
 		}
 		
 		int couponStatus = userService.getUserCouponStatus(userId);

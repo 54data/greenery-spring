@@ -29,6 +29,5 @@ public interface ProductDao {
 	public ProductAddDto getProductByProductId(int productId);
 	public List<ProductImageDto> getReviewImg();
 	public int updateProductImage(ProductImageDto imgDto);
-
-
+	public void updateStock(ProductDto productDto);
 }

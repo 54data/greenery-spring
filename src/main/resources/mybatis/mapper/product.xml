@@ -69,7 +69,11 @@
 	</select>
 	
 	<select id = "getProductDetailInfo" parameterType="int" resultType="Product">
+<<<<<<< HEAD
 		select PRODUCT_ID,  PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_SUMMARY, PRODUCT_DETAIL_SUMMARY, CATEGORY ,product_stock
+=======
+		select PRODUCT_ID,  PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_SUMMARY, PRODUCT_DETAIL_SUMMARY, CATEGORY, product_stock 
+>>>>>>> branch 'master' of https://github.com/54data/miniproject.git
 		from product
 		where product_Id = #{productId}
 	</select>
@@ -147,11 +151,18 @@
 			category = #{category}
 		where product_id = #{productId}
 	</update>
+	
 	<update id="updateProductImage" parameterType="ProductImage">
 		update product_image set
 			product_img = #{productImg}
 		where
 			product_id = #{productId}
 			and product_img_usage = #{productImgUsage}
+	</update>
+	
+	<update id="updateStock" parameterType="Product">
+		update product
+		set product_stock = product_stock - #{productStock}
+		where product_id = #{productId}
 	</update>
 </mapper>

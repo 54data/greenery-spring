@@ -88,6 +88,8 @@ public class ProductController {
 		ProductDto product = productService.getProductDetail(productId);
 		model.addAttribute("product", product);
 		
+		log.info("재고가 잘 나오나용" + product.getProductStock());
+		
 		List<ProductImageDto> productImages = productService.getProductImgs(productId);
 		Map<Integer, String> map = new HashMap<>();
 		
