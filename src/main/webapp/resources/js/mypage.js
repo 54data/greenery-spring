@@ -212,7 +212,7 @@ function checkNewPwd() {
     } else if (newPwd === '') {
     	$("#inputPwdMessage").html('<span>해당 입력 값은 필수입니다.</span>');
     } else {
-    	$("#inputPwdMessage").html('<span>8자 이상 20자 이하의 대소문자, 숫자, 특수문자를 조합해주세요.</span>');
+    	$("#inputPwdMessage").html('<span>8자 이상 20자 이하의 알파벳 대소문자, 숫자, 특수문자를 조합해주세요.</span>');
     }
     
     if (regExp.test(checkNewPwd)) {
