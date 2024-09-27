@@ -63,4 +63,8 @@ public class UserService {
 	public Boolean updatePwd(UserDto user) {
 		return userDao.updateNewPwd(user) != 0;
 	}
+
+	public void deactivateUser(String userId) {	
+		userDao.deactivateUserById(userId);
+	}
 }

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/sweetalert2/sweetalert2.min.css">
+<script src="${pageContext.request.contextPath}/resources/sweetalert2/sweetalert2.min.js"></script>		
+		
 <div class="mypage-myinfo-title">개인정보 수정</div>
 <form class="info-change-form" method="post">
 	<div class="myinfo-list">
