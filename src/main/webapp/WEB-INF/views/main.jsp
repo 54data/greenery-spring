@@ -151,7 +151,7 @@
 	<div id="footer">
 		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	</div>
-	
+	<script src="${pageContext.request.contextPath}/resources/js/commonproduct.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 </body>
 
