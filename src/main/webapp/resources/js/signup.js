@@ -3,13 +3,14 @@ userId.addEventListener('input', inputIdCheck);
 
 function inputIdCheck() {
     let inputIdMessage = document.querySelector('#inputIdMessage');
-
-    let regExp = RegExp(/^[A-Za-z\d@$!%*?&]{6,16}$/);
-    if (regExp.test(userId.value) || userId.value === '') {
+    let regExp = RegExp(/^[a-zA-Z0-9_]{6,16}$/);
+    if (regExp.test(userId.value)) {
         inputIdMessage.innerHTML =  ''; 
+    } else if (userId.value === '') {
+    	inputIdMessage.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>";
     } else {
         inputIdMessage.innerHTML = 
-        "<span style='color:#F03F40; font-size:12px;'>6자 이상 16자 이하로 영문, 숫자, 특수문자를 사용해주세요</span>";
+        "<span style='color:#F03F40; font-size:12px;'>아이디는 6자 이상 16자 이하만 가능합니다. (숫자, 알파벳, _ 만 가능)</span>";
     }
 }
 
@@ -23,18 +24,22 @@ function inputPasswordCheck() {
     let inputPasswordMessage2 = document.querySelector('#inputPasswordMessage2');
 
     let regExp = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,20}$/);
-    if (regExp.test(userPwd.value) || userPwd.value === '') {
+    if (regExp.test(userPwd.value)) {
     	inputPasswordMessage1.innerHTML =  ''; 
+    } else if (userPwd.value === '') {
+    	inputPasswordMessage1.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>";
     } else {
         inputPasswordMessage1.innerHTML = 
-        "<span style='color:#F03F40; font-size:12px;'>8자 이상 20자 이하의 대소문자, 숫자, 특수문자를 조합해주세요</span>";
+        "<span style='color:#F03F40; font-size:12px;'>8자 이상 20자 이하의 알파벳 대소문자, 숫자, 특수문자를 조합해주세요.</span>";
     }
     
-    if (userPwd.value === checkUserPwd.value || checkUserPwd.value === '') {
+    if (userPwd.value === checkUserPwd.value) {
         inputPasswordMessage2.innerHTML =  '';
+    } else if (checkUserPwd.value === '') {
+    	inputPasswordMessage2.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>";
     } else {
         inputPasswordMessage2.innerHTML =
-        "<span style='color:#F03F40; font-size:12px;'>비밀번호를 확인해주세요</span>";
+        "<span style='color:#F03F40; font-size:12px;'>비밀번호를 확인해주세요.</span>";
     }
 }
 
@@ -45,11 +50,13 @@ function inputNameCheck() {
     let inputNameMessage = document.querySelector('#inputNameMessage');
 
     let regExp = RegExp(/^[가-힣a-zA-Z]{1,20}$/);
-    if (regExp.test(inputName.value) || inputName.value === '') {
+    if (regExp.test(inputName.value)) {
         inputNameMessage.innerHTML =  ''; 
+    } else if (inputName.value === '') {
+    	inputNameMessage.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>";
     } else {
         inputNameMessage.innerHTML = 
-        "<span style='color:#F03F40; font-size:12px;'>영문 또는 한글로 입력해주세요</span>";
+        "<span style='color:#F03F40; font-size:12px;'>영문 또는 한글로 입력해주세요.</span>";
     }
 }
 
@@ -59,12 +66,14 @@ inputPhone.addEventListener('input', inputPhoneCheck);
 function inputPhoneCheck() {
     let inputPhoneMessage = document.querySelector('#inputPhoneMessage');
 
-    let regExp = RegExp(/^[0-9]{1,11}$/);
-    if (regExp.test(inputPhone.value) || inputPhone.value === '') {
+    let regExp = RegExp(/^(01[016789]{1})[0-9]{3,4}[0-9]{4}$/);
+    if (regExp.test(inputPhone.value)) {
         inputPhoneMessage.innerHTML =  ''; 
+    } else if (inputPhone.value === '') {
+    	inputPhoneMessage.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>";
     } else {
         inputPhoneMessage.innerHTML = 
-        "<span style='color:#F03F40; font-size:12px;'>-하이픈을 제외하고 핸드폰 번호를 입력해주세요</span>";
+        "<span style='color:#F03F40; font-size:12px;'>유효하지 않은 전화번호입니다. (숫자만 입력)</span>";
     }
 }
 
@@ -75,33 +84,15 @@ function inputEmailCheck() {
     let inputEmailMessage = document.querySelector('#inputEmailMessage');
 
     let regExp = RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
-    if (regExp.test(inputEmail.value) || inputEmail.value === '') {
+    if (regExp.test(inputEmail.value)) {
         inputEmailMessage.innerHTML =  ''; 
+    } else if (inputEmail.value === '') {
+    	inputEmailMessage.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>";
     } else {
         inputEmailMessage.innerHTML = 
-        "<span style='color:#F03F40; font-size:12px;'>이메일 입력을 확인해주세요</span>";
+        "<span style='color:#F03F40; font-size:12px;'>이메일 입력을 확인해주세요.</span>";
     }
 }
-
-//let idCheck = false;
-//let btnInputId = document.querySelector('#btnInputId');
-//btnInputId.addEventListener('click', btnInputIdCheck);
-//
-//function btnInputIdCheck() {
-//    let regExp = RegExp(/^[A-Za-z\d@$!%*?&]{6,16}$/);
-// 
-//    if(userId.value == "") {
-//        alert('아이디를 입력해주세요.');
-//        userId.focus();
-//    } else if(!regExp.test(userId.value)) {
-//        alert("6자 이상 16자 이하로 영문, 숫자, 특수문자를 사용해주세요");
-//        userId.value = '';
-//        userId.focus();
-//    } else {
-//        alert("회원가입이 가능한 아이디입니다");
-//        idCheck = true;
-//    }
-//}
 
 let btnZipcode = document.querySelector('#btnZipcode');
 btnZipcode.addEventListener('click', () => {
@@ -138,19 +129,22 @@ document.querySelector('#iconClose').addEventListener('click', function() {
     window.location.href = '../';
 })
 
+let isIdChecked = false;
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top',
+    showConfirmButton: false,
+    timer: 2500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+});
+
 function checkUserId() {
 	let userId = $('#userId').val();
-	const Toast = Swal.mixin({
-	    toast: true,
-	    position: 'top',
-	    showConfirmButton: false,
-	    timer: 2500,
-	    timerProgressBar: true,
-	    didOpen: (toast) => {
-	        toast.addEventListener('mouseenter', Swal.stopTimer)
-	        toast.addEventListener('mouseleave', Swal.resumeTimer)
-	    }
-	});
 	$.ajax({
 		url: "userIdCheck",
 		type: "post",
@@ -159,11 +153,13 @@ function checkUserId() {
 		data: {userId : userId},
 		success: function(checkResult) {
 			if (checkResult) {
+				isIdChecked = true; 
 				Toast.fire({
 				    icon: 'success',
 				    title: '사용 가능한 아이디입니다.'
 				});
 			} else {
+				isIdChecked = false;
 				Toast.fire({
 				    icon: 'error',
 				    title: '이미 존재하는 아이디입니다.'
@@ -172,3 +168,84 @@ function checkUserId() {
 		}
 	});
 }
+
+function checkIdStatus() {
+	if (!isIdChecked) {
+		Toast.fire({
+		    icon: 'error',
+		    title: '아이디 중복체크는 필수입니다.'
+		});
+		return false;
+	}
+	return true;
+}
+
+function isValid() {
+	$('.errorMessage').each(function () {
+		if ($(this).children().length != 0) {
+			return false;
+		}
+	});
+	return true;
+}
+
+function signup() {
+	const signupData = $('.form-signup').serialize();
+	if (!isValid()) {
+		Toast.fire({
+		    icon: 'error',
+		    title: '입력값을 확인해주세요.'
+		});
+	}
+	
+	$.ajax({
+		url: 'signup',
+		type: 'post',
+		data: signupData,
+		success: function(signupResult) {
+			if (signupResult) {
+				Toast.fire({
+				    icon: 'success',
+				    title: '회원가입 성공'
+				});
+			}
+			window.loaction.href = "../account/loginForm";
+		}
+	});
+}
+
+$(document).ready(function () {
+	$('#userId').on('input', function() {
+	    isIdChecked = false;
+	});
+	
+	$('signup-btn').on('click', function() {
+		if (checkIdStatus()) {
+			signup();
+		}
+	});
+	
+	$('#zipcode').on('input', function() {
+	    if ($(this).val() === '') {
+			$("#inputZipcodeMessage").html("<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>");
+		} else {
+			$("#inputDetailedAddressMessage").html('');
+		}
+	});
+	
+	$('#roadAddress').on('input', function() {
+	    if ($(this).val() === '') {
+			$("#inputRoadAddressMessage").html("<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>");
+		} else {
+			$("#inputRoadAddressMessage").html('');
+		}
+	});
+	
+	$('#detailedAddress').on('input', function() {
+	    if ($(this).val() === '') {
+			$("#inputDetailedAddressMessage").html("<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>");
+		} else {
+			$("#inputDetailedAddressMessage").html('');
+		}
+	});
+});

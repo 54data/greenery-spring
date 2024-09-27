@@ -93,9 +93,7 @@ body {
     width: 470px;
 }
 
-#inputIdMessage, #inputPasswordMessage1,
-#inputPasswordMessage2, #inputNameMessage, 
-#inputPhoneMessage {
+.errorMessage {
     width: 100%;
     text-align: left;
     margin-left: 5px;

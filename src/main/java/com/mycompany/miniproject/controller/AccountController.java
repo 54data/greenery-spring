@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -42,7 +43,8 @@ public class AccountController {
 	}
 	
 	@PostMapping("/signup")
-	public String signup(UserDto user) {
+	@ResponseBody
+	public boolean signup(@RequestBody UserDto user) {
 		// 계정 활성화
 		user.setUserStatus(true);
 		
@@ -50,9 +52,6 @@ public class AccountController {
 		PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		user.setUserPwd(passwordEncoder.encode(user.getUserPwd()));
 		JoinResult joinResult = userService.join(user);
-		if (joinResult == JoinResult.SUCCESS) {
-			return "redirect:/account/loginForm";
-		}
-		return "redirect:/account/signupForm";
+		return joinResult == JoinResult.SUCCESS;
 	}
 }

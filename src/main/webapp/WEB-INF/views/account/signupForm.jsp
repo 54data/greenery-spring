@@ -28,34 +28,36 @@
 
 	<form class="form-signup" name="formSignup" method="post" action="signup">
 		<div class="form-id">
-			<input id="userId" name="userId" class="input input1" type="text"
-				placeholder="아이디 입력(6-20자)" required>
+			<input id="userId" name="userId" class="input input1" type="text" placeholder="아이디 입력 (6-16자)" required>
 			<button id="btnInputId" class="btn btn1" type="button" onclick="checkUserId()">중복확인</button>
 		</div>
-		<div id="inputIdMessage"></div>
+		<div id="inputIdMessage" class="errorMessage"></div>
 
-		<input id="userPwd" name="userPwd" class="input input2" type="password" placeholder="비밀번호 입력(문자, 숫자, 특수문자 포함 8-20자)" required>
-		<div id="inputPasswordMessage1"></div>
+		<input id="userPwd" name="userPwd" class="input input2" type="password" placeholder="비밀번호 입력 (알파벳 대소문자, 숫자, 특수문자 포함  8-20자)" required>
+		<div id="inputPasswordMessage1" class="errorMessage"></div>
 		<input id="checkUserPwd" class="input input3" type="password" placeholder="비밀번호 재입력" required>
-		<div id="inputPasswordMessage2"></div>
+		<div id="inputPasswordMessage2" class="errorMessage"></div>
 		<input id="userName" name="userName" class="input input4" type="text" placeholder="이름을 입력해주세요." required>
-		<div id="inputNameMessage"></div>
-		<input id="userTel" name="userTel" class="input input5" type="text" placeholder="휴대폰 번호 입력('-'제외 11자리 입력)" required>
-		<div id="inputPhoneMessage"></div>
+		<div id="inputNameMessage" class="errorMessage"></div>
+		<input id="userTel" name="userTel" class="input input5" type="text" placeholder="휴대폰 번호 입력 ('-'제외, 최대 11자리)" required>
+		<div id="inputPhoneMessage" class="errorMessage"></div>
 
 		<div class="form-email">
 			<input id="userEmail" name="userEmail" class="input input6" type="text" placeholder="이메일주소" required> 
 		</div>
-		<div id="inputEmailMessage"></div>
+		<div id="inputEmailMessage" class="errorMessage"></div>
 
 		<div class="form-address">
 			<input class="input input8" type="text" name="zipcode" placeholder="우편번호" id="zipcode" required>
 			<button id="btnZipcode" class="btn btn2" type="button">우편번호 찾기</button>
 		</div>
+		<div id="inputZipcodeMessage" class="errorMessage"></div>
 
 		<input class="input input9" type="text" name="roadAddress" placeholder="도로명 주소" id="roadAddress" required> 
+		<div id="inputRoadAddressMessage" class="errorMessage"></div>
 		<input class="input input10" id="detailedAddress" type="text" name="detailedAddress" placeholder="상세 주소" required> 
-		<input class="btn btn3" type="submit" value="회원가입">
+		<div id="inputDetailedAddressMessage" class="errorMessage"></div>
+		<button class="btn btn3" id="signup-btn" type="button">회원가입</button>
 	</form>
 
 	<script src="${pageContext.request.contextPath}/resources/js/signup.js"></script>
