@@ -37,7 +37,7 @@
 				<div class="ol-3" ></div>
 				<div class="ol-1"></div>
 				<div class="ol-1"></div>
-				<div class="ol-1" id="totalPriceNum">총 가격 : ${orderDto.orderTotalPrice}원</div>
+				<div class="ol-1" id="totalPriceNum">총 가격 : ${orderDetail.orderTotalPrice}원</div>
 			</div>			
 			<c:forEach items="${orderDetails}" var="orderDetail">
 
