@@ -53,7 +53,7 @@
 			<form method="post" enctype="multipart/form-data" id="productForm"
 				<c:if test="${param.pageUsage != '수정'}">action="productInsert"</c:if>
 				<c:if test="${param.pageUsage == '수정'}">action="updateProduct"</c:if>
-				onsubmit="return checkValid()">
+				onsubmit="return checkSumbit()">
 				<c:if test="${param.pageUsage == '수정'}">
 					<input type="hidden" name="productId" value="${product.productId}">
 				</c:if>

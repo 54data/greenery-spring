@@ -107,7 +107,7 @@
 	</insert>
 	
 	<select id="getProductIdByName" parameterType="String" resultType="int">
-		select nvl((select product_id
+		select nvl((select min(product_id)
                         from product
                         where product_name = #{productName}), 0)
         from dual

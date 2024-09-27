@@ -83,7 +83,7 @@ public class AdminController {
 	public String checkProductName(@RequestParam String productName) {
 		String result;
 		int productId = productService.getProductIdByName(productName);
-		log.info("productId" + productId);
+		log.info("productId : " + productId);
 		if(productId == 0) {
 			result = "notDup";
 		}else {

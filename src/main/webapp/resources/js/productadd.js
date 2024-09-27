@@ -1,4 +1,4 @@
-function allValid(){
+function allValid() {
 	// 상품명 유효성 검사
 	if ($("#productName").val().length > 30) {
 		Swal.fire({
@@ -8,7 +8,7 @@ function allValid(){
 		});
 		return false;
 	}
-	
+
 	// 상품가격 유효성 검사
 	const productPriceValid = /^[0-9]{1,10}$/
 		if (!productPriceValid.test($("#productPrice").val())) {
@@ -19,109 +19,111 @@ function allValid(){
 			});
 			return false;
 		}
-	
-	// 상품수량 유효성 검사
-	const productStockValid = /^[0-9]{1,10}$/
-		if (!productStockValid.test($("#productStock").val())) {
-			Swal.fire({
-				icon : "error",
-				title : "오류",
-				text : "유효하지 않은 상품 수량 입니다.",
-			});
-			return false;
-		}
 		
-		// 상품 대표 설명 유효성 검사
-		if ($("#productSummary").val().length > 40) {
-			Swal.fire({
-				icon : "error",
-				title : "오류",
-				text : "상품 대표 설명은 띄어쓰기 포함 40글자 이내로 작성해 주세요.",
-			});
-			return false;
-		}
-		
-		// 상세페이지 대표 설명 유효성 검사
-		if ($("#productDetailSummary").val().length > 100) {
-			Swal.fire({
-				icon : "error",
-				title : "오류",
-				text : "상세페이지 대표 설명은 띄어쓰기 포함 80글자 이내로 작성해 주세요.",
-			});
-			return false;
-		}
-		
-		if (document.getElementById('MainImage') === null) {
-			Swal.fire({
-				icon : "error",
-				title : "오류",
-				text : "Main이미지는 필수 입력사항 입니다.",
-			});
-			return false;
-		}
-		
-		if (document.getElementById('DetailImage') === null) {
-			Swal.fire({
-				icon : "error",
-				title : "오류",
-				text : "상품detail은 필수 입력사항 입니다.",
-			});
-			return false;
-		}
-		
-		if (document.getElementById('Sub3Image') !== null) {
-			if (document.getElementById('Sub2Image') === null) {
+		// 상품수량 유효성 검사
+		const productStockValid = /^[0-9]{1,10}$/
+			if (!productStockValid.test($("#productStock").val())) {
 				Swal.fire({
 					icon : "error",
 					title : "오류",
-					text : "Sub2 이미지를 먼저 입력해주세요.",
+					text : "유효하지 않은 상품 수량 입니다.",
 				});
 				return false;
 			}
-		}
-		
-		if (document.getElementById('Sub2Image') !== null) {
-			if (document.getElementById('Sub1Image') === null) {
+			
+			// 상품 대표 설명 유효성 검사
+			if ($("#productSummary").val().length > 40) {
 				Swal.fire({
 					icon : "error",
 					title : "오류",
-					text : "Sub1 이미지를 먼저 입력해주세요.",
+					text : "상품 대표 설명은 띄어쓰기 포함 40글자 이내로 작성해 주세요.",
 				});
 				return false;
 			}
-		}
-		return true;
+			
+			// 상세페이지 대표 설명 유효성 검사
+			if ($("#productDetailSummary").val().length > 100) {
+				Swal.fire({
+					icon : "error",
+					title : "오류",
+					text : "상세페이지 대표 설명은 띄어쓰기 포함 80글자 이내로 작성해 주세요.",
+				});
+				return false;
+			}
+			
+			if (document.getElementById('MainImage') === null) {
+				Swal.fire({
+					icon : "error",
+					title : "오류",
+					text : "Main이미지는 필수 입력사항 입니다.",
+				});
+				return false;
+			}
+			
+			if (document.getElementById('DetailImage') === null) {
+				Swal.fire({
+					icon : "error",
+					title : "오류",
+					text : "상품detail은 필수 입력사항 입니다.",
+				});
+				return false;
+			}
+			
+			if (document.getElementById('Sub3Image') !== null) {
+				if (document.getElementById('Sub2Image') === null) {
+					Swal.fire({
+						icon : "error",
+						title : "오류",
+						text : "Sub2 이미지를 먼저 입력해주세요.",
+					});
+					return false;
+				}
+			}
+			
+			if (document.getElementById('Sub2Image') !== null) {
+				if (document.getElementById('Sub1Image') === null) {
+					Swal.fire({
+						icon : "error",
+						title : "오류",
+						text : "Sub1 이미지를 먼저 입력해주세요.",
+					});
+					return false;
+				}
+			}
+			return true;
 }
-
 
 function checkValid() {
     let productName = $("#productName").val();
-    
+    let isValid = false; 
+
     $.ajax({
         url: '/miniproject/admin/checkProductName',
         type: 'GET',
         data: { productName: productName },
+        async: false, 
         success: function(response) {
-        	console.log(response)
+            console.log(response);
             if (response == "Dup") {
                 Swal.fire({
                     icon: "error",
                     title: "오류",
                     text: "이미 사용 중인 상품명입니다.",
                 });
-            }else{
-            	if(allValid()){
-            	}
+            } else {  
+                isValid = allValid(); 
             }
         },
         error: function() {
             console.log("전송 실패");
         }
     });
-    return false;
+    return isValid;
 }
 
-
+function checkSumbit() {
+   return checkValid();
+}
 
 /* 사진 업로드 */
 function previewImage(event, previewId) {
