@@ -15,7 +15,7 @@ import com.mycompany.miniproject.dao.UserDao;
 import com.mycompany.miniproject.dto.UserDto;
 
 @Service
-public class UsersDetailsService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
 	@Autowired
 	private UserDao userDao;
 	
@@ -28,7 +28,7 @@ public class UsersDetailsService implements UserDetailsService {
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getUserRole())); 
 		
-		UserDetails userDetails = new UsersDetails(user, authorities);
+		UserDetails userDetails = new CustomUserDetails(user, authorities);
 		return userDetails;
 	}
 }
