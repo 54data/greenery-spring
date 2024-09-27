@@ -12,6 +12,7 @@ body {
     justify-content: space-between;
     width: 470px;
     margin: 20px auto;
+    align-items: center;
 }
 
 .container-signup h2 {
