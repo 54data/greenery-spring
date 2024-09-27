@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mycompany.miniproject.dto.NoticeDto;
@@ -75,6 +76,20 @@ public class AdminController {
 	public String productAdd(String pageUsage) {
 		log.info("실행");
 		return "admin/productadd";
+	}
+	
+	@GetMapping("checkProductName")
+	@ResponseBody
+	public String checkProductName(@RequestParam String productName) {
+		String result;
+		int productId = productService.getProductIdByName(productName);
+		log.info("productId" + productId);
+		if(productId == 0) {
+			result = "notDup";
+		}else {
+			result = "Dup";
+		}
+		return result;
 	}
 	
 	@GetMapping("/productselect")

@@ -50,7 +50,7 @@
 			<h5 class="top-text-margin">
 				<b>기본 정보</b>
 			</h5>
-			<form method="post" enctype="multipart/form-data" 
+			<form method="post" enctype="multipart/form-data" id="productForm"
 				<c:if test="${param.pageUsage != '수정'}">action="productInsert"</c:if>
 				<c:if test="${param.pageUsage == '수정'}">action="updateProduct"</c:if>
 				onsubmit="return checkValid()">

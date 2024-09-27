@@ -107,9 +107,10 @@
 	</insert>
 	
 	<select id="getProductIdByName" parameterType="String" resultType="int">
-		select product_id
-		from product
-		where product_name = #{productName}
+		select nvl((select product_id
+                        from product
+                        where product_name = #{productName}), 0)
+        from dual
 	</select>
 	
 	<insert id="insertProductImg" parameterType="ProductImage">
