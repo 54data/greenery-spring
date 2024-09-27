@@ -127,8 +127,7 @@ input[type="checkbox"]:checked::after {
 
 .product-list {
     margin: 0 130px 0 0;
-    width: 100%;
-    justify-content: space-between;
+    width: 70%;
 }
 
 .product-header {
