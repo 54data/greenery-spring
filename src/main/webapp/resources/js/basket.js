@@ -65,6 +65,13 @@ function orderSelectedProducts() {
 			});
 			return;
 		}
+		if ($('.product-checkbox:checked').length == 0) {
+			Toast.fire({
+			    icon: 'error',
+			    title: '선택된 상품이 없습니다.'
+			});
+			return;
+		}
 		$.ajax({
     		url: "orderSelectedProducts",
     		type: "POST",
