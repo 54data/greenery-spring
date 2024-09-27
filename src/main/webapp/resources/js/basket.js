@@ -85,13 +85,7 @@ function orderSelectedProducts() {
 	})
 }
 
-$(document).ready(function() {
-	$('#allchk').prop('checked', true);
-		
-	$('.product-checkbox').prop('checked', true);
-	
-	changeTotalPrice();
-	
+function uncheckedSoldOut() {
 	$('.soldout').each(function() {
     	const checkBox = $(this).siblings(".product-checkbox");
     	if (checkBox.prop("checked")) {
@@ -100,6 +94,15 @@ $(document).ready(function() {
         }
     	changeTotalPrice();
     });
+}
+
+$(document).ready(function() {
+	$('#allchk').prop('checked', true);
+		
+	$('.product-checkbox').prop('checked', true);
+	
+	changeTotalPrice();
+	uncheckedSoldOut();
 	    
     $('.product-checkbox').each(function() {
     	$(this).click(function() {
@@ -110,6 +113,7 @@ $(document).ready(function() {
 	$('#allchk').click(function () {
 		let isChecked = $(this).is(':checked'); // 전체 선택 체크박스의 체크 상태를 true, false로 저장
 		$('.product-checkbox').prop('checked', isChecked);
+		uncheckedSoldOut();
 		changeTotalPrice();
 	});
 	
