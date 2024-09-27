@@ -355,6 +355,16 @@ a {
     font-size: 13px;
 }
 
+.soldout-delete-btn {
+    padding: 2px 18px 3px 18px;
+    background-color: transparent;
+    color: black;
+    border: 0.5px solid black;
+    cursor: pointer;
+    font-size: 13px;
+    margin-left: 10px;
+}
+
 .amount {
 	flex: 2;
 	text-align: center;

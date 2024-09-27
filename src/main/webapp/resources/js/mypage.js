@@ -511,10 +511,36 @@ $(document).ready(function () {
 					});
 				}
 			},
-			error: function(){
+			error: function() {
 				console.log("응답실패");
 			}
 		});	
+	});
+	
+	$(document).on('click', '.deactivate-btn', function() {
+		Swal.fire({
+			text : "계정 비활성화를 진행하시겠습니까?",
+			icon: 'warning',
+			cancelButtonText : "취소",
+			confirmButtonText : "확인",
+			showCancelButton : true,
+		}).then(function(result) {
+			if (result.isConfirmed) {												
+				$.ajax({
+					url: "deactivateUser",
+					type: "post",
+					success: function(response) {
+						Toast.fire({
+						    icon: 'success',
+						    html: '계정이 비활성화되었습니다.<br>서비스에서 자동 로그아웃 됩니다.'
+						});
+	                    setTimeout(function() {
+	                        window.location.href = '/miniproject/logout';
+	                    }, 2500);
+					}
+				});
+			}
+		});
 	});
     
     zipcodeBtn();

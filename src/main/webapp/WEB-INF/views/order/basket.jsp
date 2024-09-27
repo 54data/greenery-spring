@@ -32,7 +32,10 @@
 				</div>
 				<div class="button-group">
 					<button type="button" class="selected-delete-btn">
-						선택 삭제
+						선택 상품 삭제
+					</button>
+					<button type="button" class="soldout-delete-btn">
+						품절 상품 삭제
 					</button>
 				</div>
 			</div>
@@ -78,7 +81,7 @@
 			                    	</div>
 			                    </c:if>
 			                    <c:if test="${cart.productStock == 0}">
-			                    	<div class="soldout" data-status="soldout">품절</div>
+			                    	<div class="soldout" data-status="soldout" data-pid="${cart.productId}">품절</div>
 			                    </c:if>
 			                    <div class="product-price" data-price="${cart.productPrice}">
 									<span class="product-total-price" data-total-price="${cart.productQty * cart.productPrice}">

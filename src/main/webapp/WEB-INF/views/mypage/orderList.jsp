@@ -31,13 +31,13 @@
 <c:if test="${not empty orderDtos}">
 	<div class="order-list">
 		<c:forEach items="${orderDtos}" var="orderDto">
-			<div class="orderInfo">주문번호 : ${orderDto.orderId} 총 가격 : ${orderDto.orderTotalPrice}원</div>
-			<div class="order-list-col">
-				<div class="ol-1">주문일자</div>
-				<div class="ol-3">상품명</div>
-				<div class="ol-1">수량</div>
-				<div class="ol-1">주문금액</div>
-				<div class="ol-1">상태</div>
+<%-- 			<div class="orderInfo">주문번호 : ${orderDto.orderId} 총 가격 : ${orderDto.orderTotalPrice}원</div>
+ --%>		<div class="order-list-col">
+				<div class="ol-1"><strong>주문번호 : ${orderDto.orderId}</strong></div>
+				<div class="ol-3" ></div>
+				<div class="ol-1"></div>
+				<div class="ol-1"></div>
+				<div class="ol-1" id="totalPriceNum">총 가격 : ${orderDto.orderTotalPrice}원</div>
 			</div>			
 			<c:forEach items="${orderDetails}" var="orderDetail">
 

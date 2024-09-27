@@ -65,6 +65,13 @@ function orderSelectedProducts() {
 			});
 			return;
 		}
+		if ($('.product-checkbox:checked').length == 0) {
+			Toast.fire({
+			    icon: 'error',
+			    title: '선택된 상품이 없습니다.'
+			});
+			return;
+		}
 		$.ajax({
     		url: "orderSelectedProducts",
     		type: "POST",
@@ -78,13 +85,7 @@ function orderSelectedProducts() {
 	})
 }
 
-$(document).ready(function() {
-	$('#allchk').prop('checked', true);
-		
-	$('.product-checkbox').prop('checked', true);
-	
-	changeTotalPrice();
-	
+function uncheckedSoldOut() {
 	$('.soldout').each(function() {
     	const checkBox = $(this).siblings(".product-checkbox");
     	if (checkBox.prop("checked")) {
@@ -93,6 +94,37 @@ $(document).ready(function() {
         }
     	changeTotalPrice();
     });
+}
+
+function deleteSoldoutProducts() {;
+	var soldoutProductList = [];
+	$('.soldout').each(function() {
+		soldoutProductList.push($(this).data('pid'));
+	});
+	$('.soldout-delete-btn').click(function () {
+		if (soldoutProductList.length != 0) {
+			$.ajax({
+				url: "deleteBasketProducts",
+				type: "POST",
+				contentType: "application/json",
+				data: JSON.stringify(soldoutProductList),
+				success: function(response) {
+					console.log("품절 상품 삭제 완료");
+					window.location.href = "../order/basket";
+				}
+			});
+		}
+	});
+}
+
+$(document).ready(function() {
+	$('#allchk').prop('checked', true);
+		
+	$('.product-checkbox').prop('checked', true);
+	
+	changeTotalPrice();
+	uncheckedSoldOut();
+	deleteSoldoutProducts();
 	    
     $('.product-checkbox').each(function() {
     	$(this).click(function() {
@@ -103,6 +135,7 @@ $(document).ready(function() {
 	$('#allchk').click(function () {
 		let isChecked = $(this).is(':checked'); // 전체 선택 체크박스의 체크 상태를 true, false로 저장
 		$('.product-checkbox').prop('checked', isChecked);
+		uncheckedSoldOut();
 		changeTotalPrice();
 	});
 	

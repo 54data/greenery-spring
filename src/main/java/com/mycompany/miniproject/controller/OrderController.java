@@ -144,6 +144,7 @@ public class OrderController {
 			Authentication authentication) {
 		OrderDto orderDto = new OrderDto();
 		OrderDetailDto orderDetailDto = new OrderDetailDto();
+		ProductDto productDto = new ProductDto();
 		int productId = 0;
 		int productQty = 0;
 				
@@ -167,7 +168,10 @@ public class OrderController {
 				orderDetailDto.setProductQty(productQty);
 				orderDetailDto.setProductPrice(cartDto.getProductPrice() * productQty);
 				orderService.insertOrderDetail(orderDetailDto);
-				log.info("장바구니 상품 결제 완료");
+				
+				productDto.setProductId(productId);
+				productDto.setProductStock(productQty);
+				productService.updateProductStock(productDto);
 			}
 		} else {
 			productId = orderDetail.getProductId();
@@ -176,18 +180,16 @@ public class OrderController {
 			orderDetailDto.setProductQty(productQty);
 			orderDetailDto.setProductPrice(orderDetail.getProductPrice());
 			orderService.insertOrderDetail(orderDetailDto);
-			log.info("선택 상품 결제 완료");
+			
+			productDto.setProductId(productId);
+			productDto.setProductStock(productQty);
+			productService.updateProductStock(productDto);
 		}
 		
 		int couponStatus = orderDetail.getCouponStatus();
 		if (couponStatus != 0) {
 			usedCoupon(userId);
 		}
-		
-		ProductDto productDto = new ProductDto();
-		productDto.setProductId(productId);
-		productDto.setProductStock(productQty);
-		productService.updateProductStock(productDto);
 		return "" + orderId; // 주문번호를 String 타입으로 변환하여 리턴
 	}
 	
