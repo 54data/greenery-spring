@@ -558,4 +558,5 @@ $(document).ready(function () {
         checkPwd();
         checkNewPwd();
     });
+    
 });

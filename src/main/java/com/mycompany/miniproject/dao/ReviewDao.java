@@ -12,8 +12,8 @@ import com.mycompany.miniproject.dto.ReviewDto;
 @Mapper
 public interface ReviewDao {
 
-	public List<ReviewDto> getReviewsById(@Param("productId") int productId, @Param("pager") PagerDto pager);
-	
+	public List<ReviewDto> getReviewsById(@Param("productId") int productId, @Param("pager") PagerDto pager, @Param("sortOrder") String sortOrder);
+		
 	public ReviewDto getReviewImgById(int reviewId);
 
 	public int countRows(@Param("productId") int productId);
@@ -29,5 +29,6 @@ public interface ReviewDao {
 	public ReviewDto getReview(Map<String, Object> params);
 
 	public ReviewDto getReviewByReviewId(int reviewId);
+
 
 }

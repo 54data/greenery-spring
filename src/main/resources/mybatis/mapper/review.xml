@@ -9,21 +9,31 @@
 		order by review_reg_date desc
 	</select>
 	
-	  
- 	<select id="getReviewsById" resultType="Review">
-	    <![CDATA[
-	    select review_id, product_id, order_id, user_id, review_content, review_reg_date, 
-	           review_score, review_img, review_img_type, review_img_name
-	    from (
-	        select rownum as rnum, review_id, product_id, order_id, user_id, review_content, review_reg_date, 
-	               review_score, review_img, review_img_type, review_img_name
-	        from review
-	        where product_id = #{productId}
-	        and rownum <= #{pager.endRowNo}  
-	        order by review_reg_date desc
-	    )
-	    where rnum >= #{pager.startRowNo}  
-	    ]]>
+	<select id="getReviewsById" resultType="Review">
+    select
+        review_num, review_id, product_id, order_id, user_id, review_content, review_reg_date, 
+        review_score, review_recom, review_img, review_img_type, review_img_name
+    from (
+        select
+            review_id, product_id, order_id, user_id, review_content, review_reg_date, 
+            review_score, review_recom, review_img, review_img_type, review_img_name,
+            row_number() over (
+                <choose>
+                    <when test="sortOrder == 'latest'">
+                        order by review_reg_date desc
+                    </when>
+                    <when test="sortOrder == 'rating'">
+                        order by review_score desc
+                    </when>
+                    <otherwise>
+                        order by review_reg_date desc  
+                    </otherwise>
+                </choose>
+            ) as review_num
+        from review
+        where product_id = #{productId}
+    )
+    where review_num between #{pager.startRowNo} and #{pager.endRowNo}
 	</select>
     
 	<select id="countRows" resultType="int">
@@ -85,5 +95,5 @@
 		from review
 		where review_id = #{reviewId}
 	</select>
-	
+
 </mapper>

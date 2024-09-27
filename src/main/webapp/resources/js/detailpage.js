@@ -50,14 +50,15 @@ $(document).ready(function(){
 });
 
 
-function loadTabContent(tabName, productId, pageNo) {
+function loadTabContent(tabName, productId, pageNo, sortOrder) {
     console.log("loadTabContent 호출됨, productId: ", productId);
     console.log("pageNo 잘 넘어가는지?: ", pageNo);
-
+    console.log("sortOrder 잘 넘어가는지?: ", sortOrder);
+    
     $.ajax({
         url: "/miniproject/product/" + tabName,  
         type: "GET",
-        data: { productId: productId, pageNo: pageNo },  
+        data: { productId: productId, pageNo: pageNo, sortOrder: sortOrder },  
         success: function(response) {
             console.log("Ajax 성공", response);
             $('#tab-content').html(response);  
@@ -70,7 +71,6 @@ function loadTabContent(tabName, productId, pageNo) {
         }
     });
 }
-
 
 // 탭 버튼 클릭 시 색상 변경
 document.addEventListener('DOMContentLoaded', function() {
@@ -232,3 +232,17 @@ $('.add-to-cart').on('click', function(event){
 		}
 	})	
 });
+
+/*function addReviewLike(svgElement) {
+    const parentDiv = svgElement.closest('.review-like');
+
+    parentDiv.classList.toggle('liked');
+    
+    console.log("추천고마워");
+    
+    $.ajax({
+    	url: "/miniproject/product/reviewsSelect",
+    	type: "post",
+    	
+    })
+}*/

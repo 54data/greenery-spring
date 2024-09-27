@@ -31,11 +31,11 @@ public class ReviewService {
 		return totalRows;
 	}
 
-	public List<ReviewDto> getReviewsByProductId(int productId, PagerDto pager) {
-		List<ReviewDto> reviewList = reviewDao.getReviewsById(productId, pager);
+	public List<ReviewDto> getReviewsByProductId(int productId, PagerDto pager, String sortOrder) {
+		List<ReviewDto> reviewList = reviewDao.getReviewsById(productId, pager, sortOrder);
 		return reviewList;
 	}
-
+	
 	public void insertReview(ReviewDto reviewDto){
 		reviewDao.insertReview(reviewDto);
 	}
@@ -68,5 +68,5 @@ public class ReviewService {
 	public ReviewDto getReviewByReviewId(int reviewId){	    
 	    return reviewDao.getReviewByReviewId(reviewId);
 	}
-	
+
 }

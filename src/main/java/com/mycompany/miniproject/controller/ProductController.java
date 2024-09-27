@@ -58,10 +58,10 @@ public class ProductController {
 
 
     @GetMapping("/reviewsSelect")
-    public String reviewsSelect(@RequestParam int productId,
+    public String reviewsSelect(@RequestParam int productId, @RequestParam(defaultValue = "latest") String sortOrder,
                                 @RequestParam(defaultValue = "1") int pageNo, Model model,
                                 HttpSession session) {
-		ProductDto product = productService.getProductDetail(productId);
+    	ProductDto product = productService.getProductDetail(productId);
 		model.addAttribute("product", product);
 		
         int totalRows = reviewService.getTotalRows(productId);
@@ -73,8 +73,10 @@ public class ProductController {
         log.info("totalRows: ", totalRows);
         log.info("totalPageNo: ", pager.getTotalPageNo());
         log.info("pageNo: ", pager.getPageNo());
+        pager.setSort(sortOrder);
         
-        List<ReviewDto> reviewList = reviewService.getReviewsByProductId(productId, pager);
+        List<ReviewDto> reviewList;
+        reviewList = reviewService.getReviewsByProductId(productId, pager, sortOrder); 
         
         session.setAttribute("pager", pager);
         model.addAttribute("reviewList", reviewList);

@@ -17,4 +17,5 @@ public class ReviewDto {
 	private String reviewImgType;
 	private String reviewImgName;
 	private OrderDetailDto orderDetail;
+	private int reviewRecom;
 }

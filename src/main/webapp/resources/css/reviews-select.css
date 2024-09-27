@@ -326,3 +326,84 @@
 .blank {
 	margin-top: 45px;
 }
+
+.review_like div {
+	margin-top: 10px;
+}
+
+.review_like_action_icon {
+    width: 16px;
+    height: 16px;
+    vertical-align: top;
+    stroke: #bcc2cc;
+    fill: none;
+    cursor: pointer;
+}
+
+.review_like_action_text, .review_like_action_count {
+	font-family: "Roboto","Noto Sans KR","AppleSDGothcNeo","AppleGothic", sans-serif;
+	list-style-type: none;
+	color: #707680;
+	cursor: pointer;
+	line-height: 18px;
+	margin: 0 4px;
+	font-size: 13px;
+} 
+
+.review_like_action_icon.linked {
+    width: 16px;
+    height: 16px;
+    vertical-align: top;
+    stroke: #bcc2cc;
+    fill: none;
+}
+
+.review_like_action_text.linked {
+	font-family: "Roboto","Noto Sans KR","AppleSDGothcNeo","AppleGothic", sans-serif;
+	list-style-type: none;
+	color: #707680;
+	cursor: pointer;
+	line-height: 18px;
+	margin: 0 4px;
+	font-size: 13px;
+} 
+
+/* .toolbar-sort {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.toolbar-sort-select {
+    border: none;
+    cursor: pointer;
+}
+
+.toolbar-sort-select:focus {
+    outline: none;
+} */
+
+.toolbar-sort {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 0;
+}
+
+.toolbar-sort-select {
+    border: 1px solid black; 
+    cursor: pointer;
+    font-family: 'Helvetica', 'Noto Sans KR', sans-serif;
+    font-size: 16px;
+    padding: 8px 20px 8px 12px; 
+    border-radius: 4px; 
+    background-color: white; 
+    background-position: right 10px center; 
+    background-repeat: no-repeat;
+    outline: none;
+}
+
+.toolbar-sort-select:focus {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2); 
+}
+

@@ -54,7 +54,7 @@
 							</div>
 						</div>
 						<div class="ol-1">${orderDetail.productQty}</div>
-						<div class="ol-1"><fmt:formatNumber value="${orderDetail.productQty * orderDetail.productPrice}" type="number" pattern="#,###"/>원</div>
+						<div class="ol-1"><fmt:formatNumber value="${orderDetail.orderTotalPrice}" type="number" pattern="#,###"/>원</div>
 						<div class="ol-1 order-status">
 						<span id="payment-completed">결제완료</span>
 						<c:choose>
