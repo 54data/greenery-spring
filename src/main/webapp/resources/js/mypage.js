@@ -521,8 +521,8 @@ $(document).ready(function () {
 		Swal.fire({
 			text : "계정 비활성화를 진행하시겠습니까?",
 			icon: 'warning',
-			cancelButtonText : "확인",
-			confirmButtonText : "취소",
+			cancelButtonText : "취소",
+			confirmButtonText : "확인",
 			showCancelButton : true,
 		}).then(function(result) {
 			if (result.isConfirmed) {												
