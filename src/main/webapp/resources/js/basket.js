@@ -96,6 +96,25 @@ function uncheckedSoldOut() {
     });
 }
 
+function deleteSoldoutProducts() {;
+	var soldoutProductList = [];
+	$('.soldout').each(function() {
+		soldoutProductList.push($(this).data('pid'));
+	});
+	$('.soldout-delete-btn').click(function () {
+		$.ajax({
+			url: "deleteBasketProducts",
+			type: "POST",
+			contentType: "application/json",
+			data: JSON.stringify(soldoutProductList),
+			success: function(response) {
+				console.log("품절 상품 삭제 완료");
+				window.location.href = "../order/basket";
+			}
+		});
+	});
+}
+
 $(document).ready(function() {
 	$('#allchk').prop('checked', true);
 		
@@ -103,6 +122,7 @@ $(document).ready(function() {
 	
 	changeTotalPrice();
 	uncheckedSoldOut();
+	deleteSoldoutProducts();
 	    
     $('.product-checkbox').each(function() {
     	$(this).click(function() {
