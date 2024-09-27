@@ -1,12 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/sweetalert2/sweetalert2.min.css">
+<script src="${pageContext.request.contextPath}/resources/sweetalert2/sweetalert2.min.js"></script>		
+		
 <div class="mypage-myinfo-title">개인정보 수정</div>
 <form class="info-change-form" method="post">
 	<div class="myinfo-list">
 		<div class="myinfo-id">
 			<span class="myinfo-col">아이디</span>
-			<span>${user.userId}</span>
+			<div class="myinfo-id-row">
+				<span>${user.userId}</span>
+				<button type="button" class="deactivate-btn">계정 비활성화</button>
+			</div>
 		</div>
 		<div class="myinfo-name">
 			<span class="myinfo-col">이름</span>

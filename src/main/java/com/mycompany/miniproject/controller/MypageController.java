@@ -16,6 +16,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -37,8 +38,7 @@ import com.mycompany.miniproject.dto.ProductImageDto;
 import com.mycompany.miniproject.dto.ReviewDataDto;
 import com.mycompany.miniproject.dto.ReviewDto;
 import com.mycompany.miniproject.dto.UserDto;
-import com.mycompany.miniproject.security.UsersDetails;
-import com.mycompany.miniproject.security.UsersDetailsService;
+import com.mycompany.miniproject.security.CustomUserDetailsService;
 import com.mycompany.miniproject.service.OrderDetailService;
 import com.mycompany.miniproject.service.OrderService;
 import com.mycompany.miniproject.service.ProductService;
@@ -65,7 +65,7 @@ public class MypageController {
 	private UserService userService;
 	
 	@Autowired
-	private UsersDetailsService usersDetailsService;
+	private CustomUserDetailsService usersDetailsService;
 	
 	@Autowired
 	private OrderService orderService;
@@ -101,7 +101,7 @@ public class MypageController {
 	    
 	    String userId = authentication.getName();
 	    UserDto user = userService.getUserInfo(userId);
-	    UsersDetails userDetails = (UsersDetails) usersDetailsService.loadUserByUsername(userId);
+	    UserDetails userDetails = usersDetailsService.loadUserByUsername(userId);
 	    
 	    PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	    if (!passwordEncoder.matches(currentPwd, user.getUserPwd())) {
@@ -118,6 +118,13 @@ public class MypageController {
 	        return "SUCCESS";
 	    }
 	    return "FAIL";
+	}
+	
+	@PostMapping("/deactivateUser")
+	@ResponseBody
+	public String deactivateUser(Authentication authentication) {
+		userService.deactivateUser(authentication.getName());
+		return "deactivate";
 	}
 	
 	@GetMapping("/likedProducts")
@@ -150,32 +157,6 @@ public class MypageController {
 		log.info("실행");
 		return "mypage/mypage";
 	}
-	
-/*	@GetMapping("/orderList")
-	public String orderList(Model model) {
-	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    String userId =  authentication.getName();
-
-	    log.info("User ID: " + userId);
-
-	    List<OrderDetailDto> orderDetails = orderDetailService.getOrderDetailsByOd(userId);
-	    
-	    for (OrderDetailDto orderDetail : orderDetails) {
-	    	log.info("Order ID: " + orderDetail.getOrderId());
-	    	log.info("Product ID: " + orderDetail.getProductId());    	
-	    	
-	    	ReviewDto review = reviewService.getReview(orderDetail.getOrderId(), orderDetail.getProductId());
-    	    orderDetail.setReview(review);
-	        boolean hasReview = reviewService.hasReviewForProduct(orderDetail.getOrderId(), orderDetail.getProductId());
-	        orderDetail.setHasReview(hasReview);
-	    }
-	    
-	    UserDto userInfo = userService.getUserInfo(userId);
-		model.addAttribute("userInfo", userInfo);
-	    model.addAttribute("orderDetails", orderDetails);
-	    log.info("실행");
-	    return "mypage/orderList";
-	}*/
 
 	@GetMapping("/orderList")
 	public String orderList(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session) {

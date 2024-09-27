@@ -508,6 +508,7 @@
 }
 
 .pageNum {
+<<<<<<< HEAD
 	margin-top: 80px;
 }
 
@@ -532,3 +533,25 @@
 #totalPriceNum {
 	justify-content: left;
 }
+=======
+	margin-top: 30px;
+}
+
+.myinfo-id-row {
+	display: flex;
+	align-items: center;
+	width: 400px;
+	justify-content: space-between;
+}
+
+.deactivate-btn {
+	height: 30px;
+	width: 120px;
+	padding: 10px;
+	border-radius: 2px;
+	color: #888;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+>>>>>>> branch 'master' of https://github.com/54data/miniproject.git
