@@ -58,4 +58,10 @@
 	    set user_status = 0
 	    where user_id = #{userId}
 	</update>
+	
+	<update id="updateUserStatus" parameterType="User">
+	    update users
+	    set user_status = #{userStatus}
+	    where user_id = #{userId}
+	</update>
 </mapper>
