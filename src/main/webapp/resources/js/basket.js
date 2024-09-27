@@ -102,16 +102,18 @@ function deleteSoldoutProducts() {;
 		soldoutProductList.push($(this).data('pid'));
 	});
 	$('.soldout-delete-btn').click(function () {
-		$.ajax({
-			url: "deleteBasketProducts",
-			type: "POST",
-			contentType: "application/json",
-			data: JSON.stringify(soldoutProductList),
-			success: function(response) {
-				console.log("품절 상품 삭제 완료");
-				window.location.href = "../order/basket";
-			}
-		});
+		if (soldoutProductList.length != 0) {
+			$.ajax({
+				url: "deleteBasketProducts",
+				type: "POST",
+				contentType: "application/json",
+				data: JSON.stringify(soldoutProductList),
+				success: function(response) {
+					console.log("품절 상품 삭제 완료");
+					window.location.href = "../order/basket";
+				}
+			});
+		}
 	});
 }
 
