@@ -21,4 +21,6 @@ public interface UserDao {
 	public int updateNewPwd(UserDto user);
 
 	public int deactivateUserById(String userId);
+
+	public int updateUserStatus(UserDto user);
 }

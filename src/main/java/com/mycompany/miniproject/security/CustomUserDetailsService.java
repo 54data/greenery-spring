@@ -25,6 +25,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 			throw new UsernameNotFoundException("Bad username");
 		}
 		
+	    if (!user.isUserStatus()) {
+	        user.setUserStatus(true);
+	        userDao.updateUserStatus(user);
+	    }
+		
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getUserRole())); 
 		
