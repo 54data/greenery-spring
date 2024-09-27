@@ -6,7 +6,10 @@
 	<div class="myinfo-list">
 		<div class="myinfo-id">
 			<span class="myinfo-col">아이디</span>
-			<span>${user.userId}</span>
+			<div class="myinfo-id-row">
+				<span>${user.userId}</span>
+				<button type="button" class="deactivate-btn">계정 비활성화</button>
+			</div>
 		</div>
 		<div class="myinfo-name">
 			<span class="myinfo-col">이름</span>
