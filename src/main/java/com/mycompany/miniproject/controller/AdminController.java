@@ -177,11 +177,7 @@ public class AdminController {
 	    model.addAttribute("detailImage", productService.getImgByUsage(productId, "detail") != null);
 	    
 		return "admin/productadd";
-	}
-	
-	public void getPreviewImage() {
-		
-	}
+	}	
 
 	@PostMapping("/updateProduct")
 	public String updateProduct(ProductAddDto prdAddDto) throws Exception{
