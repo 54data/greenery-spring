@@ -122,6 +122,8 @@ btnZipcode.addEventListener('click', () => {
 
                 document.formSignup.zipcode.value = data.zonecode;
                 document.formSignup.roadAddress.value = fullAddr;
+                
+                validateZipcode();
             }
         }).open();
     }
@@ -205,21 +207,21 @@ function signup() {
 		return;
 	}
 
-	let inputStatus = true;
-	$('input').each(function() {
-		if ($(this).val() === '') {
-			Toast.fire({
-			    icon: 'error',
-			    title: '모든 입력값은 필수입니다.'
-			});
-			inputStatus = false;
-			return;
-		}
-	})
-	
-	if (!inputStatus) {
-		return;
-	}
+    let hasEmptyField = false; 
+    $('input').each(function() {
+        if ($(this).val().trim() === '') { 
+            hasEmptyField = true;
+            return false;
+        }
+    });
+
+    if (hasEmptyField) {
+        Toast.fire({
+            icon: 'error',
+            title: '모든 입력값은 필수입니다.'
+        });
+        return;
+    }
 	
 	if (checkIdStatus()) {
 		$.ajax({
@@ -247,6 +249,19 @@ function signup() {
 	}
 }
 
+function validateZipcode() {
+    const inputValue = $('#zipcode').val().trim();
+    const zipcodeRegExp = /^\d{5}$/; 
+
+    if (!zipcodeRegExp.test(inputValue)) {
+        $("#inputZipcodeMessage").html("<span>유효하지 않은 우편번호입니다.</span>");
+    } else if (inputValue === '') {
+        $("#inputZipcodeMessage").html("<span>해당 입력 값은 필수입니다.</span>");
+    } else {
+        $("#inputZipcodeMessage").html('');
+    }
+}
+
 $(document).ready(function () {
 	$('#userId').on('input', function() {
 	    isIdChecked = false;
@@ -257,16 +272,7 @@ $(document).ready(function () {
 		signup();
 	});
 	
-	let zipcodeRegExp = RegExp(/^\d{5}$/);
-	$('#zipcode').on('input', function() {
-		if (!zipcodeRegExp.test($(this).val())) {
-			$("#inputZipcodeMessage").html("<span>유효하지 않은 우편번호입니다.<span>");
-		} else if ($(this).val() === '') {
-			$("#inputZipcodeMessage").html("<span>해당 입력 값은 필수입니다.</span>");
-		} else {
-			$("#inputZipcodeMessage").html('');
-		}
-	});
+	$('#zipcode').on('input', validateZipcode);
 	
 	$('#roadAddress').on('input', function() {
 	    if ($(this).val() === '') {
