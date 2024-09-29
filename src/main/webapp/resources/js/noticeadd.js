@@ -1,13 +1,4 @@
 function checkValid() {
-	if ($("#noticeTitle").val().length > 30) {
-		Swal.fire({
-			icon : "error",
-			title : "오류",
-			text : "제목은 띄어쓰기 포함 30글자 이내로 작성해주세요.",
-		});
-		return false;
-	}
-	
 	if (!$("#noticeTitle").val()) {
 		Swal.fire({
 			icon : "error",
