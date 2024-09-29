@@ -17,10 +17,12 @@ function inputIdCheck() {
 let userPwd = document.querySelector('#userPwd');
 let checkUserPwd = document.querySelector('#checkUserPwd');
 userPwd.addEventListener('input', inputPasswordCheck);
-checkUserPwd.addEventListener('input', inputPasswordDoubleCheck);
+checkUserPwd.addEventListener('input', inputPasswordCheck);
 
 function inputPasswordCheck() {
     let inputPasswordMessage1 = document.querySelector('#inputPasswordMessage1');
+    let inputPasswordMessage2 = document.querySelector('#inputPasswordMessage2');
+
     let regExp = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,20}$/);
     if (regExp.test(userPwd.value)) {
     	inputPasswordMessage1.innerHTML =  ''; 
@@ -30,11 +32,7 @@ function inputPasswordCheck() {
         inputPasswordMessage1.innerHTML = 
         "<span>8자 이상 20자 이하의 알파벳 대소문자, 숫자, 특수문자를 조합해주세요.</span>";
     }
-}
-
-function inputPasswordDoubleCheck() {
-    let inputPasswordMessage2 = document.querySelector('#inputPasswordMessage2');
-    let regExp = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,20}$/);
+    
     if (userPwd.value === checkUserPwd.value) {
         inputPasswordMessage2.innerHTML =  '';
     } else if (checkUserPwd.value === '') {
@@ -100,7 +98,6 @@ let btnZipcode = document.querySelector('#btnZipcode');
 btnZipcode.addEventListener('click', () => {
         new daum.Postcode({
             oncomplete: function(data) {
-                console.log(data)
                 let fullAddr = '';
                 let extraAddr = '';
 
@@ -174,7 +171,6 @@ function checkUserId() {
 }
 
 function checkIdStatus() {
-	console.log("아이디 중복 체크 여부 확인");
 	if (!isIdChecked) {
 		Toast.fire({
 		    icon: 'error',
@@ -268,7 +264,6 @@ $(document).ready(function () {
 	});
 	
 	$('#signup-btn').on('click', function() {
-		console.log("회원가입 버튼 클릭");
 		signup();
 	});
 	
