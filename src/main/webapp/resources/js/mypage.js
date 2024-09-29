@@ -56,12 +56,11 @@ function updateUserInfo() {
         contentType: "application/json",
         data: JSON.stringify(userData),
         success: function (url) {
-        	$(".mypage-content").empty();
-        	getContent(url);
 			Toast.fire({
 			    icon: 'success',
 			    title: '정보가 성공적으로 업데이트되었습니다.'
 			});
+			getContent(url);
         }
     });
 }
@@ -164,7 +163,7 @@ function checkUserTel() {
 		if (regExp.test(telValue)) {
 			$("#inputPhoneMessage").html('');
 		} else if (telValue === '') {
-			$("#inputPhoneMessage").html('<span>해당 입력 값은 필수입니다.</span>');
+			$("#inputPhoneMessage").html('<span>해당 입력값은 필수입니다.</span>');
 		} else {
 			$("#inputPhoneMessage").html("<span>유효하지 않은 전화번호입니다. (숫자만 입력)</span>");
 		}
@@ -178,7 +177,7 @@ function checkUserEmail() {
 		if (regExp.test(emailValue)) {
 			$("#inputEmailMessage").html('');
 		} else if (emailValue === '') {
-			$("#inputEmailMessage").html('<span>해당 입력 값은 필수입니다.</span>');
+			$("#inputEmailMessage").html('<span>해당 입력값은 필수입니다.</span>');
 		} else {
 			$("#inputEmailMessage").html("<span>이메일 입력을 확인해주세요.</span>");
 		}
@@ -189,7 +188,7 @@ function checkDetailedAddress() {
 	$(document).on('input', '.userDetailedAddress', function() {
 		let detailedAddressValue = $(this).val().trim();
 	    if (detailedAddressValue === '') {
-			$("#inputDetailedAddressMessage").html('<span>해당 입력 값은 필수입니다.</span>');
+			$("#inputDetailedAddressMessage").html('<span>해당 입력값은 필수입니다.</span>');
 		} else {
 			$("#inputDetailedAddressMessage").html('');
 		}
@@ -199,7 +198,7 @@ function checkDetailedAddress() {
 function checkPwd() {
 	let pwd = $(".userPwd").val();
     if (pwd === '') {
-    	$("#pwdMessage").html('<span>해당 입력 값은 필수입니다.</span>'); 
+    	$("#pwdMessage").html('<span>해당 입력값은 필수입니다.</span>'); 
     } else {
     	$("#pwdMessage").html('');
     }
@@ -213,7 +212,7 @@ function checkNewPwd() {
     if (regExp.test(newPwd)) {
     	$("#inputPwdMessage").html(''); 
     } else if (newPwd === '') {
-    	$("#inputPwdMessage").html('<span>해당 입력 값은 필수입니다.</span>');
+    	$("#inputPwdMessage").html('<span>해당 입력값은 필수입니다.</span>');
     } else {
     	$("#inputPwdMessage").html('<span>8자 이상 20자 이하의 알파벳 대소문자, 숫자, 특수문자를 조합해주세요.</span>');
     }
@@ -221,7 +220,7 @@ function checkNewPwd() {
     if (regExp.test(checkNewPwd)) {
     	$("#inputCheckPwdMessage").html(''); 
     } else if (checkNewPwd === '') {
-    	$("#inputCheckPwdMessage").html('<span>해당 입력 값은 필수입니다.</span>');
+    	$("#inputCheckPwdMessage").html('<span>해당 입력값은 필수입니다.</span>');
     } else {
     	$("#inputCheckPwdMessage").html('<span>비밀번호를 확인해주세요.</span>');
     }
