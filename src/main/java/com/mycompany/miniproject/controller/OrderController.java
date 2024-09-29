@@ -74,7 +74,6 @@ public class OrderController {
 		String userId = authentication.getName();
 		List<CartDto> cartList = orderService.getCart(userId);
 		model.addAttribute("cartList", cartList);
-		log.info(cartList.toString());
 		return "order/basket";
 	}
 	
@@ -158,6 +157,8 @@ public class OrderController {
 		// order_detail 테이블에 입력
 		int orderId = orderDto.getOrderId();
 		orderDetailDto.setOrderId(orderId);
+		
+		@SuppressWarnings("unchecked")
 		List<CartDto> orderProductList = (List<CartDto>) session.getAttribute("orderProductList");
 		if (orderProductList != null) {
 			for (CartDto cartDto : orderProductList) {
@@ -194,7 +195,6 @@ public class OrderController {
 	}
 	
 	public void usedCoupon(String userId) {
-		// 쿠폰 사용시 상태 변경
 		userService.updateCouponStatus(-1, userId);
 	}
 	
