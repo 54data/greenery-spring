@@ -7,10 +7,10 @@ function inputIdCheck() {
     if (regExp.test(userId.value)) {
         inputIdMessage.innerHTML =  ''; 
     } else if (userId.value === '') {
-    	inputIdMessage.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력값은 필수입니다.</span>";
+    	inputIdMessage.innerHTML = "<span>해당 입력값은 필수입니다.</span>";
     } else {
         inputIdMessage.innerHTML = 
-        "<span style='color:#F03F40; font-size:12px;'>아이디는 6자 이상 16자 이하만 가능합니다. (숫자, 알파벳, _ 만 가능)</span>";
+        "<span>아이디는 6자 이상 16자 이하만 가능합니다. (숫자, 알파벳, _ 만 가능)</span>";
     }
 }
 
@@ -25,10 +25,10 @@ function inputPasswordCheck() {
     if (regExp.test(userPwd.value)) {
     	inputPasswordMessage1.innerHTML =  ''; 
     } else if (userPwd.value === '') {
-    	inputPasswordMessage1.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력값은 필수입니다.</span>";
+    	inputPasswordMessage1.innerHTML = "<span>해당 입력값은 필수입니다.</span>";
     } else {
         inputPasswordMessage1.innerHTML = 
-        "<span style='color:#F03F40; font-size:12px;'>8자 이상 20자 이하의 알파벳 대소문자, 숫자, 특수문자를 조합해주세요.</span>";
+        "<span>8자 이상 20자 이하의 알파벳 대소문자, 숫자, 특수문자를 조합해주세요.</span>";
     }
 }
 
@@ -38,10 +38,10 @@ function inputPasswordDoubleCheck() {
     if (userPwd.value === checkUserPwd.value) {
         inputPasswordMessage2.innerHTML =  '';
     } else if (checkUserPwd.value === '') {
-    	inputPasswordMessage2.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력값은 필수입니다.</span>";
+    	inputPasswordMessage2.innerHTML = "<span>해당 입력값은 필수입니다.</span>";
     } else {
         inputPasswordMessage2.innerHTML =
-        "<span style='color:#F03F40; font-size:12px;'>비밀번호를 확인해주세요.</span>";
+        "<span>비밀번호를 확인해주세요.</span>";
     }
 }
 
@@ -55,10 +55,10 @@ function inputNameCheck() {
     if (regExp.test(inputName.value)) {
         inputNameMessage.innerHTML =  ''; 
     } else if (inputName.value === '') {
-    	inputNameMessage.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력값은 필수입니다.</span>";
+    	inputNameMessage.innerHTML = "<span>해당 입력값은 필수입니다.</span>";
     } else {
         inputNameMessage.innerHTML = 
-        "<span style='color:#F03F40; font-size:12px;'>영문 또는 한글로 입력해주세요.</span>";
+        "<span>영문 또는 한글로 입력해주세요.</span>";
     }
 }
 
@@ -72,10 +72,10 @@ function inputPhoneCheck() {
     if (regExp.test(inputPhone.value)) {
         inputPhoneMessage.innerHTML =  ''; 
     } else if (inputPhone.value === '') {
-    	inputPhoneMessage.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력값은 필수입니다.</span>";
+    	inputPhoneMessage.innerHTML = "<span>해당 입력값은 필수입니다.</span>";
     } else {
         inputPhoneMessage.innerHTML = 
-        "<span style='color:#F03F40; font-size:12px;'>유효하지 않은 전화번호입니다. (숫자만 입력)</span>";
+        "<span>유효하지 않은 전화번호입니다. (숫자만 입력)</span>";
     }
 }
 
@@ -89,10 +89,10 @@ function inputEmailCheck() {
     if (regExp.test(inputEmail.value)) {
         inputEmailMessage.innerHTML =  ''; 
     } else if (inputEmail.value === '') {
-    	inputEmailMessage.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력값은 필수입니다.</span>";
+    	inputEmailMessage.innerHTML = "<span>해당 입력값은 필수입니다.</span>";
     } else {
         inputEmailMessage.innerHTML = 
-        "<span style='color:#F03F40; font-size:12px;'>이메일 입력을 확인해주세요.</span>";
+        "<span>이메일 입력을 확인해주세요.</span>";
     }
 }
 
@@ -229,9 +229,10 @@ function signup() {
 			success: function(signupResult) {
 				if (signupResult) {
 					Swal.fire({
-						html : '회원가입이 완료되었습니다.',
-						cancelButtonText : '로그인하기',
-						confirmButtonText : '홈으로 가기',
+					    title: '회원가입이 완료되었습니다.',
+					    icon: 'success',
+						cancelButtonText: '로그인하기',
+						confirmButtonText: '홈으로 가기',
 						showCancelButton : true,
 					}).then(function(result) {
 						if (result.isConfirmed) {												
@@ -259,9 +260,9 @@ $(document).ready(function () {
 	let zipcodeRegExp = RegExp(/^\d{5}$/);
 	$('#zipcode').on('input', function() {
 		if (!zipcodeRegExp.test($(this).val())) {
-			$("#inputZipcodeMessage").html("<span style='color:#F03F40; font-size:12px;'>유효하지 않은 우편번호입니다.<span>");
+			$("#inputZipcodeMessage").html("<span>유효하지 않은 우편번호입니다.<span>");
 		} else if ($(this).val() === '') {
-			$("#inputZipcodeMessage").html("<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>");
+			$("#inputZipcodeMessage").html("<span>해당 입력 값은 필수입니다.</span>");
 		} else {
 			$("#inputZipcodeMessage").html('');
 		}
@@ -269,7 +270,7 @@ $(document).ready(function () {
 	
 	$('#roadAddress').on('input', function() {
 	    if ($(this).val() === '') {
-			$("#inputRoadAddressMessage").html("<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>");
+			$("#inputRoadAddressMessage").html("<span>해당 입력 값은 필수입니다.</span>");
 		} else {
 			$("#inputRoadAddressMessage").html('');
 		}
@@ -277,7 +278,7 @@ $(document).ready(function () {
 	
 	$('#detailedAddress').on('input', function() {
 	    if ($(this).val() === '') {
-			$("#inputDetailedAddressMessage").html("<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>");
+			$("#inputDetailedAddressMessage").html("<span>해당 입력 값은 필수입니다.</span>");
 		} else {
 			$("#inputDetailedAddressMessage").html('');
 		}

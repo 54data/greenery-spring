@@ -1,3 +1,7 @@
+html {
+    overflow-y: scroll;
+}
+
 body {
     text-align: center;
 }
@@ -34,7 +38,7 @@ body {
 }
 
 .input {
-    height: 55px;
+    height: 50px;
     border: 1px solid lightgray;
     border-radius: 10px;
     font-size: 16px;
@@ -51,7 +55,6 @@ body {
 }
 
 .form-id,
-.form-email,
 .form-address {
     display: flex;
     justify-content: space-between;
@@ -73,7 +76,7 @@ body {
 .btn {
     background-color: #000000;
     color: white;
-    height: 55px;
+    height: 50px;
     cursor: pointer;
     border: none;
     border-radius: 10px;
@@ -97,6 +100,8 @@ body {
     width: 100%;
     text-align: left;
     margin-left: 5px;
+	color: #F03F40; 
+	font-size: 12px;
 }
 
 .valid_userID,
