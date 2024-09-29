@@ -104,7 +104,7 @@ public class MypageController {
 	    UserDetails userDetails = usersDetailsService.loadUserByUsername(userId);
 	    
 	    PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-	    if (!passwordEncoder.matches(currentPwd, user.getUserPwd())) {
+	    if (!passwordEncoder.matches(currentPwd, userDetails.getPassword())) {
 	        return "NOT EQUAL";
 	    }
 	    
