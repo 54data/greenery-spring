@@ -44,10 +44,9 @@ public class NoticeController {
 		int totalRows = noticeService.getTotalRows();
 		PagerDto pager = new PagerDto(7, 5, totalRows, pageNo);
 		session.setAttribute("pager", pager);
-		
-		List<NoticeDto> noticeList = noticeService.getNotices(pager); // notice테이블의 각 행을 담은 객체를 담은 리스트
+		List<NoticeDto> noticeList = noticeService.getNotices(pager); 
 		model.addAttribute("noticeList", noticeList);
-		model.addAttribute("noticeSize", totalRows); // notice 데이터 총 개수 반환
+		model.addAttribute("noticeSize", totalRows);
 		return "notice/notices";
 	}
 }
