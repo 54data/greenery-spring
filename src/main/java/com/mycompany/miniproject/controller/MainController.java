@@ -35,7 +35,6 @@ public class MainController {
 	public String main(Model model, Authentication authentication) {
 		List<ProductDto> recProducts = productService.getRecList();
 		List<ProductDto> newProducts = productService.getNewList();
-		log.info("실행");
 		model.addAttribute("recProducts", recProducts);
 		model.addAttribute("newProducts", newProducts);
 		
@@ -77,14 +76,11 @@ public class MainController {
 			int couponStatus = userService.getUserCouponStatus(authentication.getName());
 			if (couponStatus == 0) {
 				userService.updateCouponStatus(1, authentication.getName());
-				log.info("쿠폰발급");
 				return ResponseEntity.ok("" + couponStatus);
 			} else {
-				log.info("이미발급 받음");
 				return ResponseEntity.ok("" + couponStatus);
 			}	
 		} else {
-			// 인증되지 않은 경우 401 상태 반환
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 하지 않은 상태");
 		}
 	}
