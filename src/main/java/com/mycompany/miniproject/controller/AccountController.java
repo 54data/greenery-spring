@@ -45,10 +45,7 @@ public class AccountController {
 	@PostMapping("/signup")
 	@ResponseBody
 	public boolean signup(@ModelAttribute UserDto user) {
-		// 계정 활성화
 		user.setUserStatus(true);
-		
-		// 비밀번호 암호화
 		PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		user.setUserPwd(passwordEncoder.encode(user.getUserPwd()));
 		JoinResult joinResult = userService.join(user);
