@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +42,6 @@ public class AdminController {
 	
 	@GetMapping("/mainadmin")
 	public String mainAdmin() {
-		log.info("실행");
 		return "redirect:/admin/productselect";
 	}
 	
@@ -74,7 +74,6 @@ public class AdminController {
 	
 	@GetMapping("/productadd")
 	public String productAdd(String pageUsage) {
-		log.info("실행");
 		return "admin/productadd";
 	}
 	
@@ -83,7 +82,6 @@ public class AdminController {
 	public String checkProductName(@RequestParam String productName) {
 		String result;
 		int productId = productService.getProductIdByName(productName);
-		log.info("productId : " + productId);
 		if(productId == 0) {
 			result = "notDup";
 		}else {
@@ -105,9 +103,6 @@ public class AdminController {
 		List<ProductDto> productList = productService.getProducts(pager);
 				
 		model.addAttribute("productList", productList);
-		log.info("실행");
-		 log.info("Product List: " + productList);
-		
 		return "admin/productselect";
 	}
 	
@@ -130,7 +125,6 @@ public class AdminController {
 
 	@GetMapping("loadImgByUsage")
 	public void loadImgByUsage(int productId, String usage, HttpServletResponse response) throws Exception {		
-		ProductImageDto productImageDto = new ProductImageDto();
 		ProductImageDto productImage = productService.getImgByUsage(productId, usage);
 		
 		String contentType = productImage.getProductImgType();
@@ -148,7 +142,6 @@ public class AdminController {
 	
 	@PostMapping("/productInsert")
 	public String productInsert(ProductAddDto prdAddDto) throws Exception{
-		log.info("실행");
 		productService.insertProduct(prdAddDto);
 		int productId = productService.getProductIdByName(prdAddDto.getProductName());
 		
@@ -196,7 +189,6 @@ public class AdminController {
 
 	@PostMapping("/updateProduct")
 	public String updateProduct(ProductAddDto prdAddDto) throws Exception{
-		log.info("실행");
 		productService.updateProduct(prdAddDto);
 		
 		if(!prdAddDto.getProductMainImage().isEmpty()) {
@@ -261,9 +253,9 @@ public class AdminController {
 	}
 	
 	@PostMapping("/addNotice") 
-	public String addNotice(NoticeDto noticeForm) {
+	public String addNotice(NoticeDto noticeForm, Authentication authentication) {
 		NoticeDto notice = new NoticeDto();
-		notice.setNoticeWriter("greenery_admin"); // 임시 
+		notice.setNoticeWriter(authentication.getName()); 
 		notice.setNoticeTitle(noticeForm.getNoticeTitle());
 		notice.setNoticeContent(noticeForm.getNoticeContent());
 		notice.setNoticeHitcount(0);
@@ -286,5 +278,4 @@ public class AdminController {
 		noticeService.deleteNotice(noticeId);
 		return "redirect:/admin/noticeselect";
 	}
-	
 }
