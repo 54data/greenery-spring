@@ -18,10 +18,10 @@ public interface NoticeDao {
 
 	public int updateHitcountById(int noticeId);
 
-	public int insert(NoticeDto notice);
+	public int insertNotice(NoticeDto notice);
 
-	public int delete(int noticeId);
+	public int deleteNotice(int noticeId);
 
-	public int update(NoticeDto notice);
+	public int updateNotice(NoticeDto notice);
 	
 }

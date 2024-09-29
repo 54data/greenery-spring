@@ -34,14 +34,14 @@ public class NoticeService {
 	}
 
 	public void addNoticeContent(NoticeDto notice) {
-		noticeDao.insert(notice);
+		noticeDao.insertNotice(notice);
 	}
 
 	public void deleteNotice(int noticeId) {
-		noticeDao.delete(noticeId);
+		noticeDao.deleteNotice(noticeId);
 	}
 
 	public void updateNotice(NoticeDto notice) {
-		noticeDao.update(notice);
+		noticeDao.updateNotice(notice);
 	}
 }
