@@ -175,10 +175,9 @@ $(document).ready(function() {
 	});
 	
 	$('.custom-amount-btn').on('click', function() {
-		const inputAmount = $(this).siblings('.custom-amount');
-		const inputNum = inputAmount.val();
+		const inputNum = $(this).siblings('.custom-amount').val();
 		const stock = $(this).data('stock');
-		if (inputNum > $(this).data('stock')) {
+		if (inputNum > stock) {
             Swal.fire({
                 icon: 'error',
                 title: '상품 재고가 부족합니다.',
