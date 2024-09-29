@@ -7,7 +7,7 @@ function inputIdCheck() {
     if (regExp.test(userId.value)) {
         inputIdMessage.innerHTML =  ''; 
     } else if (userId.value === '') {
-    	inputIdMessage.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>";
+    	inputIdMessage.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력값은 필수입니다.</span>";
     } else {
         inputIdMessage.innerHTML = 
         "<span style='color:#F03F40; font-size:12px;'>아이디는 6자 이상 16자 이하만 가능합니다. (숫자, 알파벳, _ 만 가능)</span>";
@@ -17,26 +17,28 @@ function inputIdCheck() {
 let userPwd = document.querySelector('#userPwd');
 let checkUserPwd = document.querySelector('#checkUserPwd');
 userPwd.addEventListener('input', inputPasswordCheck);
-checkUserPwd.addEventListener('input', inputPasswordCheck);
+checkUserPwd.addEventListener('input', inputPasswordDoubleCheck);
 
 function inputPasswordCheck() {
     let inputPasswordMessage1 = document.querySelector('#inputPasswordMessage1');
-    let inputPasswordMessage2 = document.querySelector('#inputPasswordMessage2');
-
     let regExp = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,20}$/);
     if (regExp.test(userPwd.value)) {
     	inputPasswordMessage1.innerHTML =  ''; 
     } else if (userPwd.value === '') {
-    	inputPasswordMessage1.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>";
+    	inputPasswordMessage1.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력값은 필수입니다.</span>";
     } else {
         inputPasswordMessage1.innerHTML = 
         "<span style='color:#F03F40; font-size:12px;'>8자 이상 20자 이하의 알파벳 대소문자, 숫자, 특수문자를 조합해주세요.</span>";
     }
-    
+}
+
+function inputPasswordDoubleCheck() {
+    let inputPasswordMessage2 = document.querySelector('#inputPasswordMessage2');
+    let regExp = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,20}$/);
     if (userPwd.value === checkUserPwd.value) {
         inputPasswordMessage2.innerHTML =  '';
     } else if (checkUserPwd.value === '') {
-    	inputPasswordMessage2.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>";
+    	inputPasswordMessage2.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력값은 필수입니다.</span>";
     } else {
         inputPasswordMessage2.innerHTML =
         "<span style='color:#F03F40; font-size:12px;'>비밀번호를 확인해주세요.</span>";
@@ -53,7 +55,7 @@ function inputNameCheck() {
     if (regExp.test(inputName.value)) {
         inputNameMessage.innerHTML =  ''; 
     } else if (inputName.value === '') {
-    	inputNameMessage.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>";
+    	inputNameMessage.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력값은 필수입니다.</span>";
     } else {
         inputNameMessage.innerHTML = 
         "<span style='color:#F03F40; font-size:12px;'>영문 또는 한글로 입력해주세요.</span>";
@@ -70,7 +72,7 @@ function inputPhoneCheck() {
     if (regExp.test(inputPhone.value)) {
         inputPhoneMessage.innerHTML =  ''; 
     } else if (inputPhone.value === '') {
-    	inputPhoneMessage.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>";
+    	inputPhoneMessage.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력값은 필수입니다.</span>";
     } else {
         inputPhoneMessage.innerHTML = 
         "<span style='color:#F03F40; font-size:12px;'>유효하지 않은 전화번호입니다. (숫자만 입력)</span>";
@@ -87,7 +89,7 @@ function inputEmailCheck() {
     if (regExp.test(inputEmail.value)) {
         inputEmailMessage.innerHTML =  ''; 
     } else if (inputEmail.value === '') {
-    	inputEmailMessage.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>";
+    	inputEmailMessage.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력값은 필수입니다.</span>";
     } else {
         inputEmailMessage.innerHTML = 
         "<span style='color:#F03F40; font-size:12px;'>이메일 입력을 확인해주세요.</span>";
@@ -170,6 +172,7 @@ function checkUserId() {
 }
 
 function checkIdStatus() {
+	console.log("아이디 중복 체크 여부 확인");
 	if (!isIdChecked) {
 		Toast.fire({
 		    icon: 'error',
@@ -181,37 +184,66 @@ function checkIdStatus() {
 }
 
 function isValid() {
+	let errorMessageStatus = false;
 	$('.errorMessage').each(function () {
-		if ($(this).children().length != 0) {
+		if ($(this).children('span').length != 0) {
+			errorMessageStatus = true;
 			return false;
 		}
 	});
-	return true;
+	return errorMessageStatus;
 }
 
 function signup() {
 	const signupData = $('.form-signup').serialize();
-	if (!isValid()) {
+	
+	if (isValid()) {
 		Toast.fire({
 		    icon: 'error',
 		    title: '입력값을 확인해주세요.'
 		});
+		return;
+	}
+
+	let inputStatus = true;
+	$('input').each(function() {
+		if ($(this).val() === '') {
+			Toast.fire({
+			    icon: 'error',
+			    title: '모든 입력값은 필수입니다.'
+			});
+			inputStatus = false;
+			return;
+		}
+	})
+	
+	if (!inputStatus) {
+		return;
 	}
 	
-	$.ajax({
-		url: 'signup',
-		type: 'post',
-		data: signupData,
-		success: function(signupResult) {
-			if (signupResult) {
-				Toast.fire({
-				    icon: 'success',
-				    title: '회원가입 성공'
-				});
+	if (checkIdStatus()) {
+		$.ajax({
+			url: 'signup',
+			type: 'post',
+			data: signupData,
+			success: function(signupResult) {
+				if (signupResult) {
+					Swal.fire({
+						html : '회원가입이 완료되었습니다.',
+						cancelButtonText : '로그인하기',
+						confirmButtonText : '홈으로 가기',
+						showCancelButton : true,
+					}).then(function(result) {
+						if (result.isConfirmed) {												
+							window.location.href = '../';
+						} else {
+							window.location.href = '../account/loginForm';
+						}
+					});
+				}
 			}
-			window.loaction.href = "../account/loginForm";
-		}
-	});
+		});
+	}
 }
 
 $(document).ready(function () {
@@ -219,17 +251,19 @@ $(document).ready(function () {
 	    isIdChecked = false;
 	});
 	
-	$('signup-btn').on('click', function() {
-		if (checkIdStatus()) {
-			signup();
-		}
+	$('#signup-btn').on('click', function() {
+		console.log("회원가입 버튼 클릭");
+		signup();
 	});
 	
+	let zipcodeRegExp = RegExp(/^\d{5}$/);
 	$('#zipcode').on('input', function() {
-	    if ($(this).val() === '') {
+		if (!zipcodeRegExp.test($(this).val())) {
+			$("#inputZipcodeMessage").html("<span style='color:#F03F40; font-size:12px;'>유효하지 않은 우편번호입니다.<span>");
+		} else if ($(this).val() === '') {
 			$("#inputZipcodeMessage").html("<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>");
 		} else {
-			$("#inputDetailedAddressMessage").html('');
+			$("#inputZipcodeMessage").html('');
 		}
 	});
 	
