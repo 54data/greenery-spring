@@ -31,7 +31,7 @@
 			</h2>
 			<div class="form-group">
 				<div class="form-title">제목 [30자 이하]</div> 
-				<input id="noticeTitle" name="noticeTitle" type="text" placeholder="ex) 그리너리 서버 점검 안내 (8/21)" maxlength="29" value="${notice.noticeTitle}">
+				<input id="noticeTitle" name="noticeTitle" type="text" placeholder="ex) 그리너리 서버 점검 안내 (8/21)" maxlength="30" value="${notice.noticeTitle}">
 				<div id="charCount"><span class="titleNum">0</span> / 30</div>
 			</div>
 			<div class="form-group">
