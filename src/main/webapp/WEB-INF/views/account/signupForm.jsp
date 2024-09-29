@@ -48,12 +48,12 @@
 		<div id="inputEmailMessage" class="errorMessage"></div>
 
 		<div class="form-address">
-			<input class="input input8" type="text" name="zipcode" placeholder="우편번호" id="zipcode" autocomplete="off">
+			<input class="input input8" type="text" name="zipcode" placeholder="우편번호" id="zipcode" autocomplete="off" readonly>
 			<button id="btnZipcode" class="btn btn2" type="button">우편번호 찾기</button>
 		</div>
 		<div id="inputZipcodeMessage" class="errorMessage"></div>
 
-		<input class="input input9" type="text" name="roadAddress" placeholder="도로명 주소" id="roadAddress" autocomplete="off"> 
+		<input class="input input9" type="text" name="roadAddress" placeholder="도로명 주소" id="roadAddress" autocomplete="off" readonly> 
 		<div id="inputRoadAddressMessage" class="errorMessage"></div>
 		<input class="input input10" id="detailedAddress" type="text" name="detailedAddress" placeholder="상세 주소" autocomplete="off"> 
 		<div id="inputDetailedAddressMessage" class="errorMessage"></div>
