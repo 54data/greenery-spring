@@ -24,7 +24,7 @@
 		</a>
 	</div>
 
-	<div class="text-introduce">그리너리의 다양한 서비스와 혜택을 누리세요</div>
+	<div class="text-introduce">그리너리의 다양한 서비스와 혜택을 누리세요.</div>
 
 	<div class="container-form1">
 		<div class="container-form2">
@@ -33,7 +33,7 @@
 					name="userId" placeholder="아이디 입력" required><br>
 				<div id="inputIdMessage"></div>
 				<input id="inputPassword1" class="input-idpassword" type="password"
-					name="userPwd" placeholder="비밀번호 입력(영문, 숫자, 특수문자 조합)" required><br>
+					name="userPwd" placeholder="비밀번호 입력 (영문, 숫자, 특수문자 조합)" required><br>
 				<div id="inputPasswordMessage1"></div>
 				<button id="btnLogin" class="btn-login" type="submit">로그인</button>
 			</form>
