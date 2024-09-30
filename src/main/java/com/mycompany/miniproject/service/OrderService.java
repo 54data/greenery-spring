@@ -1,6 +1,8 @@
 package com.mycompany.miniproject.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,12 +58,13 @@ public class OrderService {
 	public int getCartNum(String userId) {
 		return orderDao.getCartNumById(userId);
 	}
-
-	public List<OrderDto> getOrdersByUserId(PagerDto pager, String userId) {
-		return orderDao.getOrdersByUserId(pager, userId);
-	}
 	
 	public int totalOrderNum(String userId) {
 		return orderDao.totalOrderNum(userId);
 	}
+
+	public List<OrderDto> getOrdersByOrderIds(Map<String, Object> params) {
+		return orderDao.getOrdersByOrderIds(params);
+	}
+
 }
