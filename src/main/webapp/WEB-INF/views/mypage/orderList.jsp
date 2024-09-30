@@ -29,19 +29,32 @@
 	</div>
 </c:if>
 <c:if test="${not empty orderDtos}">
+	<div class="search-tab">
+		<div class="toolbar-sort">			
+			<select class="toolbar-sort-select" id="sortOrder">
+				<option value="0" ${pager.sort == '0' ? 'selected' : ''}>전체</option>
+				<option value="1" ${pager.sort == '1' ? 'selected' : ''}>1개월</option>
+				<option value="3" ${pager.sort == '3' ? 'selected' : ''}>3개월</option>
+				<option value="6" ${pager.sort == '6' ? 'selected' : ''}>6개월</option>
+				<option value="12" ${pager.sort == '12' ? 'selected' : ''}>12개월</option>
+			</select>
+		</div>
+		<div class="search-order">
+			<textarea placeholder="상품명을 2자 이상 입력해주세요" id="searchQuery"></textarea>
+			<button id="submitSearch">조회</button>
+		</div>
+	</div>
 	<div class="order-list">
 		<c:forEach items="${orderDtos}" var="orderDto">
-<%-- 			<div class="orderInfo">주문번호 : ${orderDto.orderId} 총 가격 : ${orderDto.orderTotalPrice}원</div>
- --%>		<div class="order-list-col">
+			<div class="order-list-col">
 				<div class="ol-1"><strong>주문번호 : ${orderDto.orderId}</strong></div>
 				<div class="ol-3" ></div>
 				<div class="ol-1"></div>
 				<div class="ol-1"></div>
-				<div class="ol-1" id="totalPriceNum">총 가격 : ${orderDetail.orderTotalPrice}원</div>
-			</div>			
+				<div class="ol-1" id="totalPriceNum">총 가격 : ${orderDto.orderTotalPrice}원</div>
+			</div>
 			<c:forEach items="${orderDetails}" var="orderDetail">
-
-				<c:if test="${orderDto.orderId == orderDetail.orderId}">	
+				<c:if test="${orderDto.orderId == orderDetail.orderId}">
 					<div class="order-item-col">
 						<div class="ol-1"><fmt:formatDate value="${orderDetail.orderDate}" pattern="yyyy-MM-dd" /></div>
 						<div class="ol-3">
@@ -54,7 +67,7 @@
 							</div>
 						</div>
 						<div class="ol-1">${orderDetail.productQty}</div>
-						<div class="ol-1"><fmt:formatNumber value="${orderDetail.orderTotalPrice}" type="number" pattern="#,###"/>원</div>
+						<div class="ol-1"><fmt:formatNumber value="${orderDetail.productPrice}" type="number" pattern="#,###"/>원</div>
 						<div class="ol-1 order-status">
 						<span id="payment-completed">결제완료</span>
 						<c:choose>
@@ -85,18 +98,18 @@
 	</div>
 	<div class="pageNum d-flex justify-content-center">
 		<c:if test="${pager.groupNo > 1}">
-			<a href="javascript:getContent('orderList?pageNo=${pager.startPageNo-1}')" class="btn btn-light">이전</a>
+			<a href="javascript:getContent('orderList?pageNo=${pager.startPageNo-1}&sortOrder=${pager.sort}&searchQuery=${pager.searchQuery}')" class="btn btn-light">이전</a>
 		</c:if>
 	    <c:forEach begin="${pager.startPageNo}" end="${pager.endPageNo}" step="1" var="i">
 	       <c:if test="${pager.pageNo == i}">
-	           <a href="javascript:getContent('orderList?pageNo=${i}')" class="btn btn-outline-dark">${i}</a>
+	           <a href="javascript:getContent('orderList?pageNo=${i}&sortOrder=${pager.sort}&searchQuery=${pager.searchQuery}')" class="btn btn-outline-dark">${i}</a>
 	       </c:if>
 	       <c:if test="${pager.pageNo != i}">
-	           <a href="javascript:getContent('orderList?pageNo=${i}')" class="btn btn-light">${i}</a>
+	           <a href="javascript:getContent('orderList?pageNo=${i}&sortOrder=${pager.sort}&searchQuery=${pager.searchQuery}')" class="btn btn-light">${i}</a>
 	       </c:if>
 		</c:forEach>
 		<c:if test="${pager.groupNo < pager.totalGroupNo}">
-			<a href="javascript:getContent('orderList?pageNo=${pager.endPageNo+1}')" class="btn btn-light">다음</a>
+			<a href="javascript:getContent('orderList?pageNo=${pager.endPageNo+1}&sortOrder=${pager.sort}&searchQuery=${pager.searchQuery}')" class="btn btn-light">다음</a>
 		</c:if>
 	</div>
 </c:if>
