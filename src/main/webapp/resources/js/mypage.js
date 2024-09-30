@@ -477,4 +477,33 @@ $(document).ready(function () {
         checkNewPwd();
     });
     
+    //orderList 상품검색단
+    $(document).on('click', '#submitSearch', function(){
+    	
+    	var sortOrder = $("#sortOrder").val();
+		var searchQuery = $('#searchQuery').val();
+    
+    	$.ajax({
+    		type: "POST",
+    		url: "/miniproject/mypage/orderList",
+    		data: {
+    			sortOrder: sortOrder,
+    			searchQuery: searchQuery
+    		},
+    		
+    		success: function(response){
+    			$(".mypage-content").html(response);
+    	    	console.log("나야나" + sortOrder, "나야나" + searchQuery);
+    		},
+    		error: function(xhr, status, error){
+    			Toast.fire({
+				    icon: 'error',
+				    html: '상품 검색이 실패했습니다.'
+				});
+    		}    		
+    	})
+    
+    	
+    })
+    
 });
