@@ -1,14 +1,13 @@
 package com.mycompany.miniproject.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import com.mycompany.miniproject.dto.CartDto;
 import com.mycompany.miniproject.dto.OrderDetailDto;
 import com.mycompany.miniproject.dto.OrderDto;
-import com.mycompany.miniproject.dto.PagerDto;
 
 @Mapper
 public interface OrderDao {
@@ -35,8 +34,9 @@ public interface OrderDao {
 
 	public int getCartNumById(String userId);
 
-	public List<OrderDto> getOrdersByUserId(@Param("pager")PagerDto pager, @Param("userId")String userId);
-
 	public int totalOrderNum(String userId);
+
+	public List<OrderDto> getOrdersByOrderIds(Map<String, Object> params);
+
 
 }
