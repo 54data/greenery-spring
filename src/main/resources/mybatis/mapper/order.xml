@@ -76,16 +76,21 @@
 		from cart
 		where user_id = #{userId}
 	</select>
-	
-	<select id="getOrdersByUserId" resultType="Order">
+
+	<select id="getOrdersByOrderIds" resultType="Order">
     <![CDATA[
 	    select order_num, order_id, user_id, order_date, order_total_price
 	    from (
 	        select order_num, order_id, user_id, order_date, order_total_price
 	        from (
-	            select row_number() over (order by order_id desc) as order_num, order_id, user_id, order_date, order_total_price
+	            select row_number() over (order by order_date desc) as order_num, order_id, user_id, order_date, order_total_price
 	            from orders
-	            where user_id = #{userId}
+	            where order_id in
+	]]>	            
+			    <foreach item="orderId" collection="orderIds" open="(" separator="," close=")">
+			        #{orderId}
+			    </foreach>
+	<![CDATA[		    
 	        )
 	        where order_num <= #{pager.endRowNo}  
 	    )
@@ -93,9 +98,12 @@
     ]]>
 	</select>
 	
+
 	<select id="totalOrderNum" parameterType="String" resultType="int">
 		select count(*)
 		from orders
 		where user_id = #{userId}	 
-	</select> 
+	</select>
+
+	
 </mapper>
