@@ -10,9 +10,10 @@ import com.mycompany.miniproject.dto.OrderDetailDto;
 @Mapper
 public interface OrderDetailDao {
 
-	List<OrderDetailDto> getOrderDetailByOd(String userId);
-
-
+/*	List<OrderDetailDto> getOrderDetailByOd(String userId);
+*/
 	OrderDetailDto getOrderDetail(Map<String, Object> params);
+
+	List<OrderDetailDto> getOrderDetails(Map<String, Object> params);
 
 }
