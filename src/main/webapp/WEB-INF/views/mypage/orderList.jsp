@@ -30,6 +30,7 @@
 </c:if>
 <c:if test="${not empty orderDtos}">
 	<div class="search-tab">
+		<div id="search-text">검색</div>
 		<div class="toolbar-sort">			
 			<select class="toolbar-sort-select" id="sortOrder">
 				<option value="0" ${pager.sort == '0' ? 'selected' : ''}>전체</option>
@@ -40,7 +41,7 @@
 			</select>
 		</div>
 		<div class="search-order">
-			<textarea placeholder="상품명을 2자 이상 입력해주세요" id="searchQuery"></textarea>
+			<input type="text" placeholder="상품명을 2자 이상 입력해주세요" id="searchQuery"></input>
 			<button id="submitSearch">조회</button>
 		</div>
 	</div>
