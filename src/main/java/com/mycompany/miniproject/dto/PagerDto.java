@@ -19,6 +19,7 @@ public class PagerDto {
 	private int endRowIndex; // 페이지의 마지막 행 인덱스
 	private String sort;
 	private String userId;
+	private String searchQuery;
 
 	public PagerDto(int rowsPerPage, int pagesPerGroup, int totalRows, int pageNo) {
 		this(rowsPerPage, pagesPerGroup, totalRows, pageNo, "");
@@ -31,6 +32,37 @@ public class PagerDto {
 		this.pageNo = pageNo;
 		this.sort = sort;
 
+		totalPageNo = totalRows / rowsPerPage;
+		if (totalRows % rowsPerPage != 0)
+			totalPageNo++;
+
+		totalGroupNo = totalPageNo / pagesPerGroup;
+		if (totalPageNo % pagesPerGroup != 0)
+			totalGroupNo++;
+
+		groupNo = (pageNo - 1) / pagesPerGroup + 1;
+
+		startPageNo = (groupNo - 1) * pagesPerGroup + 1;
+
+		endPageNo = startPageNo + pagesPerGroup - 1;
+		if (groupNo == totalGroupNo)
+			endPageNo = totalPageNo;
+
+		startRowNo = (pageNo - 1) * rowsPerPage + 1;
+		startRowIndex = startRowNo - 1;
+		endRowNo = pageNo * rowsPerPage;
+		endRowIndex = endRowNo - 1;
+		
+	}
+	
+	public PagerDto(int rowsPerPage, int pagesPerGroup, int totalRows, int pageNo, String sort, String searchQuery) {
+		this.rowsPerPage = rowsPerPage;
+		this.pagesPerGroup = pagesPerGroup;
+		this.totalRows = totalRows;
+		this.pageNo = pageNo;
+		this.sort = sort;
+		this.searchQuery = searchQuery;
+		
 		totalPageNo = totalRows / rowsPerPage;
 		if (totalRows % rowsPerPage != 0)
 			totalPageNo++;
