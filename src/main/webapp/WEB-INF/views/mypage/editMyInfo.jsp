@@ -36,10 +36,10 @@
 			<span class="myinfo-col">주소</span>
 			<div class="address">
 				<div class="address-zipcode">
-					<input type="text" name="zipcode" value="${user.zipcode}" readonly >
+					<input type="text" name="zipcode" value="${user.zipcode}" readonly>
 					<button id="btnZipcode" type="button">우편번호 찾기</button>
 				</div>
-				<input type="text" name="roadAddress" value="${user.roadAddress}" readonly >
+				<input type="text" name="roadAddress" value="${user.roadAddress}" readonly>
 				<input type="text" class="userDetailedAddress" name="detailedAddress" value="${user.detailedAddress}" >
 				<div id="inputDetailedAddressMessage" class="errorMessage"></div>
 			</div>

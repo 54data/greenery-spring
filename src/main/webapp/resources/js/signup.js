@@ -7,10 +7,10 @@ function inputIdCheck() {
     if (regExp.test(userId.value)) {
         inputIdMessage.innerHTML =  ''; 
     } else if (userId.value === '') {
-    	inputIdMessage.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>";
+    	inputIdMessage.innerHTML = "<span>해당 입력값은 필수입니다.</span>";
     } else {
         inputIdMessage.innerHTML = 
-        "<span style='color:#F03F40; font-size:12px;'>아이디는 6자 이상 16자 이하만 가능합니다. (숫자, 알파벳, _ 만 가능)</span>";
+        "<span>아이디는 6자 이상 16자 이하만 가능합니다. (숫자, 알파벳, _ 만 가능)</span>";
     }
 }
 
@@ -27,19 +27,19 @@ function inputPasswordCheck() {
     if (regExp.test(userPwd.value)) {
     	inputPasswordMessage1.innerHTML =  ''; 
     } else if (userPwd.value === '') {
-    	inputPasswordMessage1.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>";
+    	inputPasswordMessage1.innerHTML = "<span>해당 입력값은 필수입니다.</span>";
     } else {
         inputPasswordMessage1.innerHTML = 
-        "<span style='color:#F03F40; font-size:12px;'>8자 이상 20자 이하의 알파벳 대소문자, 숫자, 특수문자를 조합해주세요.</span>";
+        "<span>8자 이상 20자 이하의 알파벳 대소문자, 숫자, 특수문자를 조합해주세요.</span>";
     }
     
     if (userPwd.value === checkUserPwd.value) {
         inputPasswordMessage2.innerHTML =  '';
     } else if (checkUserPwd.value === '') {
-    	inputPasswordMessage2.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>";
+    	inputPasswordMessage2.innerHTML = "<span>해당 입력값은 필수입니다.</span>";
     } else {
         inputPasswordMessage2.innerHTML =
-        "<span style='color:#F03F40; font-size:12px;'>비밀번호를 확인해주세요.</span>";
+        "<span>비밀번호를 확인해주세요.</span>";
     }
 }
 
@@ -53,10 +53,10 @@ function inputNameCheck() {
     if (regExp.test(inputName.value)) {
         inputNameMessage.innerHTML =  ''; 
     } else if (inputName.value === '') {
-    	inputNameMessage.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>";
+    	inputNameMessage.innerHTML = "<span>해당 입력값은 필수입니다.</span>";
     } else {
         inputNameMessage.innerHTML = 
-        "<span style='color:#F03F40; font-size:12px;'>영문 또는 한글로 입력해주세요.</span>";
+        "<span>영문 또는 한글로 입력해주세요.</span>";
     }
 }
 
@@ -70,10 +70,10 @@ function inputPhoneCheck() {
     if (regExp.test(inputPhone.value)) {
         inputPhoneMessage.innerHTML =  ''; 
     } else if (inputPhone.value === '') {
-    	inputPhoneMessage.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>";
+    	inputPhoneMessage.innerHTML = "<span>해당 입력값은 필수입니다.</span>";
     } else {
         inputPhoneMessage.innerHTML = 
-        "<span style='color:#F03F40; font-size:12px;'>유효하지 않은 전화번호입니다. (숫자만 입력)</span>";
+        "<span>유효하지 않은 전화번호입니다. (숫자만 입력)</span>";
     }
 }
 
@@ -87,10 +87,10 @@ function inputEmailCheck() {
     if (regExp.test(inputEmail.value)) {
         inputEmailMessage.innerHTML =  ''; 
     } else if (inputEmail.value === '') {
-    	inputEmailMessage.innerHTML = "<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>";
+    	inputEmailMessage.innerHTML = "<span>해당 입력값은 필수입니다.</span>";
     } else {
         inputEmailMessage.innerHTML = 
-        "<span style='color:#F03F40; font-size:12px;'>이메일 입력을 확인해주세요.</span>";
+        "<span>이메일 입력을 확인해주세요.</span>";
     }
 }
 
@@ -98,7 +98,6 @@ let btnZipcode = document.querySelector('#btnZipcode');
 btnZipcode.addEventListener('click', () => {
         new daum.Postcode({
             oncomplete: function(data) {
-                console.log(data)
                 let fullAddr = '';
                 let extraAddr = '';
 
@@ -120,6 +119,8 @@ btnZipcode.addEventListener('click', () => {
 
                 document.formSignup.zipcode.value = data.zonecode;
                 document.formSignup.roadAddress.value = fullAddr;
+                
+                validateZipcode();
             }
         }).open();
     }
@@ -181,37 +182,80 @@ function checkIdStatus() {
 }
 
 function isValid() {
+	let errorMessageStatus = false;
 	$('.errorMessage').each(function () {
-		if ($(this).children().length != 0) {
+		if ($(this).children('span').length != 0) {
+			errorMessageStatus = true;
 			return false;
 		}
 	});
-	return true;
+	return errorMessageStatus;
 }
 
 function signup() {
 	const signupData = $('.form-signup').serialize();
-	if (!isValid()) {
+	
+	if (isValid()) {
 		Toast.fire({
 		    icon: 'error',
 		    title: '입력값을 확인해주세요.'
 		});
+		return;
 	}
+
+    let hasEmptyField = false; 
+    $('input').each(function() {
+        if ($(this).val().trim() === '') { 
+            hasEmptyField = true;
+            return false;
+        }
+    });
+
+    if (hasEmptyField) {
+        Toast.fire({
+            icon: 'error',
+            title: '모든 입력값은 필수입니다.'
+        });
+        return;
+    }
 	
-	$.ajax({
-		url: 'signup',
-		type: 'post',
-		data: signupData,
-		success: function(signupResult) {
-			if (signupResult) {
-				Toast.fire({
-				    icon: 'success',
-				    title: '회원가입 성공'
-				});
+	if (checkIdStatus()) {
+		$.ajax({
+			url: 'signup',
+			type: 'post',
+			data: signupData,
+			success: function(signupResult) {
+				if (signupResult) {
+					Swal.fire({
+					    title: '회원가입이 완료되었습니다.',
+					    icon: 'success',
+						cancelButtonText: '로그인하기',
+						confirmButtonText: '홈으로 가기',
+						showCancelButton : true,
+					}).then(function(result) {
+						if (result.isConfirmed) {												
+							window.location.href = '../';
+						} else {
+							window.location.href = '../account/loginForm';
+						}
+					});
+				}
 			}
-			window.loaction.href = "../account/loginForm";
-		}
-	});
+		});
+	}
+}
+
+function validateZipcode() {
+    const inputValue = $('#zipcode').val().trim();
+    const zipcodeRegExp = /^\d{5}$/; 
+
+    if (!zipcodeRegExp.test(inputValue)) {
+        $("#inputZipcodeMessage").html("<span>유효하지 않은 우편번호입니다.</span>");
+    } else if (inputValue === '') {
+        $("#inputZipcodeMessage").html("<span>해당 입력 값은 필수입니다.</span>");
+    } else {
+        $("#inputZipcodeMessage").html('');
+    }
 }
 
 $(document).ready(function () {
@@ -219,23 +263,15 @@ $(document).ready(function () {
 	    isIdChecked = false;
 	});
 	
-	$('signup-btn').on('click', function() {
-		if (checkIdStatus()) {
-			signup();
-		}
+	$('#signup-btn').on('click', function() {
+		signup();
 	});
 	
-	$('#zipcode').on('input', function() {
-	    if ($(this).val() === '') {
-			$("#inputZipcodeMessage").html("<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>");
-		} else {
-			$("#inputDetailedAddressMessage").html('');
-		}
-	});
+	$('#zipcode').on('input', validateZipcode);
 	
 	$('#roadAddress').on('input', function() {
 	    if ($(this).val() === '') {
-			$("#inputRoadAddressMessage").html("<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>");
+			$("#inputRoadAddressMessage").html("<span>해당 입력 값은 필수입니다.</span>");
 		} else {
 			$("#inputRoadAddressMessage").html('');
 		}
@@ -243,7 +279,7 @@ $(document).ready(function () {
 	
 	$('#detailedAddress').on('input', function() {
 	    if ($(this).val() === '') {
-			$("#inputDetailedAddressMessage").html("<span style='color:#F03F40; font-size:12px;'>해당 입력 값은 필수입니다.</span>");
+			$("#inputDetailedAddressMessage").html("<span>해당 입력 값은 필수입니다.</span>");
 		} else {
 			$("#inputDetailedAddressMessage").html('');
 		}

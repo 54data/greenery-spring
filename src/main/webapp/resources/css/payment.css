@@ -207,6 +207,7 @@ input[type="checkbox"]:checked::after {
     /* 내부 여백 */
     height: 380px;
     /* 고정된 높이 */
+    width: 20%;
 }
 
 #payment-info-body {

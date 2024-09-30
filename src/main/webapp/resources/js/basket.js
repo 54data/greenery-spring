@@ -49,7 +49,6 @@ function deleteProducts() {;
     		contentType: "application/json",
     		data: JSON.stringify(getSelectedProducts()),
     		success: function(response) {
-    			console.log("선택 상품 삭제 완료");
     			window.location.href = "../order/basket";
     		}
     	});
@@ -78,7 +77,6 @@ function orderSelectedProducts() {
     		contentType: "application/json",
     		data: JSON.stringify(getSelectedProducts()),
     		success: function(response) {
-    			console.log("선택 상품 주문 페이지로 이동");
     			window.location.href = "../order/payment";
     		}
     	});
@@ -109,7 +107,6 @@ function deleteSoldoutProducts() {;
 				contentType: "application/json",
 				data: JSON.stringify(soldoutProductList),
 				success: function(response) {
-					console.log("품절 상품 삭제 완료");
 					window.location.href = "../order/basket";
 				}
 			});
@@ -133,7 +130,7 @@ $(document).ready(function() {
     });
     
 	$('#allchk').click(function () {
-		let isChecked = $(this).is(':checked'); // 전체 선택 체크박스의 체크 상태를 true, false로 저장
+		let isChecked = $(this).is(':checked'); 
 		$('.product-checkbox').prop('checked', isChecked);
 		uncheckedSoldOut();
 		changeTotalPrice();
@@ -178,10 +175,9 @@ $(document).ready(function() {
 	});
 	
 	$('.custom-amount-btn').on('click', function() {
-		const inputAmount = $(this).siblings('.custom-amount');
-		const inputNum = inputAmount.val();
+		const inputNum = $(this).siblings('.custom-amount').val();
 		const stock = $(this).data('stock');
-		if (inputNum > $(this).data('stock')) {
+		if (inputNum > stock) {
             Swal.fire({
                 icon: 'error',
                 title: '상품 재고가 부족합니다.',

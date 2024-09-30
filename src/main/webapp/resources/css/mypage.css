@@ -518,6 +518,10 @@
 	justify-content: space-between;
 }
 
+.myinfo-id-row span {
+	color: #7E7E7E;
+}
+
 .deactivate-btn {
 	height: 30px;
 	width: 120px;
@@ -531,14 +535,6 @@
 
 #totalPriceNum {
 	justify-content: left;
-}
-
-
-.myinfo-id-row {
-	display: flex;
-	align-items: center;
-	width: 400px;
-	justify-content: space-between;
 }
 
 .deactivate-btn {

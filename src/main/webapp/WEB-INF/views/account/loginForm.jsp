@@ -24,7 +24,7 @@
 		</a>
 	</div>
 
-	<div class="text-introduce">그리너리의 다양한 서비스와 혜택을 누리세요</div>
+	<div class="text-introduce">그리너리의 다양한 서비스와 혜택을 누리세요.</div>
 
 	<div class="container-form1">
 		<div class="container-form2">
@@ -33,9 +33,8 @@
 					name="userId" placeholder="아이디 입력" required><br>
 				<div id="inputIdMessage"></div>
 				<input id="inputPassword1" class="input-idpassword" type="password"
-					name="userPwd" placeholder="비밀번호 입력(영문, 숫자, 특수문자 조합)" required><br>
+					name="userPwd" placeholder="비밀번호 입력 (영문, 숫자, 특수문자 조합)" required><br>
 				<div id="inputPasswordMessage1"></div>
-				<!-- <input id="btnLogin" class="btn-login" type="submit" value="로그인"> -->
 				<button id="btnLogin" class="btn-login" type="submit">로그인</button>
 			</form>
 			<button id="boxSignup" class="box-signup" onclick="location.href='signupForm'">
@@ -44,10 +43,6 @@
 					회원가입 <img src="${pageContext.request.contextPath}/resources/image/arrowIcon.png">
 				</div>
 			</button>
-<!-- 			<div class="admin-login"> -->
-<!-- 				<input id="checkBox" type="checkbox"> -->
-<!-- 				<div>관리자로그인</div> -->
-<!-- 			</div> -->
 		    <c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null}">
    			    <c:if test="${SPRING_SECURITY_LAST_EXCEPTION.message == 'Bad credentials'}">
 			        <script>
