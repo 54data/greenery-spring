@@ -2,6 +2,7 @@ package com.mycompany.miniproject.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -158,40 +159,47 @@ public class MypageController {
 		return "mypage/mypage";
 	}
 
-	@GetMapping("/orderList")
-	public String orderList(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session) {
-	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	String userId =  authentication.getName();
-				
-	    log.info("User ID: " + userId);
-	    log.info("OrderDetailService: " + orderDetailService);
+	@RequestMapping("/orderList")
+	public String orderList(Model model, @RequestParam(defaultValue = "1") int pageNo, 
+			@RequestParam(defaultValue = "0")String sortOrder, @RequestParam(defaultValue = "")String searchQuery, HttpSession session) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String userId =  authentication.getName();
+	
 
-	    List<OrderDetailDto> orderDetails = orderDetailService.getOrderDetailsByOd(userId);
-	    log.info("orderDetials나오나" + orderDetails);
-
-	    int orderLength = orderService.totalOrderNum(userId);
-	    PagerDto pager = new PagerDto(5, 5, orderLength, pageNo);
-	    List<OrderDto> orderDtos = orderService.getOrdersByUserId(pager, userId);
-	    
-	    log.info("#######################################################list길이" + orderLength);
-	    log.info("List<OrderDetailDto>: " + orderDetails);
-	    log.info("List<OrderDto>: " + orderDtos);
-
+	    List<OrderDetailDto> orderDetails = orderDetailService.getOrderDetails(userId, sortOrder, searchQuery);	    
+	    List<Integer> orderIds = new ArrayList<>();
 	    for (OrderDetailDto orderDetail : orderDetails) {
-	    	log.info("Order ID: " + orderDetail.getOrderId());
-	    	log.info("Product ID: " + orderDetail.getProductId());
-
 	    	ReviewDto review = reviewService.getReview(orderDetail.getOrderId(), orderDetail.getProductId());
 		    orderDetail.setReview(review);
 	        boolean hasReview = reviewService.hasReviewForProduct(orderDetail.getOrderId(), orderDetail.getProductId());
 	        orderDetail.setHasReview(hasReview);
+	        
+	        if (!orderIds.contains(orderDetail.getOrderId())) {
+	            orderIds.add(orderDetail.getOrderId());
+	        }
+	    }
+
+	    PagerDto pager = new PagerDto(5, 5, orderIds.size(), pageNo);
+	    pager.setSort(sortOrder);
+	    pager.setSearchQuery(searchQuery);
+	    
+	    log.info("나는 sort야.." + sortOrder);
+	    log.info("나는 검색내용이얌.." + searchQuery);
+	    
+	    
+	    if (!orderIds.isEmpty()) {
+	        Map<String, Object> params = new HashMap<>();
+	        params.put("orderIds", orderIds);
+	        params.put("pager", pager);
+	        List<OrderDto> filteredOrders = orderService.getOrdersByOrderIds(params);
+	        model.addAttribute("orderDtos", filteredOrders);
+	        model.addAttribute("orderDetails", orderDetails);
 	    }
 
 	    session.setAttribute("pager", pager);
 	    UserDto userInfo = userService.getUserInfo(userId);
-	    model.addAttribute("orderDtos", orderDtos);
 		model.addAttribute("userInfo", userInfo);
-	    model.addAttribute("orderDetails", orderDetails);
+	    
 	    
 	    log.info("실행");
 	    return "mypage/orderList";
