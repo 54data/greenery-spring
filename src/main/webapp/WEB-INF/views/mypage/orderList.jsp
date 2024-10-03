@@ -125,7 +125,7 @@
 
         <div class="modal-body">
             <div class="product-container">
-                <img src="#" alt="" id="review_img">
+                <img src="" alt="" id="review_img">
                 <div class="product-label">
                     <div class="product-name"></div>
                     <div class="product-description"><span></span></div>

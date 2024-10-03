@@ -285,8 +285,6 @@ $(document).ready(function () {
     		  icon: "warning",
     		  showCancelButton: true,
     		  cancelButtonText : "취소",
-    		  confirmButtonColor: "#3085d6",
-    		  cancelButtonColor: "#d33",
     		  confirmButtonText: "확인"
     		}).then((result) => {
     		  if (result.isConfirmed) {
