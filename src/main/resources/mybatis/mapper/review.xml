@@ -12,11 +12,11 @@
 	<select id="getReviewsById" resultType="Review">
     select
         review_num, review_id, product_id, order_id, user_id, review_content, review_reg_date, 
-        review_score, review_recom, review_img, review_img_type, review_img_name
+        review_score, review_img, review_img_type, review_img_name
     from (
         select
             review_id, product_id, order_id, user_id, review_content, review_reg_date, 
-            review_score, review_recom, review_img, review_img_type, review_img_name,
+            review_score, review_img, review_img_type, review_img_name,
             row_number() over (
                 <choose>
                     <when test="sortOrder == 'latest'">
