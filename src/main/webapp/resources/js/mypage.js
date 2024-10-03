@@ -439,8 +439,6 @@ $(document).ready(function () {
 		Swal.fire({
 			text : "계정 비활성화를 진행하시겠습니까?",
 			icon: 'warning',
-			confirmButtonColor: "#d33",
-			cancelButtonColor: "#3085d6",
 			cancelButtonText : "취소",
 			confirmButtonText : "확인",
 			showCancelButton : true,
