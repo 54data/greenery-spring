@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mycompany.miniproject.dao.CartDao;
-import com.mycompany.miniproject.dao.OrderDao;
 import com.mycompany.miniproject.dao.ProductDao;
 import com.mycompany.miniproject.dao.ProductImageDao;
 import com.mycompany.miniproject.dao.WishlistDao;
@@ -30,12 +28,6 @@ public class ProductService {
 	
 	@Autowired
 	private WishlistDao wishlistDao;
-	
-	@Autowired
-	private CartDao cartDao;
-	
-	@Autowired
-	private OrderDao orderDao;
 	
 	public List<ProductDto> getProducts(PagerDto pager) {
 		List<ProductDto> products = productDao.getProductAll(pager);
