@@ -1,4 +1,4 @@
-package com.mycompany.miniproject.dto;
+ package com.mycompany.miniproject.dto;
 
 import lombok.Data;
 
