@@ -481,6 +481,14 @@ $(document).ready(function () {
     	var sortOrder = $("#sortOrder").val();
 		var searchQuery = $('#searchQuery').val();
     
+		if (searchQuery.length < 2){
+			Swal.fire({
+				icon: 'error',
+				html: '두 글자 이상 입력해주세요'
+			});
+			return;
+		}
+		
     	$.ajax({
     		type: "POST",
     		url: "/miniproject/mypage/orderList",
@@ -490,8 +498,17 @@ $(document).ready(function () {
     		},
     		
     		success: function(response){
-    			$(".mypage-content").html(response);
-    	    	console.log("나야나" + sortOrder, "나야나" + searchQuery);
+    			
+    			if(response.orderDtos == null || response.orderDtos.length === 0){
+    				Swal.fire({
+    					icon: 'error',
+    					html: '조회된 결과가 없습니다.'
+    				});
+    			} else{
+    				$(".mypage-content").html(response);
+        	    	console.log("나야나" + sortOrder, "나야나" + searchQuery);
+    			}
+    			
     		},
     		error: function(xhr, status, error){
     			Toast.fire({
