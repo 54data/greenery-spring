@@ -38,5 +38,4 @@ public interface OrderDao {
 
 	public List<OrderDto> getOrdersByOrderIds(Map<String, Object> params);
 
-
 }

@@ -1,6 +1,5 @@
 package com.mycompany.miniproject.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +10,6 @@ import com.mycompany.miniproject.dao.OrderDao;
 import com.mycompany.miniproject.dto.CartDto;
 import com.mycompany.miniproject.dto.OrderDetailDto;
 import com.mycompany.miniproject.dto.OrderDto;
-import com.mycompany.miniproject.dto.PagerDto;
 
 @Service
 public class OrderService {
