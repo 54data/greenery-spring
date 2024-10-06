@@ -65,13 +65,7 @@ public class ProductController {
 		
         int totalRows = reviewService.getTotalRows(productId);
         PagerDto pager = new PagerDto(5, 5, totalRows, pageNo);      
-        
-        log.info("PagerDto 생성됨");
-        log.info("startRowNo: ", pager.getStartRowNo());
-        log.info("endRowNo: ", pager.getEndRowNo());
-        log.info("totalRows: ", totalRows);
-        log.info("totalPageNo: ", pager.getTotalPageNo());
-        log.info("pageNo: ", pager.getPageNo());
+
         pager.setSort(sortOrder);
         
         List<ReviewDto> reviewList;
@@ -88,8 +82,6 @@ public class ProductController {
 			@RequestParam(defaultValue="1") int pageNo, Model model) {
 		ProductDto product = productService.getProductDetail(productId);
 		model.addAttribute("product", product);
-		
-		log.info("재고가 잘 나오나용" + product.getProductStock());
 		
 		List<ProductImageDto> productImages = productService.getProductImgs(productId);
 		Map<Integer, String> map = new HashMap<>();

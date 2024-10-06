@@ -233,16 +233,3 @@ $('.add-to-cart').on('click', function(event){
 	})	
 });
 
-/*function addReviewLike(svgElement) {
-    const parentDiv = svgElement.closest('.review-like');
-
-    parentDiv.classList.toggle('liked');
-    
-    console.log("추천고마워");
-    
-    $.ajax({
-    	url: "/miniproject/product/reviewsSelect",
-    	type: "post",
-    	
-    })
-}*/

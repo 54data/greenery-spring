@@ -475,9 +475,7 @@ $(document).ready(function () {
         checkNewPwd();
     });
     
-    //orderList 상품검색단
     $(document).on('click', '#submitSearch', function(){
-    	
     	var sortOrder = $("#sortOrder").val();
 		var searchQuery = $('#searchQuery').val();
     
@@ -498,17 +496,7 @@ $(document).ready(function () {
     		},
     		
     		success: function(response){
-    			
-    			if(response.orderDtos == null || response.orderDtos.length === 0){
-    				Swal.fire({
-    					icon: 'error',
-    					html: '조회된 결과가 없습니다.'
-    				});
-    			} else{
-    				$(".mypage-content").html(response);
-        	    	console.log("나야나" + sortOrder, "나야나" + searchQuery);
-    			}
-    			
+    			$(".mypage-content").html(response);
     		},
     		error: function(xhr, status, error){
     			Toast.fire({
@@ -517,8 +505,6 @@ $(document).ready(function () {
 				});
     		}    		
     	})
-    
-    	
     })
     
 });
