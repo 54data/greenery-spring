@@ -18,12 +18,10 @@
 			<div class="reviews-container">
 				<c:if test="${not empty reviewList}">
 					<div class="toolbar-sort">
-						<form method="get">
-							<select class="toolbar-sort-select" onchange="loadTabContent('reviewsSelect', ${product.productId}, 1, this.value)">
-								<option value="latest" ${pager.sort == 'latest' ? 'selected' : ''}>최신순</option>
-								<option value="rating" ${pager.sort == 'rating' ? 'selected' : ''}>별점순</option>
-							</select>
-						</form>
+						<select class="toolbar-sort-select" onchange="loadTabContent('reviewsSelect', ${product.productId}, 1, this.value)">
+							<option value="latest" ${pager.sort == 'latest' ? 'selected' : ''}>최신순</option>
+							<option value="rating" ${pager.sort == 'rating' ? 'selected' : ''}>별점순</option>
+						</select>
 					</div>
 				<c:forEach items="${reviewList}" var="review">
 					<div class="review-row">
